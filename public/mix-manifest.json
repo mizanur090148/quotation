@@ -1,5 +1,10 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/sizes.js": "/sizes.js"
+    "/quotationform.js": "/quotationform.js",
+    "/quotations.js": "/quotations.js",
+    "/servicecategories.js": "/servicecategories.js",
+    "/services.js": "/services.js",
+    "/termsandconditions.js": "/termsandconditions.js",
+    "/vendors.js": "/vendors.js"
 }

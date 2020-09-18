@@ -4,10 +4,10 @@
       <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Size List</h4>
+            <h4 class="card-title">Service List</h4>
             <div class="row p-2">
               <div class="col-md-3">
-                <router-link to="/sizes/create">
+                <router-link to="/services/create">
                   <button type="button" class="btn btn-primary btn-sm btn-rounded btn-fw">Add New <i class="fas fa-plus"></i></button>
                 </router-link>
               </div>
@@ -21,19 +21,21 @@
                 <thead>
                   <tr>
                     <th>Sl.</th>
-                    <th>Name</th>
+                    <th>Service Name</th>
+                    <th>Service Category Name</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                  <tr v-if="sizes.length > 0" v-for="(size, index) in sizes" :key="size.id">
+                  <tr v-if="services.length > 0" v-for="(service, index) in services" :key="service.id">
                     <td>{{ ++index }}</td>
-                    <td>{{ size.name }}</td> 
+                    <td>{{ service.name }}</td>
+                    <td>{{ service.service_category.name }}</td>
                     <td>
                       <button type="button" class="btn btn-sm btn-success btn-rounded btn-fw" @click="">
                         <i class="mdi mdi-grease-pencil"></i>
                       </button>
-                      <button type="button" class="btn btn-sm btn-danger btn-rounded btn-fw" @click="deleteUser(user.id)">
+                      <button type="button" class="btn btn-sm btn-danger btn-rounded btn-fw" @click="deleteService(service.id)">
                         <i class="mdi mdi-delete"></i>
                       </button>
                     </td>
@@ -43,12 +45,13 @@
                   </tr> 
                 </tbody>
               </table>
-              <v-pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="8" @paginate="getsizes()"></v-pagination>
+              <v-pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="8" @paginate="getServices()"></v-pagination>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <vue-snotify></vue-snotify>
   </div>
 </template>
 
@@ -61,63 +64,28 @@
     data() {
        return {
           listResponse: null,
-          sizes: [],
+          services: [],
           pagination: {
              current_page: 1,
             
           },
-          search_query: '',        
-          /*searchOptions: [
-             {
-                column: 'unique_id',
-                label: 'Unique Id'
-             },
-             {
-                column: 'code',
-                label: 'Code'
-             },
-             {
-                column: 'department',
-                label: 'Department'
-             },
-             {
-                column: 'designation',
-                label: 'Designation'
-             },
-             {
-                column: 'section',
-                label: 'Section'
-             }
-          ],*/
-          searchByField: 'Unique Id',
-          searchByKey: 'unique_id',
+          search_query: ''
        }
-    },     
-
-    methods: {
-       sizeDelete(id) {
-          if (window.confirm('Are You Sure?')) {
-             deleteEmployee(id)
-                .then((res) => {
-                   console.log(res);
-                   this.getsizes();
-                })
-                .catch((error) => {
-                   console.log(error);
-                });
-          }
-       },
-       getsizes() {          
+    },
+    mounted() {
+       this.getServices()
+    },
+    methods: {       
+        getServices() {          
           const loader = this.$loading.show({
              container: this.$refs.attendanceTable,
              canCancel: true,
              loader: 'bars'
           })
-          axios.get('sizes?page='+this.pagination.current_page)
+          axios.get('services?page='+this.pagination.current_page)
               .then((res) => {
-                this.sizes = res.data.content.data;
-                this.pagination = res.data.content;
-                console.log(res.data.content);
+                this.services = res.data.data;
+                this.pagination = res.data;               
              })
              .catch((error) => {
                 console.log(error);
@@ -125,10 +93,41 @@
              .finally(() => {    
                 loader.hide();             
              });
-       }
-    },
-    mounted() {
-       this.getsizes()
+        },
+        deleteService(id) {
+          this.$snotify.clear();
+          this.$snotify.confirm(
+            "Are you sure to delete this?",
+            {
+              closeOnClick: false,
+              pauseOnHover: true,
+              buttons: [
+                {
+                  text: "Yes",
+                  action: toast => {
+                    this.$snotify.remove(toast.id);
+                    axios.delete('/services/'+id)
+                      .then(response => {
+                          this.getServices();
+                          this.$snotify.success('Successfully deleted', 'Success');
+                      })
+                      .catch(e => {
+                          this.$snotify.success('Not deleted', 'Success');
+                      })
+                  },
+                  bold: true
+                },
+                {
+                  text: "No",
+                  action: toast => {
+                      this.$snotify.remove(toast.id);
+                  },
+                  bold: true
+                }
+              ]
+            }
+          );
+       },
     }
   }
 </script>

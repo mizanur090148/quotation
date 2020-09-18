@@ -15,7 +15,7 @@ class ApiCrudHandler
     public function index(Request $request, $modelClassName, array $where, array $with)
     {
         // Load model class object
-        $modelData = new $modelClassName();        
+        $modelData = new $modelClassName();
         // where
         if (count($where)) {
             $modelData = $modelData->where($where);
@@ -25,7 +25,30 @@ class ApiCrudHandler
             $modelData = $modelData->with($with);
         }
         $modelData = $modelData->orderBy($request->sortByColumn ?? 'id', $request->sortBy ?? 'desc');       
-        return $modelData->paginate();
+        return $modelData->paginate(5);
+    }
+
+    /**    
+     * @param String $modelClassName
+     * @param Request $request
+     *
+     * @return Array
+     */
+    public function dropdownData(Request $request, $modelClassName, array $where, array $select)
+    {
+        // Load model class object
+        $modelData = new $modelClassName();
+        if (count($select)) {
+            $modelData = $modelData->select($select);
+        } else {
+            $modelData = $modelData->select('*');
+        }
+        // where
+        if (count($where)) {
+            $modelData = $modelData->where($where);
+        }        
+        $modelData = $modelData->orderBy($request->sortByColumn ?? 'id', $request->sortBy ?? 'desc');       
+        return $modelData->get();
     }
 
     /**    

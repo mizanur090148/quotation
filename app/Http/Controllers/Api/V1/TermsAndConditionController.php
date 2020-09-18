@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Api\V1\ApiCommonProcessHandler;
 use App\Http\Controllers\Api\V1\ApiResponseHandler;
-use App\Http\Requests\TermsAndConditionRequest;
+use App\Http\Requests\TermAndConditionRequest;
 use App\Models\TermsAndCondition;
 
 class TermsAndConditionController extends BaseController
@@ -36,7 +36,7 @@ class TermsAndConditionController extends BaseController
      *
      * @return Array
      */
-    public function store(TermsAndConditionRequest $request)
+    public function store(TermAndConditionRequest $request)
     {       
         try {           
             $modelData = $this->apiCrudHandler->store($request, TermsAndCondition::class);           

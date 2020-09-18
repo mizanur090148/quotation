@@ -4,10 +4,10 @@
       <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">User List</h4>
+            <h4 class="card-title">Vendor List</h4>
             <div class="row p-2">
               <div class="col-md-3">
-                <router-link to="/users/create">
+                <router-link to="/vendors/create">
                   <button type="button" class="btn btn-primary btn-sm btn-rounded btn-fw">Add New <i class="fas fa-plus"></i></button>
                 </router-link>
               </div>
@@ -21,29 +21,35 @@
                 <thead>
                   <tr>
                     <th>Sl.</th>
-                    <th>Name</th>
+                    <th>Vendor Name</th>
+                    <th>Vendor No.</th>
+                    <th>Trn No.</th>
+                    <th>Telephone No.</th>
+                    <th>Fax No.</th>
                     <th>E-mail</th>
-                    <th>Mobile No</th>
                     <th>Address</th>
-                    <th>Roll</th>
-                    <th>Outlet</th>
+                    <th>Attention</th>
+                    <th>Attention Designation</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                  <tr v-if="users.length > 0" v-for="(user, index) in users" :key="user.id">
+                  <tr v-if="vendors.length > 0" v-for="(vendor, index) in vendors" :key="vendor.id">
                     <td>{{ ++index }}</td>
-                    <td>{{ user.first_name }} {{ user.last_name }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.mobile_no }}</td>
-                    <td>{{ user.address }}</td>
-                    <td>{{ user.role.name }}</td>
-                    <td>{{ user.outlet.name }}Zsdcvb</td>
+                    <td>{{ vendor.vendor_name }}</td>
+                    <td>{{ vendor.vendor_no }}</td>
+                    <td>{{ vendor.trn_no }}</td>
+                    <td>{{ vendor.telephone_no }}</td>
+                    <td>{{ vendor.fax_no }}</td>
+                    <td>{{ vendor.email }}</td>
+                    <td>{{ vendor.address }}</td>
+                    <td>{{ vendor.attention }}</td>
+                    <td>{{ vendor.attention_designation }}</td>                  
                     <td>
                       <button type="button" class="btn btn-sm btn-success btn-rounded btn-fw" @click="">
                         <i class="mdi mdi-grease-pencil"></i>
                       </button>
-                      <button type="button" class="btn btn-sm btn-danger btn-rounded btn-fw" @click="deleteUser(user.id)">
+                      <button type="button" class="btn btn-sm btn-danger btn-rounded btn-fw" @click="deleteVendor(vendor.id)">
                         <i class="mdi mdi-delete"></i>
                       </button>
                     </td>
@@ -53,12 +59,13 @@
                   </tr> 
                 </tbody>
               </table>
-              <v-pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="8" @paginate="getUsers()"></v-pagination>
+              <v-pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="8" @paginate="getVendors()"></v-pagination>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <vue-snotify></vue-snotify>
   </div>
 </template>
 
@@ -71,17 +78,18 @@
     data() {
        return {
           listResponse: null,
-          users: [],
+          vendors: [],
           pagination: {
              current_page: 1,
           }
        }
     },     
     mounted() {
-      this.getUsers()
+      this.getVendors()
     },
     methods: {
-       deleteUser(id) { alert(id);
+       deleteVendor(id) { 
+          this.$snotify.clear();
           this.$snotify.confirm(
             "Are you sure to delete this?",
             {
@@ -92,9 +100,9 @@
                   text: "Yes",
                   action: toast => {
                     this.$snotify.remove(toast.id);
-                    axios.delete('/users/'+quotationId)
+                    axios.delete('/vendors/'+id)
                       .then(response => {
-                          this.getUsers();
+                          this.getVendors();
                           this.$snotify.success('Successfully deleted', 'Success');
                       })
                       .catch(e => {
@@ -114,16 +122,16 @@
             }
           );
        },
-       getUsers() {          
+       getVendors() {      
           const loader = this.$loading.show({
              container: this.$refs.attendanceTable,
              canCancel: true,
              loader: 'bars'
           })
-          axios.get('users?page='+this.pagination.current_page)
-              .then((res) => {
-                this.users = res.data.content.data;
-                this.pagination = res.data.content;
+          axios.get('vendors?page='+this.pagination.current_page)
+              .then((res) => {               
+                this.vendors = res.data.data;
+                this.pagination = res.data;
              })
              .catch((error) => {
                 console.log(error);

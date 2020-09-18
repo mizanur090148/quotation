@@ -38,6 +38,8 @@ class User extends Authenticatable
         'factory_id'
     ];
 
+    protected $appends = ['full_name'];
+    
     /**
      * The attributes that should be hidden for arrays.
      *

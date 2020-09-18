@@ -4,10 +4,10 @@
       <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Outlet List</h4>
+            <h4 class="card-title">User List</h4>
             <div class="row p-2">
               <div class="col-md-3">
-                <router-link to="/outlets/create">
+                <router-link to="/users/create">
                   <button type="button" class="btn btn-primary btn-sm btn-rounded btn-fw">Add New <i class="fas fa-plus"></i></button>
                 </router-link>
               </div>
@@ -22,26 +22,28 @@
                   <tr>
                     <th>Sl.</th>
                     <th>Name</th>
-                    <th>Responsible Person</th>
                     <th>E-mail</th>
-                    <th>Phone No</th>
-                    <th>Address</th>                   
+                    <th>Mobile No</th>
+                    <th>Address</th>
+                    <th>Role</th>
+                    <!-- <th>Factory</th> -->
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                  <tr v-if="outlets.length > 0" v-for="(outlet, index) in outlets" :key="outlet.id">
+                  <tr v-if="users.length > 0" v-for="(user, index) in users" :key="user.id">
                     <td>{{ ++index }}</td>
-                    <td>{{ outlet.name }}</td>
-                    <td>{{ outlet.responsible_person }}</td>
-                    <td>{{ outlet.email }}</td>
-                    <td>{{ outlet.phone_no }}</td>
-                    <td>{{ outlet.address }}</td>                   
+                    <td>{{ user.full_name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.mobile_no }}</td>
+                    <td>{{ user.address }}</td>
+                    <td>{{ user.role.name }}</td>
+                    <!-- <td>{{ user.factory.name }}</td> -->
                     <td>
                       <button type="button" class="btn btn-sm btn-success btn-rounded btn-fw" @click="">
                         <i class="mdi mdi-grease-pencil"></i>
                       </button>
-                      <button type="button" class="btn btn-sm btn-danger btn-rounded btn-fw" @click="deleteoutlet(outlet.id)">
+                      <button type="button" class="btn btn-sm btn-danger btn-rounded btn-fw" @click="deleteUser(user.id)">
                         <i class="mdi mdi-delete"></i>
                       </button>
                     </td>
@@ -51,7 +53,7 @@
                   </tr> 
                 </tbody>
               </table>
-              <v-pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="8" @paginate="getoutlets()"></v-pagination>
+              <v-pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="8" @paginate="getUsers()"></v-pagination>
             </div>
           </div>
         </div>
@@ -69,17 +71,17 @@
     data() {
        return {
           listResponse: null,
-          outlets: [],
+          users: [],
           pagination: {
              current_page: 1,
           }
        }
     },     
     mounted() {
-      this.getoutlets()
+      this.getUsers()
     },
     methods: {
-       deleteoutlet(id) { alert(id);
+       deleteUser(id) { alert(id);
           this.$snotify.confirm(
             "Are you sure to delete this?",
             {
@@ -90,9 +92,9 @@
                   text: "Yes",
                   action: toast => {
                     this.$snotify.remove(toast.id);
-                    axios.delete('/outlets/'+quotationId)
+                    axios.delete('/users/'+quotationId)
                       .then(response => {
-                          this.getoutlets();
+                          this.getUsers();
                           this.$snotify.success('Successfully deleted', 'Success');
                       })
                       .catch(e => {
@@ -112,16 +114,16 @@
             }
           );
        },
-       getoutlets() {          
+       getUsers() {          
           const loader = this.$loading.show({
              container: this.$refs.attendanceTable,
              canCancel: true,
              loader: 'bars'
           })
-          axios.get('outlets?page='+this.pagination.current_page)
+          axios.get('users?page='+this.pagination.current_page)
               .then((res) => {
-                this.outlets = res.data.content.data;
-                this.pagination = res.data.content;
+                this.users = res.data.data;
+                this.pagination = res.data;
              })
              .catch((error) => {
                 console.log(error);

@@ -5,7 +5,7 @@ import VModal from 'vue-js-modal'
 import Snotify, { SnotifyPosition } from 'vue-snotify'
 import VueRouter from 'vue-router'
 import { Form, HasError, AlertError } from 'vform'
-import Loading from 'vue-loading-overlay'
+import Loading from 'vue-loading-overlay';
 import Toasted from 'vue-toasted';
 import vSelect from "vue-select";
 import 'vue-snotify/styles/material.css';
@@ -36,16 +36,15 @@ import Table from './components/Table'
 import Forms from './components/Forms'
 import StoreInfo from './components/StoreInfo'
 import StoreInfoForm from './components/StoreInfoForm'
-import UserList from './components/UserList'
+import Users from './components/Users'
 import UserForm from './components/UserForm'
 
-import Outlets from './components/Outlets'
-import Categories from './components/Categories'
-import SubCategories from './components/SubCategories'
-import Colors from './components/Colors'
-//import Sizes from './components/Sizes'
-
-const Sizes = () => import(/* webpackChunkName: "sizes" */ './components/Sizes.vue');
+const Vendors = () => import(/* webpackChunkName: "vendors" */ './components/Vendors.vue');
+const Services = () => import(/* webpackChunkName: "services" */ './components/Services.vue');
+const Quotations = () => import(/* webpackChunkName: "quotations" */ './components/Quotations.vue');
+const QuotationForm = () => import(/* webpackChunkName: "quotationform" */ './components/QuotationForm.vue');
+const ServiceCategories = () => import(/* webpackChunkName: "servicecategories" */ './components/ServiceCategories.vue');
+const TermsAndConditions = () => import(/* webpackChunkName: "termsandconditions" */ './components/TermsAndConditions.vue');
 
 const router = new VueRouter({
     mode: 'history',
@@ -55,11 +54,11 @@ const router = new VueRouter({
             name: 'login',
             component: Login
         },
-        {
+        /* {
             path: '/',
             name: 'home',
             component: Home
-        },
+        }, */
         {
             path: '/home',
             name: 'home',
@@ -93,7 +92,7 @@ const router = new VueRouter({
         {
             path: '/users',
             name: 'users',
-            component: UserList,
+            component: Users,
         },
         {
             path: '/users/create',
@@ -101,29 +100,34 @@ const router = new VueRouter({
             component: UserForm,
         },
         {
-            path: '/categories',
-            name: 'categories',
-            component: Categories,
+            path: '/quotations',
+            name: 'quotations',
+            component: Quotations,
         },
         {
-            path: '/sub-categories',
-            name: 'sub-categories',
-            component: SubCategories,
+            path: '/quotations/create',
+            name: 'quotationform',
+            component: QuotationForm,
         },
         {
-            path: '/outlets',
-            name: 'outlets',
-            component: Outlets,
+            path: '/service-categories',
+            name: 'service-categories',
+            component: ServiceCategories,
         },
         {
-            path: '/colors',
-            name: 'colors',
-            component: Colors,
+            path: '/services',
+            name: 'services',
+            component: Services,
         },
         {
-            path: '/sizes',
-            name: 'sizes',
-            component: Sizes,
+            path: '/vendors',
+            name: 'vendors',
+            component: Vendors,
+        },
+        {
+            path: '/terms-and-conditions',
+            name: 'terms-and-conditions',
+            component: TermsAndConditions,
         }        
     ],
 });

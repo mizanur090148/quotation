@@ -29,6 +29,17 @@ class VendorController extends BaseController
         }        
     }
 
+    public function vendorDropdownData(Request $request)
+    {
+        try {
+            $select = ['id', 'vendor_name'];
+            $modelData = $this->apiCrudHandler->dropdownData($request, Vendor::class, $where = [], $select);
+            return $this->sendResponse($modelData);
+        } catch (Exception $e) {
+            return $this->sendError($e->getMessage());
+        }        
+    }
+
     /**
     *
      * @param Request $request

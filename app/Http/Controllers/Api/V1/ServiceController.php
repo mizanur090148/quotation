@@ -21,13 +21,21 @@ class ServiceController extends BaseController
 
     public function index(Request $request)
     {
-        try {
-            $with = ['services'];
-            $modelData = $this->apiCrudHandler->index($request, Service::class, $where = [], $with);
+        try {          
+
+            if (\Request::segment(2) == 'services') {
+                $modelData = Service::with('service_category')->whereNotNull('parent_id');
+                $modelData = $modelData->orderBy($request->sortByColumn ?? 'id', $request->sortBy ?? 'desc');
+                $modelData = $modelData->paginate(5);
+            } else {
+                $where = ['parent_id' => NULL];
+                $with = ['services:id,name,parent_id'];
+                $modelData = $this->apiCrudHandler->index($request, Service::class, $where, $with);
+            }            
             return $this->sendResponse($modelData);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
-        }        
+        }
     }
 
     /**

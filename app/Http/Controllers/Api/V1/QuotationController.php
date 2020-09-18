@@ -132,7 +132,7 @@ class QuotationController extends Controller
                     'total_discount' => $request->total_discount ?? 0,
                     'total_without_discount' => $request->total_without_discount ?? 0        
                 ];
-                $message = $this->apiResposeHandler->save_success;
+               // $message = $this->apiResposeHandler->save_success;
             }
        
             $quotation = Quotation::findOrNew($modelId);
@@ -144,19 +144,20 @@ class QuotationController extends Controller
             $quotation->quotation_details()->createMany($quotationDetails);
             DB::commit();
 
-            return $this->apiResposeHandler->returnResponse(
+            /* return $this->apiResposeHandler->returnResponse(
                 $this->apiResposeHandler->success,
                 $message,
                 ''
-            );
+            ); */
+            return true;
 
         } catch (Exception $ex) {
             DB::rollback();
-
-            return $this->apiResposeHandler->returnResponse(
+            return false;
+            /* return $this->apiResposeHandler->returnResponse(
                 $this->apiResposeHandler->error,
                 $ex->getMessage()
-            );
+            ); */
         }     
     }
 

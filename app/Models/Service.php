@@ -32,4 +32,9 @@ class Service extends Model
     {
     	return $this->hasMany(self::class, 'parent_id');
     }
+
+    public function service_category()
+    {
+        return $this->belongsTo(self::class, 'parent_id', 'id');
+    }
 }
