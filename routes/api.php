@@ -43,17 +43,19 @@ Route::delete('users/{id}', [UserController::class, 'destroy']);
 Route::get('quotations', [QuotationController::class, 'index']);
 Route::post('quotations', [QuotationController::class, 'store']);
 Route::get('quotations/{id}', [QuotationController::class, 'show']);
-Route::delete('quotations/{id}', [QuotationController::class, 'destroy']);
+Route::delete('quotations/{id}', [QuotationController::class, 'delete']);
 Route::get('search-quotations', [QuotationController::class, 'search']);
 
 // services route
 Route::get('service-categories', [ServiceController::class, 'index']);
 Route::get('services', [ServiceController::class, 'index']);
+Route::get('services-dropdown-data', [ServiceController::class, 'servicesDropdownData']);
 Route::post('services', [ServiceController::class, 'store']);
 Route::delete('services/{id}', [ServiceController::class, 'delete']);
 
 // services route
 Route::get('terms-and-conditions', [TermsAndConditionController::class, 'index']);
+Route::get('terms-and-conditions-dropdown-data', [TermsAndConditionController::class, 'termsAndConditionDropdownData']);
 Route::post('terms-and-conditions', [TermsAndConditionController::class, 'store']);
 Route::delete('terms-and-conditions/{id}', [TermsAndConditionController::class, 'delete']);
 

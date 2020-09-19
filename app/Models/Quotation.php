@@ -29,6 +29,8 @@ class Quotation extends Model
         'factory_id'
     ];
 
+    protected $appends = ['quotation_total'];
+
     protected $dates = [
         'deleted_at'
     ];
@@ -39,7 +41,7 @@ class Quotation extends Model
 
     public function vendor()
     {
-    	return $this->belongsTo(Vendor::class)->withDefault([
+    	return $this->belongsTo(Vendor::class, 'vendor_id')->withDefault([
             'vendor_name' => 'N/A'
         ]);
     }

@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Api\V1\ApiResponseHandler;
-use App\Http\Controllers\Api\V1\ApiCommonProcessHandler;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Api\V1\BaseController as BaseController;
 use App\Http\Requests\QuotationRequest;
 use App\Models\Quotation;
 use App\Models\Vendor;
 use DB;
 
-class QuotationController extends Controller
+class QuotationController extends BaseController
 {
-
+    
     protected $apiCrudHandler;
 
     public function __construct()
@@ -172,7 +171,6 @@ class QuotationController extends Controller
                 'service_per_year' => $item['service_per_year']
             ];
         }
-
         return $quotationDetails;
     }
 
@@ -185,12 +183,16 @@ class QuotationController extends Controller
     public function show($id)
     {
         $with = [
-            'vendor:id,vendor_name,address,attention_designation',
+            'vendor:id,vendor_name,address,attention,attention_designation',
             'quotation_details'
         ];
 
-        $modelData = $this->apiCommonProcessHandler->show($id, Quotation::class, $with);
-        return $modelData;
+        try {
+            $modelData = $this->apiCrudHandler->show($id, Quotation::class, $with);          
+            return $this->sendResponse($modelData);
+        } catch (Exception $e) {
+            return $this->sendError($e->getMessage());
+        }
     }
 
     /**
@@ -199,9 +201,9 @@ class QuotationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        $modelData = $this->apiCommonProcessHandler->destroy($id, Quotation::class);
+        $modelData = $this->apiCrudHandler->delete($id, Quotation::class);
         return $modelData;
     }
 }

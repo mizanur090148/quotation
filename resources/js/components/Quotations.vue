@@ -27,8 +27,7 @@
                     <th>Q. Date</th>
                     <th>Discount</th>
                     <th>Amount</th>
-                    <th>Services</th>
-                    <th title="Terms & Conditions">T & C</th>
+                    <th title="Services, Terms & Conditions">Services, T & C</th>                   
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -42,26 +41,24 @@
                       <td>{{ quotation.total_discount }}</td>
                       <td>{{ quotation.total_without_discount }}</td>
                       <td>
-                        <button type="button" class="btn btn-sm btn-success btn-rounded btn-fw" @click="addEditDeleteServices(quotation.id)" title="Add/Edit/Delete">
-                          <i class="mdi mdi-grease-pencil"></i>
-                        </button>
-                      </td>
-                      <td>
-                        <button type="button" class="btn btn-sm btn-success btn-rounded btn-fw" @click="edit(quotation)" title="Add/Edit/Delete">
-                          <i class="mdi mdi-grease-pencil"></i>
-                        </button>
-                      </td>
+                        <router-link
+                            :to="'/quotation-service-terms-and-conditions/'+ quotation.id"
+                            class="btn btn-sm btn-primary btn-rounded btn-fw"
+                            title="View details">
+                            <i class="mdi mdi-grease-pencil"/>
+                        </router-link>                        
+                      </td>                      
                       <td>                          
                         <router-link
                             :to="'/quotations/'+ quotation.id"
-                            class="btn btn-sm btn-success btn-rounded btn-fw"
+                            class="btn btn-sm btn-primary btn-rounded btn-fw"
                             title="View details">
                             <i class="mdi mdi-eye"/>
                         </router-link>
                         <button type="button" class="btn btn-sm btn-success btn-rounded btn-fw" @click="">
                           <i class="mdi mdi-grease-pencil"></i>
                         </button>
-                        <button type="button" class="btn btn-sm btn-danger btn-rounded btn-fw" @click="deletegetQuotation(quotation.id)">
+                        <button type="button" class="btn btn-sm btn-danger btn-rounded btn-fw" @click="deleteQuotation(quotation.id)">
                           <i class="mdi mdi-delete"></i>
                         </button>
                       </td>
@@ -71,7 +68,7 @@
                   </tr> 
                 </tbody>
               </table>
-              <v-pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="8" @paginate="getVendors()"></v-pagination>
+              <v-pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="8" @paginate="getQuotations()"></v-pagination>
             </div>
           </div>
         </div>
@@ -100,7 +97,7 @@
       this.getQuotations()
     },
     methods: {
-       deletegetQuotation(id) { 
+       deleteQuotation(id) { 
           this.$snotify.clear();
           this.$snotify.confirm(
             "Are you sure to delete this?",

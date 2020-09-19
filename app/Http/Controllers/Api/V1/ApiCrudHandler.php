@@ -34,7 +34,7 @@ class ApiCrudHandler
      *
      * @return Array
      */
-    public function dropdownData(Request $request, $modelClassName, array $where, array $select)
+    public function dropdownData(Request $request, $modelClassName, array $where, array $with, array $select)
     {
         // Load model class object
         $modelData = new $modelClassName();
@@ -43,10 +43,15 @@ class ApiCrudHandler
         } else {
             $modelData = $modelData->select('*');
         }
+
+        // where
+        if (count($with)) {
+            $modelData = $modelData->with($with);
+        }
         // where
         if (count($where)) {
             $modelData = $modelData->where($where);
-        }        
+        }
         $modelData = $modelData->orderBy($request->sortByColumn ?? 'id', $request->sortBy ?? 'desc');       
         return $modelData->get();
     }
@@ -66,6 +71,18 @@ class ApiCrudHandler
         $obj->save();
 
         return $obj;
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id, $modelClassName, $with)
+    {
+        $modelData = $modelClassName::with($with)->find($id);
+        return $modelData;
     }
 
     /**     

@@ -43,8 +43,10 @@ const Vendors = () => import(/* webpackChunkName: "vendors" */ './components/Ven
 const Services = () => import(/* webpackChunkName: "services" */ './components/Services.vue');
 const Quotations = () => import(/* webpackChunkName: "quotations" */ './components/Quotations.vue');
 const QuotationForm = () => import(/* webpackChunkName: "quotationform" */ './components/QuotationForm.vue');
+const QuotationView = () => import(/* webpackChunkName: "quotationview" */ './components/QuotationView.vue');
 const ServiceCategories = () => import(/* webpackChunkName: "servicecategories" */ './components/ServiceCategories.vue');
 const TermsAndConditions = () => import(/* webpackChunkName: "termsandconditions" */ './components/TermsAndConditions.vue');
+const QuotationServiceTermsAndConditions = () => import(/* webpackChunkName: "quotationservicetermsandconditions" */ './components/QuotationServiceTermsAndConditions.vue');
 
 const router = new VueRouter({
     mode: 'history',
@@ -108,6 +110,16 @@ const router = new VueRouter({
             path: '/quotations/create',
             name: 'quotationform',
             component: QuotationForm,
+        },
+        {
+            path: '/quotations/:id',
+            name: 'quotationview',
+            component: QuotationView,
+        },
+        {
+            path: '/quotation-service-terms-and-conditions/:id',
+            name: 'quotation-service-terms-and-conditions',
+            component: QuotationServiceTermsAndConditions,
         },
         {
             path: '/service-categories',

@@ -321,12 +321,43 @@
             /*********end vendor area*******/
             /*********invoice area**********/
             deleteRow(index, item) {
-                var idx = this.quotation_items.indexOf(item);
+              /* console.log(this.form.quotation_items.length);
+              this.form.quotation_items.splice(1);
+               console.log(index, item);
+                var idx = this.quotation_items.indexOf(index);
                 console.log(idx, index);
                 if (idx > -1) {
                     this.quotation_items.splice(idx, 1);
-                }
-                this.calculateTotal();
+                } */
+
+              if (this.form.quotation_items.length > 1) {
+                this.$snotify.confirm(
+                  "Are you sure to delete this?",
+                  {
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    buttons: [
+                      {
+                        text: "Yes",
+                        action: toast => {
+                          this.$snotify.remove(toast.id);
+                          var idx = this.form.quotation_items.indexOf(index);
+                          this.form.quotation_items.splice(idx, 1);
+                        //  this.calculateTotal();
+                        },
+                        bold: true
+                      },
+                      {
+                        text: "No",
+                        action: toast => {
+                            this.$snotify.remove(toast.id);
+                        },
+                        bold: true
+                      }
+                    ]
+                  }
+                );                
+              }
             },
             addNewRow() {
                 this.form.quotation_items.push({

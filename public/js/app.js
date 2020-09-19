@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"quotationform":"quotationform","quotations":"quotations","servicecategories":"servicecategories","services":"services","termsandconditions":"termsandconditions","vendors":"vendors"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"quotationform":"quotationform","quotations":"quotations","quotationservicetermsandconditions":"quotationservicetermsandconditions","quotationview":"quotationview","servicecategories":"servicecategories","services":"services","termsandconditions":"termsandconditions","vendors":"vendors"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -14099,88 +14099,10 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "collapse", attrs: { id: "sales" } }, [
-            _c("ul", { staticClass: "nav flex-column sub-menu" }, [
-              _c(
-                "li",
-                { staticClass: "nav-item" },
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "nav-link",
-                      attrs: { tag: "a", to: "/store-info" }
-                    },
-                    [_vm._v(" Store Info ")]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                { staticClass: "nav-item" },
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "nav-link",
-                      attrs: { tag: "a", to: "/inactive-items" }
-                    },
-                    [_vm._v(" Inactive Items ")]
-                  )
-                ],
-                1
-              )
-            ])
-          ])
-        ]),
+        _vm._m(0),
         _vm._v(" "),
         _c("li", { staticClass: "nav-item" }, [
           _vm._m(1),
-          _vm._v(" "),
-          _c("div", { staticClass: "collapse", attrs: { id: "reports" } }, [
-            _c("ul", { staticClass: "nav flex-column sub-menu" }, [
-              _c(
-                "li",
-                { staticClass: "nav-item" },
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "nav-link",
-                      attrs: { tag: "a", to: "/date-wise-inventory-report" }
-                    },
-                    [_vm._v(" Date Wise Inventory Report ")]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                { staticClass: "nav-item" },
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "nav-link",
-                      attrs: { tag: "a", to: "/date-wise-sales-report" }
-                    },
-                    [_vm._v(" Date Wise Sales Report ")]
-                  )
-                ],
-                1
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
-          _vm._m(2),
           _vm._v(" "),
           _c("div", { staticClass: "collapse", attrs: { id: "settings" } }, [
             _c("ul", { staticClass: "nav flex-column sub-menu" }, [
@@ -14262,38 +14184,6 @@ var render = function() {
                   )
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                { staticClass: "nav-item" },
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "nav-link",
-                      attrs: { tag: "a", to: "/colors" }
-                    },
-                    [_vm._v(" Colors ")]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                { staticClass: "nav-item" },
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "nav-link",
-                      attrs: { tag: "a", to: "/sizes" }
-                    },
-                    [_vm._v(" Sizes ")]
-                  )
-                ],
-                1
               )
             ])
           ])
@@ -14307,49 +14197,27 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "nav-link",
-        attrs: {
-          "data-toggle": "collapse",
-          href: "#sales",
-          "aria-expanded": "false",
-          "aria-controls": "sales"
-        }
-      },
-      [
-        _c("i", { staticClass: "mdi mdi-settings menu-icon" }),
-        _vm._v(" "),
-        _c("span", { staticClass: "menu-title" }, [_vm._v("Sales Manage")]),
-        _vm._v(" "),
-        _c("i", { staticClass: "menu-arrow" })
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "nav-link",
-        attrs: {
-          "data-toggle": "collapse",
-          href: "#reports",
-          "aria-expanded": "false",
-          "aria-controls": "reports"
-        }
-      },
-      [
-        _c("i", { staticClass: "mdi mdi-settings menu-icon" }),
-        _vm._v(" "),
-        _c("span", { staticClass: "menu-title" }, [_vm._v("Reports")]),
-        _vm._v(" "),
-        _c("i", { staticClass: "menu-arrow" })
-      ]
-    )
+    return _c("li", { staticClass: "nav-item" }, [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link",
+          attrs: {
+            "data-toggle": "collapse",
+            href: "#reports",
+            "aria-expanded": "false",
+            "aria-controls": "reports"
+          }
+        },
+        [
+          _c("i", { staticClass: "mdi mdi-settings menu-icon" }),
+          _vm._v(" "),
+          _c("span", { staticClass: "menu-title" }, [_vm._v("Reports")]),
+          _vm._v(" "),
+          _c("i", { staticClass: "menu-arrow" })
+        ]
+      )
+    ])
   },
   function() {
     var _vm = this
@@ -31371,12 +31239,20 @@ var QuotationForm = function QuotationForm() {
   return __webpack_require__.e(/*! import() | quotationform */ "quotationform").then(__webpack_require__.bind(null, /*! ./components/QuotationForm.vue */ "./resources/js/components/QuotationForm.vue"));
 };
 
+var QuotationView = function QuotationView() {
+  return __webpack_require__.e(/*! import() | quotationview */ "quotationview").then(__webpack_require__.bind(null, /*! ./components/QuotationView.vue */ "./resources/js/components/QuotationView.vue"));
+};
+
 var ServiceCategories = function ServiceCategories() {
   return __webpack_require__.e(/*! import() | servicecategories */ "servicecategories").then(__webpack_require__.bind(null, /*! ./components/ServiceCategories.vue */ "./resources/js/components/ServiceCategories.vue"));
 };
 
 var TermsAndConditions = function TermsAndConditions() {
   return __webpack_require__.e(/*! import() | termsandconditions */ "termsandconditions").then(__webpack_require__.bind(null, /*! ./components/TermsAndConditions.vue */ "./resources/js/components/TermsAndConditions.vue"));
+};
+
+var QuotationServiceTermsAndConditions = function QuotationServiceTermsAndConditions() {
+  return __webpack_require__.e(/*! import() | quotationservicetermsandconditions */ "quotationservicetermsandconditions").then(__webpack_require__.bind(null, /*! ./components/QuotationServiceTermsAndConditions.vue */ "./resources/js/components/QuotationServiceTermsAndConditions.vue"));
 };
 
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
@@ -31431,6 +31307,14 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
     path: '/quotations/create',
     name: 'quotationform',
     component: QuotationForm
+  }, {
+    path: '/quotations/:id',
+    name: 'quotationview',
+    component: QuotationView
+  }, {
+    path: '/quotation-service-terms-and-conditions/:id',
+    name: 'quotation-service-terms-and-conditions',
+    component: QuotationServiceTermsAndConditions
   }, {
     path: '/service-categories',
     name: 'service-categories',

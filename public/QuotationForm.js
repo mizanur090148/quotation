@@ -338,15 +338,40 @@ __webpack_require__.r(__webpack_exports__);
 
     /*********invoice area**********/
     deleteRow: function deleteRow(index, item) {
-      alert(999);
-      var idx = this.quotation_items.indexOf(item);
-      console.log(idx, index);
+      var _this3 = this;
 
-      if (idx > -1) {
-        this.quotation_items.splice(idx, 1);
+      /* console.log(this.form.quotation_items.length);
+      this.form.quotation_items.splice(1);
+       console.log(index, item);
+        var idx = this.quotation_items.indexOf(index);
+        console.log(idx, index);
+        if (idx > -1) {
+            this.quotation_items.splice(idx, 1);
+        } */
+      if (this.form.quotation_items.length > 1) {
+        this.$snotify.confirm("Are you sure to delete this?", {
+          closeOnClick: false,
+          pauseOnHover: true,
+          buttons: [{
+            text: "Yes",
+            action: function action(toast) {
+              _this3.$snotify.remove(toast.id);
+
+              var idx = _this3.form.quotation_items.indexOf(index);
+
+              _this3.form.quotation_items.splice(idx, 1); //  this.calculateTotal();
+
+            },
+            bold: true
+          }, {
+            text: "No",
+            action: function action(toast) {
+              _this3.$snotify.remove(toast.id);
+            },
+            bold: true
+          }]
+        });
       }
-
-      this.calculateTotal();
     },
     addNewRow: function addNewRow() {
       this.form.quotation_items.push({
@@ -365,7 +390,7 @@ __webpack_require__.r(__webpack_exports__);
 
     /*********end invoice area******/
     quotationStore: function quotationStore() {
-      var _this3 = this;
+      var _this4 = this;
 
       var loader = this.$loading.show({
         container: this.$refs.quotationContainer,
@@ -374,20 +399,20 @@ __webpack_require__.r(__webpack_exports__);
       });
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/quotations', this.form).then(function (response) {
         if (response.status == 200) {
-          _this3.errors = [];
+          _this4.errors = [];
 
-          _this3.$snotify.success('Successfully created', 'Success');
+          _this4.$snotify.success('Successfully created', 'Success');
 
-          _this3.$router.push({
+          _this4.$router.push({
             name: 'quotations'
           }); // this.form.reset();
 
 
-          _this3.loader.hide(); //$('.v-error').empty();
+          _this4.loader.hide(); //$('.v-error').empty();
           //this.$router.push({ name: 'users' });
 
         } else {
-          _this3.$snotify.error('Something went worng', 'error');
+          _this4.$snotify.error('Something went worng', 'error');
         }
       })["catch"](this.setErrors)["finally"](function (e) {
         loader.hide();
@@ -407,22 +432,22 @@ __webpack_require__.r(__webpack_exports__);
       $('#cutomerModalLong').modal('show');
     },
     update: function update() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.busy = true;
       this.form.put('/api/users/' + this.form.id).then(function (response) {
-        _this4.getData();
+        _this5.getData();
 
         $('#cutomerModalLong').modal('hide');
 
-        if (_this4.form.successful) {
-          _this4.$snotify.success('Successfully updated', 'Success');
+        if (_this5.form.successful) {
+          _this5.$snotify.success('Successfully updated', 'Success');
 
-          _this4.form.reset();
+          _this5.form.reset();
 
-          _this4.form.clear();
+          _this5.form.clear();
         } else {
-          _this4.$snotify.error('Something went worng', 'error');
+          _this5.$snotify.error('Something went worng', 'error');
         }
       })["catch"](function (e) {
         console.log(e);

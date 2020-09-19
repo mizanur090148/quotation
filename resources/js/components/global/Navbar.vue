@@ -13,7 +13,7 @@
     			   <span class="menu-title">Quotations</span>
             </router-link>
          </li>         
-         <li class="nav-item">
+         <!-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#sales" aria-expanded="false" aria-controls="sales">
                <i class="mdi mdi-settings menu-icon"></i>
                <span class="menu-title">Sales Manage</span>
@@ -29,14 +29,14 @@
                   </li>
                </ul>
             </div>
-         </li>
+         </li> -->
          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#reports" aria-expanded="false" aria-controls="reports">
                <i class="mdi mdi-settings menu-icon"></i>
                <span class="menu-title">Reports</span>
                <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="reports">
+            <!-- <div class="collapse" id="reports">
                <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
                      <router-link tag="a" class="nav-link" to="/date-wise-inventory-report"> Date Wise Inventory Report </router-link> 
@@ -45,7 +45,7 @@
                      <router-link tag="a" class="nav-link" to="/date-wise-sales-report"> Date Wise Sales Report </router-link> 
                   </li>
                </ul>
-            </div>
+            </div> -->
          </li>
          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">
@@ -69,13 +69,7 @@
                   </li>
                   <li class="nav-item">
                      <router-link tag="a" class="nav-link" to="/terms-and-conditions"> Terms & Conditions </router-link> 
-                  </li>
-                  <li class="nav-item">
-                     <router-link tag="a" class="nav-link" to="/colors"> Colors </router-link> 
-                  </li>
-                  <li class="nav-item">
-                     <router-link tag="a" class="nav-link" to="/sizes"> Sizes </router-link> 
-                  </li>
+                  </li>                 
                </ul>
             </div>
          </li>

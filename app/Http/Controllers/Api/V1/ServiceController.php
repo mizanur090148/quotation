@@ -8,7 +8,6 @@ use App\Http\Controllers\Api\V1\BaseController as BaseController;
 use App\Http\Controllers\Api\V1\ApiCrudHandler;
 use App\Http\Requests\ServiceRequest;
 use App\Models\Service;
-use Validator;
 
 class ServiceController extends BaseController
 {
@@ -21,8 +20,7 @@ class ServiceController extends BaseController
 
     public function index(Request $request)
     {
-        try {          
-
+        try {
             if (\Request::segment(2) == 'services') {
                 $modelData = Service::with('service_category')->whereNotNull('parent_id');
                 $modelData = $modelData->orderBy($request->sortByColumn ?? 'id', $request->sortBy ?? 'desc');
@@ -32,6 +30,19 @@ class ServiceController extends BaseController
                 $with = ['services:id,name,parent_id'];
                 $modelData = $this->apiCrudHandler->index($request, Service::class, $where, $with);
             }            
+            return $this->sendResponse($modelData);
+        } catch (Exception $e) {
+            return $this->sendError($e->getMessage());
+        }
+    }
+
+    public function servicesDropdownData(Request $request)
+    {
+        try {
+            $select = ['id', 'name', 'parent_id'];
+            $where = ['parent_id' => NULL];
+            $with = ['services:id,name,parent_id'];
+            $modelData = $this->apiCrudHandler->dropdownData($request, Service::class, $where,  $with, $select);
             return $this->sendResponse($modelData);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());

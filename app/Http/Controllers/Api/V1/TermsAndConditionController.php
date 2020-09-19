@@ -36,6 +36,25 @@ class TermsAndConditionController extends BaseController
      *
      * @return Array
      */
+    public function termsAndConditionDropdownData(Request $request)
+    {       
+        try {
+            $select = ['id', 'name'];        
+            $modelData = $this->apiCrudHandler->dropdownData($request, TermsAndCondition::class, $where = [],  $with = [], $select);
+            return $this->sendResponse($modelData);
+        } catch (Exception $e) {
+            return $this->sendError($e->getMessage());
+        }
+    }   
+
+    /**
+    *
+     * @param Request $request
+     * @param String $moduleName
+     * @param String $modelClassName   
+     *
+     * @return Array
+     */
     public function store(TermAndConditionRequest $request)
     {       
         try {           

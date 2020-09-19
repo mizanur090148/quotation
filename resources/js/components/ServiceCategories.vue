@@ -74,7 +74,7 @@
     },
 
     methods: {       
-       getServiceCategories() {          
+       getServiceCategories() {
           const loader = this.$loading.show({
              container: this.$refs.attendanceTable,
              canCancel: true,
@@ -83,13 +83,13 @@
           axios.get('service-categories?page='+this.pagination.current_page)
               .then((res) => {
                 this.categories = res.data.data;
-                this.pagination = res.data;               
+                this.pagination = res.data;
              })
              .catch((error) => {
                 console.log(error);
              })
-             .finally(() => {    
-                loader.hide();             
+             .finally(() => {
+                loader.hide();
              });
        },
       deleteServiceCategory(id) {       

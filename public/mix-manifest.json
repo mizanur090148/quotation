@@ -3,6 +3,8 @@
     "/css/app.css": "/css/app.css",
     "/quotationform.js": "/quotationform.js",
     "/quotations.js": "/quotations.js",
+    "/quotationservicetermsandconditions.js": "/quotationservicetermsandconditions.js",
+    "/quotationview.js": "/quotationview.js",
     "/servicecategories.js": "/servicecategories.js",
     "/services.js": "/services.js",
     "/termsandconditions.js": "/termsandconditions.js",

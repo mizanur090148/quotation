@@ -94,9 +94,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 
@@ -114,7 +111,7 @@ __webpack_require__.r(__webpack_exports__);
     this.getQuotations();
   },
   methods: {
-    deletegetQuotation: function deletegetQuotation(id) {
+    deleteQuotation: function deleteQuotation(id) {
       var _this = this;
 
       this.$snotify.clear();
@@ -263,55 +260,30 @@ var render = function() {
                                 _vm._v(_vm._s(quotation.total_without_discount))
                               ]),
                               _vm._v(" "),
-                              _c("td", [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "btn btn-sm btn-success btn-rounded btn-fw",
-                                    attrs: {
-                                      type: "button",
-                                      title: "Add/Edit/Delete"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.addEditDeleteServices(
-                                          quotation.id
-                                        )
+                              _c(
+                                "td",
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass:
+                                        "btn btn-sm btn-primary btn-rounded btn-fw",
+                                      attrs: {
+                                        to:
+                                          "/quotation-service-terms-and-conditions/" +
+                                          quotation.id,
+                                        title: "View details"
                                       }
-                                    }
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "mdi mdi-grease-pencil"
-                                    })
-                                  ]
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "btn btn-sm btn-success btn-rounded btn-fw",
-                                    attrs: {
-                                      type: "button",
-                                      title: "Add/Edit/Delete"
                                     },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.edit(quotation)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "mdi mdi-grease-pencil"
-                                    })
-                                  ]
-                                )
-                              ]),
+                                    [
+                                      _c("i", {
+                                        staticClass: "mdi mdi-grease-pencil"
+                                      })
+                                    ]
+                                  )
+                                ],
+                                1
+                              ),
                               _vm._v(" "),
                               _c(
                                 "td",
@@ -320,7 +292,7 @@ var render = function() {
                                     "router-link",
                                     {
                                       staticClass:
-                                        "btn btn-sm btn-success btn-rounded btn-fw",
+                                        "btn btn-sm btn-primary btn-rounded btn-fw",
                                       attrs: {
                                         to: "/quotations/" + quotation.id,
                                         title: "View details"
@@ -352,7 +324,7 @@ var render = function() {
                                       attrs: { type: "button" },
                                       on: {
                                         click: function($event) {
-                                          return _vm.deletegetQuotation(
+                                          return _vm.deleteQuotation(
                                             quotation.id
                                           )
                                         }
@@ -375,7 +347,7 @@ var render = function() {
                         attrs: { pagination: _vm.pagination, offset: 8 },
                         on: {
                           paginate: function($event) {
-                            return _vm.getVendors()
+                            return _vm.getQuotations()
                           }
                         }
                       })
@@ -425,9 +397,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Amount")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Services")]),
-        _vm._v(" "),
-        _c("th", { attrs: { title: "Terms & Conditions" } }, [_vm._v("T & C")]),
+        _c("th", { attrs: { title: "Services, Terms & Conditions" } }, [
+          _vm._v("Services, T & C")
+        ]),
         _vm._v(" "),
         _c("th", [_vm._v("Actions")])
       ])
