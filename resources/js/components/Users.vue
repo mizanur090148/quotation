@@ -114,12 +114,12 @@
             }
           );
        },
-       getUsers() {          
-          const loader = this.$loading.show({
+       getUsers() {  //alert(999);        
+          /* const loader = this.$loading.show({
              container: this.$refs.attendanceTable,
              canCancel: true,
              loader: 'bars'
-          })
+          }) */
           axios.get('users?page='+this.pagination.current_page)
               .then((res) => {
                 this.users = res.data.data;
@@ -129,7 +129,7 @@
                 console.log(error);
              })
              .finally(() => {
-                loader.hide();
+               // loader.hide();
              });
        }
     }    

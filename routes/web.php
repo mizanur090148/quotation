@@ -18,4 +18,4 @@ use App\Http\Controllers\SpaController;
     return view('welcome');
 });*/
 
-Route::get('/home', [SpaController::class, 'index'])->where('any', '.*');
+Route::get('{any}', [SpaController::class, 'index'])->where('any', '([A-z\d\-\/_.]+)?');

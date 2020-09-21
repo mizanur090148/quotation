@@ -3089,18 +3089,19 @@ __webpack_require__.r(__webpack_exports__);
     getUsers: function getUsers() {
       var _this2 = this;
 
-      var loader = this.$loading.show({
-        container: this.$refs.attendanceTable,
-        canCancel: true,
-        loader: 'bars'
-      });
+      //alert(999);        
+
+      /* const loader = this.$loading.show({
+         container: this.$refs.attendanceTable,
+         canCancel: true,
+         loader: 'bars'
+      }) */
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('users?page=' + this.pagination.current_page).then(function (res) {
         _this2.users = res.data.data;
         _this2.pagination = res.data;
       })["catch"](function (error) {
         console.log(error);
-      })["finally"](function () {
-        loader.hide();
+      })["finally"](function () {// loader.hide();
       });
     }
   }
