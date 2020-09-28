@@ -17,7 +17,7 @@ class FactoriesTableSeeder extends Seeder
     {
         $date_time = Carbon::today();
 
-        $factories = [ 
+        $companies = [ 
         	[ 
         		'name' => 'Test Factory',
                 'address' => 'Mirpur, Dhaka',
@@ -31,8 +31,8 @@ class FactoriesTableSeeder extends Seeder
         ];
 
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        DB::table('factories')->truncate();
-        DB::table('factories')->insert($factories);
+        DB::table('companies')->truncate();
+        DB::table('companies')->insert($companies);
 
         $this->command->info('Successfully run factories table seeder');
     }

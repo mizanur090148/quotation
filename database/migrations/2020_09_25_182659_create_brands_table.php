@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTermsAndConditionsTable extends Migration
+class CreateBrandsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreateTermsAndConditionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('terms_and_conditions', function (Blueprint $table) {
+        Schema::create('brands', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 80);         
+            $table->unsignedBigInteger('outlet_id')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();
-            $table->unsignedBigInteger('factory_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('factory_id')->references('id')->on('factories');
+            $table->foreign('outlet_id')->references('id')->on('outlets')->onDelete('cascade');
         });
     }
 
@@ -34,6 +34,6 @@ class CreateTermsAndConditionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('terms_and_conditions');
+        Schema::dropIfExists('brands');
     }
 }

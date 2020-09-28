@@ -1,12 +1,11 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/quotationform.js": "/quotationform.js",
-    "/quotations.js": "/quotations.js",
-    "/quotationservicetermsandconditions.js": "/quotationservicetermsandconditions.js",
-    "/quotationview.js": "/quotationview.js",
-    "/servicecategories.js": "/servicecategories.js",
-    "/services.js": "/services.js",
-    "/termsandconditions.js": "/termsandconditions.js",
+    "/brands.js": "/brands.js",
+    "/categories.js": "/categories.js",
+    "/models.js": "/models.js",
+    "/product.js": "/product.js",
+    "/products.js": "/products.js",
+    "/users.js": "/users.js",
     "/vendors.js": "/vendors.js"
 }

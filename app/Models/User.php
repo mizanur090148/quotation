@@ -8,10 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, SoftDeletes, CascadeSoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -32,10 +33,11 @@ class User extends Authenticatable
         'email_verified_at',
         'last_login',
         'role_id',
+        'outlet_id',
+        'company_id',
         'created_by',
         'updated_by',
-        'deleted_by',
-        'factory_id'
+        'deleted_by'        
     ];
 
     protected $appends = ['full_name'];
@@ -70,11 +72,11 @@ class User extends Authenticatable
 
     public function role()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(Role::class)->withDefault();
     }
 
-    public function factory()
+    public function outlet()
     {
-        return $this->belongsTo(Factory::class);
+        return $this->belongsTo(Outlet::class)->withDefault();
     }
 }

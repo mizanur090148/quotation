@@ -27,7 +27,8 @@ class UsersTableSeeder extends Seeder
                 'role_id' => 1,
                 'email' => 'super@admin.com',
                 'password' => bcrypt(123456),
-                'factory_id' => 1,
+                'company_id' => 1,
+                'outlet_id' => 1,
                 'created_at' => $date_time,
                 'updated_at' => $date_time
             ], 
@@ -40,7 +41,8 @@ class UsersTableSeeder extends Seeder
                 'role_id' => 2,
                 'email' => 'admin@admin.com',
                 'password' => bcrypt(123456),
-                'factory_id' => 1,
+                'outlet_id' => 1,
+                'company_id' => 1,
                 'created_at' => $date_time,
                 'updated_at' => $date_time
             ],          
@@ -53,7 +55,8 @@ class UsersTableSeeder extends Seeder
                 'role_id' => 3,
                 'email' => 'user@user.com',
                 'password' => bcrypt(123456),
-                'factory_id' => 1,
+                'outlet_id' => 1,
+                'company_id' => 1,
                 'created_at' => $date_time,
                 'updated_at' => $date_time
             ]

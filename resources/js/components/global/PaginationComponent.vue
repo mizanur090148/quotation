@@ -7,13 +7,11 @@
             <li class="page-item" :class="{ disabled: pagination.current_page <= 1 }">
                 <a class="page-link" @click.prevent="changePage(pagination.current_page - 1)"><</a>
             </li>
-
             <li class="page-item" v-for="page in pages"  :key="page" :class="isCurrentPage(page) ? 'active' : ''">
                 <a class="page-link" @click.prevent="changePage(page)">{{ page }}
                     <span v-if="isCurrentPage(page)" class="sr-only">(current)</span>
                 </a>
             </li>
-
             <li class="page-item" :class="{ disabled: pagination.current_page >= pagination.last_page }">
                 <a class="page-link" @click.prevent="changePage(pagination.current_page + 1)">></a>
             </li>

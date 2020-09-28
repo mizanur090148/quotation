@@ -3,10 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Rules\UniqueService;
-use App\Models\Service;
+use App\Rules\UniqueCheck;
+use App\Models\Category;
 
-class ServiceRequest extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,7 @@ class ServiceRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Service name is required'
+            'name.required' => 'Category name is required'
         ];
     }
 
@@ -41,11 +41,7 @@ class ServiceRequest extends FormRequest
             'name' => [
                 'required',
                 'max:100',
-                new UniqueService(Service::class)
-            ],
-            'parent_id' => [
-                'nullable',
-                'integer'
+                new UniqueCheck(Category::class)
             ]
         ];
     }

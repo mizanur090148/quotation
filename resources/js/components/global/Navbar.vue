@@ -12,24 +12,61 @@
                <i class="mdi mdi-settings menu-icon"></i>
     			   <span class="menu-title">Quotations</span>
             </router-link>
-         </li>         
-         <!-- <li class="nav-item">
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#products" aria-expanded="false" aria-controls="products">
+            <i class="mdi mdi-settings menu-icon"></i>
+            <span class="menu-title">Products</span>
+            <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="products">
+               <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/product/create"> Add Product </router-link> 
+                  </li>
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/products"> Product List </router-link> 
+                  </li>
+               </ul>
+            </div>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#stock-in" aria-expanded="false" aria-controls="stock-in">
+            <i class="mdi mdi-settings menu-icon"></i>
+            <span class="menu-title">Stock In/Purchase</span>
+            <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="stock-in">
+               <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/stock-in/create"> Add Stock In</router-link> 
+                  </li>
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/stock-in"> Stock In List </router-link> 
+                  </li>
+               </ul>
+            </div>
+         </li>
+         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#sales" aria-expanded="false" aria-controls="sales">
                <i class="mdi mdi-settings menu-icon"></i>
-               <span class="menu-title">Sales Manage</span>
+               <span class="menu-title">Sales</span>
                <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="sales">
                <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                     <router-link tag="a" class="nav-link" to="/store-info"> Store Info </router-link> 
+                     <router-link tag="a" class="nav-link" to="/sales/create"> Add Sales </router-link> 
                   </li>
                   <li class="nav-item">
-                     <router-link tag="a" class="nav-link" to="/inactive-items"> Inactive Items </router-link> 
+                     <router-link tag="a" class="nav-link" to="/sales"> Sales List </router-link> 
+                  </li>
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/pos"> Pos </router-link> 
                   </li>
                </ul>
             </div>
-         </li> -->
+         </li>
          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#reports" aria-expanded="false" aria-controls="reports">
                <i class="mdi mdi-settings menu-icon"></i>
@@ -59,17 +96,17 @@
                      <router-link tag="a" class="nav-link" to="/users"> Users </router-link> 
                   </li>
                   <li class="nav-item">
-                     <router-link tag="a" class="nav-link" to="/vendors"> Vendors </router-link> 
+                     <router-link tag="a" class="nav-link" to="/outlets"> Outlets </router-link> 
+                  </li>                  
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/categories"> Categories </router-link> 
                   </li>
                   <li class="nav-item">
-                     <router-link tag="a" class="nav-link" to="/service-categories"> Service Categories </router-link> 
+                     <router-link tag="a" class="nav-link" to="/models"> Models </router-link> 
                   </li>
                   <li class="nav-item">
-                     <router-link tag="a" class="nav-link" to="/services"> Services </router-link> 
-                  </li>
-                  <li class="nav-item">
-                     <router-link tag="a" class="nav-link" to="/terms-and-conditions"> Terms & Conditions </router-link> 
-                  </li>                 
+                     <router-link tag="a" class="nav-link" to="/brands"> Brands </router-link> 
+                  </li>              
                </ul>
             </div>
          </li>

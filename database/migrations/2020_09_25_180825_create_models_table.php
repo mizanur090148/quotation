@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuotationServicesTable extends Migration
+class CreateModelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,17 @@ class CreateQuotationServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('quotation_services', function (Blueprint $table) {
+        Schema::create('models', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('quotation_id');
-            $table->unsignedBigInteger('service_id');
+            $table->string('name', 80);         
+            $table->unsignedBigInteger('outlet_id')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();
-            $table->unsignedBigInteger('factory_id')->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('quotation_id')->references('id')->on('quotations');
-            $table->foreign('service_id')->references('id')->on('services');
-            $table->foreign('factory_id')->references('id')->on('factories');
+            $table->foreign('outlet_id')->references('id')->on('outlets')->onDelete('cascade');
         });
     }
 
@@ -36,6 +34,6 @@ class CreateQuotationServicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quotation_services');
+        Schema::dropIfExists('models');
     }
 }

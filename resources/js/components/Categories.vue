@@ -4,10 +4,10 @@
       <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Service List</h4>
+            <h4 class="card-title">Category List</h4>
             <div class="row p-2">
               <div class="col-md-3">
-                <router-link to="/services/create">
+                <router-link to="/categories/create">
                   <button type="button" class="btn btn-primary btn-sm btn-rounded btn-fw">Add New <i class="fas fa-plus"></i></button>
                 </router-link>
               </div>
@@ -21,21 +21,19 @@
                 <thead>
                   <tr>
                     <th>Sl.</th>
-                    <th>Service Name</th>
-                    <th>Service Category Name</th>
+                    <th>Name</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                  <tr v-if="services.length > 0" v-for="(service, index) in services" :key="service.id">
+                  <tr v-if="categories.length > 0" v-for="(category, index) in categories" :key="category.id">
                     <td>{{ ++index }}</td>
-                    <td>{{ service.name }}</td>
-                    <td>{{ service.service_category.name }}</td>
+                    <td>{{ category.name }}</td>
                     <td>
                       <button type="button" class="btn btn-sm btn-success btn-rounded btn-fw" @click="">
                         <i class="mdi mdi-grease-pencil"></i>
                       </button>
-                      <button type="button" class="btn btn-sm btn-danger btn-rounded btn-fw" @click="deleteService(service.id)">
+                      <button type="button" class="btn btn-sm btn-danger btn-rounded btn-fw" @click="deleteUser(user.id)">
                         <i class="mdi mdi-delete"></i>
                       </button>
                     </td>
@@ -45,13 +43,12 @@
                   </tr> 
                 </tbody>
               </table>
-              <v-pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="8" @paginate="getServices()"></v-pagination>
+              <v-pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="8" @paginate="getCategories()"></v-pagination>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <vue-snotify></vue-snotify>
   </div>
 </template>
 
@@ -64,28 +61,39 @@
     data() {
        return {
           listResponse: null,
-          services: [],
+          categories: [],
           pagination: {
              current_page: 1,
             
           },
           search_query: ''
        }
-    },
-    mounted() {
-       this.getServices()
-    },
-    methods: {       
-        getServices() {          
+    },     
+
+    methods: {
+       categoryDelete(id) {
+          if (window.confirm('Are You Sure?')) {
+             deleteEmployee(id)
+                .then((res) => {
+                   console.log(res);
+                   this.getCategories();
+                })
+                .catch((error) => {
+                   console.log(error);
+                });
+          }
+       },
+       getCategories() {          
           const loader = this.$loading.show({
              container: this.$refs.attendanceTable,
              canCancel: true,
              loader: 'bars'
           })
-          axios.get('services?page='+this.pagination.current_page)
+          axios.get('categories?page='+this.pagination.current_page)
               .then((res) => {
-                this.services = res.data.data;
-                this.pagination = res.data;               
+                this.categories = res.data.content.data;
+                this.pagination = res.data.content;
+                console.log(res.data.content);
              })
              .catch((error) => {
                 console.log(error);
@@ -93,41 +101,10 @@
              .finally(() => {    
                 loader.hide();             
              });
-        },
-        deleteService(id) {
-          this.$snotify.clear();
-          this.$snotify.confirm(
-            "Are you sure to delete this?",
-            {
-              closeOnClick: false,
-              pauseOnHover: true,
-              buttons: [
-                {
-                  text: "Yes",
-                  action: toast => {
-                    this.$snotify.remove(toast.id);
-                    axios.delete('/services/'+id)
-                      .then(response => {
-                          this.getServices();
-                          this.$snotify.success('Successfully deleted', 'Success');
-                      })
-                      .catch(e => {
-                          this.$snotify.success('Not deleted', 'Success');
-                      })
-                  },
-                  bold: true
-                },
-                {
-                  text: "No",
-                  action: toast => {
-                      this.$snotify.remove(toast.id);
-                  },
-                  bold: true
-                }
-              ]
-            }
-          );
-       },
+       }
+    },
+    mounted() {
+       this.getCategories()
     }
   }
 </script>

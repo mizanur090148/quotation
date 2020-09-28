@@ -28,11 +28,11 @@ class CreateVendorsTable extends Migration
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();
-            $table->unsignedBigInteger('factory_id')->nullable();
+            $table->unsignedBigInteger('company_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('factory_id')->references('id')->on('factories');
+            $table->foreign('company_id')->references('id')->on('companies');
         });
     }
 

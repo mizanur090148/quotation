@@ -32,13 +32,15 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();
-            $table->unsignedBigInteger('factory_id')->nullable();
+            $table->unsignedBigInteger('outlet_id')->nullable();
+            $table->unsignedBigInteger('company_id')->nullable();
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('role_id')->references('id')->on('roles');
-            $table->foreign('factory_id')->references('id')->on('factories');
+            $table->foreign('outlet_id')->references('id')->on('outlets');
+            $table->foreign('company_id')->references('id')->on('companies');
         });
     }
 

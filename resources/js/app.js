@@ -10,6 +10,7 @@ import Toasted from 'vue-toasted';
 import vSelect from "vue-select";
 import 'vue-snotify/styles/material.css';
 import VuePagination from "./components/global/PaginationComponent";
+//import modelModal from "./components/forms/modals/Model";
 
 window.Form = Form
 const Snotifyoptions = {
@@ -27,26 +28,22 @@ Vue.component("v-select", vSelect);
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 Vue.component('v-pagination', VuePagination)
+//Vue.component('v-models', modelModal)
 
 import App from './components/App'
-import Hello from './components/Hello'
 import Login from './components/Login'
 import Home from './components/Home'
-import Table from './components/Table'
-import Forms from './components/Forms'
-import StoreInfo from './components/StoreInfo'
-import StoreInfoForm from './components/StoreInfoForm'
-import Users from './components/Users'
 import UserForm from './components/UserForm'
 
+const Users = () => import(/* webpackChunkName: "users" */ './components/Lists/Users.vue');
 const Vendors = () => import(/* webpackChunkName: "vendors" */ './components/Vendors.vue');
-const Services = () => import(/* webpackChunkName: "services" */ './components/Services.vue');
-const Quotations = () => import(/* webpackChunkName: "quotations" */ './components/Quotations.vue');
-const QuotationForm = () => import(/* webpackChunkName: "quotationform" */ './components/QuotationForm.vue');
-const QuotationView = () => import(/* webpackChunkName: "quotationview" */ './components/QuotationView.vue');
-const ServiceCategories = () => import(/* webpackChunkName: "servicecategories" */ './components/ServiceCategories.vue');
-const TermsAndConditions = () => import(/* webpackChunkName: "termsandconditions" */ './components/TermsAndConditions.vue');
-const QuotationServiceTermsAndConditions = () => import(/* webpackChunkName: "quotationservicetermsandconditions" */ './components/QuotationServiceTermsAndConditions.vue');
+const Product = () => import(/* webpackChunkName: "product" */ './components/Forms/Product.vue');
+const Products = () => import(/* webpackChunkName: "products" */ './components/Lists/Products.vue');
+
+const Models = () => import(/* webpackChunkName: "models" */ './components/Lists/Models.vue');
+const Categories = () => import(/* webpackChunkName: "categories" */ './components/Lists/Categories.vue');
+const Brands = () => import(/* webpackChunkName: "brands" */ './components/Lists/Brands.vue');
+/*  */
 
 const router = new VueRouter({
     mode: 'history',
@@ -67,30 +64,25 @@ const router = new VueRouter({
             component: Home
         },
         {
-            path: '/hello',
-            name: 'hello',
-            component: Hello,
+            path: '/product/create',
+            name: 'Product',
+            component: Product,
+        },  
+        {
+            path: '/products',
+            name: 'products',
+            component: Products,
         },
         {
-            path: '/table',
-            name: 'table',
-            component: Table,
+            path: '/product/:id',
+            name: 'product',
+            component: Product,
         },
         {
-            path: '/form',
-            name: 'form',
-            component: Forms,
-        },
-        {
-            path: '/store-info',
-            name: 'store-info',
-            component: StoreInfo,
-        },
-        {
-            path: '/store-info/create',
-            name: 'store-info-create',
-            component: StoreInfoForm,
-        },
+            path: '/products',
+            name: 'products',
+            component: Products,
+        },           
         {
             path: '/users',
             name: 'users',
@@ -100,47 +92,27 @@ const router = new VueRouter({
             path: '/users/create',
             name: 'users-create',
             component: UserForm,
-        },
-        {
-            path: '/quotations',
-            name: 'quotations',
-            component: Quotations,
-        },
-        {
-            path: '/quotations/create',
-            name: 'quotationform',
-            component: QuotationForm,
-        },
-        {
-            path: '/quotations/:id',
-            name: 'quotationview',
-            component: QuotationView,
-        },
-        {
-            path: '/quotation-service-terms-and-conditions/:id',
-            name: 'quotation-service-terms-and-conditions',
-            component: QuotationServiceTermsAndConditions,
-        },
-        {
-            path: '/service-categories',
-            name: 'service-categories',
-            component: ServiceCategories,
-        },
-        {
-            path: '/services',
-            name: 'services',
-            component: Services,
-        },
+        },        
         {
             path: '/vendors',
             name: 'vendors',
             component: Vendors,
         },
         {
-            path: '/terms-and-conditions',
-            name: 'terms-and-conditions',
-            component: TermsAndConditions,
-        }        
+            path: '/categories',
+            name: 'Categories',
+            component: Categories,
+        },
+        {
+            path: '/models',
+            name: 'Models',
+            component: Models,
+        },
+        {
+            path: '/brands',
+            name: 'Brands',
+            component: Brands,
+        },
     ],
 });
 

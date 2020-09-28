@@ -26,7 +26,7 @@
                     <th>Mobile No</th>
                     <th>Address</th>
                     <th>Role</th>
-                    <!-- <th>Factory</th> -->
+                    <th>Outlet</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -38,7 +38,7 @@
                     <td>{{ user.mobile_no }}</td>
                     <td>{{ user.address }}</td>
                     <td>{{ user.role.name }}</td>
-                    <!-- <td>{{ user.factory.name }}</td> -->
+                    <td>{{ user.outlet.name }}</td>
                     <td>
                       <button type="button" class="btn btn-sm btn-success btn-rounded btn-fw" @click="">
                         <i class="mdi mdi-grease-pencil"></i>
@@ -59,23 +59,24 @@
         </div>
       </div>
     </div>
+    <vue-snotify></vue-snotify>
   </div>
 </template>
 
 <script>
-  import axios from '../axios';
+  import axios from '../../axios';
   import "vue-loading-overlay/dist/vue-loading.css";
   import Loading from 'vue-loading-overlay';
   
   export default {
     data() {
-       return {
-          listResponse: null,
-          users: [],
-          pagination: {
-             current_page: 1,
-          }
-       }
+      return {
+        listResponse: null,
+        users: [],
+        pagination: {
+            current_page: 1,
+        }
+      }
     },     
     mounted() {
       this.getUsers()
@@ -114,24 +115,24 @@
             }
           );
        },
-       getUsers() {  //alert(999);        
-          /* const loader = this.$loading.show({
-             container: this.$refs.attendanceTable,
-             canCancel: true,
-             loader: 'bars'
-          }) */
-          axios.get('users?page='+this.pagination.current_page)
-              .then((res) => {
-                this.users = res.data.data;
-                this.pagination = res.data;
-             })
-             .catch((error) => {
-                console.log(error);
-             })
-             .finally(() => {
-               // loader.hide();
-             });
-       }
+      getUsers() {
+        const loader = this.$loading.show({
+          container: this.$refs.attendanceTable,
+          canCancel: true,
+          loader: 'bars'
+        })
+        axios.get('users?page='+this.pagination.current_page)
+            .then((res) => {
+              this.users = res.data.data;
+              this.pagination = res.data;
+            })
+            .catch((error) => {
+              console.log(error);
+            })
+            .finally(() => {
+              loader.hide();
+            });
+      }
     }    
   }
 </script>

@@ -2,21 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Factory extends Model
+class Company extends Model
 {
-    use HasFactory, SoftDeletes;
+    use SoftDeletes;
 	
     protected $fillable = [
     	'name',
     	'address',
     	'responsible_person',
     	'email',
-    	'mobile_no',
-        'group_id'
+    	'mobile_no'
     ];
 
     protected $dates = [

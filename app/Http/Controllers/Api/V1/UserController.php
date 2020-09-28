@@ -22,7 +22,10 @@ class UserController extends BaseController
     public function index(Request $request)
     {
         try {
-            $with = ['role','factory'];
+            $with = [
+                'role:id,name',
+                'outlet:id,name'
+            ];
         	$modelData = $this->apiCrudHandler->index($request, User::class, $where = [], $with);
         	return $this->sendResponse($modelData);
         } catch (Exception $e) {

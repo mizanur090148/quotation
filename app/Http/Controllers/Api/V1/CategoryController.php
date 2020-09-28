@@ -6,10 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\V1\BaseController as BaseController;
 use App\Http\Controllers\Api\V1\ApiCrudHandler;
-use App\Http\Requests\ServiceRequest;
-use App\Models\Service;
+use App\Http\Requests\CategoryRequest;
+use App\Models\Category;
 
-class ServiceController extends BaseController
+class CategoryController extends BaseController
 {
     protected $apiCrudHandler;
 
@@ -20,29 +20,19 @@ class ServiceController extends BaseController
 
     public function index(Request $request)
     {
-        try {
-            if (\Request::segment(2) == 'services') {
-                $modelData = Service::with('service_category')->whereNotNull('parent_id');
-                $modelData = $modelData->orderBy($request->sortByColumn ?? 'id', $request->sortBy ?? 'desc');
-                $modelData = $modelData->paginate(5);
-            } else {
-                $where = ['parent_id' => NULL];
-                $with = ['services:id,name,parent_id'];
-                $modelData = $this->apiCrudHandler->index($request, Service::class, $where, $with);
-            }            
+        try {           
+            $modelData = $this->apiCrudHandler->index($request, Category::class, $where = [], $with = []);
             return $this->sendResponse($modelData);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }
 
-    public function servicesDropdownData(Request $request)
+    public function categoryDropdownData(Request $request)
     {
         try {
-            $select = ['id', 'name', 'parent_id'];
-            $where = ['parent_id' => NULL];
-            $with = ['services:id,name,parent_id'];
-            $modelData = $this->apiCrudHandler->dropdownData($request, Service::class, $where,  $with, $select);
+            $select = ['id', 'name'];
+            $modelData = $this->apiCrudHandler->dropdownData($request, Category::class, $where = [],  $with = [], $select);
             return $this->sendResponse($modelData);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
@@ -57,15 +47,31 @@ class ServiceController extends BaseController
      *
      * @return Array
      */
-    public function store(ServiceRequest $request)
+    public function store(CategoryRequest $request)
     {       
         try {           
-            $modelData = $this->apiCrudHandler->store($request, Service::class);           
+            $modelData = $this->apiCrudHandler->store($request, Category::class);           
             return $this->sendResponse($modelData);
         } catch (Exception $ex) {
             return $this->sendError($e->getMessage());
         }
-    }   
+    } 
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        try {
+            $modelData = $this->apiCrudHandler->show($id, Category::class, $with = []);
+            return $this->sendResponse($modelData);
+        } catch (Exception $ex) {
+            return $this->sendError($e->getMessage());
+        }
+    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -73,10 +79,10 @@ class ServiceController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($id, Service $service)
+    public function delete($id, Category $Category)
     {
         try {
-            $delete = $this->apiCrudHandler->delete($id, Service::class);
+            $delete = $this->apiCrudHandler->delete($id, Category::class);
             return $this->sendResponse($delete);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());

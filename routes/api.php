@@ -6,9 +6,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\VendorController;
-use App\Http\Controllers\Api\V1\ServiceController;
-use App\Http\Controllers\Api\V1\TermsAndConditionController;
-use App\Http\Controllers\Api\V1\QuotationController;
+use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\ModelController;
+use App\Http\Controllers\Api\V1\BrandController;
+use App\Http\Controllers\Api\V1\ProductController;
 
 
 /*
@@ -40,24 +41,32 @@ Route::post('users', [UserController::class, 'store']);
 Route::delete('users/{id}', [UserController::class, 'destroy']);
 
 // quotations route
-Route::get('quotations', [QuotationController::class, 'index']);
-Route::post('quotations', [QuotationController::class, 'store']);
-Route::get('quotations/{id}', [QuotationController::class, 'show']);
-Route::delete('quotations/{id}', [QuotationController::class, 'delete']);
-Route::get('search-quotations', [QuotationController::class, 'search']);
+Route::get('products', [ProductController::class, 'index']);
+Route::post('products', [ProductController::class, 'store']);
+Route::get('products/{id}', [ProductController::class, 'show']);
+Route::delete('products/{id}', [ProductController::class, 'delete']);
+Route::get('search-products', [ProductController::class, 'search']);
+
+// categories route
+Route::get('categories', [CategoryController::class, 'index']);
+Route::get('category-dropdown-data', [CategoryController::class, 'categoryDropdownData']);
+Route::post('categories', [CategoryController::class, 'store']);
+Route::get('categories/{id}', [CategoryController::class, 'show']);
+Route::delete('categories/{id}', [CategoryController::class, 'delete']);
+
+// brands route
+Route::get('brands', [BrandController::class, 'index']);
+Route::get('brand-dropdown-data', [BrandController::class, 'brandDropdowndata']);
+Route::post('brands', [BrandController::class, 'store']);
+Route::get('brands/{id}', [BrandController::class, 'show']);
+Route::delete('brands/{id}', [BrandController::class, 'delete']);
 
 // services route
-Route::get('service-categories', [ServiceController::class, 'index']);
-Route::get('services', [ServiceController::class, 'index']);
-Route::get('services-dropdown-data', [ServiceController::class, 'servicesDropdownData']);
-Route::post('services', [ServiceController::class, 'store']);
-Route::delete('services/{id}', [ServiceController::class, 'delete']);
-
-// services route
-Route::get('terms-and-conditions', [TermsAndConditionController::class, 'index']);
-Route::get('terms-and-conditions-dropdown-data', [TermsAndConditionController::class, 'termsAndConditionDropdownData']);
-Route::post('terms-and-conditions', [TermsAndConditionController::class, 'store']);
-Route::delete('terms-and-conditions/{id}', [TermsAndConditionController::class, 'delete']);
+Route::get('models', [ModelController::class, 'index']);
+Route::get('model-dropdown-data', [ModelController::class, 'ModelDropdownData']);
+Route::post('models', [ModelController::class, 'store']);
+Route::get('models/{id}', [ModelController::class, 'show']);
+Route::delete('models/{id}', [ModelController::class, 'delete']);
 
 
 // quotations services

@@ -43,7 +43,6 @@ class ApiCrudHandler
         } else {
             $modelData = $modelData->select('*');
         }
-
         // where
         if (count($with)) {
             $modelData = $modelData->with($with);
