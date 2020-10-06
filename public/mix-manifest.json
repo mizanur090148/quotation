@@ -6,6 +6,12 @@
     "/models.js": "/models.js",
     "/product.js": "/product.js",
     "/products.js": "/products.js",
+    "/stockIns.js": "/stockIns.js",
+    "/user.js": "/user.js",
     "/users.js": "/users.js",
-    "/vendors.js": "/vendors.js"
+    "/vendors.js": "/vendors.js",
+    "/stockin.js": "/stockin.js",
+    "/stockIn.js": "/stockIn.js",
+    "/StockIn.js": "/StockIn.js",
+    "/suppliers.js": "/suppliers.js"
 }

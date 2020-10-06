@@ -7,13 +7,13 @@
             <h4 class="card-title">Product List</h4>
             <hr>
             <div class="row p-2">
-              <div class="col-md-3">
+              <div class="col-md-3 pl-1">
                 <router-link to="/product/create">
                   <button type="button" class="btn btn-primary btn-sm btn-rounded btn-fw">Add New <i class="fas fa-plus"></i></button>
                 </router-link>
               </div>
               <div class="col-md-6"></div>
-              <div class="col-md-3">
+              <div class="col-md-3 pr-1">
                 <input type="text" class="form-control search-field" placeholder="Search"/>
               </div>
             </div>
@@ -53,13 +53,10 @@
                         </router-link> -->
                         <router-link
                             :to="'/product/'+ product.id"
-                            class="btn btn-sm btn-primary btn-rounded btn-fw"
+                            class="btn btn-sm btn-success btn-rounded btn-fw"
                             title="edit">
                             <i class="mdi mdi-grease-pencil"/>
-                        </router-link>
-                        <!-- <button type="button" class="btn btn-sm btn-success btn-rounded btn-fw" @click="">
-                          <i class="mdi mdi-grease-pencil"></i>
-                        </button> -->
+                        </router-link>                     
                         <button type="button" class="btn btn-sm btn-danger btn-rounded btn-fw" @click="deleteProduct(product.id)">
                           <i class="mdi mdi-delete"></i>
                         </button>

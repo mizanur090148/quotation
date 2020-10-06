@@ -4,10 +4,10 @@
       <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Vendor List</h4>
+            <h4 class="card-title">Supplier List</h4>
             <div class="row p-2">
               <div class="col-md-3">
-                <router-link to="/vendors/create">
+                <router-link to="/supplier/create">
                   <button type="button" class="btn btn-primary btn-sm btn-rounded btn-fw">Add New <i class="fas fa-plus"></i></button>
                 </router-link>
               </div>
@@ -21,8 +21,8 @@
                 <thead>
                   <tr>
                     <th>Sl.</th>
-                    <th>Vendor Name</th>
-                    <th>Vendor No.</th>
+                    <th>Supplier Name</th>
+                    <th>Supplier No.</th>
                     <th>Trn No.</th>
                     <th>Telephone No.</th>
                     <th>Fax No.</th>
@@ -33,33 +33,35 @@
                     <th>Action</th>
                 </tr>
                 </thead>
-                <tbody>
-                  <tr v-if="vendors.length > 0" v-for="(vendor, index) in vendors" :key="vendor.id">
+                <tbody v-if="suppliers.length">
+                  <tr v-for="(supplier, index) in suppliers" :key="supplier.id">
                     <td>{{ ++index }}</td>
-                    <td>{{ vendor.vendor_name }}</td>
-                    <td>{{ vendor.vendor_no }}</td>
-                    <td>{{ vendor.trn_no }}</td>
-                    <td>{{ vendor.telephone_no }}</td>
-                    <td>{{ vendor.fax_no }}</td>
-                    <td>{{ vendor.email }}</td>
-                    <td>{{ vendor.address }}</td>
-                    <td>{{ vendor.attention }}</td>
-                    <td>{{ vendor.attention_designation }}</td>                  
+                    <td>{{ supplier.supplier_name }}</td>
+                    <td>{{ supplier.supplier_no }}</td>
+                    <td>{{ supplier.trn_no }}</td>
+                    <td>{{ supplier.telephone_no }}</td>
+                    <td>{{ supplier.fax_no }}</td>
+                    <td>{{ supplier.email }}</td>
+                    <td>{{ supplier.address }}</td>
+                    <td>{{ supplier.attention }}</td>
+                    <td>{{ supplier.attention_designation }}</td>                  
                     <td>
                       <button type="button" class="btn btn-sm btn-success btn-rounded btn-fw" @click="">
                         <i class="mdi mdi-grease-pencil"></i>
                       </button>
-                      <button type="button" class="btn btn-sm btn-danger btn-rounded btn-fw" @click="deleteVendor(vendor.id)">
+                      <button type="button" class="btn btn-sm btn-danger btn-rounded btn-fw" @click="deleteSupplier(supplier.id)">
                         <i class="mdi mdi-delete"></i>
                       </button>
                     </td>
+                  </tr>                  
+                </tbody>
+                <tbody v-else>
+                  <tr v-if="pagination.current_page == pagination.last_page" class="not-found">
+                    <td colspan="3" class="text-danger">Not Found</td>
                   </tr>
-                  <tr v-else>
-                    <td>Not Found</td>
-                  </tr> 
                 </tbody>
               </table>
-              <v-pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="8" @paginate="getVendors()"></v-pagination>
+              <v-pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="8" @paginate="getSuppliers()"></v-pagination>
             </div>
           </div>
         </div>
@@ -70,7 +72,7 @@
 </template>
 
 <script>
-  import axios from '../axios';
+  import axios from '../../axios';
   import "vue-loading-overlay/dist/vue-loading.css";
   import Loading from 'vue-loading-overlay';
   
@@ -78,17 +80,17 @@
     data() {
        return {
           listResponse: null,
-          vendors: [],
+          suppliers: [],
           pagination: {
              current_page: 1,
           }
        }
     },     
     mounted() {
-      this.getVendors()
+      this.getSuppliers()
     },
     methods: {
-       deleteVendor(id) { 
+       deleteSupplier(id) { 
           this.$snotify.clear();
           this.$snotify.confirm(
             "Are you sure to delete this?",
@@ -100,9 +102,9 @@
                   text: "Yes",
                   action: toast => {
                     this.$snotify.remove(toast.id);
-                    axios.delete('/vendors/'+id)
+                    axios.delete('/suppliers/'+id)
                       .then(response => {
-                          this.getVendors();
+                          this.getsuppliers();
                           this.$snotify.success('Successfully deleted', 'Success');
                       })
                       .catch(e => {
@@ -122,15 +124,15 @@
             }
           );
        },
-       getVendors() {      
+       getsuppliers() {      
           const loader = this.$loading.show({
              container: this.$refs.attendanceTable,
              canCancel: true,
              loader: 'bars'
           })
-          axios.get('vendors?page='+this.pagination.current_page)
+          axios.get('suppliers?page='+this.pagination.current_page)
               .then((res) => {               
-                this.vendors = res.data.data;
+                this.suppliers = res.data.data;
                 this.pagination = res.data;
              })
              .catch((error) => {

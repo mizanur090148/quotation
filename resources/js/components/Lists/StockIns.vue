@@ -4,11 +4,11 @@
       <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">User List</h4>
+            <h4 class="card-title">Stock In List</h4>
             <hr>
             <div class="row p-2">
               <div class="col-md-3 add-new-btn">
-                <router-link to="/user/create">
+                <router-link to="/stock-in/create">
                   <button type="button" class="btn btn-primary btn-sm btn-rounded btn-fw">Add New <i class="fas fa-plus"></i></button>
                 </router-link>
               </div>

@@ -6,11 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\V1\BaseController as BaseController;
 use App\Http\Controllers\Api\V1\ApiCrudHandler;
-use App\Http\Requests\VendorRequest;
-use App\Models\Vendor;
+use App\Http\Requests\SupplierRequest;
+use App\Models\Supplier;
 use Validator;
 
-class VendorController extends BaseController
+class SupplierController extends BaseController
 {
     protected $apiCrudHandler;
 
@@ -22,18 +22,18 @@ class VendorController extends BaseController
     public function index(Request $request)
     {
         try {
-            $modelData = $this->apiCrudHandler->index($request, Vendor::class, $where = [], $with = []);
+            $modelData = $this->apiCrudHandler->index($request, Supplier::class, $where = [], $with = []);
             return $this->sendResponse($modelData);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
         }        
     }
 
-    public function vendorDropdownData(Request $request)
+    public function SupplierDropdownData(Request $request)
     {
         try {
-            $select = ['id', 'vendor_name'];
-            $modelData = $this->apiCrudHandler->dropdownData($request, Vendor::class, $where = [], $with = [], $select);
+            $select = ['id', 'Supplier_name'];
+            $modelData = $this->apiCrudHandler->dropdownData($request, Supplier::class, $where = [], $with = [], $select);
             return $this->sendResponse($modelData);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
@@ -48,10 +48,10 @@ class VendorController extends BaseController
      *
      * @return Array
      */
-    public function store(VendorRequest $request)
+    public function store(SupplierRequest $request)
     {       
         try {           
-            $modelData = $this->apiCrudHandler->store($request, Vendor::class);           
+            $modelData = $this->apiCrudHandler->store($request, Supplier::class);           
             return $this->sendResponse($modelData);
         } catch (Exception $ex) {
             return $this->sendError($e->getMessage());
@@ -64,10 +64,10 @@ class VendorController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($id, Vendor $vendor)
+    public function delete($id, Supplier $Supplier)
     {
         try {
-            $delete = $this->apiCrudHandler->delete($id, Vendor::class);
+            $delete = $this->apiCrudHandler->delete($id, Supplier::class);
             return $this->sendResponse($delete);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());

@@ -6,10 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\V1\BaseController as BaseController;
 use App\Http\Controllers\Api\V1\ApiCrudHandler;
-use App\Http\Requests\ModelRequest;
-use App\Models\Modell;
+use App\Models\Role;
 
-class ModelController extends BaseController
+class RoleController extends BaseController
 {
     protected $apiCrudHandler;
 
@@ -21,18 +20,18 @@ class ModelController extends BaseController
     public function index(Request $request)
     {
         try {           
-            $modelData = $this->apiCrudHandler->index($request, Modell::class, $where = [], $with = []);
+            $modelData = $this->apiCrudHandler->index($request, Role::class, $where = [], $with = []);
             return $this->sendResponse($modelData);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }
 
-    public function ModelDropdownData(Request $request)
+    public function RoleDropdownData(Request $request)
     {
         try {
-            $select = ['id', 'name'];          
-            $modelData = $this->apiCrudHandler->dropdownData($request, Modell::class, $where = [],  $with = [], $select);
+            $select = ['id', 'name'];
+            $modelData = $this->apiCrudHandler->dropdownData($request, Role::class, $where = [],  $with = [], $select);
             return $this->sendResponse($modelData);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
@@ -47,10 +46,10 @@ class ModelController extends BaseController
      *
      * @return Array
      */
-    public function store(ModelRequest $request)
+    public function store(CategoryRequest $request)
     {       
         try {           
-            $modelData = $this->apiCrudHandler->store($request, Modell::class);
+            $modelData = $this->apiCrudHandler->store($request, Role::class);           
             return $this->sendResponse($modelData);
         } catch (Exception $ex) {
             return $this->sendError($e->getMessage());
@@ -65,26 +64,13 @@ class ModelController extends BaseController
     public function show($id)
     {
         try {
-            $modelData = $this->apiCrudHandler->show($id, Modell::class, $with = []);
+            $modelData = $this->apiCrudHandler->show($id, Role::class, $with = []);
             return $this->sendResponse($modelData);
         } catch (Exception $ex) {
             return $this->sendError($e->getMessage());
         }
     }
 
-    /**    
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function search(Request $request)
-    {
-        try {
-            $modelData = $this->apiCrudHandler->search($request, Modell::class);
-            return $this->sendResponse($modelData);
-        } catch (Exception $ex) {
-            return $this->sendError($e->getMessage());
-        }
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -92,10 +78,10 @@ class ModelController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($id, Modell $Modell)
+    public function delete($id, Category $Category)
     {
         try {
-            $delete = $this->apiCrudHandler->delete($id, Modell::class);
+            $delete = $this->apiCrudHandler->delete($id, Role::class);
             return $this->sendResponse($delete);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());

@@ -7,12 +7,12 @@
             <h4 class="card-title">Brand List</h4>
             <hr>
             <div class="row p-2">
-              <div class="col-md-3">             
+              <div class="col-md-3 add-new-btn">             
                 <button type="button" class="btn btn-primary btn-sm btn-rounded btn-fw" @click="brandModal">Add New <i class="fas fa-plus"></i></button>
               </div>
               <div class="col-md-6"></div>
               <div class="col-md-3">
-                <input type="text" class="form-control search-field" placeholder="Search"/>
+                <input type="text" class="form-control search-field" v-model="search_key" placeholder="Search"/>
               </div>
             </div>
             <div class="table-responsive">
@@ -24,8 +24,8 @@
                     <th>Action</th>
                 </tr>
                 </thead>
-                <tbody>
-                  <tr v-if="brands.length > 0" v-for="(brand, index) in brands" :key="brand.id">
+                <tbody v-if="brands.length > 0">
+                  <tr v-for="(brand, index) in brands" :key="brand.id">
                     <td>{{ ++index }}</td>
                     <td>{{ brand.name }}</td>                 
                     <td>
@@ -37,9 +37,11 @@
                       </button>
                     </td>
                   </tr>
-                  <tr v-else>
-                    <td>Not Found</td>
-                  </tr> 
+                </tbody>
+                <tbody v-else>
+                  <tr v-if="pagination.current_page == pagination.last_page" class="not-found">
+                    <td colspan="3" class="text-danger">Not Found</td>
+                  </tr>
                 </tbody>
               </table>
               <v-pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="8" @paginate="getBrands()"></v-pagination>
@@ -74,7 +76,7 @@
               <div class="row p-2 ">
                 <div class="form-group">
                   <button type="submit" class="btn btn-sm btn-primary mr-2">Submit</button>
-                  <button class="btn btn-sm btn-danger mr-2" @click="closeModal('brandModal')">Close</button>
+                  <button type="button" class="btn btn-sm btn-danger mr-2" @click="closeModal('brandModal')">Close</button>
                 </div>
               </div>
             </div>
@@ -103,18 +105,32 @@
         brand_form: new Form({
           name: ''
         }),
-        search_query: ''
+        search_key: ''
       }
     },
     mounted() {
       this.getBrands()
     },
-    methods: {  
+    watch: {
+      search_key: function() {      
+        this.searchBrands();
+      },      
+    },
+    methods: { 
+      searchBrands() {
+        axios.get('search-brands?search_key=' + this.search_key)
+          .then(res => {
+            this.brands = res.data.data;
+            this.pagination = res.data;
+          })
+          .catch(e => {
+            console.log(e);
+          })
+      }, 
       closeModal(modalName) {
         this.$modal.hide(modalName);
       },
-      getBrandInfo(brandId) {
-       // this.brand_form.clear();
+      getBrandInfo(brandId) {       
         axios.get('brands/' + brandId)
           .then((res) => {
             this.brand_form = res.data;
@@ -126,16 +142,16 @@
       },
       brandModal()
       {
-       // this.brand_form.reset();
+        //this.brand_form.reset();
         //this.brand_form.clear();
         this.$modal.show('brandModal');
       },
       brandStore() {
         this.brand_errors = [];
         const loader = this.$loading.show({
-           container: this.$refs.brandContainer,
-           canCancel: true,
-           loader: 'bars'
+          container: this.$refs.brandContainer,
+          canCancel: true,
+          loader: 'bars'
         })
  
         axios.post('/brands', this.brand_form)
@@ -165,7 +181,7 @@
         axios.get('brands?page='+this.pagination.current_page)
             .then((res) => {
               this.brands = res.data.data;
-              this.pagination = res.data;               
+              this.pagination = res.data;
             })
             .catch((error) => {
               console.log(error);

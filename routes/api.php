@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\UserController;
+use App\Http\Controllers\Api\V1\RoleController;
 use App\Http\Controllers\Api\V1\VendorController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\ModelController;
@@ -30,17 +31,22 @@ use App\Http\Controllers\Api\V1\ProductController;
 //Route::post('register', 'AuthController@register');
 Route::post('login', 'AuthController@login');
 
-Route::get('vendors', [VendorController::class, 'index']);
-Route::get('vendor-dropdown-data', [VendorController::class, 'vendorDropdownData']);
-Route::post('vendors', [VendorController::class, 'store']);
-Route::get('vendors/{id}', [VendorController::class, 'show']);
-Route::delete('vendors/{id}', [VendorController::class, 'delete']);
+Route::get('supplierss', [SupplierController::class, 'index']);
+Route::get('suppliers-dropdown-data', [SupplierController::class, 'suppliersDropdownData']);
+Route::post('supplierss', [SupplierController::class, 'store']);
+Route::get('supplierss/{id}', [SupplierController::class, 'show']);
+Route::delete('supplierss/{id}', [SupplierController::class, 'delete']);
 
+Route::get('role-dropdown-data', [RoleController::class, 'RoleDropdownData']);
+
+// users route
 Route::get('users', [UserController::class, 'index']);
 Route::post('users', [UserController::class, 'store']);
-Route::delete('users/{id}', [UserController::class, 'destroy']);
+Route::get('users/{id}', [UserController::class, 'show']);
+Route::delete('users/{id}', [UserController::class, 'delete']);
+Route::get('search-users', [UserController::class, 'search']);
 
-// quotations route
+// products route
 Route::get('products', [ProductController::class, 'index']);
 Route::post('products', [ProductController::class, 'store']);
 Route::get('products/{id}', [ProductController::class, 'show']);
@@ -53,6 +59,7 @@ Route::get('category-dropdown-data', [CategoryController::class, 'categoryDropdo
 Route::post('categories', [CategoryController::class, 'store']);
 Route::get('categories/{id}', [CategoryController::class, 'show']);
 Route::delete('categories/{id}', [CategoryController::class, 'delete']);
+Route::get('search-categories', [CategoryController::class, 'search']);
 
 // brands route
 Route::get('brands', [BrandController::class, 'index']);
@@ -60,13 +67,15 @@ Route::get('brand-dropdown-data', [BrandController::class, 'brandDropdowndata'])
 Route::post('brands', [BrandController::class, 'store']);
 Route::get('brands/{id}', [BrandController::class, 'show']);
 Route::delete('brands/{id}', [BrandController::class, 'delete']);
+Route::get('search-brands', [BrandController::class, 'search']);
 
-// services route
+// models route
 Route::get('models', [ModelController::class, 'index']);
 Route::get('model-dropdown-data', [ModelController::class, 'ModelDropdownData']);
 Route::post('models', [ModelController::class, 'store']);
 Route::get('models/{id}', [ModelController::class, 'show']);
 Route::delete('models/{id}', [ModelController::class, 'delete']);
+Route::get('search-models', [ModelController::class, 'search']);
 
 
 // quotations services

@@ -80,6 +80,20 @@ class BrandController extends BaseController
         }
     }
 
+    /**    
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        try {
+            $modelData = $this->apiCrudHandler->search($request, Brand::class);
+            return $this->sendResponse($modelData);
+        } catch (Exception $ex) {
+            return $this->sendError($e->getMessage());
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *

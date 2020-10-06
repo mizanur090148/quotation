@@ -33,16 +33,21 @@ Vue.component('v-pagination', VuePagination)
 import App from './components/App'
 import Login from './components/Login'
 import Home from './components/Home'
-import UserForm from './components/UserForm'
 
-const Users = () => import(/* webpackChunkName: "users" */ './components/Lists/Users.vue');
+const Users = () => import(/* webpackChunkName: "users" */ './components/lists/Users.vue');
+const User = () => import(/* webpackChunkName: "user" */ './components/forms/User.vue');
 const Vendors = () => import(/* webpackChunkName: "vendors" */ './components/Vendors.vue');
-const Product = () => import(/* webpackChunkName: "product" */ './components/Forms/Product.vue');
-const Products = () => import(/* webpackChunkName: "products" */ './components/Lists/Products.vue');
+const Product = () => import(/* webpackChunkName: "product" */ './components/forms/Product.vue');
+const Products = () => import(/* webpackChunkName: "products" */ './components/lists/Products.vue');
 
-const Models = () => import(/* webpackChunkName: "models" */ './components/Lists/Models.vue');
-const Categories = () => import(/* webpackChunkName: "categories" */ './components/Lists/Categories.vue');
-const Brands = () => import(/* webpackChunkName: "brands" */ './components/Lists/Brands.vue');
+const Models = () => import(/* webpackChunkName: "models" */ './components/lists/Models.vue');
+const Categories = () => import(/* webpackChunkName: "categories" */ './components/lists/Categories.vue');
+const Brands = () => import(/* webpackChunkName: "brands" */ './components/lists/Brands.vue');
+const Supplier = () => import(/* webpackChunkName: "supplier" */ './components/forms/Supplier.vue');
+const Suppliers = () => import(/* webpackChunkName: "suppliers" */ './components/lists/Suppliers.vue');
+
+const StockIns = () => import(/* webpackChunkName: "stockIns" */ './components/lists/StockIns.vue');
+const StockIn = () => import(/* webpackChunkName: "StockIn" */ './components/forms/StockIn.vue');
 /*  */
 
 const router = new VueRouter({
@@ -79,9 +84,14 @@ const router = new VueRouter({
             component: Product,
         },
         {
-            path: '/products',
-            name: 'products',
-            component: Products,
+            path: '/stock-in/create',
+            name: 'StockIn',
+            component: StockIn,
+        },
+        {
+            path: '/stock-in',
+            name: 'stock-in',
+            component: StockIns,
         },           
         {
             path: '/users',
@@ -89,14 +99,24 @@ const router = new VueRouter({
             component: Users,
         },
         {
-            path: '/users/create',
+            path: '/user/create',
             name: 'users-create',
-            component: UserForm,
-        },        
+            component: User,
+        }, 
         {
-            path: '/vendors',
-            name: 'vendors',
-            component: Vendors,
+            path: '/user/:id',
+            name: 'user',
+            component: User,
+        },
+        {
+            path: '/suppliers',
+            name: 'suppliers',
+            component: Suppliers,
+        },
+        {
+            path: '/supplier/create',
+            name: 'supplier',
+            component: Supplier,
         },
         {
             path: '/categories',

@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('picture')->nullable();
             $table->string('screen_name', 50)->nullable();
             $table->string('mobile_no', 50)->nullable();
+            $table->string('designation', 50)->nullable();
             $table->string('address', 120)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('last_login')->nullable();

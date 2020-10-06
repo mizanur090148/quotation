@@ -8,7 +8,6 @@ use App\Http\Controllers\Api\V1\BaseController as BaseController;
 use App\Http\Controllers\Api\V1\ApiCrudHandler;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
-use Validator;
 
 class UserController extends BaseController
 {
@@ -45,12 +44,12 @@ class UserController extends BaseController
     {
         //If ID then update, else create
         try {
-        	$this->authorize('store', $user);
-			$user = User::create($request->all());
-			$success['token'] =  $user->createToken('TestToken')->accessToken;
-			$success['name'] =  $user->name;
-			return $this->sendResponse($success);
-        } catch (Exception $ex) {dd(99);
+			//$user = User::create($request->all());
+			//$success['token'] =  $user->createToken('TestToken')->accessToken;
+            //$success['name'] =  $user->name;
+            $modelData = $this->apiCrudHandler->store($request, User::class);
+			return $this->sendResponse($modelData);
+        } catch (Exception $ex) {
             return $this->sendError($e->getMessage());
         }
     }
@@ -75,14 +74,52 @@ class UserController extends BaseController
         }
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        try {
+            $modelData = $this->apiCrudHandler->show($id, User::class, $with = []);
+            return $this->sendResponse($modelData);
+        } catch (Exception $ex) {
+            return $this->sendError($e->getMessage());
+        }
+    }
+
+    /**    
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        try {
+            $with = [
+                'role:id,name',
+                'outlet:id,name'
+            ];
+            $modelData = User::with($with)
+                ->where('first_name', 'like', "%$request->search_key%")               
+                ->orWhere('last_name', 'like', "%$request->search_key%")
+                ->orWhere('mobile_no', 'like', "%$request->search_key%")
+                ->orWhere('email', 'like', "%$request->search_key%")
+                ->orderBy($request->sortByColumn ?? 'id', $request->sortBy ?? 'desc')
+                ->paginate();
+            return $this->sendResponse($modelData);
+        } catch (Exception $ex) {
+            return $this->sendError($e->getMessage());
+        }
+    }
+
     /**   
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function delete($id, User $user)
     {
-        try {
-        	$this->authorize('delete', $user);
+        try {  
         	$response = $this->apiCrudHandler->delete($id, User::class);
         	return $this->sendResponse($response);
         } catch (Exception $e) {

@@ -32,6 +32,7 @@ class UserRequest extends FormRequest
             'role_id.required' => 'Role selection is required',
             'email.required' => 'Email is required',
             'password.required' => 'Password is required',
+            'confirmed_password.required' => 'Confirmed password is required',
         ];
     }
 
@@ -67,9 +68,9 @@ class UserRequest extends FormRequest
             'password'=> [
                 'required',
                 'min:6',
-                'same:confirm_password'
+                'same:confirmed_password'
             ],
-            'confirm_password'=> [
+            'confirmed_password'=> [
                 'required'
             ]
         ];

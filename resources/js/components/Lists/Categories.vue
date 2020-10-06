@@ -7,12 +7,12 @@
             <h4 class="card-title">Category List</h4>
             <hr>
             <div class="row p-2">
-              <div class="col-md-3">                
+              <div class="col-md-3 add-new-btn">                
                 <button type="button" class="btn btn-primary btn-sm btn-rounded btn-fw"  @click="categoryModal">Add New <i class="fas fa-plus"></i></button>
               </div>
               <div class="col-md-6"></div>
               <div class="col-md-3">
-                <input type="text" class="form-control search-field" placeholder="Search"/>
+                <input type="text" class="form-control search-field" v-model="search_key" placeholder="Search"/>
               </div>
             </div>
             <div class="table-responsive">
@@ -24,8 +24,8 @@
                     <th>Action</th>
                 </tr>
                 </thead>
-                <tbody>
-                  <tr v-if="categories.length > 0" v-for="(category, index) in categories" :key="category.id">
+                <tbody v-if="categories.length > 0">
+                  <tr v-for="(category, index) in categories" :key="category.id">
                     <td>{{ ++index }}</td>
                     <td>{{ category.name }}</td>                 
                     <td>
@@ -37,9 +37,11 @@
                       </button>
                     </td>
                   </tr>
-                  <tr v-else>
-                    <td>Not Found</td>
-                  </tr> 
+                </tbody>
+                <tbody v-else>
+                  <tr v-if="pagination.current_page == pagination.last_page" class="not-found">
+                    <td colspan="3" class="text-danger">Not Found</td>
+                  </tr>
                 </tbody>
               </table>
               <v-pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="8" @paginate="getCategories()"></v-pagination>
@@ -103,13 +105,28 @@
         category_form: new Form({
           name: ''
         }),
-        search_query: ''
+        search_key: ''
       }
     },
     mounted() {
       this.getCategories()
     },
+    watch: {
+      search_key: function() {      
+        this.searchCategories();
+      },      
+    },
     methods: { 
+      searchCategories() {
+        axios.get('search-categories?search_key=' + this.search_key)
+          .then(res => {
+            this.categories = res.data.data;
+            this.pagination = res.data;
+          })
+          .catch(e => {
+            console.log(e);
+          })
+      }, 
       closeModal(modalName) {
         this.$modal.hide(modalName);
       },

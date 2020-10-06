@@ -24,8 +24,8 @@ class ApiCrudHandler
         if (count($with)) {
             $modelData = $modelData->with($with);
         }
-        $modelData = $modelData->orderBy($request->sortByColumn ?? 'id', $request->sortBy ?? 'desc');       
-        return $modelData->paginate(5);
+        $modelData = $modelData->orderBy($request->sortByColumn ?? 'id', $request->sortBy ?? 'desc');
+        return $modelData->paginate();
     }
 
     /**    
@@ -82,6 +82,19 @@ class ApiCrudHandler
     {
         $modelData = $modelClassName::with($with)->find($id);
         return $modelData;
+    }
+
+    
+    /**
+     * search the specified resource.
+     *   
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request, $modelClassName)
+    {
+        $modelData = $modelClassName::where('name', 'like', "%$request->search_key%");
+        $modelData = $modelData->orderBy($request->sortByColumn ?? 'id', $request->sortBy ?? 'desc');
+        return $modelData->paginate();
     }
 
     /**     

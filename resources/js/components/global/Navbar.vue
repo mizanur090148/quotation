@@ -97,6 +97,9 @@
                   </li>
                   <li class="nav-item">
                      <router-link tag="a" class="nav-link" to="/outlets"> Outlets </router-link> 
+                  </li>
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/suppliers"> Suppliers </router-link> 
                   </li>                  
                   <li class="nav-item">
                      <router-link tag="a" class="nav-link" to="/categories"> Categories </router-link> 
