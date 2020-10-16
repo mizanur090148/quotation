@@ -112,9 +112,9 @@
       this.getModels()
     },
     watch: {
-      search_key: function() {      
+      search_key: function() {
         this.searchModels();
-      },      
+      },
     },
     methods: {
       searchModels() {

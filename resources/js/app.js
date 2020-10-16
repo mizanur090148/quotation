@@ -36,14 +36,13 @@ import Home from './components/Home'
 
 const Users = () => import(/* webpackChunkName: "users" */ './components/lists/Users.vue');
 const User = () => import(/* webpackChunkName: "user" */ './components/forms/User.vue');
-const Vendors = () => import(/* webpackChunkName: "vendors" */ './components/Vendors.vue');
 const Product = () => import(/* webpackChunkName: "product" */ './components/forms/Product.vue');
 const Products = () => import(/* webpackChunkName: "products" */ './components/lists/Products.vue');
 
 const Models = () => import(/* webpackChunkName: "models" */ './components/lists/Models.vue');
 const Categories = () => import(/* webpackChunkName: "categories" */ './components/lists/Categories.vue');
 const Brands = () => import(/* webpackChunkName: "brands" */ './components/lists/Brands.vue');
-const Supplier = () => import(/* webpackChunkName: "supplier" */ './components/forms/Supplier.vue');
+//const Supplier = () => import(/* webpackChunkName: "supplier" */ './components/forms/Supplier.vue');
 const Suppliers = () => import(/* webpackChunkName: "suppliers" */ './components/lists/Suppliers.vue');
 
 const StockIns = () => import(/* webpackChunkName: "stockIns" */ './components/lists/StockIns.vue');
@@ -89,8 +88,8 @@ const router = new VueRouter({
             component: StockIn,
         },
         {
-            path: '/stock-in',
-            name: 'stock-in',
+            path: '/stock-ins',
+            name: 'stock-ins',
             component: StockIns,
         },           
         {
@@ -113,11 +112,11 @@ const router = new VueRouter({
             name: 'suppliers',
             component: Suppliers,
         },
-        {
+        /* {
             path: '/supplier/create',
             name: 'supplier',
             component: Supplier,
-        },
+        }, */
         {
             path: '/categories',
             name: 'Categories',

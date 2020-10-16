@@ -29,10 +29,10 @@ class SupplierController extends BaseController
         }        
     }
 
-    public function SupplierDropdownData(Request $request)
+    public function supplierDropdownData(Request $request)
     {
         try {
-            $select = ['id', 'Supplier_name'];
+            $select = ['id', 'name'];
             $modelData = $this->apiCrudHandler->dropdownData($request, Supplier::class, $where = [], $with = [], $select);
             return $this->sendResponse($modelData);
         } catch (Exception $e) {
@@ -50,13 +50,34 @@ class SupplierController extends BaseController
      */
     public function store(SupplierRequest $request)
     {       
-        try {           
-            $modelData = $this->apiCrudHandler->store($request, Supplier::class);           
+        try {
+            $modelData = $this->apiCrudHandler->store($request, Supplier::class);
             return $this->sendResponse($modelData);
         } catch (Exception $ex) {
             return $this->sendError($e->getMessage());
         }
-    }   
+    } 
+    
+    /**    
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        try {            
+            $modelData = Supplier::where('name', 'like', "%$request->search_key%")               
+                ->orWhere('address', 'like', "%$request->search_key%")
+                ->orWhere('mobile_no', 'like', "%$request->search_key%")
+                ->orWhere('telephone_no', 'like', "%$request->search_key%")
+                ->orWhere('responsible_person', 'like', "%$request->search_key%")
+                ->orWhere('email', 'like', "%$request->search_key%")
+                ->orderBy($request->sortByColumn ?? 'id', $request->sortBy ?? 'desc')
+                ->paginate();
+            return $this->sendResponse($modelData);
+        } catch (Exception $ex) {
+            return $this->sendError($e->getMessage());
+        }
+    }
 
     /**
      * Remove the specified resource from storage.

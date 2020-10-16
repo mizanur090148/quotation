@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\RoleController;
-use App\Http\Controllers\Api\V1\VendorController;
+use App\Http\Controllers\Api\V1\SupplierController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\ModelController;
 use App\Http\Controllers\Api\V1\BrandController;
@@ -31,11 +31,12 @@ use App\Http\Controllers\Api\V1\ProductController;
 //Route::post('register', 'AuthController@register');
 Route::post('login', 'AuthController@login');
 
-Route::get('supplierss', [SupplierController::class, 'index']);
-Route::get('suppliers-dropdown-data', [SupplierController::class, 'suppliersDropdownData']);
-Route::post('supplierss', [SupplierController::class, 'store']);
-Route::get('supplierss/{id}', [SupplierController::class, 'show']);
-Route::delete('supplierss/{id}', [SupplierController::class, 'delete']);
+Route::get('suppliers', [SupplierController::class, 'index']);
+Route::get('supplier-dropdown-data', [SupplierController::class, 'supplierDropdownData']);
+Route::post('suppliers', [SupplierController::class, 'store']);
+Route::get('suppliers/{id}', [SupplierController::class, 'show']);
+Route::delete('suppliers/{id}', [SupplierController::class, 'delete']);
+Route::get('search-suppliers', [SupplierController::class, 'search']);
 
 Route::get('role-dropdown-data', [RoleController::class, 'RoleDropdownData']);
 
@@ -52,6 +53,7 @@ Route::post('products', [ProductController::class, 'store']);
 Route::get('products/{id}', [ProductController::class, 'show']);
 Route::delete('products/{id}', [ProductController::class, 'delete']);
 Route::get('search-products', [ProductController::class, 'search']);
+Route::get('get-products-by-category/{categoryId}', [ProductController::class, 'getProductsByCategory']);
 
 // categories route
 Route::get('categories', [CategoryController::class, 'index']);

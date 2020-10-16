@@ -6,93 +6,168 @@
           <div class="card-body">
             <h4 class="card-title">New Entry Form</h4>
             <hr>
-            <form class="forms-sample" @submit.prevent="productStore">
+            <form class="forms-sample" @submit.prevent="store">
               <div class="row p-2">
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>Supplier</label>
+                    <div class="input-group col-xs-12">
+                      <select v-model="form.supplier_id" class="form-control form-control-sm" :class="{ 'is-invalid': errors.supplier_id }">
+                        <option value="">Please select a supplier</option>
+                        <option v-for="(supplier, key) in suppliers" :value="supplier.id" :key="key">{{ supplier.name }}</option>
+                      </select>
+                      <span class="input-group-append">
+                        <button class="btn btn-sm btn-primary" type="button" @click="supplierModal">+</button>
+                      </span>
+                    </div>
+                    <small class="text-danger" v-if="errors.supplier_id">{{ errors.supplier_id[0] }}</small>
+                  </div>
+                </div>
                 <div class="col-4">
                   <div class="form-group">
                     <label>Category</label>
-                    <div class="input-group col-xs-12">
-                      <select v-model="product_form.category_id" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.category_id }">
-                        <option value="">Please select a category</option>
-                        <option v-for="(category, key) in categories" :value="category.id" :key="key">{{ category.name }}</option>
-                      </select>
-                      <span class="input-group-append">
-                        <button class="btn btn-sm btn-primary" type="button" @click="categoryModal">+</button>
-                      </span>
-                    </div>
-                    <small class="text-danger" v-if="product_errors.category_id">{{ product_errors.category_id[0] }}</small>
+                    <select v-model="form.category_id" @change="getProductsByCategory($event)" class="form-control form-control-sm" :class="{ 'is-invalid': errors.category_id }">
+                      <option value="">Please select a category</option>
+                      <option v-for="(category, key) in categories" :value="category.id" :key="key">{{ category.name }}</option>
+                    </select>
                   </div>
-                </div>
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>Brand</label>
-                    <div class="input-group col-xs-12">
-                      <select v-model="product_form.brand_id" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.brand_id }">
-                        <option value="">Please select a brand</option>
-                        <option v-for="(brand, key) in brandss" :value="brand.id" :key="key">{{ brand.name }}</option>
-                      </select>
-                      <span class="input-group-append">
-                        <button class="btn btn-sm btn-primary" type="button" @click="brandModal">+</button>
-                      </span>
-                    </div>
-                    <small class="text-danger" v-if="product_errors.brand_id">{{ product_errors.brand_id[0] }}</small>
-                  </div>
-                </div>
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>Model</label>
-                    <div class="input-group col-xs-12">
-                      <select v-model="product_form.model_id" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.model_id }">
-                        <option value="">Please select a model</option>
-                        <option v-for="(model, key) in models" :value="model.id" :key="key">{{ model.name }}</option>
-                      </select>
-                      <span class="input-group-append">
-                        <button class="btn btn-sm btn-primary" type="button" @click="modelModal">+</button>
-                      </span>
-                    </div>
-                    <small class="text-danger" v-if="product_errors.model_id">{{ product_errors.model_id[0] }}</small>
-                  </div>
+                  <small class="text-danger" v-if="errors.category_id">{{ errors.category_id[0] }}</small>
                 </div>
               </div>
-              <div class="row p-2">
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>Product Name</label>
-                    <input type="text" v-model="product_form.name" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.name }" placeholder="Enter product name">
-                    <small class="text-danger" v-if="product_errors.name">{{ product_errors.name[0] }}</small>
-                  </div>
-                </div>
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>Product Code</label>
-                    <input type="text" v-model="product_form.product_code" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.product_code }" placeholder="Enter product code">
-                    <small class="text-danger" v-if="product_errors.product_code">{{ product_errors.product_code[0] }}</small>
-                  </div>
-                </div>
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>Unit</label>
-                    <input type="number" v-model="product_form.unit" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.unit }" placeholder="Enter unit">
-                    <small class="text-danger" v-if="product_errors.unit">{{ product_errors.unit[0] }}</small>
-                  </div>
-                </div>                
+              <hr>
+              Product Table
+              <hr>
+              <div class="row">
+                <table class="list-table">
+                   <thead>
+                      <tr>
+                        <th>No</th>
+                        <th>Product Name</th> 
+                        <th>Quantity</th>
+                        <th>Net Unit Cost</th>                        
+                        <th>Discount%</th>
+                        <th>Discount Value</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                       <tr v-for="(product_detail, index) in form.product_detail_list" :key="index">
+                        <td class="text-center">
+                          {{ ++index }}
+                        </td>
+                        <td>
+                          <select v-model="product_detail.product_id" class="form-control form-control-sm" :class="{ 'is-invalid': errors.product_id }">
+                            <option value="">Please select a product</option>
+                            <option v-for="(product, key) in products" :value="product.id" :key="key">{{ product.name }}</option>
+                          </select>
+                        </td>
+                        <td class="text-center">
+                          <input type="number" v-model="product_detail.quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
+                          <small class="text-danger" v-if="errors.quantity">{{ errors.quantity[0] }}</small>
+                        </td>
+                        <td class="text-center">
+                          <input type="number" v-model="product_detail.net_unit_cost" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.net_unit_cost }" placeholder="Enter net unit cost">
+                          <small class="text-danger" v-if="errors.net_unit_cost">{{ errors.net_unit_cost[0] }}</small>
+                        </td>
+                        <td>
+                          <div class="input-group col-xs-12">
+                            <input type="number" v-model="product_detail.discount_percentage" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.discount_percentage }" placeholder="Discount percentage">
+                            <span class="input-group-append">
+                                <button class="btn btn-sm btn-primary" type="button">%</button>
+                              </span>
+                            <small class="text-danger" v-if="errors.discount_percentage">{{ errors.discount_percentage[0] }}</small>
+                          </div>
+                        </td>
+                        <td class="text-right">
+                          {{ product_detail.discount_value }}
+                          <!-- <input type="number" v-model="product_detail.discount_value" disabled class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.discount_value }" placeholder="Discount value">
+                          <small class="text-danger" v-if="errors.discount_value">{{ errors.discount_value[0] }}</small> -->
+                        </td>
+                        <td class="text-right">
+                          {{ product_detail.product_wise_total }}
+                          <!-- <input type="number" v-model="product_detail.product_wise_total" disabled class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.product_wise_total }" placeholder="Enter product_wise_total">
+                          <small class="text-danger" v-if="errors.product_wise_total">{{ errors.product_wise_total[0] }}</small> -->
+                        </td>
+                        <td class="text-center">
+                          <button type="button" class="btn btn-xs btn-success btn-rounded btn-fw" @click="addNewRow"><i class="mdi mdi-plus"></i></button>
+                          <button type="button" class="btn btn-xs btn-danger btn-rounded btn-fw" @click="deleteRow(index, product_detail)"><i class="mdi mdi-delete"></i></button>
+                        </td>
+                      </tr>
+                      <tr class="font-weight-bold">
+                        <td colspan="6" class="text-right">Total Cost Without Tax</td>
+                        <td class="text-right">{{ total_cost_without_tax }}</td>
+                      </tr>  
+                      <tr>
+                        <td colspan="5" class="text-right">
+                          Tax 
+                        </td>
+                        <td>
+                          <div class="input-group col-xs-12">
+                            <input type="number" v-model="form.tax_percentage" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.tax_percentage }" placeholder="Tax Percentage">
+                            <span class="input-group-append">
+                              <button class="btn btn-sm btn-primary" type="button">%</button>
+                            </span>
+                            <small class="text-danger" v-if="errors.tax_percentage">{{ errors.tax_percentage[0] }}</small>
+                          </div>
+                        </td>
+                        <td class="text-right">{{ total_value }}</td>
+                      </tr> 
+                      <tr class="font-weight-bold">
+                        <td colspan="6" class="text-right">Total Cost</td>
+                        <td class="text-right">{{ total_cost_with_tax }}</td>
+                      </tr>
+                    </tbody>
+                </table>
               </div>
+
+              <hr>
+              Profit Margin
+              <hr>
               <div class="row p-2">
-                <div class="col-4">
+                <div class="col-3">
                   <div class="form-group">
-                    <label>Sale Unit</label>                    
-                    <input type="number" v-model="product_form.sale_unit" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.sale_unit }" placeholder="Enter sale unit">
-                    <small class="text-danger" v-if="product_errors.sale_unit">{{ product_errors.sale_unit[0] }}</small>
+                    <label>Profit Margin</label>
+                    <div class="input-group col-xs-12">
+                      <select v-model="form.profit_margin" class="form-control form-control-sm" :class="{ 'is-invalid': errors.profit_margin }">
+                        <option value="">Please select a profit margin</option>
+                        <option value="1">Percentage(%)</option>
+                        <option value="2">Value</option>                        
+                      </select>                      
+                    </div>
+                    <small class="text-danger" v-if="errors.profit_margin">{{ errors.profit_margin[0] }}</small>
                   </div>
                 </div>
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>Tax</label>                    
-                    <input type="number" v-model="product_form.tax" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.tax }" placeholder="Enter tax">
-                    <small class="text-danger" v-if="product_errors.tax">{{ product_errors.tax[0] }}</small>
+                <div class="col-3">
+                  <div class="form-group" v-if="form.profit_margin == '1'">
+                    <label>Percentage value%</label>
+                    <select v-model="form.percentage_value" @change="getProductsByCategory($event)" class="form-control form-control-sm" :class="{ 'is-invalid': errors.category_id }">
+                      <option value="">Please select a category</option>
+                      <option v-for="(percentage, key) in percentage_dropdowns" :value="percentage" :key="key">{{ percentage }}%</option>
+                    </select>
                   </div>
-                </div>                
-              </div>            
+                  <div class="form-group" v-else-if="form.profit_margin == '2'">
+                    <label>Sale Value</label>
+                    <input type="number" v-model="form.sale_value" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.tax_percentage }" placeholder="Tax Percentage">
+                  </div>
+                  <small class="text-danger" v-if="errors.category_id">{{ errors.category_id[0] }}</small>
+                </div>
+                <div class="col-3" v-if="form.percentage_value != '' && form.profit_margin == '1'">                  
+                  <div class="form-group">
+                    <label>Sale Value</label>
+                    <input type="number" v-model="form.sale_value" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.tax_percentage }" placeholder="Tax Percentage">
+                  </div>
+                  <small class="text-danger" v-if="errors.category_id">{{ errors.category_id[0] }}</small>
+                </div>
+                <div class="col-3">                  
+                  <div class="form-group">
+                    <label>Note</label>
+                    <textarea v-model="form.note" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.note }" placeholder="Enter note"></textarea>
+                  </div>
+                  <small class="text-danger" v-if="errors.note">{{ errors.note[0] }}</small>
+                </div>
+              </div>
+               
               <div class="row p-2 justify-content-md-center">
                 <div class="form-group">
                   <button type="submit" class="btn btn-sm btn-primary mr-2">Submit</button>
@@ -107,34 +182,69 @@
       </div>      
     </div>
 
-    <!-- category Modal -->
-    <modal name="categoryModal" :width="550" :height="325">
+    <!-- supplier Modal -->
+    <modal name="supplierModal" :width="795" :height="375">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">New Category</h5>
-            <button type="button" class="close" @click="closeModal('categoryModal')">
+            <h5 class="modal-title">New supplier</h5>
+            <button type="button" class="close" @click="closeModal('supplierModal')">
               <span aria-hidden="true" >&times;</span>
             </button>
           </div>
-          <form @submit.prevent="categoryStore()">
+          <form @submit.prevent="supplierStore()">
             <div class="modal-body">
               <div class="row p-2">
-                <div class="col-12">
+                <div class="col-4">
                   <div class="form-group">
-                    <label> Name</label>
-                    <input type="text" v-model="category_form.name" class="form-control form-control-sm" :class="{ 'is-invalid': category_errors.name }" placeholder="Enter category name">
-                    <small class="text-danger" v-if="category_errors.name">{{ category_errors.name[0] }}</small>
+                    <label>Supplier Name</label>
+                    <input type="text" v-model="supplier_form.name" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.name }" placeholder="Enter supplier name">
+                    <small class="text-danger" v-if="supplier_errors.name">{{ supplier_errors.name[0] }}</small>
                   </div>
-                </div>              
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>Responsible Person</label>
+                    <input type="text" v-model="supplier_form.responsible_person" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.responsible_person }" placeholder="Enter responsible person">
+                    <small class="text-danger" v-if="supplier_errors.responsible_person">{{ supplier_errors.responsible_person[0] }}</small>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>Mobile No.</label>
+                    <input type="text" v-model="supplier_form.mobile_no" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.mobile_no }" placeholder="Enter mobile no">
+                    <small class="text-danger" v-if="supplier_errors.mobile_no">{{ supplier_errors.mobile_no[0] }}</small>
+                  </div>
+                </div>
+              </div>
+              <div class="row p-2">
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>Telephone No.</label>
+                    <input type="text" v-model="supplier_form.telephone_no" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.telephone_no }" placeholder="Enter telephone no">
+                    <small class="text-danger" v-if="supplier_errors.telephone_no">{{ supplier_errors.telephone_no[0] }}</small>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>E-mail</label>
+                    <input type="text" v-model="supplier_form.email" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.email }" placeholder="Enter supplier email">
+                    <small class="text-danger" v-if="supplier_errors.email">{{ supplier_errors.email[0] }}</small>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" v-model="supplier_form.address" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.address }" placeholder="Enter supplier address">
+                    <small class="text-danger" v-if="supplier_errors.address">{{ supplier_errors.address[0] }}</small>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="modal-footer justify-content-md-center">
-              <div class="row p-2 ">
-                <div class="form-group">
-                  <button type="submit" class="btn btn-sm btn-primary mr-2">Submit</button>
-                  <button class="btn btn-sm btn-danger mr-2" @click="closeModal('categoryModal')">Close</button>
-                </div>
+            <div class="modal-footer justify-content-md-center">           
+              <div class="form-group">
+                <button type="submit" class="btn btn-sm btn-primary mr-2">Submit</button>
+                <button type="button" class="btn btn-sm btn-danger mr-2" @click="closeModal('supplierModal')">Close</button>
               </div>
             </div>
           </form>
@@ -142,78 +252,18 @@
       </div>
     </modal>
 
-    <!-- Brand Modal -->
-    <modal name="brandModal" :width="550" :height="325">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">New Brand</h5>
-            <button type="button" class="close" @click="closeModal('brandModal')">
-              <span aria-hidden="true" >&times;</span>
-            </button>
-          </div>
-          <form @submit.prevent="brandStore()">
-            <div class="modal-body">
-              <div class="row p-2">
-                <div class="col-12">
-                  <div class="form-group">
-                    <label> Name</label>
-                    <input type="text" v-model="brand_form.name" class="form-control form-control-sm" :class="{ 'is-invalid': brand_errors.name }" placeholder="Enter brand name">
-                    <small class="text-danger" v-if="brand_errors.name">{{ brand_errors.name[0] }}</small>
-                  </div>
-                </div>              
-              </div>
-            </div>
-            <div class="modal-footer justify-content-md-center">
-              <div class="row p-2 ">
-                <div class="form-group">
-                  <button type="submit" class="btn btn-sm btn-primary mr-2">Submit</button>
-                  <button class="btn btn-sm btn-danger mr-2" @click="closeModal('brandModal')">Close</button>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </modal>
-
-    <modal name="modelModal" :width="550" :height="325">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">New Model</h5>
-            <button type="button" class="close" @click="closeModal('modelModal')">
-              <span aria-hidden="true" >&times;</span>
-            </button>
-          </div>
-          <form @submit.prevent="modelStore()">
-            <div class="modal-body">
-              <div class="row p-2">
-                <div class="col-12">
-                  <div class="form-group">
-                    <label> Name</label>
-                    <input type="text" v-model="model_form.name" class="form-control form-control-sm" :class="{ 'is-invalid': model_errors.name }" placeholder="Enter model name">
-                    <small class="text-danger" v-if="model_errors.name">{{ model_errors.name[0] }}</small>
-                  </div>
-                </div>              
-              </div>
-            </div>
-            <div class="modal-footer justify-content-md-center">
-              <div class="row p-2 ">
-                <div class="form-group">
-                  <button type="submit" class="btn btn-sm btn-primary mr-2">Submit</button>
-                  <button class="btn btn-sm btn-danger mr-2" @click="closeModal('modelModal')">Close</button>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </modal>
     <vue-snotify></vue-snotify>
   </div>
 </template>
 
+<style scoped>
+  .modal-dialog {
+    max-width: 750px !important;
+  }
+  .btn i {
+    font-size: 10px !important;
+  }
+</style>
 <script>
   import axios from '../../axios';
   import "vue-loading-overlay/dist/vue-loading.css";
@@ -221,57 +271,158 @@
   
   export default {
     data() {
-      return { 
-        product_errors: [],
-        product_form: new Form({
+      return {
+        errors: [],
+        form: new Form({
+          supplier_id: '',
           category_id: '',
-          brand_id: '',
           model_id: '',
-          product_name: '',
-          product_code: '',
+          name: '',
+          code: '',
           unit: '',
           tax: '',
-          sale_unit: ''
+          sale_unit: '',
+          total_cost_without_tax: '',
+          product_detail_list: [{
+            product_id: '',
+           // product_code: '',
+            quantity: 0,
+            product_wise_total: 0,
+            net_unit_cost: 0,
+            discount_percentage: '',
+            discount_value: 0,
+          }],
+          tax_percentage: '',
+          percentage_value: '',
+          profit_margin: '',
+          sale_value: '',
+          note: ''
+        }),        
+        suppliers: [],
+        supplier_errors: [],
+        supplier_form: new Form({
+          name: '',
+          address: '',
+          mobile_no: '',
+          telephone_no: '',
+          responsible_person: '',
+          email: '',
         }),
         categories: [],
-        category_errors: [],
-        category_form: new Form({
-          name: ''
-        }),
-        models: [],
-        model_errors: [],
-        model_form: new Form({
-          name: ''
-        }),
-        brandss: [],
-        brand_errors: [],
-        brand_form: new Form({
-          name: ''
-        })
+        products: [],
+        percentage_dropdowns: []
       }
     },
     mounted() {
+      this.supplierDropdowndata();
       this.categoryDropdowndata();
-      this.modelDropdowndata();
-      this.brandDropdowndata();
+      this.getpPrcentageValueDropdownData();
 
       if (this.$route.params.id) {
         this.getProductInfo(this.$route.params.id);
       }
     },
+    watch: {
+      'form.product_detail_list': {
+        handler (newValue, oldValue) {
+          newValue.forEach((product_detail) => {
+            var product_wise_total = product_detail.quantity * product_detail.net_unit_cost;
+            var discount_value = this.calculateDiscount (product_wise_total, product_detail.discount_percentage);
+            product_detail.discount_value = discount_value;
+            product_detail.product_wise_total = product_wise_total - discount_value;
+          })
+        },
+        deep: true
+      },
+
+    },
+    computed: {      
+      total_cost_without_tax: function() {
+        var sum = 0;
+        this.form.product_detail_list.forEach(product_detail => {
+          sum += product_detail.product_wise_total;
+        });
+        return sum;
+      },
+      total_value: function() {
+        return this.total_cost_without_tax * (this.form.tax_percentage / 100);
+      },
+      total_cost_with_tax: function() {
+        return this.total_value + this.total_cost_without_tax;
+      }
+    },
     methods: {
+      getpPrcentageValueDropdownData() {
+        let percentage_dropdowns = new Array();
+        for (let index = 0; index <= 100; index++) {
+          percentage_dropdowns.push(index);          
+        }
+        this.percentage_dropdowns = percentage_dropdowns;
+      },
+      calculateDiscount(product_wise_total, discount_percentage) {
+        var discount_value = product_wise_total * (discount_percentage / 100);
+        return discount_value.toFixed(2);
+      },
       closeModal(modalName) {
         this.$modal.hide(modalName);
       },
-      getProductInfo(productId) {
-        const loader = this.$loading.show({
-          container: this.$refs.attendanceTable,
-          canCancel: true,
-          loader: 'bars'
-        })
+
+      addNewRow() {
+        this.form.product_detail_list.push({
+          product_id: '',
+          // product_code: '',
+          quantity: 0,
+          net_unit_cost: 0,
+          discount: 0,
+        });
+      },
+      deleteRow(index, item) {             
+        if (this.form.product_detail_list.length > 1) {
+          this.$snotify.confirm(
+            "Are you sure to delete this?",
+            {
+              closeOnClick: false,
+              pauseOnHover: true,
+              buttons: [
+                {
+                  text: "Yes",
+                  action: toast => {
+                    this.$snotify.remove(toast.id);
+                    var idx = this.form.product_detail_list.indexOf(index);
+                    this.form.product_detail_list.splice(idx, 1);
+                  //  this.calculateTotal();
+                  },
+                  bold: true
+                },
+                {
+                  text: "No",
+                  action: toast => {
+                      this.$snotify.remove(toast.id);
+                  },
+                  bold: true
+                }
+              ]
+            }
+          );
+        } else {
+          alert('You can not delete this')
+        }
+      },
+      /* deleteRow(index, item) {console.log(item, index);
+        var product = this.form.product_detail_list.indexOf(item);
+        
+        if (product > -1) {
+            this.product_detail_list.splice(product, 1);
+        }
+       // this.calculateTotal();
+      }, */
+      /* onChange(event) {
+      console.log(event.target.value);
+    } */
+      /* getProductInfo(productId) {        
         axios.get('products/' + productId)
           .then((res) => {
-            this.product_form = res.data;
+            this.form = res.data;
           })
           .catch((error) => {
             console.log(error);
@@ -279,16 +430,29 @@
           .finally(() => {
             loader.hide();
           });
+      }, */
+
+      /* selectProduct(event) { alert(event.target.getAttribute('product-code'));
+        this.form.products.product_code = event.getAttribute('product-code');
+      },   */    
+      getProductsByCategory(event) {      
+        axios.get('/get-products-by-category/'+ event.target.value)
+          .then((res) => {
+            this.products = res.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          })
       },
-      productStore() {
+      /* productStore() {
         this.errors = [];
         const loader = this.$loading.show({
-          container: this.$refs.categoryContainer,
+          container: this.$refs.supplierContainer,
           canCancel: true,
           loader: 'bars'
         })
  
-        axios.post('/products', this.product_form)
+        axios.post('/products', this.form)
           .then(response => {           
             if (response.status == 200) {           
               this.$snotify.success('Successfully created', 'Success');
@@ -298,66 +462,57 @@
             }
           })
           .catch( errors => {            
-            this.product_errors = errors.response.data.errors;
+            this.errors = errors.response.data.errors;
           })
           .finally(e => {
             loader.hide();
+          })
+      }, */
+      supplierDropdowndata() {
+        axios.get('/supplier-dropdown-data')
+          .then((res) => {
+              this.suppliers = res.data;
+          })
+          .catch((error) => {
+              console.log(error);
           })
       },
       categoryDropdowndata() {
         axios.get('/category-dropdown-data')
           .then((res) => {
-              this.categories = res.data;
+            this.categories = res.data;
           })
           .catch((error) => {
               console.log(error);
           })
       },
-      modelDropdowndata() {
-        axios.get('/model-dropdown-data')
-          .then((res) => {
-            this.models = res.data;
-          })
-          .catch((error) => {
-              console.log(error);
-          })
-      },
-      brandDropdowndata() {
-        axios.get('/brand-dropdown-data')
-          .then((res) => {
-            this.brandss = res.data;
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-      },
-      categoryModal()
+      supplierModal()
       {
-        this.category_form.reset();
-        this.category_form.clear();
-        this.$modal.show('categoryModal');
+        this.supplier_form.reset();
+        this.supplier_form.clear();
+        this.$modal.show('supplierModal');
       },
-      categoryStore() {
-        this.category_errors = [];
+      supplierStore() {
+        this.supplier_errors = [];
         const loader = this.$loading.show({
-           container: this.$refs.categoryContainer,
+           container: this.$refs.supplierContainer,
            canCancel: true,
            loader: 'bars'
         })
  
-        axios.post('/categories', this.category_form)
+        axios.post('/suppliers', this.supplier_form)
           .then(response => {
             if (response.status == 200) {
-              this.categoryDropdowndata();
+              this.supplierDropdowndata();
               this.$snotify.success('Successfully created', 'Success');
-              this.$modal.hide('categoryModal');
+              this.$modal.hide('supplierModal');
               this.loader.hide();
             } else {
               this.$snotify.error('Something went worng', 'error');
             }
           })
           .catch( errors => {
-            this.category_errors = errors.response.data.errors;
+            this.supplier_errors = errors.response.data.errors;
           })
           .finally(e => {
             loader.hide();

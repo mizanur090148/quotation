@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"StockIn":"StockIn","brands":"brands","categories":"categories","models":"models","product":"product","products":"products","stockIns":"stockIns","suppliers":"suppliers","user":"user","users":"users","vendors":"vendors"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"StockIn":"StockIn","brands":"brands","categories":"categories","models":"models","product":"product","products":"products","stockIns":"stockIns","suppliers":"suppliers","user":"user","users":"users"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -6594,7 +6594,7 @@ var render = function() {
                     "router-link",
                     {
                       staticClass: "nav-link",
-                      attrs: { tag: "a", to: "/stock-in" }
+                      attrs: { tag: "a", to: "/stock-ins" }
                     },
                     [_vm._v(" Stock In List ")]
                   )
@@ -23841,10 +23841,6 @@ var User = function User() {
   return __webpack_require__.e(/*! import() | user */ "user").then(__webpack_require__.bind(null, /*! ./components/forms/User.vue */ "./resources/js/components/forms/User.vue"));
 };
 
-var Vendors = function Vendors() {
-  return __webpack_require__.e(/*! import() | vendors */ "vendors").then(__webpack_require__.bind(null, /*! ./components/Vendors.vue */ "./resources/js/components/Vendors.vue"));
-};
-
 var Product = function Product() {
   return __webpack_require__.e(/*! import() | product */ "product").then(__webpack_require__.bind(null, /*! ./components/forms/Product.vue */ "./resources/js/components/forms/Product.vue"));
 };
@@ -23863,11 +23859,8 @@ var Categories = function Categories() {
 
 var Brands = function Brands() {
   return __webpack_require__.e(/*! import() | brands */ "brands").then(__webpack_require__.bind(null, /*! ./components/lists/Brands.vue */ "./resources/js/components/lists/Brands.vue"));
-};
+}; //const Supplier = () => import(/* webpackChunkName: "supplier" */ './components/forms/Supplier.vue');
 
-var Supplier = function Supplier() {
-  return Promise.resolve().then(function webpackMissingModule() { var e = new Error("Cannot find module './components/forms/Supplier.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; });
-};
 
 var Suppliers = function Suppliers() {
   return __webpack_require__.e(/*! import() | suppliers */ "suppliers").then(__webpack_require__.bind(null, /*! ./components/lists/Suppliers.vue */ "./resources/js/components/lists/Suppliers.vue"));
@@ -23916,8 +23909,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
     name: 'StockIn',
     component: StockIn
   }, {
-    path: '/stock-in',
-    name: 'stock-in',
+    path: '/stock-ins',
+    name: 'stock-ins',
     component: StockIns
   }, {
     path: '/users',
@@ -23935,11 +23928,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
     path: '/suppliers',
     name: 'suppliers',
     component: Suppliers
-  }, {
-    path: '/supplier/create',
-    name: 'supplier',
-    component: Supplier
-  }, {
+  },
+  /* {
+      path: '/supplier/create',
+      name: 'supplier',
+      component: Supplier,
+  }, */
+  {
     path: '/categories',
     name: 'Categories',
     component: Categories

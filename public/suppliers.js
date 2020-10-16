@@ -81,12 +81,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -97,15 +91,31 @@ __webpack_require__.r(__webpack_exports__);
       suppliers: [],
       pagination: {
         current_page: 1
-      }
+      },
+      search_key: ''
     };
   },
   mounted: function mounted() {
     this.getSuppliers();
   },
+  watch: {
+    search_key: function search_key() {
+      this.searchSuppliers();
+    }
+  },
   methods: {
-    deleteSupplier: function deleteSupplier(id) {
+    searchSuppliers: function searchSuppliers() {
       var _this = this;
+
+      _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('search-suppliers?search_key=' + this.search_key).then(function (res) {
+        _this.suppliers = res.data.data;
+        _this.pagination = res.data;
+      })["catch"](function (e) {
+        console.log(e);
+      });
+    },
+    deleteSupplier: function deleteSupplier(id) {
+      var _this2 = this;
 
       this.$snotify.clear();
       this.$snotify.confirm("Are you sure to delete this?", {
@@ -114,28 +124,28 @@ __webpack_require__.r(__webpack_exports__);
         buttons: [{
           text: "Yes",
           action: function action(toast) {
-            _this.$snotify.remove(toast.id);
+            _this2.$snotify.remove(toast.id);
 
             _axios__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]('/suppliers/' + id).then(function (response) {
-              _this.getsuppliers();
+              _this2.getSuppliers();
 
-              _this.$snotify.success('Successfully deleted', 'Success');
+              _this2.$snotify.success('Successfully deleted', 'Success');
             })["catch"](function (e) {
-              _this.$snotify.success('Not deleted', 'Success');
+              _this2.$snotify.success('Not deleted', 'Success');
             });
           },
           bold: true
         }, {
           text: "No",
           action: function action(toast) {
-            _this.$snotify.remove(toast.id);
+            _this2.$snotify.remove(toast.id);
           },
           bold: true
         }]
       });
     },
-    getsuppliers: function getsuppliers() {
-      var _this2 = this;
+    getSuppliers: function getSuppliers() {
+      var _this3 = this;
 
       var loader = this.$loading.show({
         container: this.$refs.attendanceTable,
@@ -143,8 +153,8 @@ __webpack_require__.r(__webpack_exports__);
         loader: 'bars'
       });
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('suppliers?page=' + this.pagination.current_page).then(function (res) {
-        _this2.suppliers = res.data.data;
-        _this2.pagination = res.data;
+        _this3.suppliers = res.data.data;
+        _this3.pagination = res.data;
       })["catch"](function (error) {
         console.log(error);
       })["finally"](function () {
@@ -203,31 +213,33 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "row p-2" }, [
-                _c(
-                  "div",
-                  { staticClass: "col-md-3" },
-                  [
-                    _c("router-link", { attrs: { to: "/supplier/create" } }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass:
-                            "btn btn-primary btn-sm btn-rounded btn-fw",
-                          attrs: { type: "button" }
-                        },
-                        [
-                          _vm._v("Add New "),
-                          _c("i", { staticClass: "fas fa-plus" })
-                        ]
-                      )
-                    ])
-                  ],
-                  1
-                ),
+                _c("div", { staticClass: "col-md-3" }),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-6" }),
                 _vm._v(" "),
-                _vm._m(0)
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.search_key,
+                        expression: "search_key"
+                      }
+                    ],
+                    staticClass: "form-control search-field",
+                    attrs: { type: "text", placeholder: "Search" },
+                    domProps: { value: _vm.search_key },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.search_key = $event.target.value
+                      }
+                    }
+                  })
+                ])
               ]),
               _vm._v(" "),
               _c(
@@ -235,7 +247,7 @@ var render = function() {
                 { staticClass: "table-responsive" },
                 [
                   _c("table", { staticClass: "list-table table-hover" }, [
-                    _vm._m(1),
+                    _vm._m(0),
                     _vm._v(" "),
                     _vm.suppliers.length
                       ? _c(
@@ -244,27 +256,19 @@ var render = function() {
                             return _c("tr", { key: supplier.id }, [
                               _c("td", [_vm._v(_vm._s(++index))]),
                               _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(supplier.name))]),
+                              _vm._v(" "),
                               _c("td", [
-                                _vm._v(_vm._s(supplier.supplier_name))
+                                _vm._v(_vm._s(supplier.responsible_person))
                               ]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(supplier.supplier_no))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(supplier.trn_no))]),
+                              _c("td", [_vm._v(_vm._s(supplier.mobile_no))]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(supplier.telephone_no))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(supplier.fax_no))]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(supplier.email))]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(supplier.address))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(supplier.attention))]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(_vm._s(supplier.attention_designation))
-                              ]),
                               _vm._v(" "),
                               _c("td", [
                                 _c(
@@ -309,7 +313,7 @@ var render = function() {
                                   "td",
                                   {
                                     staticClass: "text-danger",
-                                    attrs: { colspan: "3" }
+                                    attrs: { colspan: "8" }
                                   },
                                   [_vm._v("Not Found")]
                                 )
@@ -346,38 +350,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3" }, [
-      _c("input", {
-        staticClass: "form-control search-field",
-        attrs: { type: "text", placeholder: "Search" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", [_vm._v("Sl.")]),
         _vm._v(" "),
         _c("th", [_vm._v("Supplier Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Supplier No.")]),
+        _c("th", [_vm._v("Resonsible Person")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Trn No.")]),
+        _c("th", [_vm._v("Mobile No.")]),
         _vm._v(" "),
         _c("th", [_vm._v("Telephone No.")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Fax No.")]),
         _vm._v(" "),
         _c("th", [_vm._v("E-mail")]),
         _vm._v(" "),
         _c("th", [_vm._v("Address")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Attention")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Attention Designation")]),
         _vm._v(" "),
         _c("th", [_vm._v("Action")])
       ])

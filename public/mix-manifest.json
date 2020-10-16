@@ -1,17 +1,14 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/StockIn.js": "/StockIn.js",
     "/brands.js": "/brands.js",
     "/categories.js": "/categories.js",
     "/models.js": "/models.js",
     "/product.js": "/product.js",
     "/products.js": "/products.js",
     "/stockIns.js": "/stockIns.js",
+    "/suppliers.js": "/suppliers.js",
     "/user.js": "/user.js",
-    "/users.js": "/users.js",
-    "/vendors.js": "/vendors.js",
-    "/stockin.js": "/stockin.js",
-    "/stockIn.js": "/stockIn.js",
-    "/StockIn.js": "/StockIn.js",
-    "/suppliers.js": "/suppliers.js"
+    "/users.js": "/users.js"
 }

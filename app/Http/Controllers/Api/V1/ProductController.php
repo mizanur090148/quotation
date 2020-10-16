@@ -30,7 +30,17 @@ class ProductController extends BaseController
             return $this->sendResponse($modelData);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
-        }        
+        }
+    }
+
+    public function getProductsByCategory($categoryId)
+    {
+        try {            
+            $modelData = Product::where('category_id', $categoryId)->get();
+            return $this->sendResponse($modelData);
+        } catch (Exception $e) {
+            return $this->sendError($e->getMessage());
+        }
     }
 
     /**

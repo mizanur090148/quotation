@@ -42,7 +42,7 @@
                      <router-link tag="a" class="nav-link" to="/stock-in/create"> Add Stock In</router-link> 
                   </li>
                   <li class="nav-item">
-                     <router-link tag="a" class="nav-link" to="/stock-in"> Stock In List </router-link> 
+                     <router-link tag="a" class="nav-link" to="/stock-ins"> Stock In List </router-link> 
                   </li>
                </ul>
             </div>

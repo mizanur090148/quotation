@@ -101,7 +101,7 @@ class UserController extends BaseController
                 'outlet:id,name'
             ];
             $modelData = User::with($with)
-                ->where('first_name', 'like', "%$request->search_key%")               
+                ->where('first_name', 'like', "%$request->search_key%")
                 ->orWhere('last_name', 'like', "%$request->search_key%")
                 ->orWhere('mobile_no', 'like', "%$request->search_key%")
                 ->orWhere('email', 'like', "%$request->search_key%")

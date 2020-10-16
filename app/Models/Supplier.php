@@ -6,25 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Vendor extends Model
+class Supplier extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'vendor_name',   
-        'vendor_no',  
-        'trn_no',
+        'name',
         'address',
+        'mobile_no',
         'telephone_no',
         'fax_no',
         'email',
-        'attention',
-        'attention_designation',
-        'mobile_no',
+        'responsible_person',        
         'created_by',
         'updated_by',
         'deleted_by',
-        'factory_id'
+        'company_id'
     ];
 
     protected $dates = [
