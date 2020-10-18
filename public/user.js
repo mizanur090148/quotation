@@ -638,7 +638,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-4" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Staus")]),
+                        _c("label", [_vm._v("Status")]),
                         _vm._v(" "),
                         _c(
                           "select",

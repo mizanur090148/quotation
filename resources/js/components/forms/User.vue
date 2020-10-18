@@ -75,7 +75,7 @@
                 </div>
                 <div class="col-4">
                   <div class="form-group">
-                    <label>Staus</label>
+                    <label>Status</label>
                     <select v-model="form.status" class="form-control form-control-sm" :class="{ 'is-invalid': errors.status }">                      
                       <option :value="1" :key="1">Active</option>
                       <option :value="0" :key="0">Inactive</option>

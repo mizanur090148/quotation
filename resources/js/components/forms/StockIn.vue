@@ -41,14 +41,14 @@
                 <table class="list-table">
                    <thead>
                       <tr>
-                        <th>No</th>
-                        <th>Product Name</th> 
-                        <th>Quantity</th>
-                        <th>Net Unit Cost</th>                        
-                        <th>Discount%</th>
-                        <th>Discount Value</th>
-                        <th>Total</th>
-                        <th>Actions</th>
+                        <td>No</td>
+                        <td>Product Name</td> 
+                        <td>Quantity</td>
+                        <td>Net Unit Cost</td>                        
+                        <td>Discount%</td>
+                        <td>Discount Value</td>
+                        <td>Total</td>
+                        <td>Actions</td>
                       </tr>
                     </thead>
                     <tbody>
@@ -316,7 +316,7 @@
     mounted() {
       this.supplierDropdowndata();
       this.categoryDropdowndata();
-      this.getpPrcentageValueDropdownData();
+      this.getPrcentageValueDropdownData();
 
       if (this.$route.params.id) {
         this.getProductInfo(this.$route.params.id);
@@ -352,10 +352,10 @@
       }
     },
     methods: {
-      getpPrcentageValueDropdownData() {
+      getPrcentageValueDropdownData() {
         let percentage_dropdowns = new Array();
         for (let index = 0; index <= 100; index++) {
-          percentage_dropdowns.push(index);          
+          percentage_dropdowns.push(index);
         }
         this.percentage_dropdowns = percentage_dropdowns;
       },
@@ -407,34 +407,7 @@
         } else {
           alert('You can not delete this')
         }
-      },
-      /* deleteRow(index, item) {console.log(item, index);
-        var product = this.form.product_detail_list.indexOf(item);
-        
-        if (product > -1) {
-            this.product_detail_list.splice(product, 1);
-        }
-       // this.calculateTotal();
-      }, */
-      /* onChange(event) {
-      console.log(event.target.value);
-    } */
-      /* getProductInfo(productId) {        
-        axios.get('products/' + productId)
-          .then((res) => {
-            this.form = res.data;
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-          .finally(() => {
-            loader.hide();
-          });
-      }, */
-
-      /* selectProduct(event) { alert(event.target.getAttribute('product-code'));
-        this.form.products.product_code = event.getAttribute('product-code');
-      },   */    
+      },      
       getProductsByCategory(event) {      
         axios.get('/get-products-by-category/'+ event.target.value)
           .then((res) => {
@@ -444,7 +417,7 @@
             console.log(error);
           })
       },
-      /* productStore() {
+      store() {
         this.errors = [];
         const loader = this.$loading.show({
           container: this.$refs.supplierContainer,
@@ -452,11 +425,11 @@
           loader: 'bars'
         })
  
-        axios.post('/products', this.form)
+        axios.post('/stock-ins', this.form)
           .then(response => {           
             if (response.status == 200) {           
               this.$snotify.success('Successfully created', 'Success');
-              this.$router.push({name: 'products'});
+              this.$router.push({name: 'stock-ins'});
             } else {
               this.$snotify.error('Something went worng', 'error');
             }
@@ -467,7 +440,7 @@
           .finally(e => {
             loader.hide();
           })
-      }, */
+      },
       supplierDropdowndata() {
         axios.get('/supplier-dropdown-data')
           .then((res) => {

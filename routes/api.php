@@ -11,7 +11,7 @@ use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\ModelController;
 use App\Http\Controllers\Api\V1\BrandController;
 use App\Http\Controllers\Api\V1\ProductController;
-
+use App\Http\Controllers\Api\V1\StockInController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,8 +81,8 @@ Route::get('search-models', [ModelController::class, 'search']);
 
 
 // quotations services
-Route::get('quotation-services', [QuotationServiceController::class, 'index']);
-Route::post('quotation-services', [QuotationServiceController::class, 'store']);
-Route::get('quotation-services/{id}', [QuotationServiceController::class, 'show']);
-Route::delete('quotation-services/{id}', [QuotationServiceController::class, 'destroy']);
-Route::get('search-quotation-services', [QuotationServiceController::class, 'search']);
+Route::get('quotation-services', [StockInController::class, 'index']);
+Route::post('stock-ins', [StockInController::class, 'store']);
+Route::get('quotation-services/{id}', [StockInController::class, 'show']);
+Route::delete('quotation-services/{id}', [StockInController::class, 'destroy']);
+Route::get('search-quotation-services', [StockInController::class, 'search']);

@@ -10,6 +10,20 @@
               <div class="row p-2">
                 <div class="col-4">
                   <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" v-model="product_form.name" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.name }" placeholder="Enter product name">
+                    <small class="text-danger" v-if="product_errors.name">{{ product_errors.name[0] }}</small>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>Product Code</label>
+                    <input type="text" v-model="product_form.product_code" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.product_code }" placeholder="Enter product code">
+                    <small class="text-danger" v-if="product_errors.product_code">{{ product_errors.product_code[0] }}</small>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
                     <label>Category</label>
                     <div class="input-group col-xs-12">
                       <select v-model="product_form.category_id" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.category_id }">
@@ -23,6 +37,8 @@
                     <small class="text-danger" v-if="product_errors.category_id">{{ product_errors.category_id[0] }}</small>
                   </div>
                 </div>
+              </div>  
+              <div class="row p-2">  
                 <div class="col-4">
                   <div class="form-group">
                     <label>Brand</label>
@@ -53,45 +69,64 @@
                     <small class="text-danger" v-if="product_errors.model_id">{{ product_errors.model_id[0] }}</small>
                   </div>
                 </div>
-              </div>
-              <div class="row p-2">
                 <div class="col-4">
                   <div class="form-group">
-                    <label>Product Name</label>
-                    <input type="text" v-model="product_form.name" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.name }" placeholder="Enter product name">
-                    <small class="text-danger" v-if="product_errors.name">{{ product_errors.name[0] }}</small>
+                    <label>Product Unit</label>
+                    <select v-model="product_form.unit" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.unit }">                      
+                      <option :value="1" :key="1">Piece</option>
+                      <option :value="0" :key="0">Dozen</option>
+                    </select>
                   </div>
-                </div>
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>Product Code</label>
-                    <input type="text" v-model="product_form.product_code" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.product_code }" placeholder="Enter product code">
-                    <small class="text-danger" v-if="product_errors.product_code">{{ product_errors.product_code[0] }}</small>
-                  </div>
-                </div>
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>Unit</label>
-                    <input type="number" v-model="product_form.unit" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.unit }" placeholder="Enter unit">
-                    <small class="text-danger" v-if="product_errors.unit">{{ product_errors.unit[0] }}</small>
-                  </div>
+                  <small class="text-danger" v-if="product_errors.unit">{{ product_errors.unit[0] }}</small>
                 </div>                
-              </div>
+              </div>            
               <div class="row p-2">
                 <div class="col-4">
                   <div class="form-group">
-                    <label>Sale Unit</label>                    
+                    <label>Purchase Price(Unit Price)</label>                    
+                    <input type="number" v-model="product_form.purchase_price" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.purchase_price }" placeholder="Enter purchase price">
+                    <small class="text-danger" v-if="product_errors.purchase_price">{{ product_errors.purchase_price[0] }}</small>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>Sale Price(Unit Price)</label>                    
                     <input type="number" v-model="product_form.sale_unit" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.sale_unit }" placeholder="Enter sale unit">
                     <small class="text-danger" v-if="product_errors.sale_unit">{{ product_errors.sale_unit[0] }}</small>
                   </div>
-                </div>
+                </div>                
                 <div class="col-4">
                   <div class="form-group">
-                    <label>Tax</label>                    
-                    <input type="number" v-model="product_form.tax" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.tax }" placeholder="Enter tax">
-                    <small class="text-danger" v-if="product_errors.tax">{{ product_errors.tax[0] }}</small>
+                    <label>Warning Quantity</label>
+                    <input type="number" v-model="product_form.warning_quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.warning_quantity }" placeholder="Enter warning qty">
+                    <small class="text-danger" v-if="product_errors.warning_quantity">{{ product_errors.warning_quantity[0] }}</small>
                   </div>
+                </div>              
+              </div>
+              <div class="row p-2">                
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>Tax Percentage</label>
+                    <select v-model="product_form.tax_percentage" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.tax_percentage }">
+                      <option v-for="(percentage, key) in tax_percentage_dropdown_data" :value="percentage" :key="key">{{ percentage }}%</option>
+                    </select>
+                  </div>
+                  <small class="text-danger" v-if="product_errors.tax_percentage">{{ product_errors.tax_percentage[0] }}</small>
                 </div>                
+                <div class="col-8">
+                  <div class="form-group">
+                    <label>Product Details</label>
+                    <textarea v-model="product_form.product_detail" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.product_detail }" placeholder="Enter product details"></textarea>
+                    <small class="text-danger" v-if="product_errors.product_detail">{{ product_errors.product_detail[0] }}</small>
+                  </div>
+                </div> 
+                <!-- <div class="col-4">
+                  <div class="form-group">
+                    <label>Product Image</label>
+                    <input type="file" v-model="product_form.image" :class="{ 'is-invalid': product_errors.image }" placeholder="Enter warning qty">
+                    <small class="text-danger" v-if="product_errors.image">{{ product_errors.image[0] }}</small>
+                  </div>
+                </div>     -->            
               </div>            
               <div class="row p-2 justify-content-md-center">
                 <div class="form-group">
@@ -229,9 +264,13 @@
           model_id: '',
           product_name: '',
           product_code: '',
-          unit: '',
+          unit: 1,
           tax: '',
-          sale_unit: ''
+          sale_unit: '',
+          warning_quantity: '',
+          tax_percentage: 5,
+          product_detail: '',
+          image: ''
         }),
         categories: [],
         category_errors: [],
@@ -245,6 +284,7 @@
         }),
         brandss: [],
         brand_errors: [],
+        tax_percentage_dropdown_data: [],
         brand_form: new Form({
           name: ''
         })
@@ -254,12 +294,20 @@
       this.categoryDropdowndata();
       this.modelDropdowndata();
       this.brandDropdowndata();
+      this.getTaxPrcentageDropdownData();
 
       if (this.$route.params.id) {
         this.getProductInfo(this.$route.params.id);
       }
     },
     methods: {
+      getTaxPrcentageDropdownData() {
+        let tax_percentage_dropdown_data = new Array();
+        for (let index = 1; index <= 100; index++) {
+          tax_percentage_dropdown_data.push(index);          
+        }
+        this.tax_percentage_dropdown_data = tax_percentage_dropdown_data;
+      },
       closeModal(modalName) {
         this.$modal.hide(modalName);
       },

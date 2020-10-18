@@ -330,7 +330,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.supplierDropdowndata();
     this.categoryDropdowndata();
-    this.getpPrcentageValueDropdownData();
+    this.getPrcentageValueDropdownData();
 
     if (this.$route.params.id) {
       this.getProductInfo(this.$route.params.id);
@@ -369,7 +369,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    getpPrcentageValueDropdownData: function getpPrcentageValueDropdownData() {
+    getPrcentageValueDropdownData: function getPrcentageValueDropdownData() {
       var percentage_dropdowns = new Array();
 
       for (var index = 0; index <= 100; index++) {
@@ -424,36 +424,6 @@ __webpack_require__.r(__webpack_exports__);
         alert('You can not delete this');
       }
     },
-
-    /* deleteRow(index, item) {console.log(item, index);
-      var product = this.form.product_detail_list.indexOf(item);
-      
-      if (product > -1) {
-          this.product_detail_list.splice(product, 1);
-      }
-     // this.calculateTotal();
-    }, */
-
-    /* onChange(event) {
-    console.log(event.target.value);
-    } */
-
-    /* getProductInfo(productId) {        
-      axios.get('products/' + productId)
-        .then((res) => {
-          this.form = res.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          loader.hide();
-        });
-    }, */
-
-    /* selectProduct(event) { alert(event.target.getAttribute('product-code'));
-      this.form.products.product_code = event.getAttribute('product-code');
-    },   */
     getProductsByCategory: function getProductsByCategory(event) {
       var _this3 = this;
 
@@ -463,44 +433,45 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
+    store: function store() {
+      var _this4 = this;
 
-    /* productStore() {
       this.errors = [];
-      const loader = this.$loading.show({
+      var loader = this.$loading.show({
         container: this.$refs.supplierContainer,
         canCancel: true,
         loader: 'bars'
-      })
-       axios.post('/products', this.form)
-        .then(response => {           
-          if (response.status == 200) {           
-            this.$snotify.success('Successfully created', 'Success');
-            this.$router.push({name: 'products'});
-          } else {
-            this.$snotify.error('Something went worng', 'error');
-          }
-        })
-        .catch( errors => {            
-          this.errors = errors.response.data.errors;
-        })
-        .finally(e => {
-          loader.hide();
-        })
-    }, */
+      });
+      _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/stock-ins', this.form).then(function (response) {
+        if (response.status == 200) {
+          _this4.$snotify.success('Successfully created', 'Success');
+
+          _this4.$router.push({
+            name: 'stock-ins'
+          });
+        } else {
+          _this4.$snotify.error('Something went worng', 'error');
+        }
+      })["catch"](function (errors) {
+        _this4.errors = errors.response.data.errors;
+      })["finally"](function (e) {
+        loader.hide();
+      });
+    },
     supplierDropdowndata: function supplierDropdowndata() {
-      var _this4 = this;
+      var _this5 = this;
 
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/supplier-dropdown-data').then(function (res) {
-        _this4.suppliers = res.data;
+        _this5.suppliers = res.data;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     categoryDropdowndata: function categoryDropdowndata() {
-      var _this5 = this;
+      var _this6 = this;
 
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/category-dropdown-data').then(function (res) {
-        _this5.categories = res.data;
+        _this6.categories = res.data;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -511,7 +482,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$modal.show('supplierModal');
     },
     supplierStore: function supplierStore() {
-      var _this6 = this;
+      var _this7 = this;
 
       this.supplier_errors = [];
       var loader = this.$loading.show({
@@ -521,18 +492,18 @@ __webpack_require__.r(__webpack_exports__);
       });
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/suppliers', this.supplier_form).then(function (response) {
         if (response.status == 200) {
-          _this6.supplierDropdowndata();
+          _this7.supplierDropdowndata();
 
-          _this6.$snotify.success('Successfully created', 'Success');
+          _this7.$snotify.success('Successfully created', 'Success');
 
-          _this6.$modal.hide('supplierModal');
+          _this7.$modal.hide('supplierModal');
 
-          _this6.loader.hide();
+          _this7.loader.hide();
         } else {
-          _this6.$snotify.error('Something went worng', 'error');
+          _this7.$snotify.error('Something went worng', 'error');
         }
       })["catch"](function (errors) {
-        _this6.supplier_errors = errors.response.data.errors;
+        _this7.supplier_errors = errors.response.data.errors;
       })["finally"](function (e) {
         loader.hide();
       });
@@ -543,7 +514,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$modal.show('modelModal');
     },
     modelStore: function modelStore() {
-      var _this7 = this;
+      var _this8 = this;
 
       this.model_errors = [];
       var loader = this.$loading.show({
@@ -553,18 +524,18 @@ __webpack_require__.r(__webpack_exports__);
       });
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/models', this.model_form).then(function (response) {
         if (response.status == 200) {
-          _this7.modelDropdowndata();
+          _this8.modelDropdowndata();
 
-          _this7.$snotify.success('Successfully created', 'Success');
+          _this8.$snotify.success('Successfully created', 'Success');
 
-          _this7.$modal.hide('modelModal');
+          _this8.$modal.hide('modelModal');
 
-          _this7.loader.hide();
+          _this8.loader.hide();
         } else {
-          _this7.$snotify.error('Something went worng', 'error');
+          _this8.$snotify.error('Something went worng', 'error');
         }
       })["catch"](function (errors) {
-        _this7.model_errors = errors.response.data.errors;
+        _this8.model_errors = errors.response.data.errors;
       })["finally"](function (e) {
         loader.hide();
       });
@@ -575,7 +546,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$modal.show('brandModal');
     },
     brandStore: function brandStore() {
-      var _this8 = this;
+      var _this9 = this;
 
       this.brand_errors = [];
       var loader = this.$loading.show({
@@ -585,18 +556,18 @@ __webpack_require__.r(__webpack_exports__);
       });
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/brands', this.brand_form).then(function (response) {
         if (response.status == 200) {
-          _this8.brandDropdowndata();
+          _this9.brandDropdowndata();
 
-          _this8.$snotify.success('Successfully created', 'Success');
+          _this9.$snotify.success('Successfully created', 'Success');
 
-          _this8.$modal.hide('brandModal');
+          _this9.$modal.hide('brandModal');
 
-          _this8.loader.hide();
+          _this9.loader.hide();
         } else {
-          _this8.$snotify.error('Something went worng', 'error');
+          _this9.$snotify.error('Something went worng', 'error');
         }
       })["catch"](function (errors) {
-        _this8.brand_errors = errors.response.data.errors;
+        _this9.brand_errors = errors.response.data.errors;
       })["finally"](function (e) {
         loader.hide();
       });
@@ -1941,21 +1912,21 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("No")]),
+        _c("td", [_vm._v("No")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Product Name")]),
+        _c("td", [_vm._v("Product Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Quantity")]),
+        _c("td", [_vm._v("Quantity")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Net Unit Cost")]),
+        _c("td", [_vm._v("Net Unit Cost")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Discount%")]),
+        _c("td", [_vm._v("Discount%")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Discount Value")]),
+        _c("td", [_vm._v("Discount Value")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Total")]),
+        _c("td", [_vm._v("Total")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Actions")])
+        _c("td", [_vm._v("Actions")])
       ])
     ])
   },

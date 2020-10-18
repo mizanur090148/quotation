@@ -7,12 +7,12 @@
     			   <span class="menu-title">Dashboard</span>
             </router-link>
          </li>
-         <li class="nav-item">
+         <!-- <li class="nav-item">
             <router-link tag="a" class="nav-link" to="/quotations">
                <i class="mdi mdi-settings menu-icon"></i>
     			   <span class="menu-title">Quotations</span>
             </router-link>
-         </li>
+         </li> -->
          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#products" aria-expanded="false" aria-controls="products">
             <i class="mdi mdi-settings menu-icon"></i>

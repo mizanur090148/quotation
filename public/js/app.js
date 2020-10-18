@@ -6006,16 +6006,9 @@ var staticRenderFns = [
             },
             [
               _vm._v("Copyright © 2018 "),
-              _c(
-                "a",
-                {
-                  attrs: {
-                    href: "https://www.bootstrapdash.com/",
-                    target: "_blank"
-                  }
-                },
-                [_vm._v("Bootstrapdash")]
-              ),
+              _c("a", { attrs: { href: "#", target: "_blank" } }, [
+                _vm._v("milondev")
+              ]),
               _vm._v(". All rights reserved.")
             ]
           ),
@@ -6497,28 +6490,6 @@ var render = function() {
                 _c("i", { staticClass: "mdi mdi-home menu-icon" }),
                 _vm._v(" "),
                 _c("span", { staticClass: "menu-title" }, [_vm._v("Dashboard")])
-              ]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "li",
-          { staticClass: "nav-item" },
-          [
-            _c(
-              "router-link",
-              {
-                staticClass: "nav-link",
-                attrs: { tag: "a", to: "/quotations" }
-              },
-              [
-                _c("i", { staticClass: "mdi mdi-settings menu-icon" }),
-                _vm._v(" "),
-                _c("span", { staticClass: "menu-title" }, [
-                  _vm._v("Quotations")
-                ])
               ]
             )
           ],

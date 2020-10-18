@@ -230,6 +230,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -243,9 +278,13 @@ __webpack_require__.r(__webpack_exports__);
         model_id: '',
         product_name: '',
         product_code: '',
-        unit: '',
+        unit: 1,
         tax: '',
-        sale_unit: ''
+        sale_unit: '',
+        warning_quantity: '',
+        tax_percentage: 5,
+        product_detail: '',
+        image: ''
       }),
       categories: [],
       category_errors: [],
@@ -259,6 +298,7 @@ __webpack_require__.r(__webpack_exports__);
       }),
       brandss: [],
       brand_errors: [],
+      tax_percentage_dropdown_data: [],
       brand_form: new Form({
         name: ''
       })
@@ -268,12 +308,22 @@ __webpack_require__.r(__webpack_exports__);
     this.categoryDropdowndata();
     this.modelDropdowndata();
     this.brandDropdowndata();
+    this.getTaxPrcentageDropdownData();
 
     if (this.$route.params.id) {
       this.getProductInfo(this.$route.params.id);
     }
   },
   methods: {
+    getTaxPrcentageDropdownData: function getTaxPrcentageDropdownData() {
+      var tax_percentage_dropdown_data = new Array();
+
+      for (var index = 1; index <= 100; index++) {
+        tax_percentage_dropdown_data.push(index);
+      }
+
+      this.tax_percentage_dropdown_data = tax_percentage_dropdown_data;
+    },
     closeModal: function closeModal(modalName) {
       this.$modal.hide(modalName);
     },
@@ -509,6 +559,92 @@ var render = function() {
                   _c("div", { staticClass: "row p-2" }, [
                     _c("div", { staticClass: "col-4" }, [
                       _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Product Name")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.product_form.name,
+                              expression: "product_form.name"
+                            }
+                          ],
+                          staticClass: "form-control form-control-sm",
+                          class: { "is-invalid": _vm.product_errors.name },
+                          attrs: {
+                            type: "text",
+                            placeholder: "Enter product name"
+                          },
+                          domProps: { value: _vm.product_form.name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.product_form,
+                                "name",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.product_errors.name
+                          ? _c("small", { staticClass: "text-danger" }, [
+                              _vm._v(_vm._s(_vm.product_errors.name[0]))
+                            ])
+                          : _vm._e()
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-4" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Product Code")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.product_form.product_code,
+                              expression: "product_form.product_code"
+                            }
+                          ],
+                          staticClass: "form-control form-control-sm",
+                          class: {
+                            "is-invalid": _vm.product_errors.product_code
+                          },
+                          attrs: {
+                            type: "text",
+                            placeholder: "Enter product code"
+                          },
+                          domProps: { value: _vm.product_form.product_code },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.product_form,
+                                "product_code",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.product_errors.product_code
+                          ? _c("small", { staticClass: "text-danger" }, [
+                              _vm._v(_vm._s(_vm.product_errors.product_code[0]))
+                            ])
+                          : _vm._e()
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-4" }, [
+                      _c("div", { staticClass: "form-group" }, [
                         _c("label", [_vm._v("Category")]),
                         _vm._v(" "),
                         _c("div", { staticClass: "input-group col-xs-12" }, [
@@ -586,8 +722,10 @@ var render = function() {
                             ])
                           : _vm._e()
                       ])
-                    ]),
-                    _vm._v(" "),
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row p-2" }, [
                     _c("div", { staticClass: "col-4" }, [
                       _c("div", { staticClass: "form-group" }, [
                         _c("label", [_vm._v("Brand")]),
@@ -742,114 +880,89 @@ var render = function() {
                             ])
                           : _vm._e()
                       ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-4" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Product Unit")]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.product_form.unit,
+                                expression: "product_form.unit"
+                              }
+                            ],
+                            staticClass: "form-control form-control-sm",
+                            class: { "is-invalid": _vm.product_errors.unit },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.product_form,
+                                  "unit",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { key: 1, domProps: { value: 1 } }, [
+                              _vm._v("Piece")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { key: 0, domProps: { value: 0 } }, [
+                              _vm._v("Dozen")
+                            ])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.product_errors.unit
+                        ? _c("small", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(_vm.product_errors.unit[0]))
+                          ])
+                        : _vm._e()
                     ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "row p-2" }, [
                     _c("div", { staticClass: "col-4" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Product Name")]),
+                        _c("label", [_vm._v("Purchase Price(Unit Price)")]),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.product_form.name,
-                              expression: "product_form.name"
-                            }
-                          ],
-                          staticClass: "form-control form-control-sm",
-                          class: { "is-invalid": _vm.product_errors.name },
-                          attrs: {
-                            type: "text",
-                            placeholder: "Enter product name"
-                          },
-                          domProps: { value: _vm.product_form.name },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.product_form,
-                                "name",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _vm.product_errors.name
-                          ? _c("small", { staticClass: "text-danger" }, [
-                              _vm._v(_vm._s(_vm.product_errors.name[0]))
-                            ])
-                          : _vm._e()
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-4" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Product Code")]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.product_form.product_code,
-                              expression: "product_form.product_code"
-                            }
-                          ],
-                          staticClass: "form-control form-control-sm",
-                          class: {
-                            "is-invalid": _vm.product_errors.product_code
-                          },
-                          attrs: {
-                            type: "text",
-                            placeholder: "Enter product code"
-                          },
-                          domProps: { value: _vm.product_form.product_code },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.product_form,
-                                "product_code",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _vm.product_errors.product_code
-                          ? _c("small", { staticClass: "text-danger" }, [
-                              _vm._v(_vm._s(_vm.product_errors.product_code[0]))
-                            ])
-                          : _vm._e()
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-4" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Unit")]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.product_form.unit,
-                              expression: "product_form.unit"
+                              value: _vm.product_form.purchase_price,
+                              expression: "product_form.purchase_price"
                             }
                           ],
                           staticClass:
                             "form-control form-control-sm text-right",
-                          class: { "is-invalid": _vm.product_errors.unit },
-                          attrs: { type: "number", placeholder: "Enter unit" },
-                          domProps: { value: _vm.product_form.unit },
+                          class: {
+                            "is-invalid": _vm.product_errors.purchase_price
+                          },
+                          attrs: {
+                            type: "number",
+                            placeholder: "Enter purchase price"
+                          },
+                          domProps: { value: _vm.product_form.purchase_price },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
@@ -857,26 +970,26 @@ var render = function() {
                               }
                               _vm.$set(
                                 _vm.product_form,
-                                "unit",
+                                "purchase_price",
                                 $event.target.value
                               )
                             }
                           }
                         }),
                         _vm._v(" "),
-                        _vm.product_errors.unit
+                        _vm.product_errors.purchase_price
                           ? _c("small", { staticClass: "text-danger" }, [
-                              _vm._v(_vm._s(_vm.product_errors.unit[0]))
+                              _vm._v(
+                                _vm._s(_vm.product_errors.purchase_price[0])
+                              )
                             ])
                           : _vm._e()
                       ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "row p-2" }, [
+                    ]),
+                    _vm._v(" "),
                     _c("div", { staticClass: "col-4" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Sale Unit")]),
+                        _c("label", [_vm._v("Sale Price(Unit Price)")]),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -919,22 +1032,29 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-4" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Tax")]),
+                        _c("label", [_vm._v("Warning Quantity")]),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.product_form.tax,
-                              expression: "product_form.tax"
+                              value: _vm.product_form.warning_quantity,
+                              expression: "product_form.warning_quantity"
                             }
                           ],
                           staticClass:
                             "form-control form-control-sm text-right",
-                          class: { "is-invalid": _vm.product_errors.tax },
-                          attrs: { type: "number", placeholder: "Enter tax" },
-                          domProps: { value: _vm.product_form.tax },
+                          class: {
+                            "is-invalid": _vm.product_errors.warning_quantity
+                          },
+                          attrs: {
+                            type: "number",
+                            placeholder: "Enter warning qty"
+                          },
+                          domProps: {
+                            value: _vm.product_form.warning_quantity
+                          },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
@@ -942,16 +1062,124 @@ var render = function() {
                               }
                               _vm.$set(
                                 _vm.product_form,
-                                "tax",
+                                "warning_quantity",
                                 $event.target.value
                               )
                             }
                           }
                         }),
                         _vm._v(" "),
-                        _vm.product_errors.tax
+                        _vm.product_errors.warning_quantity
                           ? _c("small", { staticClass: "text-danger" }, [
-                              _vm._v(_vm._s(_vm.product_errors.tax[0]))
+                              _vm._v(
+                                _vm._s(_vm.product_errors.warning_quantity[0])
+                              )
+                            ])
+                          : _vm._e()
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row p-2" }, [
+                    _c("div", { staticClass: "col-4" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Tax Percentage")]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.product_form.tax_percentage,
+                                expression: "product_form.tax_percentage"
+                              }
+                            ],
+                            staticClass: "form-control form-control-sm",
+                            class: {
+                              "is-invalid": _vm.product_errors.tax_percentage
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.product_form,
+                                  "tax_percentage",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          _vm._l(_vm.tax_percentage_dropdown_data, function(
+                            percentage,
+                            key
+                          ) {
+                            return _c(
+                              "option",
+                              { key: key, domProps: { value: percentage } },
+                              [_vm._v(_vm._s(percentage) + "%")]
+                            )
+                          }),
+                          0
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.product_errors.tax_percentage
+                        ? _c("small", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(_vm.product_errors.tax_percentage[0]))
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-8" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Product Details")]),
+                        _vm._v(" "),
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.product_form.product_detail,
+                              expression: "product_form.product_detail"
+                            }
+                          ],
+                          staticClass:
+                            "form-control form-control-sm text-right",
+                          class: {
+                            "is-invalid": _vm.product_errors.product_detail
+                          },
+                          attrs: { placeholder: "Enter product details" },
+                          domProps: { value: _vm.product_form.product_detail },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.product_form,
+                                "product_detail",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.product_errors.product_detail
+                          ? _c("small", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                _vm._s(_vm.product_errors.product_detail[0])
+                              )
                             ])
                           : _vm._e()
                       ])
