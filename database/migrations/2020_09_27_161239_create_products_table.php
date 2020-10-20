@@ -16,13 +16,17 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->string('product_code', 30)->nullable();
+            $table->string('product_code', 20)->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('brand_id')->nullable();
             $table->unsignedBigInteger('model_id')->nullable();            
-            $table->double('unit', 12,4)->default(0);
-            $table->double('sale_unit', 12,4)->default(0);
-            $table->double('tax', 12,4)->default(0);
+            $table->double('product_unit', 12,4)->default(0)->comment('piece = 0, dozen = 1');
+            $table->double('purchase_price', 12,4)->default(0);
+            $table->double('sale_price', 12,4)->default(0);
+            $table->double('warning_quantity', 12,4)->default(0);
+            $table->smallInteger('tax_percentage')->default(0)->comment('percentage(%)');
+            $table->string('product_detail')->nullable();
+            $table->string('image', 30)->nullable();
             $table->unsignedBigInteger('outlet_id')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();

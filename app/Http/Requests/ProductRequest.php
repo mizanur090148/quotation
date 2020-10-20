@@ -30,18 +30,22 @@ class ProductRequest extends FormRequest
             'brand_id.required' => 'Brand is required',
             'model_id.required' => 'Model is required',
             'name.required' => 'Product name is required',
-            'unit.required' => 'Unit is required',
-            'unit.numeric' => 'Unit must be numeric',
-            'unit.min' => 'Must be greater than 0',
-            'unit.max' => 'Out of range',
-            'sale_unit.required' => 'Sale unit be required',
-            'sale_unit.numeric' => 'Sale unit must be numeric',
-            'sale_unit.min' => 'Must be greater than 0',
-            'sale_unit.max' => 'Out of range',
-            'tax.required' => 'Tax is required',
-            'tax.numeric' => 'Tax unit must be numeric',
-            'tax.min' => 'Must be greater than 0',
-            'tax.max' => 'Out of range',
+            'product_unit.required' => 'Product_unit is required',
+            'product_unit.numeric' => 'Product_unit must be numeric',
+            'product_unit.min' => 'Must be greater than 0',
+            'product_unit.max' => 'Out of range',            
+            'purchase_price.required' => 'Purchase price is required',
+            'purchase_price.numeric' => 'Purchase price must be numeric',
+            'purchase_price.min' => 'Must be greater than 0',
+            'purchase_price.max' => 'Out of range',
+            'sale_price.required' => 'Sale price be required',
+            'sale_price.numeric' => 'Sale price must be numeric',
+            'sale_price.min' => 'Must be greater than 0',
+            'sale_price.max' => 'Out of range',
+            'tax_percentage.required' => 'Tax percentage is required',
+            'tax_percentage.numeric' => 'Tax percentage must be numeric',
+            'tax_percentage.min' => 'Must be greater than 0',
+            'tax_percentage.max' => 'Out of range',
         ];
     }
 
@@ -62,23 +66,37 @@ class ProductRequest extends FormRequest
             ],
             'product_code' => [
                 'required',
-                'max:30'
+                'max:20'
             ],
-            'unit' => [
+            'product_unit' => [
                 'required',
                 'numeric',
                 'digits_between:1,8'
-            ],                    
-            'sale_unit'=> [
+            ], 
+            'purchase_price' => [
                 'required',
                 'numeric',
                 'digits_between:1,8'
             ],
-            /* 'tax'=> [
+            'sale_price'=> [
                 'required',
                 'numeric',
                 'digits_between:1,8'
-            ],   */          
+            ],
+            'tax_percentage'=> [
+                'required',
+                'numeric',
+                'digits_between:1,8'
+            ],
+            'product_detail' => [
+                'nullable',
+                'max:255'
+            ],
+            'image' => [
+                'nullable',
+                //'mimes:jpeg,jpg,png,gif',
+               // 'max:2048'
+            ]
         ];
     }
 }

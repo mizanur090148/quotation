@@ -14,7 +14,7 @@
               </div>
               <div class="col-md-6"></div>
               <div class="col-md-3 pr-1">
-                <input type="text" class="form-control search-field" placeholder="Search"/>
+                <input type="text" class="form-control search-field" v-model="search_key" placeholder="Search"/>
               </div>
             </div>
             <div class="table-responsive">
@@ -26,45 +26,48 @@
                     <th>Code</th>
                     <th>Category</th>
                     <th>Brand</th>
-                    <th>Model</th>
-                    <th>Unit</th>
-                    <th>Sale Unit</th>
-                    <th>Tax</th>
+                    <th>Model</th>                    
+                    <th>Purchase Price</th>
+                    <th>Sale Price</th>                   
                     <th>Actions</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr v-if="products.length > 0" v-for="(product, index) in products" :key="product.id">
+                <tbody v-if="products.length > 0">
+                  <tr v-for="(product, index) in products" :key="product.id">
                       <td>{{ ++index }}</td>
                       <td>{{ product.name }}</td>
                       <td>{{ product.product_code }}</td>
                       <td>{{ product.category.name }}</td>
-                      <td>{{ product.brand.name }}</td>                               
+                      <td>{{ product.brand.name }}</td>
                       <td>{{ product.model.name }}</td>
-                      <td>{{ product.unit }}</td>
-                      <td>{{ product.sale_unit }}</td>
-                      <td>{{ product.tax }}</td>                                       
+                      <td>{{ product.purchase_price }}</td>
+                      <td>{{ product.sale_price }}</td>
                       <td>                          
                         <!-- <router-link
                             :to="'/products/'+ product.id"
                             class="btn btn-sm btn-primary btn-rounded btn-fw"
                             title="View details">
                             <i class="mdi mdi-eye"/>
-                        </router-link> -->
+                        </router-link> -->                        
+                        <button class="btn btn-sm btn-primary btn-rounded btn-fw" title="View details" @click="getProductInfo(product.id)">
+                          <i class="mdi mdi-eye"></i>
+                        </button> 
                         <router-link
                             :to="'/product/'+ product.id"
                             class="btn btn-sm btn-success btn-rounded btn-fw"
                             title="edit">
                             <i class="mdi mdi-grease-pencil"/>
-                        </router-link>                     
+                        </router-link>                    
                         <button type="button" class="btn btn-sm btn-danger btn-rounded btn-fw" @click="deleteProduct(product.id)">
                           <i class="mdi mdi-delete"></i>
                         </button>
                       </td>
+                  </tr>                  
+                </tbody>
+                <tbody v-else>
+                  <tr v-if="pagination.current_page == pagination.last_page" class="not-found">
+                    <td colspan="10" class="text-danger">Not Found</td>
                   </tr>
-                  <tr v-else>
-                    <td colspan="10">Not Found</td>
-                  </tr> 
                 </tbody>
               </table>
               <v-pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="8" @paginate="getProducts()"></v-pagination>
@@ -73,9 +76,62 @@
         </div>
       </div>
     </div>
+
+    <!-- Product detail modal -->   
+    <modal name="productDetailModal" :width="700" :height="475">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Product Details</h5>
+            <button type="button" class="close" @click="closeModal()">
+              <span aria-hidden="true" >&times;</span>
+            </button>
+          </div>          
+            <div class="modal-body" v-if="product">
+              <div class="row p-2">
+                <div class="col-md-4"><span>Product Name:</span> {{ product.name }}</div>
+                <div class="col-md-4 ml-auto"><span>Product Code:</span> {{ product.product_code }}</div>
+              </div>
+              <div class="row p-2">
+                <div class="col-md-4"><span>Product Name:</span> {{ product.name }}</div>
+                <div class="col-md-4 ml-auto"><span>Product Code:</span> {{ product.product_code }}</div>
+              </div>
+              <div class="row p-2">
+                <div class="col-md-4"><span>Category:</span> {{ product.category.name }}</div>
+                <div class="col-md-4 ml-auto"><span>Brand:</span> {{ product.brand.name }}</div>
+              </div>
+              <div class="row p-2">
+                <div class="col-md-4"><span>Model:</span> {{ product.model.name }}</div>
+                <div class="col-md-4 ml-auto"><span>Product Unit:</span> {{ product.product_unit }}</div>
+              </div>
+              <div class="row p-2">
+                <div class="col-md-4"><span>Purchase Price:</span> {{ product.purchase_price }}</div>
+                <div class="col-md-4 ml-auto"><span>Sale Price:</span> {{ product.sale_price }}</div>
+              </div>
+              <div class="row p-2">
+                <div class="col-md-4"><span>Warning Quantity:</span> {{ product.warning_quantity }}</div>
+                <div class="col-md-4 ml-auto"><span>Tax Percentage:</span> {{ product.tax_percentage }}</div>
+              </div>
+              <div class="row p-2">
+                <div class="col-md-8"><span>Product Details:</span> {{ product.product_detail }}</div>
+              </div>
+            </div>                
+        </div>
+      </div>
+    </modal>
     <vue-snotify></vue-snotify>
   </div>
 </template>
+
+<style>
+  .modal-dialog {
+    max-width: 650px !important;
+    width: 650px !important;
+  }
+  span {
+    font-weight: bold;
+  }
+</style>
 
 <script>
   import axios from '../../axios';
@@ -84,70 +140,107 @@
   
   export default {
     data() {
-       return {
-          listResponse: null,
+       return {      
+          product: null,
           products: [],
           pagination: {
             current_page: 1,
-          }
+          },
+          search_key: ''
        }
     },     
     mounted() {
       this.getProducts()
     },
-    methods: {
-       deleteProduct(id) { 
-          this.$snotify.clear();
-          this.$snotify.confirm(
-            "Are you sure to delete this?",
-            {
-              closeOnClick: false,
-              pauseOnHover: true,
-              buttons: [
-                {
-                  text: "Yes",
-                  action: toast => {
-                    this.$snotify.remove(toast.id);
-                    axios.delete('/products/'+id)
-                      .then(response => {
-                          this.getProducts();
-                          this.$snotify.success('Successfully deleted', 'Success');
-                      })
-                      .catch(e => {
-                          this.$snotify.success('Not deleted', 'Success');
-                      })
-                  },
-                  bold: true
-                },
-                {
-                  text: "No",
-                  action: toast => {
-                      this.$snotify.remove(toast.id);
-                  },
-                  bold: true
-                }
-              ]
-            }
-          );
-       },
-       getProducts() {      
-          const loader = this.$loading.show({
-            container: this.$refs.attendanceTable,
-            canCancel: true,
-            loader: 'bars'
+    watch: {
+      search_key: function() {
+        this.searchProducts();
+      },
+    },
+    methods: { 
+      searchProducts() {
+        axios.get('search-products?search_key=' + this.search_key)
+          .then(res => {
+            this.products = res.data.data;
+            this.pagination = res.data;
           })
-          axios.get('products?page='+this.pagination.current_page)
-            .then((res) => {               
-              this.products = res.data.data;
-              this.pagination = res.data;
-            })
-            .catch((error) => {
-              console.log(error);
-            })
-            .finally(() => {
-              loader.hide();
-            });
-       }
+          .catch(e => {
+            console.log(e);
+          })
+      },      
+      getProductInfo(productId) {
+        const loader = this.$loading.show({
+          container: this.$refs.attendanceTable,
+          canCancel: true,
+          loader: 'bars'
+        })
+        axios.get('products/' + productId)
+          .then((res) => {
+            this.product = res.data;
+            this.$modal.show('productDetailModal');
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            loader.hide();
+          });
+      },
+      closeModal() {
+        this.$modal.hide('productDetailModal');
+      },
+      deleteProduct(id) { 
+        this.$snotify.clear();
+        this.$snotify.confirm(
+          "Are you sure to delete this?",
+          {
+            closeOnClick: false,
+            pauseOnHover: true,
+            buttons: [
+              {
+                text: "Yes",
+                action: toast => {
+                  this.$snotify.remove(toast.id);
+                  axios.delete('/products/'+id)
+                    .then(response => {
+                        this.getProducts();
+                        this.$snotify.success('Successfully deleted', 'Success');
+                    })
+                    .catch(e => {
+                        this.$snotify.success('Not deleted', 'Success');
+                    })
+                },
+                bold: true
+              },
+              {
+                text: "No",
+                action: toast => {
+                    this.$snotify.remove(toast.id);
+                },
+                bold: true
+              }
+            ]
+          }
+        );
+      },
+      getProducts() {      
+        const loader = this.$loading.show({
+          container: this.$refs.attendanceTable,
+          canCancel: true,
+          loader: 'bars'
+        })
+        axios.get('products?page='+this.pagination.current_page)
+          .then((res) => {               
+            this.products = res.data.data;
+            this.pagination = res.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            loader.hide();
+          });
+      }
     }    
   }
 </script>

@@ -71,7 +71,7 @@ class ProductController extends BaseController
      * @return Array
      */
     public function store(ProductRequest $request)
-    {       
+    {
         try {
             $modelData = $this->apiCrudHandler->store($request, Product::class);
             return $this->sendResponse($modelData);
@@ -88,7 +88,38 @@ class ProductController extends BaseController
     public function show($id)
     {
         try {
-            $modelData = $this->apiCrudHandler->show($id, Product::class, $with = []);
+            $with = [
+                'category:id,name',
+                'model:id,name',
+                'brand:id,name'
+            ];
+            $modelData = $this->apiCrudHandler->show($id, Product::class, $with);
+            return $this->sendResponse($modelData);
+        } catch (Exception $ex) {
+            return $this->sendError($e->getMessage());
+        }
+    }
+
+    /**    
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        try {            
+            $with = [
+                'category:id,name',
+                'model:id,name',
+                'brand:id,name'
+            ];
+            $modelData = Product::with($with)
+                ->where('name', 'like', "%$request->search_key%")               
+                ->orWhere('product_code', 'like', "%$request->search_key%")
+                ->orWhere('purchase_price', 'like', "%$request->search_key%")
+                ->orWhere('sale_price', 'like', "%$request->search_key%")
+                ->orWhere('product_detail', 'like', "%$request->search_key%")               
+                ->orderBy($request->sortByColumn ?? 'id', $request->sortBy ?? 'desc')
+                ->paginate();
             return $this->sendResponse($modelData);
         } catch (Exception $ex) {
             return $this->sendError($e->getMessage());

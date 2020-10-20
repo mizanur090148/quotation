@@ -72,12 +72,12 @@
                 <div class="col-4">
                   <div class="form-group">
                     <label>Product Unit</label>
-                    <select v-model="product_form.unit" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.unit }">                      
-                      <option :value="1" :key="1">Piece</option>
-                      <option :value="0" :key="0">Dozen</option>
+                    <select v-model="product_form.product_unit" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.product_unit }">                      
+                      <option :value="0" :key="0">Piece</option>
+                      <option :value="1" :key="1">Dozen</option>
                     </select>
                   </div>
-                  <small class="text-danger" v-if="product_errors.unit">{{ product_errors.unit[0] }}</small>
+                  <small class="text-danger" v-if="product_errors.product_unit">{{ product_errors.product_unit[0] }}</small>
                 </div>                
               </div>            
               <div class="row p-2">
@@ -91,8 +91,8 @@
                 <div class="col-4">
                   <div class="form-group">
                     <label>Sale Price(Unit Price)</label>                    
-                    <input type="number" v-model="product_form.sale_unit" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.sale_unit }" placeholder="Enter sale unit">
-                    <small class="text-danger" v-if="product_errors.sale_unit">{{ product_errors.sale_unit[0] }}</small>
+                    <input type="number" v-model="product_form.sale_price" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.sale_price }" placeholder="Enter sale unit">
+                    <small class="text-danger" v-if="product_errors.sale_price">{{ product_errors.sale_price[0] }}</small>
                   </div>
                 </div>                
                 <div class="col-4">
@@ -113,20 +113,26 @@
                   </div>
                   <small class="text-danger" v-if="product_errors.tax_percentage">{{ product_errors.tax_percentage[0] }}</small>
                 </div>                
-                <div class="col-8">
+                <div class="col-4">
                   <div class="form-group">
                     <label>Product Details</label>
                     <textarea v-model="product_form.product_detail" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.product_detail }" placeholder="Enter product details"></textarea>
                     <small class="text-danger" v-if="product_errors.product_detail">{{ product_errors.product_detail[0] }}</small>
                   </div>
-                </div> 
-                <!-- <div class="col-4">
+                </div>                
+                <div class="col-4">
                   <div class="form-group">
                     <label>Product Image</label>
-                    <input type="file" v-model="product_form.image" :class="{ 'is-invalid': product_errors.image }" placeholder="Enter warning qty">
+                    <div v-if="!product_form.image">                     
+                      <input type="file" @change="onFileChange">
+                    </div>
+                    <div v-else>
+                      <img :src="product_form.image" />
+                      <button @click="removeImage">Remove</button>
+                    </div>
                     <small class="text-danger" v-if="product_errors.image">{{ product_errors.image[0] }}</small>
                   </div>
-                </div>     -->            
+                </div>           
               </div>            
               <div class="row p-2 justify-content-md-center">
                 <div class="form-group">
@@ -249,6 +255,14 @@
   </div>
 </template>
 
+<style>
+  img {
+    width: 50%;
+    height: 100%;
+    display: block;
+    margin-bottom: 10px;
+  }
+</style>
 <script>
   import axios from '../../axios';
   import "vue-loading-overlay/dist/vue-loading.css";
@@ -264,9 +278,10 @@
           model_id: '',
           product_name: '',
           product_code: '',
-          unit: 1,
-          tax: '',
-          sale_unit: '',
+          product_unit: 0,
+          tax_percentage: '',
+          purchase_price: '',
+          sale_price: '',
           warning_quantity: '',
           tax_percentage: 5,
           product_detail: '',
@@ -301,9 +316,28 @@
       }
     },
     methods: {
+      onFileChange(e) {
+        var files = e.target.files || e.dataTransfer.files;
+        if (!files.length)
+          return;
+        this.createImage(files[0]);
+      },
+      createImage(file) {
+        var image = new Image();
+        var reader = new FileReader();
+        var vm = this;
+
+        reader.onload = (e) => {
+         // vm.product_form.image = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      },
+      removeImage: function (e) {
+        this.product_form.image = '';
+      },
       getTaxPrcentageDropdownData() {
         let tax_percentage_dropdown_data = new Array();
-        for (let index = 1; index <= 100; index++) {
+        for (let index = 1; index <= 50; index++) {
           tax_percentage_dropdown_data.push(index);          
         }
         this.tax_percentage_dropdown_data = tax_percentage_dropdown_data;
@@ -335,8 +369,8 @@
           canCancel: true,
           loader: 'bars'
         })
- 
-        axios.post('/products', this.product_form)
+
+        axios.post('/products', this.product_form)            
           .then(response => {           
             if (response.status == 200) {           
               this.$snotify.success('Successfully created', 'Success');
