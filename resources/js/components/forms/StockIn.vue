@@ -12,10 +12,10 @@
                   <div class="form-group">
                     <label>Supplier</label>
                     <div class="input-group col-xs-12">
-                      <select v-model="form.supplier_id" class="form-control form-control-sm" :class="{ 'is-invalid': errors.supplier_id }">
+                      <!-- <select v-model="form.supplier_id" class="form-control form-control-sm" :class="{ 'is-invalid': errors.supplier_id }">
                         <option value="">Please select a supplier</option>
                         <option v-for="(supplier, key) in suppliers" :value="supplier.id" :key="key">{{ supplier.name }}</option>
-                      </select>
+                      </select> -->
                       <span class="input-group-append">
                         <button class="btn btn-sm btn-primary" type="button" @click="supplierModal">+</button>
                       </span>
@@ -23,16 +23,15 @@
                     <small class="text-danger" v-if="errors.supplier_id">{{ errors.supplier_id[0] }}</small>
                   </div>
                 </div>
-                <div class="col-4">
+                 <div class="col-4">
                   <div class="form-group">
-                    <label>Category</label>
-                    <select v-model="form.category_id" @change="getProductsByCategory($event)" class="form-control form-control-sm" :class="{ 'is-invalid': errors.category_id }">
-                      <option value="">Please select a category</option>
-                      <option v-for="(category, key) in categories" :value="category.id" :key="key">{{ category.name }}</option>
-                    </select>
+                    <label>Supplier</label>
+                    <div class="input-group col-xs-12">
+                      <input type="file" name="document" class="form-control form-control-sm" :class="{ 'is-invalid': errors.document }">
+                    </div>
+                    <small class="text-danger" v-if="errors.supplier_id">{{ errors.supplier_id[0] }}</small>
                   </div>
-                  <small class="text-danger" v-if="errors.category_id">{{ errors.category_id[0] }}</small>
-                </div>
+                </div>               
               </div>
               <hr>
               Product Table
@@ -40,11 +39,12 @@
               <div class="row">
                 <table class="list-table">
                    <thead>
-                      <tr>
-                        <td>No</td>
-                        <td>Product Name</td> 
+                      <tr>                       
+                        <td>Supplier</td>
+                        <td>Category</td>
+                        <td>Product Name</td>
                         <td>Quantity</td>
-                        <td>Net Unit Cost</td>                        
+                        <td>Net Unit Cost</td>
                         <td>Discount%</td>
                         <td>Discount Value</td>
                         <td>Total</td>
@@ -52,12 +52,21 @@
                       </tr>
                     </thead>
                     <tbody>
-                       <tr v-for="(product_detail, index) in form.product_detail_list" :key="index">
-                        <td class="text-center">
-                          {{ ++index }}
+                       <tr v-for="(product_detail, index) in form.product_detail_list" :key="index">                        
+                        <td>
+                          <select v-model="product_detail.supplier_id" class="form-control form-control-sm" :class="{ 'is-invalid': errors.supplier_id }">
+                            <option value="">Please select a supplier</option>
+                            <option v-for="(supplier, key) in suppliers" :value="supplier.id" :key="key">{{ supplier.name }}</option>
+                          </select>
+                        </td>   
+                        <td>
+                          <select v-model="product_detail.category_id" @change="getProductsByCategory($event)" class="form-control form-control-sm" :class="{ 'is-invalid': errors.category_id }">
+                            <option value="">Please select a category</option>
+                            <option v-for="(category, key) in categories" :value="category.id" :key="key">{{ category.name }}</option>
+                          </select>
                         </td>
                         <td>
-                          <select v-model="product_detail.product_id" class="form-control form-control-sm" :class="{ 'is-invalid': errors.product_id }">
+                          <select v-model="product_detail.product_id" @change="getProductInfo($event)" class="form-control form-control-sm" :class="{ 'is-invalid': errors.product_id }">
                             <option value="">Please select a product</option>
                             <option v-for="(product, key) in products" :value="product.id" :key="key">{{ product.name }}</option>
                           </select>
@@ -67,6 +76,7 @@
                           <small class="text-danger" v-if="errors.quantity">{{ errors.quantity[0] }}</small>
                         </td>
                         <td class="text-center">
+                          <!-- {{ product_detail.net_unit_cost }} -->
                           <input type="number" v-model="product_detail.net_unit_cost" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.net_unit_cost }" placeholder="Enter net unit cost">
                           <small class="text-danger" v-if="errors.net_unit_cost">{{ errors.net_unit_cost[0] }}</small>
                         </td>
@@ -80,14 +90,14 @@
                           </div>
                         </td>
                         <td class="text-right">
-                          {{ product_detail.discount_value }}
-                          <!-- <input type="number" v-model="product_detail.discount_value" disabled class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.discount_value }" placeholder="Discount value">
-                          <small class="text-danger" v-if="errors.discount_value">{{ errors.discount_value[0] }}</small> -->
+                          <!-- {{ product_detail.discount_value }} -->
+                          <input type="number" v-model="product_detail.discount_value" disabled class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.discount_value }" placeholder="Discount value">
+                          <small class="text-danger" v-if="errors.discount_value">{{ errors.discount_value[0] }}</small>
                         </td>
                         <td class="text-right">
-                          {{ product_detail.product_wise_total }}
-                          <!-- <input type="number" v-model="product_detail.product_wise_total" disabled class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.product_wise_total }" placeholder="Enter product_wise_total">
-                          <small class="text-danger" v-if="errors.product_wise_total">{{ errors.product_wise_total[0] }}</small> -->
+                          <!-- {{ product_detail.product_wise_total }} -->
+                          <input type="number" v-model="product_detail.product_wise_total" disabled class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.product_wise_total }" placeholder="Enter product_wise_total">
+                          <small class="text-danger" v-if="errors.product_wise_total">{{ errors.product_wise_total[0] }}</small>
                         </td>
                         <td class="text-center">
                           <button type="button" class="btn btn-xs btn-success btn-rounded btn-fw" @click="addNewRow"><i class="mdi mdi-plus"></i></button>
@@ -274,9 +284,6 @@
       return {
         errors: [],
         form: new Form({
-          supplier_id: '',
-          category_id: '',
-          model_id: '',
           name: '',
           code: '',
           unit: '',
@@ -284,6 +291,8 @@
           sale_unit: '',
           total_cost_without_tax: '',
           product_detail_list: [{
+            supplier_id: '',
+            category_id: '',
             product_id: '',
            // product_code: '',
             quantity: 0,
@@ -330,6 +339,8 @@
             var discount_value = this.calculateDiscount (product_wise_total, product_detail.discount_percentage);
             product_detail.discount_value = discount_value;
             product_detail.product_wise_total = product_wise_total - discount_value;
+
+            product_detail.product_id = product_detail.product_id;
           })
         },
         deep: true
@@ -369,8 +380,10 @@
 
       addNewRow() {
         this.form.product_detail_list.push({
+          supplier_id: '',
+          category_id: '',
           product_id: '',
-          // product_code: '',
+          product_id: '',      
           quantity: 0,
           net_unit_cost: 0,
           discount: 0,
@@ -408,8 +421,25 @@
           alert('You can not delete this')
         }
       },      
-      getProductsByCategory(event) {      
-        axios.get('/get-products-by-category/'+ event.target.value)
+      getProductInfo(event) {
+        const loader = this.$loading.show({
+          container: this.$refs.attendanceTable,
+          canCancel: true,
+          loader: 'bars'
+        })
+        axios.get('products/' + event.target.value)
+          .then((res) => {
+            this.product = res.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            loader.hide();
+          });
+      },
+      getProductsByCategory(event) {
+        axios.get('/get-products-by-category/' + event.target.value)
           .then((res) => {
             this.products = res.data;
           })

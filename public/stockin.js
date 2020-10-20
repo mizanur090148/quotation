@@ -14,6 +14,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/vue-loading.min.js");
 /* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_2__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -288,9 +300,6 @@ __webpack_require__.r(__webpack_exports__);
     return {
       errors: [],
       form: new Form({
-        supplier_id: '',
-        category_id: '',
-        model_id: '',
         name: '',
         code: '',
         unit: '',
@@ -298,6 +307,8 @@ __webpack_require__.r(__webpack_exports__);
         sale_unit: '',
         total_cost_without_tax: '',
         product_detail_list: [{
+          supplier_id: '',
+          category_id: '',
           product_id: '',
           // product_code: '',
           quantity: 0,
@@ -348,6 +359,7 @@ __webpack_require__.r(__webpack_exports__);
 
           product_detail.discount_value = discount_value;
           product_detail.product_wise_total = product_wise_total - discount_value;
+          product_detail.product_id = product_detail.product_id;
         });
       },
       deep: true
@@ -386,13 +398,13 @@ __webpack_require__.r(__webpack_exports__);
       this.$modal.hide(modalName);
     },
     addNewRow: function addNewRow() {
-      this.form.product_detail_list.push({
-        product_id: '',
-        // product_code: '',
-        quantity: 0,
-        net_unit_cost: 0,
-        discount: 0
-      });
+      var _this$form$product_de;
+
+      this.form.product_detail_list.push((_this$form$product_de = {
+        supplier_id: '',
+        category_id: '',
+        product_id: ''
+      }, _defineProperty(_this$form$product_de, "product_id", ''), _defineProperty(_this$form$product_de, "quantity", 0), _defineProperty(_this$form$product_de, "net_unit_cost", 0), _defineProperty(_this$form$product_de, "discount", 0), _this$form$product_de));
     },
     deleteRow: function deleteRow(index, item) {
       var _this2 = this;
@@ -424,17 +436,33 @@ __webpack_require__.r(__webpack_exports__);
         alert('You can not delete this');
       }
     },
-    getProductsByCategory: function getProductsByCategory(event) {
+    getProductInfo: function getProductInfo(event) {
       var _this3 = this;
 
+      var loader = this.$loading.show({
+        container: this.$refs.attendanceTable,
+        canCancel: true,
+        loader: 'bars'
+      });
+      _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('products/' + event.target.value).then(function (res) {
+        _this3.product = res.data;
+      })["catch"](function (error) {
+        console.log(error);
+      })["finally"](function () {
+        loader.hide();
+      });
+    },
+    getProductsByCategory: function getProductsByCategory(event) {
+      var _this4 = this;
+
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/get-products-by-category/' + event.target.value).then(function (res) {
-        _this3.products = res.data;
+        _this4.products = res.data;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     store: function store() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.errors = [];
       var loader = this.$loading.show({
@@ -444,34 +472,34 @@ __webpack_require__.r(__webpack_exports__);
       });
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/stock-ins', this.form).then(function (response) {
         if (response.status == 200) {
-          _this4.$snotify.success('Successfully created', 'Success');
+          _this5.$snotify.success('Successfully created', 'Success');
 
-          _this4.$router.push({
+          _this5.$router.push({
             name: 'stock-ins'
           });
         } else {
-          _this4.$snotify.error('Something went worng', 'error');
+          _this5.$snotify.error('Something went worng', 'error');
         }
       })["catch"](function (errors) {
-        _this4.errors = errors.response.data.errors;
+        _this5.errors = errors.response.data.errors;
       })["finally"](function (e) {
         loader.hide();
       });
     },
     supplierDropdowndata: function supplierDropdowndata() {
-      var _this5 = this;
+      var _this6 = this;
 
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/supplier-dropdown-data').then(function (res) {
-        _this5.suppliers = res.data;
+        _this6.suppliers = res.data;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     categoryDropdowndata: function categoryDropdowndata() {
-      var _this6 = this;
+      var _this7 = this;
 
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/category-dropdown-data').then(function (res) {
-        _this6.categories = res.data;
+        _this7.categories = res.data;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -482,7 +510,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$modal.show('supplierModal');
     },
     supplierStore: function supplierStore() {
-      var _this7 = this;
+      var _this8 = this;
 
       this.supplier_errors = [];
       var loader = this.$loading.show({
@@ -492,18 +520,18 @@ __webpack_require__.r(__webpack_exports__);
       });
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/suppliers', this.supplier_form).then(function (response) {
         if (response.status == 200) {
-          _this7.supplierDropdowndata();
+          _this8.supplierDropdowndata();
 
-          _this7.$snotify.success('Successfully created', 'Success');
+          _this8.$snotify.success('Successfully created', 'Success');
 
-          _this7.$modal.hide('supplierModal');
+          _this8.$modal.hide('supplierModal');
 
-          _this7.loader.hide();
+          _this8.loader.hide();
         } else {
-          _this7.$snotify.error('Something went worng', 'error');
+          _this8.$snotify.error('Something went worng', 'error');
         }
       })["catch"](function (errors) {
-        _this7.supplier_errors = errors.response.data.errors;
+        _this8.supplier_errors = errors.response.data.errors;
       })["finally"](function (e) {
         loader.hide();
       });
@@ -514,7 +542,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$modal.show('modelModal');
     },
     modelStore: function modelStore() {
-      var _this8 = this;
+      var _this9 = this;
 
       this.model_errors = [];
       var loader = this.$loading.show({
@@ -524,18 +552,18 @@ __webpack_require__.r(__webpack_exports__);
       });
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/models', this.model_form).then(function (response) {
         if (response.status == 200) {
-          _this8.modelDropdowndata();
+          _this9.modelDropdowndata();
 
-          _this8.$snotify.success('Successfully created', 'Success');
+          _this9.$snotify.success('Successfully created', 'Success');
 
-          _this8.$modal.hide('modelModal');
+          _this9.$modal.hide('modelModal');
 
-          _this8.loader.hide();
+          _this9.loader.hide();
         } else {
-          _this8.$snotify.error('Something went worng', 'error');
+          _this9.$snotify.error('Something went worng', 'error');
         }
       })["catch"](function (errors) {
-        _this8.model_errors = errors.response.data.errors;
+        _this9.model_errors = errors.response.data.errors;
       })["finally"](function (e) {
         loader.hide();
       });
@@ -546,7 +574,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$modal.show('brandModal');
     },
     brandStore: function brandStore() {
-      var _this9 = this;
+      var _this10 = this;
 
       this.brand_errors = [];
       var loader = this.$loading.show({
@@ -556,18 +584,18 @@ __webpack_require__.r(__webpack_exports__);
       });
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/brands', this.brand_form).then(function (response) {
         if (response.status == 200) {
-          _this9.brandDropdowndata();
+          _this10.brandDropdowndata();
 
-          _this9.$snotify.success('Successfully created', 'Success');
+          _this10.$snotify.success('Successfully created', 'Success');
 
-          _this9.$modal.hide('brandModal');
+          _this10.$modal.hide('brandModal');
 
-          _this9.loader.hide();
+          _this10.loader.hide();
         } else {
-          _this9.$snotify.error('Something went worng', 'error');
+          _this10.$snotify.error('Something went worng', 'error');
         }
       })["catch"](function (errors) {
-        _this9.brand_errors = errors.response.data.errors;
+        _this10.brand_errors = errors.response.data.errors;
       })["finally"](function (e) {
         loader.hide();
       });
@@ -692,59 +720,6 @@ var render = function() {
                         _c("label", [_vm._v("Supplier")]),
                         _vm._v(" "),
                         _c("div", { staticClass: "input-group col-xs-12" }, [
-                          _c(
-                            "select",
-                            {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.supplier_id,
-                                  expression: "form.supplier_id"
-                                }
-                              ],
-                              staticClass: "form-control form-control-sm",
-                              class: { "is-invalid": _vm.errors.supplier_id },
-                              on: {
-                                change: function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.$set(
-                                    _vm.form,
-                                    "supplier_id",
-                                    $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  )
-                                }
-                              }
-                            },
-                            [
-                              _c("option", { attrs: { value: "" } }, [
-                                _vm._v("Please select a supplier")
-                              ]),
-                              _vm._v(" "),
-                              _vm._l(_vm.suppliers, function(supplier, key) {
-                                return _c(
-                                  "option",
-                                  {
-                                    key: key,
-                                    domProps: { value: supplier.id }
-                                  },
-                                  [_vm._v(_vm._s(supplier.name))]
-                                )
-                              })
-                            ],
-                            2
-                          ),
-                          _vm._v(" "),
                           _c("span", { staticClass: "input-group-append" }, [
                             _c(
                               "button",
@@ -768,69 +743,22 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-4" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Category")]),
+                        _c("label", [_vm._v("Supplier")]),
                         _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.category_id,
-                                expression: "form.category_id"
-                              }
-                            ],
+                        _c("div", { staticClass: "input-group col-xs-12" }, [
+                          _c("input", {
                             staticClass: "form-control form-control-sm",
-                            class: { "is-invalid": _vm.errors.category_id },
-                            on: {
-                              change: [
-                                function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.$set(
-                                    _vm.form,
-                                    "category_id",
-                                    $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  )
-                                },
-                                function($event) {
-                                  return _vm.getProductsByCategory($event)
-                                }
-                              ]
-                            }
-                          },
-                          [
-                            _c("option", { attrs: { value: "" } }, [
-                              _vm._v("Please select a category")
-                            ]),
-                            _vm._v(" "),
-                            _vm._l(_vm.categories, function(category, key) {
-                              return _c(
-                                "option",
-                                { key: key, domProps: { value: category.id } },
-                                [_vm._v(_vm._s(category.name))]
-                              )
-                            })
-                          ],
-                          2
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _vm.errors.category_id
-                        ? _c("small", { staticClass: "text-danger" }, [
-                            _vm._v(_vm._s(_vm.errors.category_id[0]))
-                          ])
-                        : _vm._e()
+                            class: { "is-invalid": _vm.errors.document },
+                            attrs: { type: "file", name: "document" }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _vm.errors.supplier_id
+                          ? _c("small", { staticClass: "text-danger" }, [
+                              _vm._v(_vm._s(_vm.errors.supplier_id[0]))
+                            ])
+                          : _vm._e()
+                      ])
                     ])
                   ]),
                   _vm._v(" "),
@@ -850,11 +778,137 @@ var render = function() {
                             index
                           ) {
                             return _c("tr", { key: index }, [
-                              _c("td", { staticClass: "text-center" }, [
-                                _vm._v(
-                                  "\n                        " +
-                                    _vm._s(++index) +
-                                    "\n                      "
+                              _c("td", [
+                                _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: product_detail.supplier_id,
+                                        expression: "product_detail.supplier_id"
+                                      }
+                                    ],
+                                    staticClass: "form-control form-control-sm",
+                                    class: {
+                                      "is-invalid": _vm.errors.supplier_id
+                                    },
+                                    on: {
+                                      change: function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          product_detail,
+                                          "supplier_id",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("option", { attrs: { value: "" } }, [
+                                      _vm._v("Please select a supplier")
+                                    ]),
+                                    _vm._v(" "),
+                                    _vm._l(_vm.suppliers, function(
+                                      supplier,
+                                      key
+                                    ) {
+                                      return _c(
+                                        "option",
+                                        {
+                                          key: key,
+                                          domProps: { value: supplier.id }
+                                        },
+                                        [_vm._v(_vm._s(supplier.name))]
+                                      )
+                                    })
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: product_detail.category_id,
+                                        expression: "product_detail.category_id"
+                                      }
+                                    ],
+                                    staticClass: "form-control form-control-sm",
+                                    class: {
+                                      "is-invalid": _vm.errors.category_id
+                                    },
+                                    on: {
+                                      change: [
+                                        function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.$set(
+                                            product_detail,
+                                            "category_id",
+                                            $event.target.multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          )
+                                        },
+                                        function($event) {
+                                          return _vm.getProductsByCategory(
+                                            $event
+                                          )
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  [
+                                    _c("option", { attrs: { value: "" } }, [
+                                      _vm._v("Please select a category")
+                                    ]),
+                                    _vm._v(" "),
+                                    _vm._l(_vm.categories, function(
+                                      category,
+                                      key
+                                    ) {
+                                      return _c(
+                                        "option",
+                                        {
+                                          key: key,
+                                          domProps: { value: category.id }
+                                        },
+                                        [_vm._v(_vm._s(category.name))]
+                                      )
+                                    })
+                                  ],
+                                  2
                                 )
                               ]),
                               _vm._v(" "),
@@ -875,26 +929,34 @@ var render = function() {
                                       "is-invalid": _vm.errors.product_id
                                     },
                                     on: {
-                                      change: function($event) {
-                                        var $$selectedVal = Array.prototype.filter
-                                          .call($event.target.options, function(
-                                            o
-                                          ) {
-                                            return o.selected
-                                          })
-                                          .map(function(o) {
-                                            var val =
-                                              "_value" in o ? o._value : o.value
-                                            return val
-                                          })
-                                        _vm.$set(
-                                          product_detail,
-                                          "product_id",
-                                          $event.target.multiple
-                                            ? $$selectedVal
-                                            : $$selectedVal[0]
-                                        )
-                                      }
+                                      change: [
+                                        function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.$set(
+                                            product_detail,
+                                            "product_id",
+                                            $event.target.multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          )
+                                        },
+                                        function($event) {
+                                          return _vm.getProductInfo($event)
+                                        }
+                                      ]
                                     }
                                   },
                                   [
@@ -1075,19 +1137,107 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "text-right" }, [
-                                _vm._v(
-                                  "\n                        " +
-                                    _vm._s(product_detail.discount_value) +
-                                    "\n                        "
-                                )
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: product_detail.discount_value,
+                                      expression:
+                                        "product_detail.discount_value"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "form-control form-control-sm text-right",
+                                  class: {
+                                    "is-invalid": _vm.errors.discount_value
+                                  },
+                                  attrs: {
+                                    type: "number",
+                                    disabled: "",
+                                    placeholder: "Discount value"
+                                  },
+                                  domProps: {
+                                    value: product_detail.discount_value
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        product_detail,
+                                        "discount_value",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _vm.errors.discount_value
+                                  ? _c(
+                                      "small",
+                                      { staticClass: "text-danger" },
+                                      [
+                                        _vm._v(
+                                          _vm._s(_vm.errors.discount_value[0])
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e()
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "text-right" }, [
-                                _vm._v(
-                                  "\n                        " +
-                                    _vm._s(product_detail.product_wise_total) +
-                                    "\n                        "
-                                )
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: product_detail.product_wise_total,
+                                      expression:
+                                        "product_detail.product_wise_total"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "form-control form-control-sm text-right",
+                                  class: {
+                                    "is-invalid": _vm.errors.product_wise_total
+                                  },
+                                  attrs: {
+                                    type: "number",
+                                    disabled: "",
+                                    placeholder: "Enter product_wise_total"
+                                  },
+                                  domProps: {
+                                    value: product_detail.product_wise_total
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        product_detail,
+                                        "product_wise_total",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _vm.errors.product_wise_total
+                                  ? _c(
+                                      "small",
+                                      { staticClass: "text-danger" },
+                                      [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm.errors.product_wise_total[0]
+                                          )
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e()
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "text-center" }, [
@@ -1912,7 +2062,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("td", [_vm._v("No")]),
+        _c("td", [_vm._v("Supplier")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Category")]),
         _vm._v(" "),
         _c("td", [_vm._v("Product Name")]),
         _vm._v(" "),
