@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Api\V1\ApiCommonProcessHandler;
 use App\Http\Controllers\Api\V1\ApiResponseHandler;
-use App\Http\Requests\ProductRequest;
-use App\Models\Product;
+use App\Http\Requests\StockInRequest;
+use App\Models\StockIn;
+use DB;
 
 class StockInController extends BaseController
 {
@@ -22,21 +23,24 @@ class StockInController extends BaseController
     {
         try {
             $with = [
-                'category:id,name',
-                'model:id,name',
-                'brand:id,name'
+                'stockIns',
+                'supplier:id,name',
+                'createdBy:id,first_name,last_name'
             ];
-            $modelData = $this->apiCrudHandler->index($request, Product::class, $where = [], $with);
+            $where = [
+                'stock_in_id' => null
+            ];
+            $modelData = $this->apiCrudHandler->index($request, StockIn::class, $where, $with);           
             return $this->sendResponse($modelData);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }
 
-    public function getProductsByCategory($categoryId)
+    public function getStockInsByCategory($categoryId)
     {
         try {            
-            $modelData = Product::where('category_id', $categoryId)->get();
+            $modelData = StockIn::where('category_id', $categoryId)->get();
             return $this->sendResponse($modelData);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
@@ -51,11 +55,11 @@ class StockInController extends BaseController
      *
      * @return Array
      */
-    public function productDropdowndata(Request $request)
+    public function StockInDropdowndata(Request $request)
     {       
         try {
             $select = ['id', 'name'];        
-            $modelData = $this->apiCrudHandler->dropdownData($request, Product::class, $where = [],  $with = [], $select);
+            $modelData = $this->apiCrudHandler->dropdownData($request, StockIn::class, $where = [],  $with = [], $select);
             return $this->sendResponse($modelData);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
@@ -72,11 +76,17 @@ class StockInController extends BaseController
      */
     public function store(Request $request)
     {
-        dd($request->all());
         try {
-            $modelData = $this->apiCrudHandler->store($request, Product::class);
-            return $this->sendResponse($modelData);
+            DB::beginTransaction();
+            if ($request->id) {
+                $delete = $this->apiCrudHandler->delete($request->id, StockIn::class);                
+            } 
+            $stockIn = StockIn::create($request->except('product_detail_list'));
+            $stockIn->stockIns()->createMany($request->product_detail_list);            
+            DB::commit();
+            return $this->sendResponse($stockIn);
         } catch (Exception $ex) {
+            DB::rollback();
             return $this->sendError($e->getMessage());
         }
     } 
@@ -89,7 +99,38 @@ class StockInController extends BaseController
     public function show($id)
     {
         try {
-            $modelData = $this->apiCrudHandler->show($id, Product::class, $with = []);
+            $with = [
+                'stockIns',
+                'stockIns.supplier:id,name',
+                'stockIns.product:id,name,code,sale_price,tax_percentage'
+            ];
+            $modelData = $this->apiCrudHandler->show($id, StockIn::class, $with);          
+            return $this->sendResponse($modelData);
+        } catch (Exception $ex) {
+            return $this->sendError($e->getMessage());
+        }
+    }
+
+    /**    
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        try {            
+            $with = [
+                'stockIns',
+                'supplier:id,name',
+                'createdBy:id,first_name,last_name'
+            ];
+            $where = [
+                'stock_in_id' => null
+            ];
+            $modelData = StockIn::with($with)
+                ->where($where)
+                ->where('stock_in_challan', 'like', "%$request->search_key%")               
+                ->orderBy($request->sortByColumn ?? 'id', $request->sortBy ?? 'desc')
+                ->paginate();
             return $this->sendResponse($modelData);
         } catch (Exception $ex) {
             return $this->sendError($e->getMessage());
@@ -102,10 +143,10 @@ class StockInController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($id, Product $Product)
+    public function delete($id, StockIn $StockIn)
     {
         try {
-            $delete = $this->apiCrudHandler->delete($id, Product::class);
+            $delete = $this->apiCrudHandler->delete($id, StockIn::class);
             return $this->sendResponse($delete);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());

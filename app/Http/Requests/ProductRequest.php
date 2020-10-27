@@ -64,7 +64,7 @@ class ProductRequest extends FormRequest
                 'required',
                 'max:100'
             ],
-            'product_code' => [
+            'code' => [
                 'required',
                 'max:20'
             ],

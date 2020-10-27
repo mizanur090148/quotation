@@ -10,6 +10,7 @@ import Toasted from 'vue-toasted';
 import vSelect from "vue-select";
 import 'vue-snotify/styles/material.css';
 import VuePagination from "./components/global/PaginationComponent";
+import VueHtmlToPaper from "vue-html-to-paper";
 //import modelModal from "./components/forms/modals/Model";
 
 window.Form = Form
@@ -18,6 +19,14 @@ const Snotifyoptions = {
     position: SnotifyPosition.rightTop
   }
 }
+const options = {
+    name: "_blank",
+    specs: ["fullscreen=yes", "titlebar=yes", "scrollbars=yes"],
+    styles: [
+      "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+      "https://unpkg.com/kidlat-css/css/kidlat.css"
+    ]
+};
 
 Vue.use(VueRouter)
 Vue.use(Loading)
@@ -25,9 +34,10 @@ Vue.use(VModal)
 Vue.use(Toasted)
 Vue.use(Snotify, Snotifyoptions);
 Vue.component("v-select", vSelect);
-Vue.component(HasError.name, HasError)
-Vue.component(AlertError.name, AlertError)
-Vue.component('v-pagination', VuePagination)
+Vue.component(HasError.name, HasError);
+Vue.component(AlertError.name, AlertError);
+Vue.component('v-pagination', VuePagination);
+Vue.use(VueHtmlToPaper, options);
 //Vue.component('v-models', modelModal)
 
 import App from './components/App'
@@ -46,8 +56,10 @@ const Brands = () => import(/* webpackChunkName: "brands" */ './components/lists
 const Suppliers = () => import(/* webpackChunkName: "suppliers" */ './components/lists/Suppliers.vue');
 
 const StockIns = () => import(/* webpackChunkName: "stockIns" */ './components/lists/StockIns.vue');
-const StockIn = () => import(/* webpackChunkName: "StockIn" */ './components/forms/StockIn.vue');
-/*  */
+const StockIn = () => import(/* webpackChunkName: "stockIn" */ './components/forms/StockIn.vue');
+const StockInView = () => import(/* webpackChunkName: "stockInView" */ './components/lists/StockInView.vue');
+
+const Sales = () => import(/* webpackChunkName: "Sale" */ './components/forms/Sale.vue');
 
 const router = new VueRouter({
     mode: 'history',
@@ -91,7 +103,22 @@ const router = new VueRouter({
             path: '/stock-ins',
             name: 'stock-ins',
             component: StockIns,
-        },           
+        },
+        {
+            path: '/stock-ins/:id',
+            name: 'stock-ins',
+            component: StockIn,
+        },
+        {
+            path: '/stock-in-view/:id',
+            name: 'stock-in-view',
+            component: StockInView,
+        },
+        {
+            path: '/sales/create',
+            name: 'Sales',
+            component: Sales,
+        },
         {
             path: '/users',
             name: 'users',

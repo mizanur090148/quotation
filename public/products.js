@@ -416,7 +416,7 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(product.name))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(product.product_code))]),
+                              _c("td", [_vm._v(_vm._s(product.code))]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(product.category.name))]),
                               _vm._v(" "),
@@ -564,7 +564,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "col-md-4 ml-auto" }, [
                           _c("span", [_vm._v("Product Code:")]),
-                          _vm._v(" " + _vm._s(_vm.product.product_code))
+                          _vm._v(" " + _vm._s(_vm.product.code))
                         ])
                       ]),
                       _vm._v(" "),
@@ -576,7 +576,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "col-md-4 ml-auto" }, [
                           _c("span", [_vm._v("Product Code:")]),
-                          _vm._v(" " + _vm._s(_vm.product.product_code))
+                          _vm._v(" " + _vm._s(_vm.product.code))
                         ])
                       ]),
                       _vm._v(" "),

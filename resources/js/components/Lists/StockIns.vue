@@ -14,42 +14,50 @@
               </div>
               <div class="col-md-6"></div>
               <div class="col-md-3">
-                <input type="text" class="form-control search-field" v-model="search_key" placeholder="Search"/>
+                <input type="text" class="form-control search-field" v-model="search_key" placeholder="Search by challan no"/>
               </div>
             </div>
             <div class="table-responsive">
               <table class="list-table table-hover">
                 <thead>
                   <tr>
-                    <th>Sl.</th>
-                    <th>F. Name</th>
-                    <th>L. Name</th>
-                    <th>E-mail</th>
-                    <th>Mobile No</th>
-                    <th>Address</th>
-                    <th>Role</th>
-                    <th>Outlet</th>
-                    <th>Action</th>
+                    <td>SL.</td>
+                    <td title="Stock In Challan">Challan No</td>
+                    <td>Status</td>
+                    <td>Product Cost</td>
+                    <td>Shipping Cost</td>
+                    <td>Others Cost</td>
+                    <td>Total Cost</td>
+                    <td>Created Date</td>
+                    <td>Created By</td>
+                    <td>Action</td>
                   </tr>
                 </thead>
-                <tbody v-if="users.length">
-                  <tr v-for="(user, index) in users" :key="user.id">
+                <tbody v-if="stock_ins.length">
+                  <tr v-for="(stock_in, index) in stock_ins" :key="stock_in.id">
                     <td>{{ ++index }}</td>
-                    <td>{{ user.first_name }}</td>
-                    <td>{{ user.last_name }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.mobile_no }}</td>
-                    <td>{{ user.address }}</td>
-                    <td>{{ user.role.name }}</td>
-                    <td>{{ user.outlet.name }}</td>
+                    <td>{{ stock_in.stock_in_challan }}</td>
+                    <td>{{ (stock_in.stock_in_status == 0) ? 'Pending' : 'Received' }}</td>
+                    <td>{{ stock_in.total_product_cost }}</td>
+                    <td>{{ stock_in.shipping_cost }}</td>
+                    <td>{{ stock_in.others_cost }}</td>
+                    <td>{{ stock_in.total_cost }}</td>
+                    <td>{{ stock_in.created_date }}</td>
+                    <td>{{ stock_in.created_by.full_name }}</td>
                     <td>
                       <router-link
-                        :to="'/user/'+ user.id"
+                        :to="'/stock-ins/'+ stock_in.id"
                         class="btn btn-sm btn-success btn-rounded btn-fw"
                         title="edit">
                         <i class="mdi mdi-grease-pencil"/>
                       </router-link>
-                      <button type="button" class="btn btn-sm btn-danger btn-rounded btn-fw" @click="deleteUser(user.id)">
+                      <router-link
+                        :to="'/stock-in-view/'+ stock_in.id"
+                        class="btn btn-sm btn-primary btn-rounded btn-fw"
+                        title="View details">
+                        <i class="mdi mdi-eye"/>
+                      </router-link>
+                      <button type="button" class="btn btn-sm btn-danger btn-rounded btn-fw" @click="deleteStockIn(stock_in.id)">
                         <i class="mdi mdi-delete"></i>
                       </button>
                     </td>
@@ -57,11 +65,11 @@
                 </tbody>
                 <tbody v-else>
                   <tr v-if="pagination.current_page == pagination.last_page" class="not-found">
-                    <td colspan="9" class="text-danger">Not Found</td>
+                    <td colspan="10" class="text-danger">Not Found</td>
                   </tr>
                 </tbody>
               </table>
-              <v-pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="8" @paginate="getUsers()"></v-pagination>
+              <v-pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="8" @paginate="getStockIns()"></v-pagination>
             </div>
           </div>
         </div>
@@ -78,9 +86,8 @@
   
   export default {
     data() {
-      return {
-        listResponse: null,
-        users: [],
+      return {      
+        stock_ins: [],
         pagination: {
           current_page: 1,
         },
@@ -88,25 +95,35 @@
       }
     },     
     mounted() {
-      this.getUsers()
+      this.getStockIns()
     },
     watch: {
       search_key: function() {
-        this.searchUsers();
-      },
+        this.searchStockIns();
+      }
     },
     methods: {
-      searchUsers() {
-        axios.get('search-users?search_key=' + this.search_key)
+      searchStockIns() {
+        axios.get('stock-ins?search_key=' + this.search_key)
           .then(res => {
-            this.users = res.data.data;
+            this.stock_ins = res.data.data;
+            this.pagination = res.data;
+          })
+          .catch(e => {
+            console.log(e);
+          })
+      },
+      searchStockIns() {
+        axios.get('search-stock-ins?search_key=' + this.search_key)
+          .then(res => {
+            this.stock_ins = res.data.data;
             this.pagination = res.data;
           })
           .catch(e => {
             console.log(e);
           })
       }, 
-      deleteUser(userId) {
+      deleteStockIn(stockInId) {
         this.$snotify.clear();
         this.$snotify.confirm(
           "Are you sure to delete this?",
@@ -118,9 +135,9 @@
                 text: "Yes",
                 action: toast => {
                   this.$snotify.remove(toast.id);
-                  axios.delete('/users/' + userId)
+                  axios.delete('/stock-ins/' + stockInId)
                     .then(response => {
-                      this.getUsers();
+                      this.getStockIns();
                       this.$snotify.success('Successfully deleted', 'Success');
                     })
                     .catch(e => {
@@ -140,15 +157,15 @@
           }
         );
       },
-      getUsers() {
+      getStockIns() {
         const loader = this.$loading.show({
           container: this.$refs.attendanceTable,
           canCancel: true,
           loader: 'bars'
         })
-        axios.get('users?page='+this.pagination.current_page)
+        axios.get('stock-ins?page='+this.pagination.current_page)
           .then((res) => {
-            this.users = res.data.data;
+            this.stock_ins = res.data.data;
             this.pagination = res.data;
           })
           .catch((error) => {

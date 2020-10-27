@@ -18,7 +18,7 @@
                 <div class="col-3">
                   <div class="form-group">
                     <label>Stock In Challan</label>
-                    <input type="text" v-model="form.stock_in_challan" class="form-control form-control-sm" disabled :class="{ 'is-invalid': errors.stock_in_challan }">
+                    <input type="text" v-model="stock_in_challan" class="form-control form-control-sm" disabled :class="{ 'is-invalid': errors.stock_in_challan }">
                     <small class="text-danger" v-if="errors.stock_in_challan">{{ errors.stock_in_challan[0] }}</small>
                   </div>
                 </div>
@@ -38,7 +38,7 @@
                   <div class="form-group">
                     <label>Stock In Document</label>                   
                       <input type="file" name="document" class="form-control form-control-sm" :class="{ 'is-invalid': errors.document }">
-                      <small class="text-danger" v-if="errors.document">{{ errors.document[0] }}</small>
+                      <small class="text-danger" v-if="errors.supplier_id">{{ errors.supplier_id[0] }}</small>
                   </div>
                 </div>
               </div>
@@ -47,15 +47,10 @@
               <div class="row p-2">               
                 <div class="col-6">
                   <div class="form-group">
-                    Search & Select Product
-                    <input type="text" v-model="search_product" v-on:keyup="autoComplete" class="form-control form-control-sm" :class="{ 'is-invalid': errors.product }">
-                    <small class="text-danger" v-if="errors.product">{{ errors.product[0] }}</small>                    
-                    <div class="panel-footer" v-if="products.length">
-                      <ul class="list-group">
-                        <a :key="key" href="#" class="list-group-item" v-for="(product, key) in products" @click="getProductInfo(product.id)">{{ product.name }}</a>
-                      </ul>
-                    </div>
-                  </div>                 
+                    Select Product
+                    <input type="text" v-model="stock_in_challan" class="form-control form-control-sm" :class="{ 'is-invalid': errors.stock_in_challan }">
+                    <small class="text-danger" v-if="errors.stock_in_challan">{{ errors.stock_in_challan[0] }}</small>
+                  </div>
                 </div>
               </div>
 
@@ -68,16 +63,15 @@
                       <tr>                       
                         <td>Supplier</td>                   
                         <td>Product Name</td>
-                        <td>Product Code</td>
                         <td>Quantity</td>
-                        <td>Unit Cost</td>
+                        <td>Net Unit Cost</td>
                         <td>Discount%</td>
-                        <td>Tax</td>
+                        <td>Discount Value</td>
                         <td>Total</td>
                         <td>Actions</td>
                       </tr>
                     </thead>
-                    <tbody v-if="form.product_detail_list.length">
+                    <tbody>
                       <tr v-for="(product_detail, index) in form.product_detail_list" :key="index">
                         <td>
                           <select v-model="product_detail.supplier_id" class="form-control form-control-sm" :class="{ 'is-invalid': errors.supplier_id }">
@@ -86,17 +80,21 @@
                           </select>
                         </td>
                         <td>
-                          {{ product_detail.name ? product_detail.name : product_detail.product.name }}
-                        </td>
-                        <td>                    
-                          {{ product_detail.code ? product_detail.name : product_detail.product.code }}
+                          <input type="text" v-model="product_detail.quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
+                          <small class="text-danger" v-if="errors.quantity">{{ errors.quantity[0] }}</small>
+                          <!-- <select v-model="product_detail.product_id" @change="getProductInfo($event)" class="form-control form-control-sm" :class="{ 'is-invalid': errors.product_id }">
+                            <option value="">Please select a product</option>
+                            <option v-for="(product, key) in product_detail.products" :value="product.id" :key="key">{{ product.name }}</option>
+                          </select> -->
                         </td>
                         <td class="text-center">
                           <input type="number" v-model="product_detail.quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
                           <small class="text-danger" v-if="errors.quantity">{{ errors.quantity[0] }}</small>
                         </td>
                         <td class="text-center">
-                          {{ product_detail.sale_price }}
+                          <!-- {{ product_detail.net_unit_cost }} -->
+                          <input type="number" v-model="product_detail.net_unit_cost" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.net_unit_cost }" placeholder="Enter net unit cost">
+                          <small class="text-danger" v-if="errors.net_unit_cost">{{ errors.net_unit_cost[0] }}</small>
                         </td>
                         <td>
                           <div class="input-group col-xs-12">
@@ -108,38 +106,49 @@
                           </div>
                         </td>
                         <td class="text-right">
-                          {{ product_detail.tax_value }}
+                          <!-- {{ product_detail.discount_value }} -->
+                          <input type="number" v-model="product_detail.discount_value" disabled class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.discount_value }" placeholder="Discount value">
+                          <small class="text-danger" v-if="errors.discount_value">{{ errors.discount_value[0] }}</small>
                         </td>
                         <td class="text-right">
-                          {{ product_detail.product_wise_total }}
+                          <!-- {{ product_detail.product_wise_total }} -->
+                          <input type="number" v-model="product_detail.product_wise_total" disabled class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.product_wise_total }" placeholder="Enter product_wise_total">
+                          <small class="text-danger" v-if="errors.product_wise_total">{{ errors.product_wise_total[0] }}</small>
                         </td>
                         <td class="text-center">
+                          <button type="button" class="btn btn-xs btn-success btn-rounded btn-fw" @click="addNewRow(product_detail)"><i class="mdi mdi-plus"></i></button>
                           <button type="button" class="btn btn-xs btn-danger btn-rounded btn-fw" @click="deleteRow(index, product_detail)"><i class="mdi mdi-delete"></i></button>
                         </td>
                       </tr>
+                      <!-- 
                       <tr class="font-weight-bold">
-                        <td colspan="7" class="text-right">Grand Total</td>
-                        <td class="text-right">{{ total_cost }}</td>
+                        <td colspan="6" class="text-right">Total Cost Without Tax</td>
+                        <td class="text-right">{{ total_cost_without_tax }}</td>
+                      </tr>  
+                      <tr>
+                        <td colspan="5" class="text-right">
+                          Tax 
+                        </td>
+                        <td>
+                          <div class="input-group col-xs-12">
+                            <input type="number" v-model="form.tax_percentage" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.tax_percentage }" placeholder="Tax Percentage">
+                            <span class="input-group-append">
+                              <button class="btn btn-sm btn-primary" type="button">%</button>
+                            </span>
+                            <small class="text-danger" v-if="errors.tax_percentage">{{ errors.tax_percentage[0] }}</small>
+                          </div>
+                        </td>
+                        <td class="text-right">{{ total_value }}</td>
+                      </tr>  -->
+                      <tr class="font-weight-bold">
+                        <td colspan="6" class="text-right">Grand Total</td>
+                        <td class="text-right">{{ total_cost_with_tax }}</td>
                       </tr>
                     </tbody>
                 </table>
               </div>
-              <div class="row p-4">
-                <div class="col-3">
-                  <div class="form-group">
-                    <label>Shipping Cost</label>
-                    <input type="number" v-model="form.shipping_cost" class="form-control form-control-sm" :class="{ 'is-invalid': errors.shipping_cost }">
-                    <small class="text-danger" v-if="errors.shipping_cost">{{ errors.shipping_cost[0] }}</small>
-                  </div>
-                </div>
-                <div class="col-3">
-                  <div class="form-group">
-                    <label>Other's Cost</label>
-                    <input type="number" v-model="form.others_cost" class="form-control form-control-sm" :class="{ 'is-invalid': errors.others_cost }">
-                    <small class="text-danger" v-if="errors.others_cost">{{ errors.others_cost[0] }}</small>
-                  </div>
-                </div>
-                <div class="col-6">                  
+              <div class="row p-2">               
+                <div class="col-12">                  
                   <div class="form-group">
                     <label>Note</label>
                     <textarea v-model="form.note" class="form-control form-control-sm" :class="{ 'is-invalid': errors.note }" placeholder="Enter note"></textarea>
@@ -239,30 +248,43 @@
   .modal-dialog {
     max-width: 750px !important;
   }
-/*   .btn i {
+  .btn i {
     font-size: 10px !important;
-  } */
+  }
 </style>
 <script>
-  
   import axios from '../../axios';
   import "vue-loading-overlay/dist/vue-loading.css";
   import Loading from 'vue-loading-overlay';
-    
+  
   export default {
     data() {
       return {
         errors: [],
-        form: new Form({          
-          stock_in_challan: '',
+        form: new Form({
+          name: '',
+          code: '',
+          unit: '',
+          tax: '',
+          sale_unit: '',
+          total_cost_without_tax: '',
           stock_in_status: 1,
-          stock_in_document: '',
-          shipping_cost: '',
-          others_cost: '',
-          note: '',
-          product_detail_list: []
-        }),
-
+          product_detail_list: [{
+            supplier_id: '',
+           // category_id: '',
+            product_id: '',           
+            quantity: 0,
+            product_wise_total: 0,
+            net_unit_cost: 0,
+            discount_percentage: '',
+            discount_value: 0,
+          }],
+          tax_percentage: '',
+          percentage_value: '',
+          profit_margin: '',
+          sale_value: '',
+          note: ''
+        }),        
         suppliers: [],
         supplier_errors: [],
         supplier_form: new Form({
@@ -273,106 +295,60 @@
           responsible_person: '',
           email: '',
         }),
+        categories: [],
         products: [],
-        product: null,
-        search_product: ''
+        percentage_dropdowns: []
       }
     },
     mounted() {
-      this.supplierDropdowndata();      
+      this.supplierDropdowndata();
+      this.productDropdowndata();
+      this.getPrcentageValueDropdownData();
+
       if (this.$route.params.id) {
-        this.getStockInChallanInfo(this.$route.params.id);
-      } else {
-        this.getStockInChallan();
+        this.getProductInfo(this.$route.params.id);
       }
     },
-    watch: {
+    watch: {     
+      search_key: function() {
+        this.searchProducts();
+      },
       'form.product_detail_list': {
         handler (newValue, oldValue) {
           newValue.forEach((product_detail) => {
-            let product_wise_total = product_detail.quantity * product_detail.sale_price;
-            let discount_value = this.calculateDiscount (product_wise_total, product_detail.discount_percentage);           
-            product_wise_total = product_wise_total + parseFloat(product_detail.tax_value) - parseFloat(discount_value);
-            product_detail.product_wise_total = product_wise_total.toFixed(2);
+            var product_wise_total = product_detail.quantity * product_detail.net_unit_cost;
+            var discount_value = this.calculateDiscount (product_wise_total, product_detail.discount_percentage);
+            product_detail.discount_value = discount_value;
+            product_detail.product_wise_total = product_wise_total - discount_value;
+
+           // product_detail.product_id = product_detail.product_id;
           })
         },
         deep: true
       }
     },
-    computed: {
-      total_cost: function() {
+    computed: {      
+      total_cost_without_tax: function() {
         var sum = 0;
         this.form.product_detail_list.forEach(product_detail => {
-          sum += parseFloat(product_detail.product_wise_total);
+          sum += product_detail.product_wise_total;
         });
-        return sum.toFixed(2);
+        return sum;
       },
-      /* total_value: function() {
+      total_value: function() {
         return this.total_cost_without_tax * (this.form.tax_percentage / 100);
       },
       total_cost_with_tax: function() {
         return this.total_value + this.total_cost_without_tax;
-      } */
+      }
     },
     methods: {
-      getStockInChallan() {
-        this.form.stock_in_challan = Date.now();
-      },
-      autoComplete() {
-        this.products = [];
-        if(this.search_product.length > 0) {
-          axios.get('/search-product-in-purchase', { params: {search_product: this.search_product}})
-            .then(response => {
-              this.products = response.data;
-            })
-            .catch(e => {
-              console.log(e);
-            })
+      getPrcentageValueDropdownData() {
+        let percentage_dropdowns = new Array();
+        for (let index = 0; index <= 100; index++) {
+          percentage_dropdowns.push(index);
         }
-      },
-      /* searchProduct() {
-        axios.get('search-product-in-purchase?search_product=' + this.search_product)
-          .then(res => {
-            this.products = res.data.data;
-            this.pagination = res.data;
-          })
-          .catch(e => {
-            console.log(e);
-          })
-      }, */
-      getProductInfo: function(productId) {
-        this.search_product = '';
-        this.products = [];        
-        let lastSelectedSupplierId = this.lastSelectedSupplierId();
-
-        axios.get('products/' + productId)
-          .then((res) => {
-            this.product = res.data;    
-            this.form.product_detail_list.push({
-              supplier_id: lastSelectedSupplierId,
-              name: this.product.name,
-              code: this.product.code,
-              product_id: this.product.id,
-              quantity: 1,            
-              sale_price: this.product.sale_price,
-              tax: this.product.tax_percentage,
-              tax_value: this.product.tax_value,
-              discount_percentage: 0,
-              product_wise_total: 1//this.product.sale_price * 1.
-            });
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-      },
-      lastSelectedSupplierId() {
-        let supplierId = '';
-        let countLength = this.form.product_detail_list.length;
-        if (countLength > 0) {
-          --countLength;
-          supplierId = this.form.product_detail_list[countLength].supplier_id;
-        }
-        return supplierId;
+        this.percentage_dropdowns = percentage_dropdowns;
       },
       calculateDiscount(product_wise_total, discount_percentage) {
         var discount_value = product_wise_total * (discount_percentage / 100);
@@ -380,8 +356,23 @@
       },
       closeModal(modalName) {
         this.$modal.hide(modalName);
-      },     
-      deleteRow(index, item) {
+      },
+      addNewRow() {
+        this.form.product_detail_list.push({
+          supplier_id: '',
+          category_id: '',         
+          product_id: '',
+          products: [],
+          quantity: 0,
+          net_unit_cost: 0,
+          discount: 0,
+        });
+      },
+      /* addNewRow(product_detail) {
+        console.log(this.form.product_detail_list);
+        this.form.product_detail_list.push(product_detail);
+      }, */
+      deleteRow(index, item) {             
         if (this.form.product_detail_list.length > 1) {
           this.$snotify.confirm(
             "Are you sure to delete this?",
@@ -413,7 +404,23 @@
           alert('You can not delete this')
         }
       },      
-           
+      getProductInfo(event) {
+        /* const loader = this.$loading.show({
+          container: this.$refs.attendanceTable,
+          canCancel: true,
+          loader: 'bars'
+        })
+        axios.get('products/' + event.target.value)
+          .then((res) => {
+            this.product_detail_list.product = res.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            loader.hide();
+          }); */
+      },      
       store() {
         this.errors = [];
         const loader = this.$loading.show({
@@ -423,8 +430,8 @@
         })
  
         axios.post('/stock-ins', this.form)
-          .then(response => {
-            if (response.status == 200) {
+          .then(response => {           
+            if (response.status == 200) {           
               this.$snotify.success('Successfully created', 'Success');
               this.$router.push({name: 'stock-ins'});
             } else {
@@ -438,19 +445,6 @@
             loader.hide();
           })
       },
-      getStockInChallanInfo(stockInId) {
-        axios.get('stock-ins/' + stockInId)
-          .then((res) => {
-            this.form = res.data;          
-            this.form.product_detail_list = res.data.stock_ins;
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-          .finally(() => {
-            //loader.hide();
-          });
-      },
       supplierDropdowndata() {
         axios.get('/supplier-dropdown-data')
           .then((res) => {
@@ -459,7 +453,16 @@
           .catch((error) => {
               console.log(error);
           })
-      },     
+      },
+      productDropdowndata() {
+        axios.get('/product-dropdown-data')
+          .then((res) => {
+            this.products = res.data;
+          })
+          .catch((error) => {
+              console.log(error);
+          })
+      },
       supplierModal()
       {
         this.supplier_form.reset();
@@ -469,9 +472,9 @@
       supplierStore() {
         this.supplier_errors = [];
         const loader = this.$loading.show({
-          container: this.$refs.supplierContainer,
-          canCancel: true,
-          loader: 'bars'
+           container: this.$refs.supplierContainer,
+           canCancel: true,
+           loader: 'bars'
         })
  
         axios.post('/suppliers', this.supplier_form)
@@ -491,7 +494,71 @@
           .finally(e => {
             loader.hide();
           })
-      }
+      },
+      modelModal()
+      {
+        this.model_form.reset();
+        this.model_form.clear();
+        this.$modal.show('modelModal');
+      },
+      modelStore() {
+        this.model_errors = [];
+        const loader = this.$loading.show({
+           container: this.$refs.modelContainer,
+           canCancel: true,
+           loader: 'bars'
+        })
+
+        axios.post('/models', this.model_form)
+          .then(response => {
+            if (response.status == 200) {
+              this.modelDropdowndata();
+              this.$snotify.success('Successfully created', 'Success');
+              this.$modal.hide('modelModal');
+              this.loader.hide();
+            } else {
+              this.$snotify.error('Something went worng', 'error');
+            }
+          })
+          .catch( errors => {
+            this.model_errors = errors.response.data.errors;
+          })
+          .finally(e => {
+            loader.hide();
+          })
+      },
+      brandModal()
+      {
+        this.brand_form.reset();
+        this.brand_form.clear();
+        this.$modal.show('brandModal');
+      },
+      brandStore() {
+        this.brand_errors = [];
+        const loader = this.$loading.show({
+           container: this.$refs.brandContainer,
+           canCancel: true,
+           loader: 'bars'
+        })
+ 
+        axios.post('/brands', this.brand_form)
+          .then(response => {
+            if (response.status == 200) {
+              this.brandDropdowndata();
+              this.$snotify.success('Successfully created', 'Success');
+              this.$modal.hide('brandModal');
+              this.loader.hide();
+            } else {
+              this.$snotify.error('Something went worng', 'error');
+            }
+          })
+          .catch( errors => {
+            this.brand_errors = errors.response.data.errors;
+          })
+          .finally(e => {
+            loader.hide();
+          })
+      }      
     }    
   }
 </script>

@@ -63,7 +63,7 @@ class ProductController extends BaseController
     }   
 
     /**
-    *
+     *
      * @param Request $request
      * @param String $moduleName
      * @param String $modelClassName   
@@ -113,13 +113,28 @@ class ProductController extends BaseController
                 'brand:id,name'
             ];
             $modelData = Product::with($with)
-                ->where('name', 'like', "%$request->search_key%")               
+                ->where('name', 'like', "%$request->search_key%")
                 ->orWhere('product_code', 'like', "%$request->search_key%")
                 ->orWhere('purchase_price', 'like', "%$request->search_key%")
                 ->orWhere('sale_price', 'like', "%$request->search_key%")
-                ->orWhere('product_detail', 'like', "%$request->search_key%")               
+                ->orWhere('product_detail', 'like', "%$request->search_key%")
                 ->orderBy($request->sortByColumn ?? 'id', $request->sortBy ?? 'desc')
                 ->paginate();
+            return $this->sendResponse($modelData);
+        } catch (Exception $ex) {
+            return $this->sendError($e->getMessage());
+        }
+    }
+
+    /**
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function searchProductInPurchase(Request $request)
+    {
+        try {            
+            $modelData = Product::where('name', 'like', "%$request->search_product%")            
+                ->get();
             return $this->sendResponse($modelData);
         } catch (Exception $ex) {
             return $this->sendError($e->getMessage());

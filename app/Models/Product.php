@@ -13,7 +13,7 @@ class Product extends Model
 
     protected $fillable = [
         'name',
-        'product_code',
+        'code',
         'category_id',
         'brand_id',
         'model_id',       
@@ -30,22 +30,29 @@ class Product extends Model
         'deleted_by'
     ];
 
+    protected $appends = ['tax_value'];
+
     protected $dates = [
     	'deleted_at'
     ];
 
     public function category()
     {
-        return $this->belongsTo(Category::class)->withDefault();       
+        return $this->belongsTo(Category::class)->withDefault();
     }
 
     public function brand()
     {
-        return $this->belongsTo(Brand::class)->withDefault();       
+        return $this->belongsTo(Brand::class)->withDefault();
     }
 
     public function model()
     {
-        return $this->belongsTo(Modell::class)->withDefault();       
+        return $this->belongsTo(Modell::class)->withDefault();
+    }
+
+    public function getTaxValueAttribute()
+    {
+        return number_format($this->sale_price * ($this->tax_percentage / 100), 2);
     }
 }

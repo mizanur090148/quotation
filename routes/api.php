@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\RoleController;
 use App\Http\Controllers\Api\V1\SupplierController;
+use App\Http\Controllers\Api\V1\CustomerController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\ModelController;
 use App\Http\Controllers\Api\V1\BrandController;
@@ -38,7 +39,12 @@ Route::get('suppliers/{id}', [SupplierController::class, 'show']);
 Route::delete('suppliers/{id}', [SupplierController::class, 'delete']);
 Route::get('search-suppliers', [SupplierController::class, 'search']);
 
-Route::get('role-dropdown-data', [RoleController::class, 'RoleDropdownData']);
+Route::get('customers', [CustomerController::class, 'index']);
+Route::get('customer-dropdown-data', [CustomerController::class, 'customerDropdownData']);
+Route::post('customers', [CustomerController::class, 'store']);
+Route::get('customers/{id}', [CustomerController::class, 'show']);
+Route::delete('customers/{id}', [CustomerController::class, 'delete']);
+Route::get('search-customers', [CustomerController::class, 'search']);
 
 // users route
 Route::get('users', [UserController::class, 'index']);
@@ -46,6 +52,7 @@ Route::post('users', [UserController::class, 'store']);
 Route::get('users/{id}', [UserController::class, 'show']);
 Route::delete('users/{id}', [UserController::class, 'delete']);
 Route::get('search-users', [UserController::class, 'search']);
+Route::get('role-dropdown-data', [RoleController::class, 'RoleDropdownData']);
 
 // products route
 Route::get('products', [ProductController::class, 'index']);
@@ -80,9 +87,16 @@ Route::delete('models/{id}', [ModelController::class, 'delete']);
 Route::get('search-models', [ModelController::class, 'search']);
 
 
-// quotations services
-Route::get('quotation-services', [StockInController::class, 'index']);
+// stock in services
+Route::get('stock-ins', [StockInController::class, 'index']);
 Route::post('stock-ins', [StockInController::class, 'store']);
+Route::get('stock-ins/{id}', [StockInController::class, 'show']);
+Route::get('stock-in-view/{id}', [StockInController::class, 'show']);
+Route::delete('stock-ins/{id}', [StockInController::class, 'delete']);
+Route::get('search-stock-ins', [StockInController::class, 'search']);
+Route::get('/search-product-in-purchase', [ProductController::class, 'searchProductInPurchase']);
+
+/* 
 Route::get('quotation-services/{id}', [StockInController::class, 'show']);
-Route::delete('quotation-services/{id}', [StockInController::class, 'destroy']);
-Route::get('search-quotation-services', [StockInController::class, 'search']);
+Route::get('search-quotation-services', [StockInController::class, 'search']); 
+*/

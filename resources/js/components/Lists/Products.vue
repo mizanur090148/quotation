@@ -36,7 +36,7 @@
                   <tr v-for="(product, index) in products" :key="product.id">
                       <td>{{ ++index }}</td>
                       <td>{{ product.name }}</td>
-                      <td>{{ product.product_code }}</td>
+                      <td>{{ product.code }}</td>
                       <td>{{ product.category.name }}</td>
                       <td>{{ product.brand.name }}</td>
                       <td>{{ product.model.name }}</td>
@@ -90,11 +90,11 @@
             <div class="modal-body" v-if="product">
               <div class="row p-2">
                 <div class="col-md-4"><span>Product Name:</span> {{ product.name }}</div>
-                <div class="col-md-4 ml-auto"><span>Product Code:</span> {{ product.product_code }}</div>
+                <div class="col-md-4 ml-auto"><span>Product Code:</span> {{ product.code }}</div>
               </div>
               <div class="row p-2">
                 <div class="col-md-4"><span>Product Name:</span> {{ product.name }}</div>
-                <div class="col-md-4 ml-auto"><span>Product Code:</span> {{ product.product_code }}</div>
+                <div class="col-md-4 ml-auto"><span>Product Code:</span> {{ product.code }}</div>
               </div>
               <div class="row p-2">
                 <div class="col-md-4"><span>Category:</span> {{ product.category.name }}</div>

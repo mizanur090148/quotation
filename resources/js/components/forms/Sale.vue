@@ -10,19 +10,27 @@
               <div class="row p-2">
                 <div class="col-3">
                   <div class="form-group">
-                    <label>Supplier</label> 
-                    <div></div>                     
-                    <button class="btn btn-sm btn-primary" type="button" @click="supplierModal">Add Supplier</button>
+                    <label>Customer</label> 
+                    <div class="input-group col-xs-12">
+                      <select v-model="form.customer_id" class="form-control form-control-sm" :class="{ 'is-invalid': errors.customer_id }">
+                        <option value="">Please select a customer</option>
+                        <option v-for="(customer, key) in customers" :value="customer.id" :key="key">{{ customer.name }}</option>
+                      </select>
+                      <span class="input-group-append">
+                        <button class="btn btn-sm btn-primary" type="button" @click="customerModal">+</button>
+                      </span>
+                    </div>
+                    <small class="text-danger" v-if="errors.category_id">{{ errors.customer_id[0] }}</small>
                   </div>
                 </div>
                 <div class="col-3">
                   <div class="form-group">
-                    <label>Stock In Challan</label>
-                    <input type="text" v-model="form.stock_in_challan" class="form-control form-control-sm" disabled :class="{ 'is-invalid': errors.stock_in_challan }">
-                    <small class="text-danger" v-if="errors.stock_in_challan">{{ errors.stock_in_challan[0] }}</small>
+                    <label>Sale Challan</label>
+                    <input type="text" v-model="form.sale_challan" class="form-control form-control-sm" disabled :class="{ 'is-invalid': errors.sale_challan }">
+                    <small class="text-danger" v-if="errors.sale_challan">{{ errors.sale_challan[0] }}</small>
                   </div>
                 </div>
-                <div class="col-3">
+                <!-- <div class="col-3">
                   <div class="form-group">
                     <label>Status</label>
                     <div class="input-group col-xs-12">
@@ -33,17 +41,9 @@
                     </div>
                     <small class="text-danger" v-if="errors.stock_in_status">{{ errors.stock_in_status[0] }}</small>
                   </div>
-                </div>
-                <div class="col-3">
-                  <div class="form-group">
-                    <label>Stock In Document</label>                   
-                      <input type="file" name="document" class="form-control form-control-sm" :class="{ 'is-invalid': errors.document }">
-                      <small class="text-danger" v-if="errors.document">{{ errors.document[0] }}</small>
-                  </div>
-                </div>
+                </div> -->               
               </div>
-              <hr>
-              
+              <hr>              
               <div class="row p-2">               
                 <div class="col-6">
                   <div class="form-group">
@@ -66,7 +66,7 @@
                         <td colspan="9">Product Details Table</td>
                      </tr>
                       <tr>                       
-                        <td>Supplier</td>                   
+                        <td>customer</td>                   
                         <td>Product Name</td>
                         <td>Product Code</td>
                         <td>Quantity</td>
@@ -80,9 +80,9 @@
                     <tbody v-if="form.product_detail_list.length">
                       <tr v-for="(product_detail, index) in form.product_detail_list" :key="index">
                         <td>
-                          <select v-model="product_detail.supplier_id" class="form-control form-control-sm" :class="{ 'is-invalid': errors.supplier_id }">
-                            <option value="">Please select a supplier</option>
-                            <option v-for="(supplier, key) in suppliers" :value="supplier.id" :key="key">{{ supplier.name }}</option>
+                          <select v-model="product_detail.customer_id" class="form-control form-control-sm" :class="{ 'is-invalid': errors.customer_id }">
+                            <option value="">Please select a customer</option>
+                            <option v-for="(customer, key) in customers" :value="customer.id" :key="key">{{ customer.name }}</option>
                           </select>
                         </td>
                         <td>
@@ -161,61 +161,61 @@
       </div>      
     </div>
 
-    <!-- supplier Modal -->
-    <modal name="supplierModal" :width="795" :height="375">
+    <!-- customer Modal -->
+    <modal name="customerModal" :width="795" :height="375">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">New supplier</h5>
-            <button type="button" class="close" @click="closeModal('supplierModal')">
+            <h5 class="modal-title">New Customer</h5>
+            <button type="button" class="close" @click="closeModal('customerModal')">
               <span aria-hidden="true" >&times;</span>
             </button>
           </div>
-          <form @submit.prevent="supplierStore()">
+          <form @submit.prevent="customerStore()">
             <div class="modal-body">
               <div class="row p-2">
                 <div class="col-4">
                   <div class="form-group">
-                    <label>Supplier Name</label>
-                    <input type="text" v-model="supplier_form.name" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.name }" placeholder="Enter supplier name">
-                    <small class="text-danger" v-if="supplier_errors.name">{{ supplier_errors.name[0] }}</small>
+                    <label>Customer Name</label>
+                    <input type="text" v-model="customer_form.name" class="form-control form-control-sm" :class="{ 'is-invalid': customer_errors.name }" placeholder="Enter customer name">
+                    <small class="text-danger" v-if="customer_errors.name">{{ customer_errors.name[0] }}</small>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="form-group">
-                    <label>Responsible Person</label>
-                    <input type="text" v-model="supplier_form.responsible_person" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.responsible_person }" placeholder="Enter responsible person">
-                    <small class="text-danger" v-if="supplier_errors.responsible_person">{{ supplier_errors.responsible_person[0] }}</small>
+                    <label>TRN No.</label>
+                    <input type="text" v-model="customer_form.trn_no" class="form-control form-control-sm" :class="{ 'is-invalid': customer_errors.trn_no }" placeholder="Enter mobile no">
+                    <small class="text-danger" v-if="customer_errors.trn_no">{{ customer_errors.trn_no[0] }}</small>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="form-group">
-                    <label>Mobile No.</label>
-                    <input type="text" v-model="supplier_form.mobile_no" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.mobile_no }" placeholder="Enter mobile no">
-                    <small class="text-danger" v-if="supplier_errors.mobile_no">{{ supplier_errors.mobile_no[0] }}</small>
+                    <label>Attention Name</label>
+                    <input type="text" v-model="customer_form.attention_name" class="form-control form-control-sm" :class="{ 'is-invalid': customer_errors.attention_name }" placeholder="Enter responsible person">
+                    <small class="text-danger" v-if="customer_errors.attention_name">{{ customer_errors.attention_name[0] }}</small>
                   </div>
-                </div>
+                </div>                
               </div>
               <div class="row p-2">
                 <div class="col-4">
                   <div class="form-group">
                     <label>Telephone No.</label>
-                    <input type="text" v-model="supplier_form.telephone_no" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.telephone_no }" placeholder="Enter telephone no">
-                    <small class="text-danger" v-if="supplier_errors.telephone_no">{{ supplier_errors.telephone_no[0] }}</small>
+                    <input type="text" v-model="customer_form.telephone_no" class="form-control form-control-sm" :class="{ 'is-invalid': customer_errors.telephone_no }" placeholder="Enter telephone no">
+                    <small class="text-danger" v-if="customer_errors.telephone_no">{{ customer_errors.telephone_no[0] }}</small>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="form-group">
                     <label>E-mail</label>
-                    <input type="text" v-model="supplier_form.email" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.email }" placeholder="Enter supplier email">
-                    <small class="text-danger" v-if="supplier_errors.email">{{ supplier_errors.email[0] }}</small>
+                    <input type="text" v-model="customer_form.email" class="form-control form-control-sm" :class="{ 'is-invalid': customer_errors.email }" placeholder="Enter customer email">
+                    <small class="text-danger" v-if="customer_errors.email">{{ customer_errors.email[0] }}</small>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="form-group">
                     <label>Address</label>
-                    <input type="text" v-model="supplier_form.address" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.address }" placeholder="Enter supplier address">
-                    <small class="text-danger" v-if="supplier_errors.address">{{ supplier_errors.address[0] }}</small>
+                    <input type="text" v-model="customer_form.address" class="form-control form-control-sm" :class="{ 'is-invalid': customer_errors.address }" placeholder="Enter customer address">
+                    <small class="text-danger" v-if="customer_errors.address">{{ customer_errors.address[0] }}</small>
                   </div>
                 </div>
               </div>
@@ -223,7 +223,7 @@
             <div class="modal-footer justify-content-md-center">           
               <div class="form-group">
                 <button type="submit" class="btn btn-sm btn-primary mr-2">Submit</button>
-                <button type="button" class="btn btn-sm btn-danger mr-2" @click="closeModal('supplierModal')">Close</button>
+                <button type="button" class="btn btn-sm btn-danger mr-2" @click="closeModal('customerModal')">Close</button>
               </div>
             </div>
           </form>
@@ -253,8 +253,10 @@
     data() {
       return {
         errors: [],
-        form: new Form({          
-          stock_in_challan: '',
+        customers: [],
+        form: new Form({  
+          customer_id: '',        
+          sale_challan: '',
           stock_in_status: 1,
           stock_in_document: '',
           shipping_cost: '',
@@ -263,14 +265,14 @@
           product_detail_list: []
         }),
 
-        suppliers: [],
-        supplier_errors: [],
-        supplier_form: new Form({
+        customers: [],
+        customer_errors: [],
+        customer_form: new Form({
           name: '',
           address: '',
           mobile_no: '',
           telephone_no: '',
-          responsible_person: '',
+          attention_name: '',
           email: '',
         }),
         products: [],
@@ -279,7 +281,7 @@
       }
     },
     mounted() {
-      this.supplierDropdowndata();      
+      this.customerDropdowndata();      
       if (this.$route.params.id) {
         this.getStockInChallanInfo(this.$route.params.id);
       } else {
@@ -316,7 +318,7 @@
     },
     methods: {
       getStockInChallan() {
-        this.form.stock_in_challan = Date.now();
+        this.form.sale_challan = Date.now();
       },
       autoComplete() {
         this.products = [];
@@ -343,13 +345,13 @@
       getProductInfo: function(productId) {
         this.search_product = '';
         this.products = [];        
-        let lastSelectedSupplierId = this.lastSelectedSupplierId();
+        let lastSelectedcustomerId = this.lastSelectedcustomerId();
 
         axios.get('products/' + productId)
           .then((res) => {
             this.product = res.data;    
             this.form.product_detail_list.push({
-              supplier_id: lastSelectedSupplierId,
+              customer_id: lastSelectedcustomerId,
               name: this.product.name,
               code: this.product.code,
               product_id: this.product.id,
@@ -365,14 +367,14 @@
             console.log(error);
           })
       },
-      lastSelectedSupplierId() {
-        let supplierId = '';
+      lastSelectedcustomerId() {
+        let customerId = '';
         let countLength = this.form.product_detail_list.length;
         if (countLength > 0) {
           --countLength;
-          supplierId = this.form.product_detail_list[countLength].supplier_id;
+          customerId = this.form.product_detail_list[countLength].customer_id;
         }
-        return supplierId;
+        return customerId;
       },
       calculateDiscount(product_wise_total, discount_percentage) {
         var discount_value = product_wise_total * (discount_percentage / 100);
@@ -417,7 +419,7 @@
       store() {
         this.errors = [];
         const loader = this.$loading.show({
-          container: this.$refs.supplierContainer,
+          container: this.$refs.customerContainer,
           canCancel: true,
           loader: 'bars'
         })
@@ -451,42 +453,42 @@
             //loader.hide();
           });
       },
-      supplierDropdowndata() {
-        axios.get('/supplier-dropdown-data')
+      customerDropdowndata() {
+        axios.get('/customer-dropdown-data')
           .then((res) => {
-              this.suppliers = res.data;
+              this.customers = res.data;
           })
           .catch((error) => {
               console.log(error);
           })
       },     
-      supplierModal()
+      customerModal()
       {
-        this.supplier_form.reset();
-        this.supplier_form.clear();
-        this.$modal.show('supplierModal');
+        this.customer_form.reset();
+        this.customer_form.clear();
+        this.$modal.show('customerModal');
       },
-      supplierStore() {
-        this.supplier_errors = [];
+      customerStore() {
+        this.customer_errors = [];
         const loader = this.$loading.show({
-          container: this.$refs.supplierContainer,
+          container: this.$refs.customerContainer,
           canCancel: true,
           loader: 'bars'
         })
  
-        axios.post('/suppliers', this.supplier_form)
+        axios.post('/customers', this.customer_form)
           .then(response => {
             if (response.status == 200) {
-              this.supplierDropdowndata();
+              this.customerDropdowndata();
               this.$snotify.success('Successfully created', 'Success');
-              this.$modal.hide('supplierModal');
+              this.$modal.hide('customerModal');
               this.loader.hide();
             } else {
               this.$snotify.error('Something went worng', 'error');
             }
           })
           .catch( errors => {
-            this.supplier_errors = errors.response.data.errors;
+            this.customer_errors = errors.response.data.errors;
           })
           .finally(e => {
             loader.hide();

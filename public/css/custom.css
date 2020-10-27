@@ -50,3 +50,6 @@ label {
   height: 35px !important;
   font-style: italic;
 }
+input[type=number] {
+  text-align: right;
+}
