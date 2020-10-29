@@ -59,7 +59,9 @@ const StockIns = () => import(/* webpackChunkName: "stockIns" */ './components/l
 const StockIn = () => import(/* webpackChunkName: "stockIn" */ './components/forms/StockIn.vue');
 const StockInView = () => import(/* webpackChunkName: "stockInView" */ './components/lists/StockInView.vue');
 
-const Sales = () => import(/* webpackChunkName: "Sale" */ './components/forms/Sale.vue');
+const Sale = () => import(/* webpackChunkName: "Sale" */ './components/forms/Sale.vue');
+const Sales = () => import(/* webpackChunkName: "Sales" */ './components/Lists/Sales.vue');
+const SaleInvoice = () => import(/* webpackChunkName: "SaleInvoice" */ './components/Lists/SaleInvoice.vue');
 
 const router = new VueRouter({
     mode: 'history',
@@ -115,9 +117,24 @@ const router = new VueRouter({
             component: StockInView,
         },
         {
-            path: '/sales/create',
-            name: 'Sales',
+            path: '/sales',
+            name: 'sales',
             component: Sales,
+        },
+        {
+            path: '/sales/create',
+            name: 'sale',
+            component: Sale,
+        },
+        {
+            path: '/sales/:id',
+            name: 'sale',
+            component: Sale,
+        },
+        {
+            path: '/sale-invoice/:id',
+            name: 'sale-invoice',
+            component: SaleInvoice,
         },
         {
             path: '/users',

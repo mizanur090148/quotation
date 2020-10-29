@@ -28,6 +28,7 @@
                     <th>Brand</th>
                     <th>Model</th>                    
                     <th>Purchase Price</th>
+                    <td>Tax(%)</td>
                     <th>Sale Price</th>                   
                     <th>Actions</th>
                   </tr>
@@ -41,6 +42,7 @@
                       <td>{{ product.brand.name }}</td>
                       <td>{{ product.model.name }}</td>
                       <td>{{ product.purchase_price }}</td>
+                      <td>{{ product.tax_percentage }}</td>
                       <td>{{ product.sale_price }}</td>
                       <td>                          
                         <!-- <router-link

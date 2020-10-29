@@ -149,6 +149,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -428,6 +430,10 @@ var render = function() {
                                 _vm._v(_vm._s(product.purchase_price))
                               ]),
                               _vm._v(" "),
+                              _c("td", [
+                                _vm._v(_vm._s(product.tax_percentage))
+                              ]),
+                              _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(product.sale_price))]),
                               _vm._v(" "),
                               _c(
@@ -667,6 +673,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Model")]),
         _vm._v(" "),
         _c("th", [_vm._v("Purchase Price")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Tax(%)")]),
         _vm._v(" "),
         _c("th", [_vm._v("Sale Price")]),
         _vm._v(" "),

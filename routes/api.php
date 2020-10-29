@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\V1\ModelController;
 use App\Http\Controllers\Api\V1\BrandController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\StockInController;
+use App\Http\Controllers\Api\V1\SaleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -96,7 +97,10 @@ Route::delete('stock-ins/{id}', [StockInController::class, 'delete']);
 Route::get('search-stock-ins', [StockInController::class, 'search']);
 Route::get('/search-product-in-purchase', [ProductController::class, 'searchProductInPurchase']);
 
-/* 
-Route::get('quotation-services/{id}', [StockInController::class, 'show']);
-Route::get('search-quotation-services', [StockInController::class, 'search']); 
-*/
+// sales
+Route::get('sales', [SaleController::class, 'index']);
+Route::post('sales', [SaleController::class, 'store']);
+Route::get('sales/{id}', [SaleController::class, 'show']);
+Route::get('sale-invoice/{id}', [SaleController::class, 'show']);
+Route::delete('sales/{id}', [SaleController::class, 'delete']);
+Route::get('search-sales', [SaleController::class, 'search']);

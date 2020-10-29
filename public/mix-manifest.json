@@ -12,5 +12,9 @@
     "/suppliers.js": "/suppliers.js",
     "/user.js": "/user.js",
     "/users.js": "/users.js",
-    "/Sale.js": "/Sale.js"
+    "/Sale.js": "/Sale.js",
+    "/Sales.js": "/Sales.js",
+    "/saleView.js": "/saleView.js",
+    "/saleInvoice.js": "/saleInvoice.js",
+    "/SaleInvoice.js": "/SaleInvoice.js"
 }

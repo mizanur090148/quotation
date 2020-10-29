@@ -72,7 +72,7 @@
                         <td>Quantity</td>
                         <td>Unit Cost</td>
                         <td>Discount%</td>
-                        <td>Tax</td>
+                        <td>Tax(5%)</td>
                         <td>Total</td>
                         <td>Actions</td>
                       </tr>
@@ -96,7 +96,7 @@
                           <small class="text-danger" v-if="errors.quantity">{{ errors.quantity[0] }}</small>
                         </td>
                         <td class="text-center">
-                          {{ product_detail.sale_price }}
+                          {{ product_detail.purchase_price }}
                         </td>
                         <td>
                           <div class="input-group col-xs-12">
@@ -111,7 +111,7 @@
                           {{ product_detail.tax_value }}
                         </td>
                         <td class="text-right">
-                          {{ product_detail.product_wise_total }}
+                          {{ Math.round(product_detail.product_wise_total) }}
                         </td>
                         <td class="text-center">
                           <button type="button" class="btn btn-xs btn-danger btn-rounded btn-fw" @click="deleteRow(index, product_detail)"><i class="mdi mdi-delete"></i></button>
@@ -119,7 +119,7 @@
                       </tr>
                       <tr class="font-weight-bold">
                         <td colspan="7" class="text-right">Grand Total</td>
-                        <td class="text-right">{{ total_cost }}</td>
+                        <td class="text-right">{{ Math.round(total_cost) }}</td>
                       </tr>
                     </tbody>
                 </table>
@@ -183,38 +183,38 @@
                 </div>
                 <div class="col-4">
                   <div class="form-group">
-                    <label>Responsible Person</label>
-                    <input type="text" v-model="supplier_form.responsible_person" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.responsible_person }" placeholder="Enter responsible person">
-                    <small class="text-danger" v-if="supplier_errors.responsible_person">{{ supplier_errors.responsible_person[0] }}</small>
+                    <label>TRN No.</label>
+                    <input type="text" v-model="supplier_form.trn_no" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.trn_no }" placeholder="Enter trn no">
+                    <small class="text-danger" v-if="supplier_errors.trn_no">{{ supplier_errors.trn_no[0] }}</small>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="form-group">
-                    <label>Mobile No.</label>
-                    <input type="text" v-model="supplier_form.mobile_no" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.mobile_no }" placeholder="Enter mobile no">
-                    <small class="text-danger" v-if="supplier_errors.mobile_no">{{ supplier_errors.mobile_no[0] }}</small>
+                    <label>Attention Name</label>
+                    <input type="text" v-model="supplier_form.responsible_person" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.responsible_person }" placeholder="Enter attention name">
+                    <small class="text-danger" v-if="supplier_errors.responsible_person">{{ supplier_errors.responsible_person[0] }}</small>
                   </div>
-                </div>
+                </div>                
               </div>
-              <div class="row p-2">
+              <div class="row p-2"> 
                 <div class="col-4">
                   <div class="form-group">
                     <label>Telephone No.</label>
                     <input type="text" v-model="supplier_form.telephone_no" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.telephone_no }" placeholder="Enter telephone no">
                     <small class="text-danger" v-if="supplier_errors.telephone_no">{{ supplier_errors.telephone_no[0] }}</small>
                   </div>
-                </div>
+                </div>               
                 <div class="col-4">
                   <div class="form-group">
                     <label>E-mail</label>
-                    <input type="text" v-model="supplier_form.email" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.email }" placeholder="Enter supplier email">
+                    <input type="text" v-model="supplier_form.email" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.email }" placeholder="Enter email">
                     <small class="text-danger" v-if="supplier_errors.email">{{ supplier_errors.email[0] }}</small>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="form-group">
                     <label>Address</label>
-                    <input type="text" v-model="supplier_form.address" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.address }" placeholder="Enter supplier address">
+                    <input type="text" v-model="supplier_form.address" class="form-control form-control-sm" :class="{ 'is-invalid': supplier_errors.address }" placeholder="Enter address">
                     <small class="text-danger" v-if="supplier_errors.address">{{ supplier_errors.address[0] }}</small>
                   </div>
                 </div>
@@ -267,6 +267,7 @@
         supplier_errors: [],
         supplier_form: new Form({
           name: '',
+          trn_no: '',
           address: '',
           mobile_no: '',
           telephone_no: '',
@@ -290,7 +291,7 @@
       'form.product_detail_list': {
         handler (newValue, oldValue) {
           newValue.forEach((product_detail) => {
-            let product_wise_total = product_detail.quantity * product_detail.sale_price;
+            let product_wise_total = product_detail.quantity * product_detail.purchase_price;
             let discount_value = this.calculateDiscount (product_wise_total, product_detail.discount_percentage);           
             product_wise_total = product_wise_total + parseFloat(product_detail.tax_value) - parseFloat(discount_value);
             product_detail.product_wise_total = product_wise_total.toFixed(2);
@@ -354,11 +355,11 @@
               code: this.product.code,
               product_id: this.product.id,
               quantity: 1,            
-              sale_price: this.product.sale_price,
+              purchase_price: this.product.purchase_price,
               tax: this.product.tax_percentage,
               tax_value: this.product.tax_value,
               discount_percentage: 0,
-              product_wise_total: 1//this.product.sale_price * 1.
+              product_wise_total: 1//this.product.purchase_price * 1.
             });
           })
           .catch((error) => {

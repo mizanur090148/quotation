@@ -53,6 +53,6 @@ class Product extends Model
 
     public function getTaxValueAttribute()
     {
-        return number_format($this->sale_price * ($this->tax_percentage / 100), 2);
+        return round($this->purchase_price * ($this->tax_percentage / 100));
     }
 }

@@ -22,11 +22,11 @@
                   <tr>
                     <th>Sl.</th>
                     <th>Supplier Name</th>
-                    <th>Resonsible Person</th>
-                    <th>Mobile No.</th>               
-                    <th>Telephone No.</th>                   
+                    <td>TRN No.</td>
+                    <th>Attention Person</th>
+                    <th>Telephone No.</th>
                     <th>E-mail</th>
-                    <th>Address</th>                  
+                    <th>Address</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -34,11 +34,11 @@
                   <tr v-for="(supplier, index) in suppliers" :key="supplier.id">
                     <td>{{ ++index }}</td>
                     <td>{{ supplier.name }}</td>
+                    <td>{{ supplier.trn_no }}</td>
                     <td>{{ supplier.responsible_person }}</td>
-                    <td>{{ supplier.mobile_no }}</td>
-                    <td>{{ supplier.telephone_no }}</td>                  
+                    <td>{{ supplier.telephone_no }}</td>
                     <td>{{ supplier.email }}</td>
-                    <td>{{ supplier.address }}</td>                  
+                    <td>{{ supplier.address }}</td>
                     <td>
                       <button type="button" class="btn btn-sm btn-success btn-rounded btn-fw" @click="">
                         <i class="mdi mdi-grease-pencil"></i>

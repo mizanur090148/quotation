@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"Sale":"Sale","brands":"brands","categories":"categories","models":"models","product":"product","products":"products","stockIn":"stockIn","stockInView":"stockInView","stockIns":"stockIns","suppliers":"suppliers","user":"user","users":"users"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"Sale":"Sale","SaleInvoice":"SaleInvoice","Sales":"Sales","brands":"brands","categories":"categories","models":"models","product":"product","products":"products","stockIn":"stockIn","stockInView":"stockInView","stockIns":"stockIns","suppliers":"suppliers","user":"user","users":"users"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -23869,8 +23869,16 @@ var StockInView = function StockInView() {
   return __webpack_require__.e(/*! import() | stockInView */ "stockInView").then(__webpack_require__.bind(null, /*! ./components/lists/StockInView.vue */ "./resources/js/components/lists/StockInView.vue"));
 };
 
-var Sales = function Sales() {
+var Sale = function Sale() {
   return __webpack_require__.e(/*! import() | Sale */ "Sale").then(__webpack_require__.bind(null, /*! ./components/forms/Sale.vue */ "./resources/js/components/forms/Sale.vue"));
+};
+
+var Sales = function Sales() {
+  return __webpack_require__.e(/*! import() | Sales */ "Sales").then(__webpack_require__.bind(null, /*! ./components/Lists/Sales.vue */ "./resources/js/components/Lists/Sales.vue"));
+};
+
+var SaleInvoice = function SaleInvoice() {
+  return __webpack_require__.e(/*! import() | SaleInvoice */ "SaleInvoice").then(__webpack_require__.bind(null, /*! ./components/Lists/SaleInvoice.vue */ "./resources/js/components/Lists/SaleInvoice.vue"));
 };
 
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
@@ -23918,9 +23926,21 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
     name: 'stock-in-view',
     component: StockInView
   }, {
-    path: '/sales/create',
-    name: 'Sales',
+    path: '/sales',
+    name: 'sales',
     component: Sales
+  }, {
+    path: '/sales/create',
+    name: 'sale',
+    component: Sale
+  }, {
+    path: '/sales/:id',
+    name: 'sale',
+    component: Sale
+  }, {
+    path: '/sale-invoice/:id',
+    name: 'sale-invoice',
+    component: SaleInvoice
   }, {
     path: '/users',
     name: 'users',

@@ -48,12 +48,17 @@ class SupplierRequest extends FormRequest
                 'required',
                 'max:60',
                 new UniqueCheck(Supplier::class)
-            ],            
+            ],
+            'trn_no' => [
+                'required',
+                'max:30',
+                new UniqueCheck(Supplier::class)
+            ],
             /* 'address' => [
                // 'required',
                 'max:100',
             ], */
-            'mobile_no' => [
+            'telephone_no' => [
                 'required',
                 'max:20'
             ],          

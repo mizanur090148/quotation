@@ -25,23 +25,23 @@
                 </div>
                 <div class="col-3">
                   <div class="form-group">
-                    <label>Sale Challan</label>
-                    <input type="text" v-model="form.sale_challan" class="form-control form-control-sm" disabled :class="{ 'is-invalid': errors.sale_challan }">
-                    <small class="text-danger" v-if="errors.sale_challan">{{ errors.sale_challan[0] }}</small>
+                    <label>Invoice Number</label>
+                    <input type="text" v-model="form.invoice_number" class="form-control form-control-sm" disabled :class="{ 'is-invalid': errors.invoice_number }">
+                    <small class="text-danger" v-if="errors.invoice_number">{{ errors.invoice_number[0] }}</small>
                   </div>
                 </div>
-                <!-- <div class="col-3">
+                <div class="col-3">
                   <div class="form-group">
                     <label>Status</label>
                     <div class="input-group col-xs-12">
-                      <select v-model="form.stock_in_status" class="form-control form-control-sm" :class="{ 'is-invalid': errors.stock_in_status }">                      
-                        <option :value="0" :key="0">Pending</option>
-                        <option :value="1" :key="1">Received</option>
+                      <select v-model="form.payment_status" class="form-control form-control-sm" :class="{ 'is-invalid': errors.payment_status }">                      
+                        <option :value="0" :key="0">Due</option>
+                        <option :value="1" :key="1">Cash</option>
                       </select>
                     </div>
-                    <small class="text-danger" v-if="errors.stock_in_status">{{ errors.stock_in_status[0] }}</small>
+                    <small class="text-danger" v-if="errors.payment_status">{{ errors.payment_status[0] }}</small>
                   </div>
-                </div> -->               
+                </div>
               </div>
               <hr>              
               <div class="row p-2">               
@@ -63,28 +63,21 @@
                 <table class="list-table">
                    <thead>
                      <tr>
-                        <td colspan="9">Product Details Table</td>
+                        <td colspan="9">Ordered Product Details</td>
                      </tr>
-                      <tr>                       
-                        <td>customer</td>                   
+                      <tr>             
                         <td>Product Name</td>
                         <td>Product Code</td>
                         <td>Quantity</td>
-                        <td>Unit Cost</td>
-                        <td>Discount%</td>
-                        <td>Tax</td>
+                        <td>Unit Price</td>
+                        <td>Discount</td>
+                        <td>Tax(5%)</td>
                         <td>Total</td>
                         <td>Actions</td>
                       </tr>
                     </thead>
                     <tbody v-if="form.product_detail_list.length">
-                      <tr v-for="(product_detail, index) in form.product_detail_list" :key="index">
-                        <td>
-                          <select v-model="product_detail.customer_id" class="form-control form-control-sm" :class="{ 'is-invalid': errors.customer_id }">
-                            <option value="">Please select a customer</option>
-                            <option v-for="(customer, key) in customers" :value="customer.id" :key="key">{{ customer.name }}</option>
-                          </select>
-                        </td>
+                      <tr v-for="(product_detail, index) in form.product_detail_list" :key="index">                        
                         <td>
                           {{ product_detail.name ? product_detail.name : product_detail.product.name }}
                         </td>
@@ -111,15 +104,15 @@
                           {{ product_detail.tax_value }}
                         </td>
                         <td class="text-right">
-                          {{ product_detail.product_wise_total }}
+                          {{ Math.round(product_detail.product_wise_total) }}
                         </td>
                         <td class="text-center">
                           <button type="button" class="btn btn-xs btn-danger btn-rounded btn-fw" @click="deleteRow(index, product_detail)"><i class="mdi mdi-delete"></i></button>
                         </td>
                       </tr>
                       <tr class="font-weight-bold">
-                        <td colspan="7" class="text-right">Grand Total</td>
-                        <td class="text-right">{{ total_cost }}</td>
+                        <td colspan="6" class="text-right">Grand Total</td>
+                        <td class="text-right">{{ Math.round(total_cost) }}</td>
                       </tr>
                     </tbody>
                 </table>
@@ -127,9 +120,9 @@
               <div class="row p-4">
                 <div class="col-3">
                   <div class="form-group">
-                    <label>Shipping Cost</label>
-                    <input type="number" v-model="form.shipping_cost" class="form-control form-control-sm" :class="{ 'is-invalid': errors.shipping_cost }">
-                    <small class="text-danger" v-if="errors.shipping_cost">{{ errors.shipping_cost[0] }}</small>
+                    <label>Delivery Cost</label>
+                    <input type="number" v-model="form.delivery_cost" class="form-control form-control-sm" :class="{ 'is-invalid': errors.delivery_cost }">
+                    <small class="text-danger" v-if="errors.delivery_cost">{{ errors.delivery_cost[0] }}</small>
                   </div>
                 </div>
                 <div class="col-3">
@@ -256,10 +249,10 @@
         customers: [],
         form: new Form({  
           customer_id: '',        
-          sale_challan: '',
-          stock_in_status: 1,
+          invoice_number: '',
+          payment_status: 1,
           stock_in_document: '',
-          shipping_cost: '',
+          delivery_cost: '',
           others_cost: '',
           note: '',
           product_detail_list: []
@@ -295,7 +288,7 @@
             let product_wise_total = product_detail.quantity * product_detail.sale_price;
             let discount_value = this.calculateDiscount (product_wise_total, product_detail.discount_percentage);           
             product_wise_total = product_wise_total + parseFloat(product_detail.tax_value) - parseFloat(discount_value);
-            product_detail.product_wise_total = product_wise_total.toFixed(2);
+            product_detail.product_wise_total = product_wise_total;
           })
         },
         deep: true
@@ -308,17 +301,11 @@
           sum += parseFloat(product_detail.product_wise_total);
         });
         return sum.toFixed(2);
-      },
-      /* total_value: function() {
-        return this.total_cost_without_tax * (this.form.tax_percentage / 100);
-      },
-      total_cost_with_tax: function() {
-        return this.total_value + this.total_cost_without_tax;
-      } */
+      }      
     },
     methods: {
       getStockInChallan() {
-        this.form.sale_challan = Date.now();
+        this.form.invoice_number = Date.now();
       },
       autoComplete() {
         this.products = [];
@@ -331,17 +318,7 @@
               console.log(e);
             })
         }
-      },
-      /* searchProduct() {
-        axios.get('search-product-in-purchase?search_product=' + this.search_product)
-          .then(res => {
-            this.products = res.data.data;
-            this.pagination = res.data;
-          })
-          .catch(e => {
-            console.log(e);
-          })
-      }, */
+      },      
       getProductInfo: function(productId) {
         this.search_product = '';
         this.products = [];        
@@ -422,13 +399,12 @@
           container: this.$refs.customerContainer,
           canCancel: true,
           loader: 'bars'
-        })
- 
-        axios.post('/stock-ins', this.form)
+        }) 
+        axios.post('/sales', this.form)
           .then(response => {
             if (response.status == 200) {
               this.$snotify.success('Successfully created', 'Success');
-              this.$router.push({name: 'stock-ins'});
+              this.$router.push({name: 'sales'});
             } else {
               this.$snotify.error('Something went worng', 'error');
             }
@@ -441,7 +417,7 @@
           })
       },
       getStockInChallanInfo(stockInId) {
-        axios.get('stock-ins/' + stockInId)
+        axios.get('sales/' + stockInId)
           .then((res) => {
             this.form = res.data;          
             this.form.product_detail_list = res.data.stock_ins;

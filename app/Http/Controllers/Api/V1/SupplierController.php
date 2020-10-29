@@ -66,6 +66,7 @@ class SupplierController extends BaseController
     {
         try {            
             $modelData = Supplier::where('name', 'like', "%$request->search_key%")               
+                ->orWhere('trn_no', 'like', "%$request->search_key%")
                 ->orWhere('address', 'like', "%$request->search_key%")
                 ->orWhere('mobile_no', 'like', "%$request->search_key%")
                 ->orWhere('telephone_no', 'like', "%$request->search_key%")

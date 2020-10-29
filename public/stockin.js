@@ -279,6 +279,7 @@ __webpack_require__.r(__webpack_exports__);
       supplier_errors: [],
       supplier_form: new Form({
         name: '',
+        trn_no: '',
         address: '',
         mobile_no: '',
         telephone_no: '',
@@ -305,7 +306,7 @@ __webpack_require__.r(__webpack_exports__);
         var _this = this;
 
         newValue.forEach(function (product_detail) {
-          var product_wise_total = product_detail.quantity * product_detail.sale_price;
+          var product_wise_total = product_detail.quantity * product_detail.purchase_price;
 
           var discount_value = _this.calculateDiscount(product_wise_total, product_detail.discount_percentage);
 
@@ -379,11 +380,11 @@ __webpack_require__.r(__webpack_exports__);
           code: _this3.product.code,
           product_id: _this3.product.id,
           quantity: 1,
-          sale_price: _this3.product.sale_price,
+          purchase_price: _this3.product.purchase_price,
           tax: _this3.product.tax_percentage,
           tax_value: _this3.product.tax_value,
           discount_percentage: 0,
-          product_wise_total: 1 //this.product.sale_price * 1.
+          product_wise_total: 1 //this.product.purchase_price * 1.
 
         });
       })["catch"](function (error) {
@@ -990,7 +991,7 @@ var render = function() {
                                   _c("td", { staticClass: "text-center" }, [
                                     _vm._v(
                                       "\n                        " +
-                                        _vm._s(product_detail.sale_price) +
+                                        _vm._s(product_detail.purchase_price) +
                                         "\n                      "
                                     )
                                   ]),
@@ -1071,7 +1072,9 @@ var render = function() {
                                     _vm._v(
                                       "\n                        " +
                                         _vm._s(
-                                          product_detail.product_wise_total
+                                          Math.round(
+                                            product_detail.product_wise_total
+                                          )
                                         ) +
                                         "\n                      "
                                     )
@@ -1114,7 +1117,7 @@ var render = function() {
                                 ),
                                 _vm._v(" "),
                                 _c("td", { staticClass: "text-right" }, [
-                                  _vm._v(_vm._s(_vm.total_cost))
+                                  _vm._v(_vm._s(Math.round(_vm.total_cost)))
                                 ])
                               ])
                             ],
@@ -1365,7 +1368,51 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "col-4" }, [
                           _c("div", { staticClass: "form-group" }, [
-                            _c("label", [_vm._v("Responsible Person")]),
+                            _c("label", [_vm._v("TRN No.")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.supplier_form.trn_no,
+                                  expression: "supplier_form.trn_no"
+                                }
+                              ],
+                              staticClass: "form-control form-control-sm",
+                              class: {
+                                "is-invalid": _vm.supplier_errors.trn_no
+                              },
+                              attrs: {
+                                type: "text",
+                                placeholder: "Enter trn no"
+                              },
+                              domProps: { value: _vm.supplier_form.trn_no },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.supplier_form,
+                                    "trn_no",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm.supplier_errors.trn_no
+                              ? _c("small", { staticClass: "text-danger" }, [
+                                  _vm._v(_vm._s(_vm.supplier_errors.trn_no[0]))
+                                ])
+                              : _vm._e()
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-4" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", [_vm._v("Attention Name")]),
                             _vm._v(" "),
                             _c("input", {
                               directives: [
@@ -1383,7 +1430,7 @@ var render = function() {
                               },
                               attrs: {
                                 type: "text",
-                                placeholder: "Enter responsible person"
+                                placeholder: "Enter attention name"
                               },
                               domProps: {
                                 value: _vm.supplier_form.responsible_person
@@ -1408,52 +1455,6 @@ var render = function() {
                                     _vm._s(
                                       _vm.supplier_errors.responsible_person[0]
                                     )
-                                  )
-                                ])
-                              : _vm._e()
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-4" }, [
-                          _c("div", { staticClass: "form-group" }, [
-                            _c("label", [_vm._v("Mobile No.")]),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.supplier_form.mobile_no,
-                                  expression: "supplier_form.mobile_no"
-                                }
-                              ],
-                              staticClass: "form-control form-control-sm",
-                              class: {
-                                "is-invalid": _vm.supplier_errors.mobile_no
-                              },
-                              attrs: {
-                                type: "text",
-                                placeholder: "Enter mobile no"
-                              },
-                              domProps: { value: _vm.supplier_form.mobile_no },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.supplier_form,
-                                    "mobile_no",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm.supplier_errors.mobile_no
-                              ? _c("small", { staticClass: "text-danger" }, [
-                                  _vm._v(
-                                    _vm._s(_vm.supplier_errors.mobile_no[0])
                                   )
                                 ])
                               : _vm._e()
@@ -1529,7 +1530,7 @@ var render = function() {
                               },
                               attrs: {
                                 type: "text",
-                                placeholder: "Enter supplier email"
+                                placeholder: "Enter email"
                               },
                               domProps: { value: _vm.supplier_form.email },
                               on: {
@@ -1573,7 +1574,7 @@ var render = function() {
                               },
                               attrs: {
                                 type: "text",
-                                placeholder: "Enter supplier address"
+                                placeholder: "Enter address"
                               },
                               domProps: { value: _vm.supplier_form.address },
                               on: {
@@ -1666,7 +1667,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("td", [_vm._v("Discount%")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Tax")]),
+        _c("td", [_vm._v("Tax(5%)")]),
         _vm._v(" "),
         _c("td", [_vm._v("Total")]),
         _vm._v(" "),

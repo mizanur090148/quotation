@@ -7,23 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 
-class StockIn extends Model
+class Sale extends Model
 {
     use HasFactory, SoftDeletes, CascadeSoftDeletes;
 
     protected $fillable = [
-        'stock_in_challan',
-        'stock_in_status',
-        'stock_in_document',
-        'stock_in_id',
-        'supplier_id',
+        'sale_id',
+        'invoice_number',
+        'payment_status',
+        'customer_id',
         'product_id',
-        'quantity', 
+        'quantity',
+        'sale_price', 
         'tax_percentage', 
         'tax_value', 
         'discount_percentage',
         'product_wise_total',
-        'shipping_cost',
+        'delivery_cost',
         'others_cost',
         'note',
         'outlet_id',
@@ -37,38 +37,34 @@ class StockIn extends Model
     ];
 
     protected $appends = [
-        'total_product_cost', 
-        'total_cost',
-        'created_date'
+        'total_product_price', 
+        'invoice_wise_total_price',
+        'sale_date',
+        'sale_date_time'
     ];
 
     protected $cascadeDeletes = [
-        'stockIns'
+        'sales'
     ];
 
-    public function stockIns()
+    public function sales()
     {
-        return $this->hasMany(self::class, 'stock_in_id');
+        return $this->hasMany(self::class, 'sale_id');
     }
 
-    public function supplier()
+    public function customer()
     {
-        return $this->belongsTo(Supplier::class, 'supplier_id', 'id')->withDefault();
+        return $this->belongsTo(Customer::class, 'customer_id')->withDefault();
     }
 
-    public function getTotalProductCostAttribute()
+    public function getTotalProductPriceAttribute()
     {
-        return round($this->stockIns()->sum('product_wise_total'));
+        return round($this->sales()->sum('product_wise_total'));
     }
 
-    public function getTotalCostAttribute()
+    public function getInvoiceWiseTotalPriceAttribute()
     {
-        return round($this->total_product_cost + $this->shipping_cost + $this->others_cost);
-    }
-
-    public function getCreatedDateAttribute()
-    {
-        return $this->created_at->toDateString();
+        return round($this->total_product_price + $this->delivery_cost + $this->others_cost);
     }
 
     public function product()
@@ -84,5 +80,15 @@ class StockIn extends Model
     public function outlet()
     {
         return $this->belongsTo(Outlet::class, 'outlet_id')->withDefault();
+    }
+
+    public function getSaleDateAttribute()
+    {
+        return $this->created_at->toDateString();
+    }
+
+    public function getSaleDateTimeAttribute()
+    {
+        return $this->created_at->format('Y-m-d H:i:s');
     }
 }
