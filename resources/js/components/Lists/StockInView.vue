@@ -9,6 +9,14 @@
               <table class="table">
                 <thead>
                   <tr>
+                    <td colspan="4" class="text-center">
+                      <b>Cool Way Building Materials L.L.C</b><br/>
+                        Address : Musaffa, Sanaya M/10, Abu Dhabi, UAE.<br/>
+                        Email : coolway2021@gmail.com<br/>
+                        Phone : +971 566311501 & +971 562475259	
+                    </td>
+                  </tr>
+                  <tr>
                     <td><b>Purchase Invoice:</b> {{ stock_challan.purchase_invoice }} </td>
                     <td><b>Purchase Date:</b> {{ stock_challan.purchase_date }} </td>
                     <td><b>Status:</b> {{ (stock_challan.stock_in_status == 0) ? 'Pending' : 'Received' }}</td>
@@ -44,37 +52,37 @@
                       <td class="text-left">                    
                         {{ product_detail.product.code }}
                       </td>
-                      <td class="text-right">
+                      <td>
                         {{ product_detail.quantity }}                        
                       </td>
-                      <td class="text-right">
+                      <td>
                         {{ product_detail.purchase_price }}
                       </td>
-                      <td class="text-right">
+                      <td>
                         {{ product_detail.discount_percentage }}
                       </td>
-                      <td class="text-right">
+                      <td>
                         {{ product_detail.tax_value }}
                       </td>
-                      <td class="text-right">
+                      <td>
                         {{ product_detail.product_wise_total }}
                       </td>                      
                     </tr>
                     <tr class="font-weight-bold">
-                      <td colspan="7" class="text-right">Total Product Cost</td>
-                      <td class="text-right">{{ stock_challan.total_product_cost }}</td>
+                      <td colspan="7">Total Product Cost</td>
+                      <td>{{ stock_challan.total_product_cost }}</td>
                     </tr>
                     <tr class="font-weight-bold">
-                      <td colspan="7" class="text-right">Shipping Cost</td>
-                      <td class="text-right">{{ stock_challan.shipping_cost }}</td>
+                      <td colspan="7">Shipping Cost</td>
+                      <td>{{ stock_challan.shipping_cost }}</td>
                     </tr>
                     <tr class="font-weight-bold">
-                      <td colspan="7" class="text-right">Others Cost</td>
-                      <td class="text-right">{{ stock_challan.others_cost }}</td>
+                      <td colspan="7">Others Cost</td>
+                      <td>{{ stock_challan.others_cost }}</td>
                     </tr>
                     <tr class="font-weight-bold">
-                      <td colspan="7" class="text-right grand">Grand Total</td>
-                      <td class="text-right grand">{{ stock_challan.total_cost }}</td>
+                      <td colspan="7" class="grand">Grand Total</td>
+                      <td class="grand">{{ stock_challan.total_cost }}</td>
                     </tr>
                   </tbody>
               </table>
@@ -100,10 +108,10 @@
   .grand {
     font-size: 17px !important;
   }
-  hr {
+  /* hr {
     margin-top: 0rem !important;
     margin-bottom: 0.2rem !important;
-  }
+  } */
   .print-td {
     padding-right: 0px !important;
   }

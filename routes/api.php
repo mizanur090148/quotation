@@ -35,6 +35,9 @@ use App\Http\Controllers\Api\V1\SalesReportController;
 //Route::post('register', 'AuthController@register');
 Route::post('login', 'AuthController@login');
 
+// dashboard
+Route::get('get-best-sales-product', [SalesReportController::class, 'getBestSalesProduct']);
+
 Route::get('suppliers', [SupplierController::class, 'index']);
 Route::get('supplier-dropdown-data', [SupplierController::class, 'supplierDropdownData']);
 Route::post('suppliers', [SupplierController::class, 'store']);

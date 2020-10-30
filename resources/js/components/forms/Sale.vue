@@ -85,8 +85,13 @@
                           {{ product_detail.code ? product_detail.name : product_detail.product.code }}
                         </td>
                         <td class="text-center">
-                          <input type="number" style="width:70px !important;" v-model="product_detail.quantity" class="form-control form-control-sm" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
-                          <small class="text-danger" v-if="errors.quantity">{{ errors.quantity[0] }}</small>
+                          <div class="input-group col-xs-12">
+                            <input type="number" style="width:70px !important;" v-model="product_detail.quantity" class="form-control form-control-sm" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
+                            <span class="input-group-append">
+                              <button class="btn btn-sm btn-primary" type="button">Pcs</button>
+                            </span>
+                            <small class="text-danger" v-if="errors.quantity">{{ errors.quantity[0] }}</small>
+                          </div>
                         </td>
                         <td class="text-center">
                           {{ product_detail.sale_price }}

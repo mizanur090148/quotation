@@ -124,6 +124,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -194,7 +202,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.grand {\n  font-size: 17px !important;\n}\nhr {\n  margin-top: 0rem !important;\n  margin-bottom: 0.2rem !important;\n}\n.print-td {\n  padding-right: 0px !important;\n}\n", ""]);
+exports.push([module.i, "\n.grand {\n  font-size: 17px !important;\n}\n/* hr {\n  margin-top: 0rem !important;\n  margin-bottom: 0.2rem !important;\n} */\n.print-td {\n  padding-right: 0px !important;\n}\n", ""]);
 
 // exports
 
@@ -261,6 +269,8 @@ var render = function() {
               _c("div", { staticClass: "table-responsive" }, [
                 _c("table", { staticClass: "table" }, [
                   _c("thead", [
+                    _vm._m(0),
+                    _vm._v(" "),
                     _c("tr", [
                       _c("td", [
                         _c("b", [_vm._v("Purchase Invoice:")]),
@@ -307,7 +317,7 @@ var render = function() {
                   "table",
                   { staticClass: "list-table table table-bordered" },
                   [
-                    _vm._m(0),
+                    _vm._m(1),
                     _vm._v(" "),
                     _vm.product_detail_list.length
                       ? _c(
@@ -342,7 +352,7 @@ var render = function() {
                                   )
                                 ]),
                                 _vm._v(" "),
-                                _c("td", { staticClass: "text-right" }, [
+                                _c("td", [
                                   _vm._v(
                                     "\n                      " +
                                       _vm._s(product_detail.quantity) +
@@ -350,7 +360,7 @@ var render = function() {
                                   )
                                 ]),
                                 _vm._v(" "),
-                                _c("td", { staticClass: "text-right" }, [
+                                _c("td", [
                                   _vm._v(
                                     "\n                      " +
                                       _vm._s(product_detail.purchase_price) +
@@ -358,7 +368,7 @@ var render = function() {
                                   )
                                 ]),
                                 _vm._v(" "),
-                                _c("td", { staticClass: "text-right" }, [
+                                _c("td", [
                                   _vm._v(
                                     "\n                      " +
                                       _vm._s(
@@ -368,7 +378,7 @@ var render = function() {
                                   )
                                 ]),
                                 _vm._v(" "),
-                                _c("td", { staticClass: "text-right" }, [
+                                _c("td", [
                                   _vm._v(
                                     "\n                      " +
                                       _vm._s(product_detail.tax_value) +
@@ -376,7 +386,7 @@ var render = function() {
                                   )
                                 ]),
                                 _vm._v(" "),
-                                _c("td", { staticClass: "text-right" }, [
+                                _c("td", [
                                   _vm._v(
                                     "\n                      " +
                                       _vm._s(
@@ -389,16 +399,11 @@ var render = function() {
                             }),
                             _vm._v(" "),
                             _c("tr", { staticClass: "font-weight-bold" }, [
-                              _c(
-                                "td",
-                                {
-                                  staticClass: "text-right",
-                                  attrs: { colspan: "7" }
-                                },
-                                [_vm._v("Total Product Cost")]
-                              ),
+                              _c("td", { attrs: { colspan: "7" } }, [
+                                _vm._v("Total Product Cost")
+                              ]),
                               _vm._v(" "),
-                              _c("td", { staticClass: "text-right" }, [
+                              _c("td", [
                                 _vm._v(
                                   _vm._s(_vm.stock_challan.total_product_cost)
                                 )
@@ -406,31 +411,21 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("tr", { staticClass: "font-weight-bold" }, [
-                              _c(
-                                "td",
-                                {
-                                  staticClass: "text-right",
-                                  attrs: { colspan: "7" }
-                                },
-                                [_vm._v("Shipping Cost")]
-                              ),
+                              _c("td", { attrs: { colspan: "7" } }, [
+                                _vm._v("Shipping Cost")
+                              ]),
                               _vm._v(" "),
-                              _c("td", { staticClass: "text-right" }, [
+                              _c("td", [
                                 _vm._v(_vm._s(_vm.stock_challan.shipping_cost))
                               ])
                             ]),
                             _vm._v(" "),
                             _c("tr", { staticClass: "font-weight-bold" }, [
-                              _c(
-                                "td",
-                                {
-                                  staticClass: "text-right",
-                                  attrs: { colspan: "7" }
-                                },
-                                [_vm._v("Others Cost")]
-                              ),
+                              _c("td", { attrs: { colspan: "7" } }, [
+                                _vm._v("Others Cost")
+                              ]),
                               _vm._v(" "),
-                              _c("td", { staticClass: "text-right" }, [
+                              _c("td", [
                                 _vm._v(_vm._s(_vm.stock_challan.others_cost))
                               ])
                             ]),
@@ -439,13 +434,13 @@ var render = function() {
                               _c(
                                 "td",
                                 {
-                                  staticClass: "text-right grand",
+                                  staticClass: "grand",
                                   attrs: { colspan: "7" }
                                 },
                                 [_vm._v("Grand Total")]
                               ),
                               _vm._v(" "),
-                              _c("td", { staticClass: "text-right grand" }, [
+                              _c("td", { staticClass: "grand" }, [
                                 _vm._v(_vm._s(_vm.stock_challan.total_cost))
                               ])
                             ])
@@ -483,6 +478,26 @@ var render = function() {
   )
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { staticClass: "text-center", attrs: { colspan: "4" } }, [
+        _c("b", [_vm._v("Cool Way Building Materials L.L.C")]),
+        _c("br"),
+        _vm._v(
+          "\n                      Address : Musaffa, Sanaya M/10, Abu Dhabi, UAE."
+        ),
+        _c("br"),
+        _vm._v("\n                      Email : coolway2021@gmail.com"),
+        _c("br"),
+        _vm._v(
+          "\n                      Phone : +971 566311501 & +971 562475259\t\n                  "
+        )
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -545,24 +560,6 @@ var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ "./n
 if(content.locals) module.exports = content.locals;
 
 if(false) {}
-
-/***/ }),
-
-/***/ "./resources/js/axios/index.js":
-/*!*************************************!*\
-  !*** ./resources/js/axios/index.js ***!
-  \*************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-
-/* harmony default export */ __webpack_exports__["default"] = (axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-  baseURL: 'http://dev-quotation/api'
-}));
 
 /***/ }),
 

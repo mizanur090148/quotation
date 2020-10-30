@@ -1,6 +1,6 @@
 <template>
   <div class="content-wrapper">          
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-12 grid-margin">
         <div class="d-flex justify-content-between flex-wrap">
           <div class="d-flex align-items-end flex-wrap">
@@ -28,12 +28,12 @@
           </div>
         </div>
       </div>
-    </div>    
+    </div> -->    
     <div class="row">
       <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body dashboard-tabs p-0">
-            <ul class="nav nav-tabs px-4" role="tablist">
+            <!-- <ul class="nav nav-tabs px-4" role="tablist">
               <li class="nav-item">
                 <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
               </li>
@@ -43,7 +43,7 @@
               <li class="nav-item">
                 <a class="nav-link" id="purchases-tab" data-toggle="tab" href="#purchases" role="tab" aria-controls="purchases" aria-selected="false">Purchases</a>
               </li>
-            </ul>
+            </ul> -->
             <div class="tab-content py-0 px-0">
               <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                 <div class="d-flex flex-wrap justify-content-xl-between">
@@ -219,7 +219,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12 stretch-card">
+      <div class="col-md-6 stretch-card">
         <div class="card">
           <div class="card-body">
             <p class="card-title">Recent Purchases</p>
@@ -305,7 +305,18 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> 
+      <BestSalesProduct></BestSalesProduct>
     </div>
   </div>
 </template>
+
+<script>	
+  import BestSalesProduct from "./Partials/BestSalesProduct";
+  
+  export default {
+    components: {	    
+      BestSalesProduct
+    }
+  }
+</script>

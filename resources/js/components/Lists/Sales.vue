@@ -30,7 +30,7 @@
                     <td>Others Cost</td>
                     <td>Total Cost</td>
                     <td>Sale Date</td>
-                    <td>Sale By By</td>
+                    <td>Sale By</td>
                     <td>Action</td>
                   </tr>
                 </thead>

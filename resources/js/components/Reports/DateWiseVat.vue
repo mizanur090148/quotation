@@ -4,9 +4,9 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title text-center">Date Wise Vat Report</h4>
+            <h4 class="card-title text-center">Date Wise VAT Report</h4>
             <hr>
-            <form class="forms-sample" @submit.prevent="getDateWiseVatReport">
+            <form class="forms-sample" @submit.prevent="getDateWiseVATReport">
               <div class="row p-2" v-if="print">
                 <div class="col-3">
                   <div class="form-group">
@@ -51,7 +51,7 @@
                   <tr>
                     <td>Datails</td>
                     <td>Taxable Amount(AED)</td>
-                    <td>Vat</td>
+                    <td>VAT</td>
                   </tr>
                 </thead>
                 <tbody>        
@@ -59,7 +59,7 @@
                   <tbody>
                     <tr>
                       <td class="dashed text-left">
-                        <b>Output Vat</b><br/>
+                        <b>Output VAT</b><br/>
                         Standard Rated Supplies<br/>
                         Sales-Dubai
                       </td>
@@ -72,7 +72,7 @@
                     </tr>
                     <tr>
                       <td class="dashed text-left">
-                        Total Standard Rated Spplies<br/>
+                        Total Standard Rated Supplies<br/>
                         Zero Rated Supplies<br/>
                         Exempt Supplies<br/>
                       </td>
@@ -100,7 +100,7 @@
                     </tr>
                     <tr>
                       <td class="dashed text-left">
-                        <b>Input Vat</b><br/>
+                        <b>Input VAT</b><br/>
                         Purchases<br/>
                         Credit Notes
                       </td>
@@ -128,7 +128,7 @@
               <table class="list-table table table-bordered">   
                 <tbody>       
                   <tr>
-                    <td class="text-left font-weight-bold">Vat Payable/(Recoverable)</td>
+                    <td class="text-left font-weight-bold">VAT Payable/(Recoverable)</td>
                     <td>{{ total_data.total_sales_tax_value - total_data.total_purchase_tax_value }}</td>
                   </tr>
                   <tr>
@@ -140,7 +140,7 @@
                     <td>-</td>
                   </tr>
                   <tr class="font-weight-bold">
-                    <td class="text-left">Net Vat Payable/(Recoverable)</td>
+                    <td class="text-left">Net VAT Payable/(Recoverable)</td>
                     <td>{{ total_data.total_sales_tax_value - total_data.total_purchase_tax_value }}</td>
                   </tr>
                 </tbody>
@@ -156,7 +156,7 @@
             <div class="font-weight-bold dashed">
               Note
             </div>
-            <span>All report are made according to invoices received from client</span>
+            <!-- <span>All report are made according to invoices received from client</span> -->
           </div>
         </div>
       </div>      
@@ -202,21 +202,21 @@
       }
     },
     mounted() {     
-      this.getDateWiseVatReport(); 
+      this.getDateWiseVATReport(); 
     },    
     methods: {
       printSection() {
        // this.print = false;
         this.$htmlToPaper("printArea");
       },
-      getDateWiseVatReport() {
+      getDateWiseVATReport() {
         this.errors = [];
         const loader = this.$loading.show({
           container: this.$refs.customerContainer,
           canCancel: true,
           loader: 'bars'
         })
-        axios.get('/date-wise-vat-report', { params: {from_date:this.form.from_date, to_date: this.form.to_date}})
+        axios.get('/date-wise-vAT-report', { params: {from_date:this.form.from_date, to_date: this.form.to_date}})
           .then(response => {
             if (response.status == 200) {            
               this.total_data = response.data;

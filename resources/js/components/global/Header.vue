@@ -3,8 +3,9 @@
     <div class="navbar-brand-wrapper d-flex justify-content-center">
       <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
         <router-link tag="a" class="navbar-brand brand-logo" to="/">
-          <img src="images/outlet_logo.png" alt="logo"/>
-        </router-link>  
+          <!-- <img src="images/outlet_logo.png" alt="logo"/> -->
+              &nbsp;&nbsp; <i>E-Retail</i>
+        </router-link>
         <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo"/></a>
         <!--
         <a class="navbar-brand brand-logo" href="index.html"><img src="images/outlet_logo.png" alt="logo"/></a>
@@ -124,7 +125,7 @@
         <li class="nav-item nav-profile dropdown">
           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
             <img src="images/faces/face5.jpg" alt="profile"/>
-            <span class="nav-profile-name">Louis Barnett</span>
+            <span class="nav-profile-name">Super Admin</span>
           </a>
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
             <a class="dropdown-item">

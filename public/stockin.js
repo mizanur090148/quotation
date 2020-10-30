@@ -260,6 +260,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -309,13 +314,13 @@ __webpack_require__.r(__webpack_exports__);
         var _this = this;
 
         newValue.forEach(function (product_detail) {
-          var tax_value = parseFloat(product_detail.tax_value * product_detail.quantity);
+          var tax_value = product_detail.tax_value * product_detail.quantity;
           var product_wise_total = product_detail.quantity * product_detail.purchase_price;
 
           var discount_value = _this.calculateDiscount(product_wise_total, product_detail.discount_percentage);
 
-          product_wise_total = product_wise_total + tax_value - parseFloat(discount_value);
-          product_detail.product_wise_total = product_wise_total.toFixed(2);
+          product_wise_total = product_wise_total + tax_value - discount_value;
+          product_detail.product_wise_total = Math.round(product_wise_total);
         });
       },
       deep: true
@@ -327,7 +332,7 @@ __webpack_require__.r(__webpack_exports__);
       this.form.product_detail_list.forEach(function (product_detail) {
         sum += parseFloat(product_detail.product_wise_total);
       });
-      return sum.toFixed(2);
+      return sum;
     }
   },
   methods: {
@@ -367,11 +372,10 @@ __webpack_require__.r(__webpack_exports__);
           product_id: _this3.product.id,
           quantity: 1,
           purchase_price: _this3.product.purchase_price,
-          tax: _this3.product.tax_percentage,
-          tax_value: _this3.product.tax_value,
+          tax_percentage: _this3.product.tax_percentage,
+          tax_value: _this3.product.purchase_tax_value,
           discount_percentage: 0,
-          product_wise_total: 1 //this.product.purchase_price * 1.
-
+          product_wise_total: _this3.product.purchase_price * 1.
         });
       })["catch"](function (error) {
         console.log(error);
@@ -836,6 +840,7 @@ var render = function() {
                                         class: {
                                           "is-invalid": _vm.errors.supplier_id
                                         },
+                                        attrs: { required: "" },
                                         on: {
                                           change: function($event) {
                                             var $$selectedVal = Array.prototype.filter
@@ -910,53 +915,64 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-center" }, [
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: product_detail.quantity,
-                                          expression: "product_detail.quantity"
-                                        }
-                                      ],
-                                      staticClass:
-                                        "form-control form-control-sm text-right",
-                                      class: {
-                                        "is-invalid": _vm.errors.quantity
-                                      },
-                                      staticStyle: { width: "70px !important" },
-                                      attrs: {
-                                        type: "number",
-                                        placeholder: "Enter quantity"
-                                      },
-                                      domProps: {
-                                        value: product_detail.quantity
-                                      },
-                                      on: {
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
+                                    _c(
+                                      "div",
+                                      { staticClass: "input-group col-xs-12" },
+                                      [
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: product_detail.quantity,
+                                              expression:
+                                                "product_detail.quantity"
+                                            }
+                                          ],
+                                          staticClass:
+                                            "form-control form-control-sm text-right",
+                                          class: {
+                                            "is-invalid": _vm.errors.quantity
+                                          },
+                                          staticStyle: {
+                                            width: "70px !important"
+                                          },
+                                          attrs: {
+                                            type: "number",
+                                            placeholder: "Enter quantity"
+                                          },
+                                          domProps: {
+                                            value: product_detail.quantity
+                                          },
+                                          on: {
+                                            input: function($event) {
+                                              if ($event.target.composing) {
+                                                return
+                                              }
+                                              _vm.$set(
+                                                product_detail,
+                                                "quantity",
+                                                $event.target.value
+                                              )
+                                            }
                                           }
-                                          _vm.$set(
-                                            product_detail,
-                                            "quantity",
-                                            $event.target.value
-                                          )
-                                        }
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _vm.errors.quantity
-                                      ? _c(
-                                          "small",
-                                          { staticClass: "text-danger" },
-                                          [
-                                            _vm._v(
-                                              _vm._s(_vm.errors.quantity[0])
+                                        }),
+                                        _vm._v(" "),
+                                        _vm._m(1, true),
+                                        _vm._v(" "),
+                                        _vm.errors.quantity
+                                          ? _c(
+                                              "small",
+                                              { staticClass: "text-danger" },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(_vm.errors.quantity[0])
+                                                )
+                                              ]
                                             )
-                                          ]
-                                        )
-                                      : _vm._e()
+                                          : _vm._e()
+                                      ]
+                                    )
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-center" }, [
@@ -1014,7 +1030,7 @@ var render = function() {
                                           }
                                         }),
                                         _vm._v(" "),
-                                        _vm._m(1, true),
+                                        _vm._m(2, true),
                                         _vm._v(" "),
                                         _vm.errors.discount_percentage
                                           ? _c(
@@ -1037,7 +1053,7 @@ var render = function() {
                                   _c("td", [
                                     _vm._v(
                                       "                     \n                        " +
-                                        _vm._s(product_detail.tax) +
+                                        _vm._s(product_detail.tax_percentage) +
                                         "%\n                      "
                                     )
                                   ]),
@@ -1652,6 +1668,18 @@ var staticRenderFns = [
       _c(
         "button",
         { staticClass: "btn btn-sm btn-primary", attrs: { type: "button" } },
+        [_vm._v("Pcs")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "input-group-append" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-sm btn-primary", attrs: { type: "button" } },
         [_vm._v("%")]
       )
     ])
@@ -1690,24 +1718,6 @@ var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ "./n
 if(content.locals) module.exports = content.locals;
 
 if(false) {}
-
-/***/ }),
-
-/***/ "./resources/js/axios/index.js":
-/*!*************************************!*\
-  !*** ./resources/js/axios/index.js ***!
-  \*************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-
-/* harmony default export */ __webpack_exports__["default"] = (axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-  baseURL: 'http://dev-quotation/api'
-}));
 
 /***/ }),
 

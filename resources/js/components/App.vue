@@ -19,7 +19,6 @@
 </template>
 
 <script>	
-	
 	import Header from './global/Header.vue';	
 	import Navbar from './global/Navbar.vue';
 	import Footer from './global/Footer.vue';

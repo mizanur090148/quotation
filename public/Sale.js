@@ -254,6 +254,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -878,53 +883,64 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-center" }, [
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: product_detail.quantity,
-                                          expression: "product_detail.quantity"
-                                        }
-                                      ],
-                                      staticClass:
-                                        "form-control form-control-sm",
-                                      class: {
-                                        "is-invalid": _vm.errors.quantity
-                                      },
-                                      staticStyle: { width: "70px !important" },
-                                      attrs: {
-                                        type: "number",
-                                        placeholder: "Enter quantity"
-                                      },
-                                      domProps: {
-                                        value: product_detail.quantity
-                                      },
-                                      on: {
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
+                                    _c(
+                                      "div",
+                                      { staticClass: "input-group col-xs-12" },
+                                      [
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: product_detail.quantity,
+                                              expression:
+                                                "product_detail.quantity"
+                                            }
+                                          ],
+                                          staticClass:
+                                            "form-control form-control-sm",
+                                          class: {
+                                            "is-invalid": _vm.errors.quantity
+                                          },
+                                          staticStyle: {
+                                            width: "70px !important"
+                                          },
+                                          attrs: {
+                                            type: "number",
+                                            placeholder: "Enter quantity"
+                                          },
+                                          domProps: {
+                                            value: product_detail.quantity
+                                          },
+                                          on: {
+                                            input: function($event) {
+                                              if ($event.target.composing) {
+                                                return
+                                              }
+                                              _vm.$set(
+                                                product_detail,
+                                                "quantity",
+                                                $event.target.value
+                                              )
+                                            }
                                           }
-                                          _vm.$set(
-                                            product_detail,
-                                            "quantity",
-                                            $event.target.value
-                                          )
-                                        }
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _vm.errors.quantity
-                                      ? _c(
-                                          "small",
-                                          { staticClass: "text-danger" },
-                                          [
-                                            _vm._v(
-                                              _vm._s(_vm.errors.quantity[0])
+                                        }),
+                                        _vm._v(" "),
+                                        _vm._m(1, true),
+                                        _vm._v(" "),
+                                        _vm.errors.quantity
+                                          ? _c(
+                                              "small",
+                                              { staticClass: "text-danger" },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(_vm.errors.quantity[0])
+                                                )
+                                              ]
                                             )
-                                          ]
-                                        )
-                                      : _vm._e()
+                                          : _vm._e()
+                                      ]
+                                    )
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-center" }, [
@@ -982,7 +998,7 @@ var render = function() {
                                           }
                                         }),
                                         _vm._v(" "),
-                                        _vm._m(1, true),
+                                        _vm._m(2, true),
                                         _vm._v(" "),
                                         _vm.errors.discount_percentage
                                           ? _c(
@@ -1622,6 +1638,18 @@ var staticRenderFns = [
       _c(
         "button",
         { staticClass: "btn btn-sm btn-primary", attrs: { type: "button" } },
+        [_vm._v("Pcs")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "input-group-append" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-sm btn-primary", attrs: { type: "button" } },
         [_vm._v("%")]
       )
     ])
@@ -1660,24 +1688,6 @@ var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ "./n
 if(content.locals) module.exports = content.locals;
 
 if(false) {}
-
-/***/ }),
-
-/***/ "./resources/js/axios/index.js":
-/*!*************************************!*\
-  !*** ./resources/js/axios/index.js ***!
-  \*************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-
-/* harmony default export */ __webpack_exports__["default"] = (axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-  baseURL: 'http://dev-quotation/api'
-}));
 
 /***/ }),
 

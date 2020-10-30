@@ -216,14 +216,14 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.getDateWiseVatReport();
+    this.getDateWiseVATReport();
   },
   methods: {
     printSection: function printSection() {
       // this.print = false;
       this.$htmlToPaper("printArea");
     },
-    getDateWiseVatReport: function getDateWiseVatReport() {
+    getDateWiseVATReport: function getDateWiseVATReport() {
       var _this = this;
 
       this.errors = [];
@@ -232,7 +232,7 @@ __webpack_require__.r(__webpack_exports__);
         canCancel: true,
         loader: 'bars'
       });
-      _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/date-wise-vat-report', {
+      _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/date-wise-vAT-report', {
         params: {
           from_date: this.form.from_date,
           to_date: this.form.to_date
@@ -404,7 +404,7 @@ var render = function() {
             _c("div", { staticClass: "card" }, [
               _c("div", { staticClass: "card-body" }, [
                 _c("h4", { staticClass: "card-title text-center" }, [
-                  _vm._v("Date Wise Vat Report")
+                  _vm._v("Date Wise VAT Report")
                 ]),
                 _vm._v(" "),
                 _c("hr"),
@@ -416,7 +416,7 @@ var render = function() {
                     on: {
                       submit: function($event) {
                         $event.preventDefault()
-                        return _vm.getDateWiseVatReport($event)
+                        return _vm.getDateWiseVATReport($event)
                       }
                     }
                   },
@@ -703,7 +703,7 @@ var render = function() {
                           _c(
                             "td",
                             { staticClass: "text-left font-weight-bold" },
-                            [_vm._v("Vat Payable/(Recoverable)")]
+                            [_vm._v("VAT Payable/(Recoverable)")]
                           ),
                           _vm._v(" "),
                           _c("td", [
@@ -722,7 +722,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("tr", { staticClass: "font-weight-bold" }, [
                           _c("td", { staticClass: "text-left" }, [
-                            _vm._v("Net Vat Payable/(Recoverable)")
+                            _vm._v("Net VAT Payable/(Recoverable)")
                           ]),
                           _vm._v(" "),
                           _c("td", [
@@ -745,12 +745,6 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "font-weight-bold dashed" }, [
                   _vm._v("\n            Note\n          ")
-                ]),
-                _vm._v(" "),
-                _c("span", [
-                  _vm._v(
-                    "All report are made according to invoices received from client"
-                  )
                 ])
               ])
             ])
@@ -793,7 +787,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("td", [_vm._v("Taxable Amount(AED)")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Vat")])
+        _c("td", [_vm._v("VAT")])
       ])
     ])
   },
@@ -802,7 +796,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", { staticClass: "dashed text-left" }, [
-      _c("b", [_vm._v("Output Vat")]),
+      _c("b", [_vm._v("Output VAT")]),
       _c("br"),
       _vm._v("\n                      Standard Rated Supplies"),
       _c("br"),
@@ -814,7 +808,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", { staticClass: "dashed text-left" }, [
-      _vm._v("\n                      Total Standard Rated Spplies"),
+      _vm._v("\n                      Total Standard Rated Supplies"),
       _c("br"),
       _vm._v("\n                      Zero Rated Supplies"),
       _c("br"),
@@ -827,7 +821,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", { staticClass: "dashed text-left" }, [
-      _c("b", [_vm._v("Input Vat")]),
+      _c("b", [_vm._v("Input VAT")]),
       _c("br"),
       _vm._v("\n                      Purchases"),
       _c("br"),
@@ -902,24 +896,6 @@ var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ "./n
 if(content.locals) module.exports = content.locals;
 
 if(false) {}
-
-/***/ }),
-
-/***/ "./resources/js/axios/index.js":
-/*!*************************************!*\
-  !*** ./resources/js/axios/index.js ***!
-  \*************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-
-/* harmony default export */ __webpack_exports__["default"] = (axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-  baseURL: 'http://dev-quotation/api'
-}));
 
 /***/ }),
 

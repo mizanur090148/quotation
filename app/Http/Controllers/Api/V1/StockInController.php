@@ -14,9 +14,9 @@ class StockInController extends BaseController
 {
     protected $apiCrudHandler;
 
-    public function __construct()
+    public function __construct(ApiCrudHandler $apiCrudHandler)
     {
-        $this->apiCrudHandler = new ApiCrudHandler();
+        $this->apiCrudHandler = $apiCrudHandler;
     }
 
     public function index(Request $request)
@@ -74,7 +74,7 @@ class StockInController extends BaseController
      *
      * @return Array
      */
-    public function store(Request $request)
+    public function store(StockInRequest $request)
     {
         try {
             DB::beginTransaction();

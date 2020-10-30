@@ -80,7 +80,7 @@
                     <tbody v-if="form.product_detail_list.length">
                       <tr v-for="(product_detail, index) in form.product_detail_list" :key="index">
                         <td>
-                          <select v-model="product_detail.supplier_id" class="form-control form-control-sm" :class="{ 'is-invalid': errors.supplier_id }">
+                          <select v-model="product_detail.supplier_id" required class="form-control form-control-sm" :class="{ 'is-invalid': errors.supplier_id }">
                             <option value="">Please select a supplier</option>
                             <option v-for="(supplier, key) in suppliers" :value="supplier.id" :key="key">{{ supplier.name }}</option>
                           </select>
@@ -92,8 +92,13 @@
                           {{ product_detail.code ? product_detail.code : product_detail.product.code }}
                         </td>
                         <td class="text-center">
-                          <input type="number" style="width:70px !important;" v-model="product_detail.quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
-                          <small class="text-danger" v-if="errors.quantity">{{ errors.quantity[0] }}</small>
+                          <div class="input-group col-xs-12">
+                            <input type="number" style="width:70px !important;" v-model="product_detail.quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
+                            <span class="input-group-append">
+                              <button class="btn btn-sm btn-primary" type="button">Pcs</button>
+                            </span>
+                            <small class="text-danger" v-if="errors.quantity">{{ errors.quantity[0] }}</small>
+                          </div>
                         </td>
                         <td class="text-center">
                           {{ product_detail.purchase_price }}
@@ -102,13 +107,13 @@
                           <div class="input-group col-xs-12">
                             <input type="number" style="width:60px !important;" v-model="product_detail.discount_percentage" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.discount_percentage }" placeholder="Discount percentage">
                             <span class="input-group-append">
-                                <button class="btn btn-sm btn-primary" type="button">%</button>
-                              </span>
+                              <button class="btn btn-sm btn-primary" type="button">%</button>
+                            </span>
                             <small class="text-danger" v-if="errors.discount_percentage">{{ errors.discount_percentage[0] }}</small>
                           </div>
                         </td>
                         <td>                     
-                          {{ product_detail.tax }}%
+                          {{ product_detail.tax_percentage }}%
                         </td>
                         <td class="text-center">
                           {{ Math.round(product_detail.product_wise_total) }}
@@ -293,15 +298,15 @@
       'form.product_detail_list': {
         handler (newValue, oldValue) {
           newValue.forEach((product_detail) => {
-            let tax_value = parseFloat(product_detail.tax_value * product_detail.quantity);
+            let tax_value = product_detail.tax_value * product_detail.quantity;
             let product_wise_total = product_detail.quantity * product_detail.purchase_price;
             let discount_value = this.calculateDiscount (product_wise_total, product_detail.discount_percentage);           
-            product_wise_total = product_wise_total + tax_value - parseFloat(discount_value);
-            product_detail.product_wise_total = product_wise_total.toFixed(2);
+            product_wise_total = product_wise_total + tax_value - discount_value;
+            product_detail.product_wise_total = Math.round(product_wise_total);
           })
         },
         deep: true
-      }      
+      }
     },
     computed: {
       total_cost: function() {
@@ -309,8 +314,8 @@
         this.form.product_detail_list.forEach(product_detail => {
           sum += parseFloat(product_detail.product_wise_total);
         });
-        return sum.toFixed(2);
-      }     
+        return sum;
+      }
     },
     methods: {
       getStockInChallan() {
@@ -343,10 +348,10 @@
               product_id: this.product.id,
               quantity: 1,            
               purchase_price: this.product.purchase_price,
-              tax: this.product.tax_percentage,
-              tax_value: this.product.tax_value,
+              tax_percentage: this.product.tax_percentage,
+              tax_value: this.product.purchase_tax_value,
               discount_percentage: 0,
-              product_wise_total: 1//this.product.purchase_price * 1.
+              product_wise_total: this.product.purchase_price * 1.
             });
           })
           .catch((error) => {
