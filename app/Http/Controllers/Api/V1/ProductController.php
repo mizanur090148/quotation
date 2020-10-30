@@ -106,7 +106,7 @@ class ProductController extends BaseController
      */
     public function search(Request $request)
     {
-        try {            
+        try {
             $with = [
                 'category:id,name',
                 'model:id,name',

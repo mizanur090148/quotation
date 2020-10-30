@@ -30,7 +30,10 @@ class Product extends Model
         'deleted_by'
     ];
 
-    protected $appends = ['tax_value'];
+    protected $appends = [
+        'purchase_tax_value',
+        'sale_tax_value'
+    ];
 
     protected $dates = [
     	'deleted_at'
@@ -51,8 +54,13 @@ class Product extends Model
         return $this->belongsTo(Modell::class)->withDefault();
     }
 
-    public function getTaxValueAttribute()
+    public function getPurchaseTaxValueAttribute()
     {
-        return round($this->purchase_price * ($this->tax_percentage / 100));
+        return ($this->purchase_price * ($this->tax_percentage / 100));
+    }
+
+    public function getSaleTaxValueAttribute()
+    {
+        return ($this->sale_price * ($this->tax_percentage / 100));
     }
 }

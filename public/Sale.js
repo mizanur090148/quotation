@@ -300,12 +300,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var _this = this;
 
         newValue.forEach(function (product_detail) {
+          var tax_value = product_detail.tax_value * product_detail.quantity;
           var product_wise_total = product_detail.quantity * product_detail.sale_price;
 
           var discount_value = _this.calculateDiscount(product_wise_total, product_detail.discount_percentage);
 
-          product_wise_total = product_wise_total + parseFloat(product_detail.tax_value) - parseFloat(discount_value);
-          product_detail.product_wise_total = product_wise_total;
+          product_wise_total = product_wise_total + tax_value - discount_value;
+          product_detail.product_wise_total = Math.round(product_wise_total);
         });
       },
       deep: true
@@ -355,8 +356,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           product_id: _this3.product.id,
           quantity: 1,
           sale_price: _this3.product.sale_price,
-          tax: _this3.product.tax_percentage,
-          tax_value: _this3.product.tax_value,
+          tax_percentage: _this3.product.tax_percentage,
+          tax_value: _this3.product.sale_tax_value,
           discount_percentage: 0,
           product_wise_total: _this3.product.sale_price * 1.
         });
@@ -365,8 +366,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     calculateDiscount: function calculateDiscount(product_wise_total, discount_percentage) {
-      var discount_value = product_wise_total * (discount_percentage / 100);
-      return discount_value.toFixed(2);
+      return product_wise_total * (discount_percentage / 100);
     },
     closeModal: function closeModal(modalName) {
       this.$modal.hide(modalName);
@@ -664,7 +664,7 @@ var render = function() {
                           ])
                         ]),
                         _vm._v(" "),
-                        _vm.errors.category_id
+                        _vm.errors.customer_id
                           ? _c("small", { staticClass: "text-danger" }, [
                               _vm._v(_vm._s(_vm.errors.customer_id[0]))
                             ])
@@ -888,10 +888,11 @@ var render = function() {
                                         }
                                       ],
                                       staticClass:
-                                        "form-control form-control-sm text-right",
+                                        "form-control form-control-sm",
                                       class: {
                                         "is-invalid": _vm.errors.quantity
                                       },
+                                      staticStyle: { width: "70px !important" },
                                       attrs: {
                                         type: "number",
                                         placeholder: "Enter quantity"
@@ -956,6 +957,9 @@ var render = function() {
                                             "is-invalid":
                                               _vm.errors.discount_percentage
                                           },
+                                          staticStyle: {
+                                            width: "60px !important"
+                                          },
                                           attrs: {
                                             type: "number",
                                             placeholder: "Discount percentage"
@@ -998,21 +1002,19 @@ var render = function() {
                                     )
                                   ]),
                                   _vm._v(" "),
-                                  _c("td", { staticClass: "text-right" }, [
+                                  _c("td", { staticClass: "text-center" }, [
                                     _vm._v(
                                       "\n                        " +
-                                        _vm._s(product_detail.tax_value) +
-                                        "\n                      "
+                                        _vm._s(product_detail.tax_percentage) +
+                                        "%\n                      "
                                     )
                                   ]),
                                   _vm._v(" "),
-                                  _c("td", { staticClass: "text-right" }, [
+                                  _c("td", { staticClass: "text-center" }, [
                                     _vm._v(
                                       "\n                        " +
                                         _vm._s(
-                                          Math.round(
-                                            product_detail.product_wise_total
-                                          )
+                                          product_detail.product_wise_total
                                         ) +
                                         "\n                      "
                                     )
@@ -1054,7 +1056,7 @@ var render = function() {
                                   [_vm._v("Grand Total")]
                                 ),
                                 _vm._v(" "),
-                                _c("td", { staticClass: "text-right" }, [
+                                _c("td", { staticClass: "text-center" }, [
                                   _vm._v(_vm._s(Math.round(_vm.total_cost)))
                                 ])
                               ])

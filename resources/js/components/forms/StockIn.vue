@@ -72,8 +72,8 @@
                         <td>Quantity</td>
                         <td>Unit Cost</td>
                         <td>Discount(%)</td>
-                        <td>Tax(5%) Per Product</td>
-                        <td>Total</td>
+                        <td>Tax(%)</td>
+                        <td>Product Total</td>
                         <td>Actions</td>
                       </tr>
                     </thead>
@@ -92,7 +92,7 @@
                           {{ product_detail.code ? product_detail.code : product_detail.product.code }}
                         </td>
                         <td class="text-center">
-                          <input type="number" v-model="product_detail.quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
+                          <input type="number" style="width:70px !important;" v-model="product_detail.quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
                           <small class="text-danger" v-if="errors.quantity">{{ errors.quantity[0] }}</small>
                         </td>
                         <td class="text-center">
@@ -100,17 +100,17 @@
                         </td>
                         <td>
                           <div class="input-group col-xs-12">
-                            <input type="number" v-model="product_detail.discount_percentage" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.discount_percentage }" placeholder="Discount percentage">
+                            <input type="number" style="width:60px !important;" v-model="product_detail.discount_percentage" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.discount_percentage }" placeholder="Discount percentage">
                             <span class="input-group-append">
                                 <button class="btn btn-sm btn-primary" type="button">%</button>
                               </span>
                             <small class="text-danger" v-if="errors.discount_percentage">{{ errors.discount_percentage[0] }}</small>
                           </div>
                         </td>
-                        <td class="text-right">
-                          {{ product_detail.tax_value }}
+                        <td>                     
+                          {{ product_detail.tax }}%
                         </td>
-                        <td class="text-right">
+                        <td class="text-center">
                           {{ Math.round(product_detail.product_wise_total) }}
                         </td>
                         <td class="text-center">
@@ -118,8 +118,8 @@
                         </td>
                       </tr>
                       <tr class="font-weight-bold">
-                        <td colspan="7" class="text-right">Grand Total</td>
-                        <td class="text-right">{{ Math.round(total_cost) }}</td>
+                        <td colspan="7">Grand Total</td>
+                        <td>{{ Math.round(total_cost) }}</td>
                       </tr>
                     </tbody>
                 </table>
@@ -293,14 +293,11 @@
       'form.product_detail_list': {
         handler (newValue, oldValue) {
           newValue.forEach((product_detail) => {
-            console.log(newValue, oldValue);
+            let tax_value = parseFloat(product_detail.tax_value * product_detail.quantity);
             let product_wise_total = product_detail.quantity * product_detail.purchase_price;
             let discount_value = this.calculateDiscount (product_wise_total, product_detail.discount_percentage);           
-            product_wise_total = product_wise_total + parseFloat(product_detail.tax_value) - parseFloat(discount_value);
+            product_wise_total = product_wise_total + tax_value - parseFloat(discount_value);
             product_detail.product_wise_total = product_wise_total.toFixed(2);
-
-            /* console.log(product_detail.quantity, product_detail.tax_value);
-            product_detail.tax_value = product_detail.quantity * product_detail.tax_value; */
           })
         },
         deep: true

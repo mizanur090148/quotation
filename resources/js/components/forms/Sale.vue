@@ -20,7 +20,7 @@
                         <button class="btn btn-sm btn-primary" type="button" @click="customerModal">+</button>
                       </span>
                     </div>
-                    <small class="text-danger" v-if="errors.category_id">{{ errors.customer_id[0] }}</small>
+                    <small class="text-danger" v-if="errors.customer_id">{{ errors.customer_id[0] }}</small>
                   </div>
                 </div>
                 <div class="col-3">
@@ -85,7 +85,7 @@
                           {{ product_detail.code ? product_detail.name : product_detail.product.code }}
                         </td>
                         <td class="text-center">
-                          <input type="number" v-model="product_detail.quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
+                          <input type="number" style="width:70px !important;" v-model="product_detail.quantity" class="form-control form-control-sm" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
                           <small class="text-danger" v-if="errors.quantity">{{ errors.quantity[0] }}</small>
                         </td>
                         <td class="text-center">
@@ -93,18 +93,18 @@
                         </td>
                         <td>
                           <div class="input-group col-xs-12">
-                            <input type="number" v-model="product_detail.discount_percentage" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.discount_percentage }" placeholder="Discount percentage">
+                            <input type="number" style="width:60px !important;" v-model="product_detail.discount_percentage" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.discount_percentage }" placeholder="Discount percentage">
                             <span class="input-group-append">
                                 <button class="btn btn-sm btn-primary" type="button">%</button>
                               </span>
                             <small class="text-danger" v-if="errors.discount_percentage">{{ errors.discount_percentage[0] }}</small>
                           </div>
                         </td>
-                        <td class="text-right">
-                          {{ product_detail.tax_value }}
+                        <td class="text-center">
+                          {{ product_detail.tax_percentage }}%
                         </td>
-                        <td class="text-right">
-                          {{ Math.round(product_detail.product_wise_total) }}
+                        <td class="text-center">
+                          {{ product_detail.product_wise_total }}
                         </td>
                         <td class="text-center">
                           <button type="button" class="btn btn-xs btn-danger btn-rounded btn-fw" @click="deleteRow(index, product_detail)"><i class="mdi mdi-delete"></i></button>
@@ -112,7 +112,7 @@
                       </tr>
                       <tr class="font-weight-bold">
                         <td colspan="6" class="text-right">Grand Total</td>
-                        <td class="text-right">{{ Math.round(total_cost) }}</td>
+                        <td class="text-center">{{ Math.round(total_cost) }}</td>
                       </tr>
                     </tbody>
                 </table>
@@ -286,10 +286,11 @@
       'form.product_detail_list': {
         handler (newValue, oldValue) {
           newValue.forEach((product_detail) => {
+            let tax_value = product_detail.tax_value * product_detail.quantity;
             let product_wise_total = product_detail.quantity * product_detail.sale_price;
             let discount_value = this.calculateDiscount (product_wise_total, product_detail.discount_percentage);           
-            product_wise_total = product_wise_total + parseFloat(product_detail.tax_value) - parseFloat(discount_value);
-            product_detail.product_wise_total = product_wise_total;
+            product_wise_total = product_wise_total + tax_value - discount_value;         
+            product_detail.product_wise_total = Math.round(product_wise_total);
           })
         },
         deep: true
@@ -331,10 +332,10 @@
               name: this.product.name,
               code: this.product.code,
               product_id: this.product.id,
-              quantity: 1,            
+              quantity: 1,
               sale_price: this.product.sale_price,
-              tax: this.product.tax_percentage,
-              tax_value: this.product.tax_value,
+              tax_percentage: this.product.tax_percentage,
+              tax_value: this.product.sale_tax_value,
               discount_percentage: 0,
               product_wise_total: this.product.sale_price * 1.
             });
@@ -344,8 +345,7 @@
           })
       },      
       calculateDiscount(product_wise_total, discount_percentage) {
-        var discount_value = product_wise_total * (discount_percentage / 100);
-        return discount_value.toFixed(2);
+        return product_wise_total * (discount_percentage / 100);
       },
       closeModal(modalName) {
         this.$modal.hide(modalName);

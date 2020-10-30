@@ -60,17 +60,17 @@ class Sale extends Model
 
     public function getTotalProductPriceAttribute()
     {
-        return round($this->sales()->sum('product_wise_total'));
+        return $this->sales()->sum('product_wise_total');
     }
 
     public function getTotalTaxValueAttribute()
     {
-        return round($this->sales()->sum('tax_value'));
+        return $this->sales()->sum('tax_value');
     }
 
     public function getInvoiceWiseTotalPriceAttribute()
     {
-        return round($this->total_product_price + $this->delivery_cost + $this->others_cost);
+        return ($this->total_product_price + $this->delivery_cost + $this->others_cost);
     }
 
     public function product()

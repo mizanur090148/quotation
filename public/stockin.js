@@ -309,15 +309,13 @@ __webpack_require__.r(__webpack_exports__);
         var _this = this;
 
         newValue.forEach(function (product_detail) {
-          console.log(newValue, oldValue);
+          var tax_value = parseFloat(product_detail.tax_value * product_detail.quantity);
           var product_wise_total = product_detail.quantity * product_detail.purchase_price;
 
           var discount_value = _this.calculateDiscount(product_wise_total, product_detail.discount_percentage);
 
-          product_wise_total = product_wise_total + parseFloat(product_detail.tax_value) - parseFloat(discount_value);
+          product_wise_total = product_wise_total + tax_value - parseFloat(discount_value);
           product_detail.product_wise_total = product_wise_total.toFixed(2);
-          /* console.log(product_detail.quantity, product_detail.tax_value);
-          product_detail.tax_value = product_detail.quantity * product_detail.tax_value; */
         });
       },
       deep: true
@@ -926,6 +924,7 @@ var render = function() {
                                       class: {
                                         "is-invalid": _vm.errors.quantity
                                       },
+                                      staticStyle: { width: "70px !important" },
                                       attrs: {
                                         type: "number",
                                         placeholder: "Enter quantity"
@@ -990,6 +989,9 @@ var render = function() {
                                             "is-invalid":
                                               _vm.errors.discount_percentage
                                           },
+                                          staticStyle: {
+                                            width: "60px !important"
+                                          },
                                           attrs: {
                                             type: "number",
                                             placeholder: "Discount percentage"
@@ -1032,15 +1034,15 @@ var render = function() {
                                     )
                                   ]),
                                   _vm._v(" "),
-                                  _c("td", { staticClass: "text-right" }, [
+                                  _c("td", [
                                     _vm._v(
-                                      "\n                        " +
-                                        _vm._s(product_detail.tax_value) +
-                                        "\n                      "
+                                      "                     \n                        " +
+                                        _vm._s(product_detail.tax) +
+                                        "%\n                      "
                                     )
                                   ]),
                                   _vm._v(" "),
-                                  _c("td", { staticClass: "text-right" }, [
+                                  _c("td", { staticClass: "text-center" }, [
                                     _vm._v(
                                       "\n                        " +
                                         _vm._s(
@@ -1079,16 +1081,11 @@ var render = function() {
                               }),
                               _vm._v(" "),
                               _c("tr", { staticClass: "font-weight-bold" }, [
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass: "text-right",
-                                    attrs: { colspan: "7" }
-                                  },
-                                  [_vm._v("Grand Total")]
-                                ),
+                                _c("td", { attrs: { colspan: "7" } }, [
+                                  _vm._v("Grand Total")
+                                ]),
                                 _vm._v(" "),
-                                _c("td", { staticClass: "text-right" }, [
+                                _c("td", [
                                   _vm._v(_vm._s(Math.round(_vm.total_cost)))
                                 ])
                               ])
@@ -1639,9 +1636,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("td", [_vm._v("Discount(%)")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Tax(5%) Per Product")]),
+        _c("td", [_vm._v("Tax(%)")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Total")]),
+        _c("td", [_vm._v("Product Total")]),
         _vm._v(" "),
         _c("td", [_vm._v("Actions")])
       ])
