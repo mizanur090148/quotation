@@ -259,6 +259,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -267,12 +268,14 @@ __webpack_require__.r(__webpack_exports__);
     return {
       errors: [],
       form: new Form({
-        stock_in_challan: '',
+        purchase_invoice: '',
         stock_in_status: 1,
         stock_in_document: '',
-        shipping_cost: '',
-        others_cost: '',
+        shipping_cost: 0,
+        others_cost: 0,
         note: '',
+        created_by: 1,
+        outlet_id: 1,
         product_detail_list: []
       }),
       suppliers: [],
@@ -306,12 +309,15 @@ __webpack_require__.r(__webpack_exports__);
         var _this = this;
 
         newValue.forEach(function (product_detail) {
+          console.log(newValue, oldValue);
           var product_wise_total = product_detail.quantity * product_detail.purchase_price;
 
           var discount_value = _this.calculateDiscount(product_wise_total, product_detail.discount_percentage);
 
           product_wise_total = product_wise_total + parseFloat(product_detail.tax_value) - parseFloat(discount_value);
           product_detail.product_wise_total = product_wise_total.toFixed(2);
+          /* console.log(product_detail.quantity, product_detail.tax_value);
+          product_detail.tax_value = product_detail.quantity * product_detail.tax_value; */
         });
       },
       deep: true
@@ -325,17 +331,10 @@ __webpack_require__.r(__webpack_exports__);
       });
       return sum.toFixed(2);
     }
-    /* total_value: function() {
-      return this.total_cost_without_tax * (this.form.tax_percentage / 100);
-    },
-    total_cost_with_tax: function() {
-      return this.total_value + this.total_cost_without_tax;
-    } */
-
   },
   methods: {
     getStockInChallan: function getStockInChallan() {
-      this.form.stock_in_challan = Date.now();
+      this.form.purchase_invoice = Date.now();
     },
     autoComplete: function autoComplete() {
       var _this2 = this;
@@ -354,17 +353,6 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
-
-    /* searchProduct() {
-      axios.get('search-product-in-purchase?search_product=' + this.search_product)
-        .then(res => {
-          this.products = res.data.data;
-          this.pagination = res.data;
-        })
-        .catch(e => {
-          console.log(e);
-        })
-    }, */
     getProductInfo: function getProductInfo(productId) {
       var _this3 = this;
 
@@ -633,39 +621,21 @@ var render = function() {
                   _c("div", { staticClass: "row p-2" }, [
                     _c("div", { staticClass: "col-3" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Supplier")]),
-                        _vm._v(" "),
-                        _c("div"),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-sm btn-primary",
-                            attrs: { type: "button" },
-                            on: { click: _vm.supplierModal }
-                          },
-                          [_vm._v("Add Supplier")]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-3" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Stock In Challan")]),
+                        _c("label", [_vm._v("Purchase Invoice")]),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.form.stock_in_challan,
-                              expression: "form.stock_in_challan"
+                              value: _vm.form.purchase_invoice,
+                              expression: "form.purchase_invoice"
                             }
                           ],
                           staticClass: "form-control form-control-sm",
-                          class: { "is-invalid": _vm.errors.stock_in_challan },
+                          class: { "is-invalid": _vm.errors.purchase_invoice },
                           attrs: { type: "text", disabled: "" },
-                          domProps: { value: _vm.form.stock_in_challan },
+                          domProps: { value: _vm.form.purchase_invoice },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
@@ -673,16 +643,16 @@ var render = function() {
                               }
                               _vm.$set(
                                 _vm.form,
-                                "stock_in_challan",
+                                "purchase_invoice",
                                 $event.target.value
                               )
                             }
                           }
                         }),
                         _vm._v(" "),
-                        _vm.errors.stock_in_challan
+                        _vm.errors.purchase_invoice
                           ? _c("small", { staticClass: "text-danger" }, [
-                              _vm._v(_vm._s(_vm.errors.stock_in_challan[0]))
+                              _vm._v(_vm._s(_vm.errors.purchase_invoice[0]))
                             ])
                           : _vm._e()
                       ])
@@ -751,19 +721,19 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-3" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Stock In Document")]),
+                        _c("label", [_vm._v("Supplier")]),
                         _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control form-control-sm",
-                          class: { "is-invalid": _vm.errors.document },
-                          attrs: { type: "file", name: "document" }
-                        }),
+                        _c("div"),
                         _vm._v(" "),
-                        _vm.errors.document
-                          ? _c("small", { staticClass: "text-danger" }, [
-                              _vm._v(_vm._s(_vm.errors.document[0]))
-                            ])
-                          : _vm._e()
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-primary",
+                            attrs: { type: "button" },
+                            on: { click: _vm.supplierModal }
+                          },
+                          [_vm._v("Add Supplier")]
+                        )
                       ])
                     ])
                   ]),
@@ -786,8 +756,10 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control form-control-sm",
-                          class: { "is-invalid": _vm.errors.product },
-                          attrs: { type: "text" },
+                          attrs: {
+                            type: "text",
+                            placeholder: "Search product"
+                          },
                           domProps: { value: _vm.search_product },
                           on: {
                             keyup: _vm.autoComplete,
@@ -932,7 +904,7 @@ var render = function() {
                                       "                    \n                        " +
                                         _vm._s(
                                           product_detail.code
-                                            ? product_detail.name
+                                            ? product_detail.code
                                             : product_detail.product.code
                                         ) +
                                         "\n                      "
@@ -1665,9 +1637,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("td", [_vm._v("Unit Cost")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Discount%")]),
+        _c("td", [_vm._v("Discount(%)")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Tax(5%)")]),
+        _c("td", [_vm._v("Tax(5%) Per Product")]),
         _vm._v(" "),
         _c("td", [_vm._v("Total")]),
         _vm._v(" "),

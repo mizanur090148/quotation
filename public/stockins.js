@@ -306,7 +306,7 @@ var render = function() {
                               _c("td", [_vm._v(_vm._s(++index))]),
                               _vm._v(" "),
                               _c("td", [
-                                _vm._v(_vm._s(stock_in.stock_in_challan))
+                                _vm._v(_vm._s(stock_in.purchase_invoice))
                               ]),
                               _vm._v(" "),
                               _c("td", [

@@ -522,7 +522,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("td", [_vm._v("Unit Price")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Discount%")]),
+        _c("td", [_vm._v("Discount(%)")]),
         _vm._v(" "),
         _c("td", [_vm._v("Tax")]),
         _vm._v(" "),

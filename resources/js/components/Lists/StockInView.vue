@@ -4,21 +4,20 @@
       <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title no-print">Stock In Challan
-            </h4>        
+            <h4 class="card-title text-center">Stock In Challan</h4>
             <div class="table-responsive">
               <table class="table">
                 <thead>
                   <tr>
-                    <td><b>Stock In Challan:</b> {{ stock_challan.stock_in_challan }} </td>
-                    <td><b>Created Date:</b> {{ stock_challan.created_date }} </td>
+                    <td><b>Purchase Invoice:</b> {{ stock_challan.purchase_invoice }} </td>
+                    <td><b>Purchase Date:</b> {{ stock_challan.purchase_date }} </td>
                     <td><b>Status:</b> {{ (stock_challan.stock_in_status == 0) ? 'Pending' : 'Received' }}</td>
                     <td class="print-td"><a href="#" class="text-right" @click="printSection"><i class="mdi mdi-printer"></i></a></td>
-                  </tr>                  
+                  </tr>
                 </thead>
               </table>
                
-              <table class="list-table table">
+              <table class="list-table table table-bordered">
                   <thead>
                     <tr>
                       <td colspan="9">Product Details</td>

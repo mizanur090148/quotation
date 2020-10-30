@@ -6,13 +6,7 @@
                <i class="mdi mdi-home menu-icon"></i>
     			   <span class="menu-title">Dashboard</span>
             </router-link>
-         </li>
-         <!-- <li class="nav-item">
-            <router-link tag="a" class="nav-link" to="/quotations">
-               <i class="mdi mdi-settings menu-icon"></i>
-    			   <span class="menu-title">Quotations</span>
-            </router-link>
-         </li> -->
+         </li>         
          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#products" aria-expanded="false" aria-controls="products">
             <i class="mdi mdi-settings menu-icon"></i>
@@ -68,21 +62,107 @@
             </div>
          </li>
          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#quotations" aria-expanded="false" aria-controls="quotations">
+            <i class="mdi mdi-settings menu-icon"></i>
+            <span class="menu-title">Quotations</span>
+            <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="quotations">
+               <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/quotations/create"> Add Quotation</router-link> 
+                  </li>
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/quotations"> Quotation List </router-link> 
+                  </li>
+               </ul>
+            </div>
+         </li>
+         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#reports" aria-expanded="false" aria-controls="reports">
                <i class="mdi mdi-settings menu-icon"></i>
                <span class="menu-title">Reports</span>
                <i class="menu-arrow"></i>
             </a>
-            <!-- <div class="collapse" id="reports">
+            <div class="collapse" id="reports">
                <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                     <router-link tag="a" class="nav-link" to="/date-wise-inventory-report"> Date Wise Inventory Report </router-link> 
+                     <router-link tag="a" class="nav-link" to="/date-wise-purchase-report"> Date Wise Purchase Report </router-link> 
                   </li>
                   <li class="nav-item">
                      <router-link tag="a" class="nav-link" to="/date-wise-sales-report"> Date Wise Sales Report </router-link> 
                   </li>
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/date-wise-vat-report"> Date Wise Vat Report </router-link> 
+                  </li>
                </ul>
-            </div> -->
+            </div>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#return" aria-expanded="false" aria-controls="return">
+               <i class="mdi mdi-settings menu-icon"></i>
+               <span class="menu-title">Return</span>
+               <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="return">
+               <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/sale"> Sale </router-link> 
+                  </li>
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/purchase"> Purchase </router-link> 
+                  </li>                 
+               </ul>
+            </div>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#hrm" aria-expanded="false" aria-controls="hrm">
+            <i class="mdi mdi-settings menu-icon"></i>
+            <span class="menu-title">HRM</span>
+            <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="hrm">
+               <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/department"> Department </router-link> 
+                  </li>
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/employee"> Employee List </router-link> 
+                  </li>
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/attendence"> Attendence </router-link> 
+                  </li>
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/payroll"> Payroll </router-link> 
+                  </li>
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/holiday"> Holiday </router-link> 
+                  </li>
+               </ul>
+            </div>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#accounting" aria-expanded="false" aria-controls="accounting">
+            <i class="mdi mdi-settings menu-icon"></i>
+            <span class="menu-title">Accounting</span>
+            <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="accounting">
+               <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/account/create"> Add Account</router-link> 
+                  </li>
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/account"> Account List </router-link> 
+                  </li>
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/balance-sheet"> Balance Sheet </router-link> 
+                  </li>
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/account-statement"> Account Statement </router-link> 
+                  </li>
+               </ul>
+            </div>
          </li>
          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">

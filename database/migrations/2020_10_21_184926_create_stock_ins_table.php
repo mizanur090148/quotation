@@ -15,7 +15,7 @@ class CreateStockInsTable extends Migration
     {
         Schema::create('stock_ins', function (Blueprint $table) {
             $table->id();
-            $table->string('stock_in_challan', 20)->nullable();
+            $table->string('purchase_invoice', 30)->nullable();
             $table->tinyInteger('stock_in_status')->default(1)->comment('pending = 0, received = 1');
             $table->string('stock_in_document', 30)->nullable();
             $table->unsignedBigInteger('stock_in_id')->nullable();

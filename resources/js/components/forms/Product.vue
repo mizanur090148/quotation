@@ -18,8 +18,8 @@
                 <div class="col-4">
                   <div class="form-group">
                     <label>Product Code</label>
-                    <input type="text" v-model="product_form.product_code" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.product_code }" placeholder="Enter product code">
-                    <small class="text-danger" v-if="product_errors.product_code">{{ product_errors.product_code[0] }}</small>
+                    <input type="text" v-model="product_form.code" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.code }" placeholder="Enter product code">
+                    <small class="text-danger" v-if="product_errors.code">{{ product_errors.code[0] }}</small>
                   </div>
                 </div>
                 <div class="col-4">
@@ -113,14 +113,14 @@
                   </div>
                   <small class="text-danger" v-if="product_errors.tax_percentage">{{ product_errors.tax_percentage[0] }}</small>
                 </div>                
-                <div class="col-4">
+                <div class="col-8">
                   <div class="form-group">
                     <label>Product Details</label>
-                    <textarea v-model="product_form.product_detail" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.product_detail }" placeholder="Enter product details"></textarea>
+                    <textarea v-model="product_form.product_detail" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.product_detail }" placeholder="Enter product details"></textarea>
                     <small class="text-danger" v-if="product_errors.product_detail">{{ product_errors.product_detail[0] }}</small>
                   </div>
                 </div>                
-                <div class="col-4">
+                <!-- <div class="col-4">
                   <div class="form-group">
                     <label>Product Image</label>
                     <div v-if="!product_form.image">                     
@@ -132,7 +132,7 @@
                     </div>
                     <small class="text-danger" v-if="product_errors.image">{{ product_errors.image[0] }}</small>
                   </div>
-                </div>           
+                </div>  -->          
               </div>            
               <div class="row p-2 justify-content-md-center">
                 <div class="form-group">
@@ -278,8 +278,7 @@
           model_id: '',
           name: '',
           code: '',
-          product_unit: 0,
-          tax_percentage: '',
+          product_unit: 0,        
           purchase_price: '',
           sale_price: '',
           warning_quantity: '',

@@ -37,7 +37,7 @@
                       <td>Product Code</td>
                       <td>Quantity</td>
                       <td>Unit Price</td>
-                      <td>Discount%</td>
+                      <td>Discount(%)</td>
                       <td>Tax</td>
                       <td>Total</td>       
                     </tr>

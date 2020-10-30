@@ -7,19 +7,12 @@
             <h4 class="card-title">New Entry Form</h4>
             <hr>
             <form class="forms-sample" @submit.prevent="store">
-              <div class="row p-2">
+              <div class="row p-2">                
                 <div class="col-3">
                   <div class="form-group">
-                    <label>Supplier</label> 
-                    <div></div>                     
-                    <button class="btn btn-sm btn-primary" type="button" @click="supplierModal">Add Supplier</button>
-                  </div>
-                </div>
-                <div class="col-3">
-                  <div class="form-group">
-                    <label>Stock In Challan</label>
-                    <input type="text" v-model="form.stock_in_challan" class="form-control form-control-sm" disabled :class="{ 'is-invalid': errors.stock_in_challan }">
-                    <small class="text-danger" v-if="errors.stock_in_challan">{{ errors.stock_in_challan[0] }}</small>
+                    <label>Purchase Invoice</label>
+                    <input type="text" v-model="form.purchase_invoice" class="form-control form-control-sm" disabled :class="{ 'is-invalid': errors.purchase_invoice }">
+                    <small class="text-danger" v-if="errors.purchase_invoice">{{ errors.purchase_invoice[0] }}</small>
                   </div>
                 </div>
                 <div class="col-3">
@@ -36,11 +29,18 @@
                 </div>
                 <div class="col-3">
                   <div class="form-group">
-                    <label>Stock In Document</label>                   
+                    <label>Supplier</label> 
+                    <div></div>                     
+                    <button class="btn btn-sm btn-primary" type="button" @click="supplierModal">Add Supplier</button>
+                  </div>
+                </div>
+                <!-- <div class="col-3">
+                  <div class="form-group">
+                    <label>Stock In Document</label>
                       <input type="file" name="document" class="form-control form-control-sm" :class="{ 'is-invalid': errors.document }">
                       <small class="text-danger" v-if="errors.document">{{ errors.document[0] }}</small>
                   </div>
-                </div>
+                </div> -->
               </div>
               <hr>
               
@@ -48,7 +48,7 @@
                 <div class="col-6">
                   <div class="form-group">
                     Search & Select Product
-                    <input type="text" v-model="search_product" v-on:keyup="autoComplete" class="form-control form-control-sm" :class="{ 'is-invalid': errors.product }">
+                    <input type="text" v-model="search_product" v-on:keyup="autoComplete" class="form-control form-control-sm" placeholder="Search product">
                     <small class="text-danger" v-if="errors.product">{{ errors.product[0] }}</small>                    
                     <div class="panel-footer" v-if="products.length">
                       <ul class="list-group">
@@ -65,14 +65,14 @@
                      <tr>
                         <td colspan="9">Product Details Table</td>
                      </tr>
-                      <tr>                       
-                        <td>Supplier</td>                   
+                      <tr>
+                        <td>Supplier</td>
                         <td>Product Name</td>
                         <td>Product Code</td>
                         <td>Quantity</td>
                         <td>Unit Cost</td>
-                        <td>Discount%</td>
-                        <td>Tax(5%)</td>
+                        <td>Discount(%)</td>
+                        <td>Tax(5%) Per Product</td>
                         <td>Total</td>
                         <td>Actions</td>
                       </tr>
@@ -89,7 +89,7 @@
                           {{ product_detail.name ? product_detail.name : product_detail.product.name }}
                         </td>
                         <td>                    
-                          {{ product_detail.code ? product_detail.name : product_detail.product.code }}
+                          {{ product_detail.code ? product_detail.code : product_detail.product.code }}
                         </td>
                         <td class="text-center">
                           <input type="number" v-model="product_detail.quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
@@ -243,8 +243,8 @@
     font-size: 10px !important;
   } */
 </style>
-<script>
-  
+
+<script>  
   import axios from '../../axios';
   import "vue-loading-overlay/dist/vue-loading.css";
   import Loading from 'vue-loading-overlay';
@@ -254,12 +254,14 @@
       return {
         errors: [],
         form: new Form({          
-          stock_in_challan: '',
+          purchase_invoice: '',
           stock_in_status: 1,
           stock_in_document: '',
-          shipping_cost: '',
-          others_cost: '',
+          shipping_cost: 0,
+          others_cost: 0,
           note: '',
+          created_by: 1,
+          outlet_id: 1,
           product_detail_list: []
         }),
 
@@ -291,14 +293,18 @@
       'form.product_detail_list': {
         handler (newValue, oldValue) {
           newValue.forEach((product_detail) => {
+            console.log(newValue, oldValue);
             let product_wise_total = product_detail.quantity * product_detail.purchase_price;
             let discount_value = this.calculateDiscount (product_wise_total, product_detail.discount_percentage);           
             product_wise_total = product_wise_total + parseFloat(product_detail.tax_value) - parseFloat(discount_value);
             product_detail.product_wise_total = product_wise_total.toFixed(2);
+
+            /* console.log(product_detail.quantity, product_detail.tax_value);
+            product_detail.tax_value = product_detail.quantity * product_detail.tax_value; */
           })
         },
         deep: true
-      }
+      }      
     },
     computed: {
       total_cost: function() {
@@ -307,17 +313,11 @@
           sum += parseFloat(product_detail.product_wise_total);
         });
         return sum.toFixed(2);
-      },
-      /* total_value: function() {
-        return this.total_cost_without_tax * (this.form.tax_percentage / 100);
-      },
-      total_cost_with_tax: function() {
-        return this.total_value + this.total_cost_without_tax;
-      } */
+      }     
     },
     methods: {
       getStockInChallan() {
-        this.form.stock_in_challan = Date.now();
+        this.form.purchase_invoice = Date.now();
       },
       autoComplete() {
         this.products = [];
@@ -330,17 +330,7 @@
               console.log(e);
             })
         }
-      },
-      /* searchProduct() {
-        axios.get('search-product-in-purchase?search_product=' + this.search_product)
-          .then(res => {
-            this.products = res.data.data;
-            this.pagination = res.data;
-          })
-          .catch(e => {
-            console.log(e);
-          })
-      }, */
+      },     
       getProductInfo: function(productId) {
         this.search_product = '';
         this.products = [];        

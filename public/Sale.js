@@ -269,9 +269,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         invoice_number: '',
         payment_status: 1,
         stock_in_document: '',
-        delivery_cost: '',
-        others_cost: '',
+        delivery_cost: 0,
+        others_cost: 0,
         note: '',
+        created_by: 1,
+        outlet_id: 1,
         product_detail_list: []
       })
     }, _defineProperty(_ref, "customers", []), _defineProperty(_ref, "customer_errors", []), _defineProperty(_ref, "customer_form", new Form({
@@ -287,9 +289,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.customerDropdowndata();
 
     if (this.$route.params.id) {
-      this.getStockInChallanInfo(this.$route.params.id);
+      this.getSaleInfo(this.$route.params.id);
     } else {
-      this.getStockInChallan();
+      this.getSaleInvoiceNo();
     }
   },
   watch: {
@@ -319,7 +321,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: {
-    getStockInChallan: function getStockInChallan() {
+    getSaleInvoiceNo: function getSaleInvoiceNo() {
       this.form.invoice_number = Date.now();
     },
     autoComplete: function autoComplete() {
@@ -344,12 +346,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.search_product = '';
       this.products = [];
-      var lastSelectedcustomerId = this.lastSelectedcustomerId();
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('products/' + productId).then(function (res) {
         _this3.product = res.data;
 
         _this3.form.product_detail_list.push({
-          customer_id: lastSelectedcustomerId,
           name: _this3.product.name,
           code: _this3.product.code,
           product_id: _this3.product.id,
@@ -358,23 +358,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           tax: _this3.product.tax_percentage,
           tax_value: _this3.product.tax_value,
           discount_percentage: 0,
-          product_wise_total: 1 //this.product.sale_price * 1.
-
+          product_wise_total: _this3.product.sale_price * 1.
         });
       })["catch"](function (error) {
         console.log(error);
       });
-    },
-    lastSelectedcustomerId: function lastSelectedcustomerId() {
-      var customerId = '';
-      var countLength = this.form.product_detail_list.length;
-
-      if (countLength > 0) {
-        --countLength;
-        customerId = this.form.product_detail_list[countLength].customer_id;
-      }
-
-      return customerId;
     },
     calculateDiscount: function calculateDiscount(product_wise_total, discount_percentage) {
       var discount_value = product_wise_total * (discount_percentage / 100);
@@ -438,12 +426,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         loader.hide();
       });
     },
-    getStockInChallanInfo: function getStockInChallanInfo(stockInId) {
+    getSaleInfo: function getSaleInfo(saleId) {
       var _this6 = this;
 
-      _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('sales/' + stockInId).then(function (res) {
+      _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('sales/' + saleId).then(function (res) {
         _this6.form = res.data;
-        _this6.form.product_detail_list = res.data.stock_ins;
+        _this6.form.product_detail_list = res.data.sales;
       })["catch"](function (error) {
         console.log(error);
       })["finally"](function () {//loader.hide();
@@ -879,7 +867,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(
-                                      "                    \n                        " +
+                                      "\n                        " +
                                         _vm._s(
                                           product_detail.code
                                             ? product_detail.name

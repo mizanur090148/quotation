@@ -77,11 +77,11 @@
                       </tr>
                     </thead>
                     <tbody v-if="form.product_detail_list.length">
-                      <tr v-for="(product_detail, index) in form.product_detail_list" :key="index">                        
+                      <tr v-for="(product_detail, index) in form.product_detail_list" :key="index">
                         <td>
                           {{ product_detail.name ? product_detail.name : product_detail.product.name }}
                         </td>
-                        <td>                    
+                        <td>
                           {{ product_detail.code ? product_detail.name : product_detail.product.code }}
                         </td>
                         <td class="text-center">
@@ -252,12 +252,13 @@
           invoice_number: '',
           payment_status: 1,
           stock_in_document: '',
-          delivery_cost: '',
-          others_cost: '',
+          delivery_cost: 0,
+          others_cost: 0,
           note: '',
+          created_by: 1,
+          outlet_id: 1,
           product_detail_list: []
         }),
-
         customers: [],
         customer_errors: [],
         customer_form: new Form({
@@ -276,9 +277,9 @@
     mounted() {
       this.customerDropdowndata();      
       if (this.$route.params.id) {
-        this.getStockInChallanInfo(this.$route.params.id);
+        this.getSaleInfo(this.$route.params.id);
       } else {
-        this.getStockInChallan();
+        this.getSaleInvoiceNo();
       }
     },
     watch: {
@@ -304,7 +305,7 @@
       }      
     },
     methods: {
-      getStockInChallan() {
+      getSaleInvoiceNo() {
         this.form.invoice_number = Date.now();
       },
       autoComplete() {
@@ -321,14 +322,12 @@
       },      
       getProductInfo: function(productId) {
         this.search_product = '';
-        this.products = [];        
-        let lastSelectedcustomerId = this.lastSelectedcustomerId();
+        this.products = [];
 
         axios.get('products/' + productId)
           .then((res) => {
             this.product = res.data;    
             this.form.product_detail_list.push({
-              customer_id: lastSelectedcustomerId,
               name: this.product.name,
               code: this.product.code,
               product_id: this.product.id,
@@ -337,22 +336,13 @@
               tax: this.product.tax_percentage,
               tax_value: this.product.tax_value,
               discount_percentage: 0,
-              product_wise_total: 1//this.product.sale_price * 1.
+              product_wise_total: this.product.sale_price * 1.
             });
           })
           .catch((error) => {
             console.log(error);
           })
-      },
-      lastSelectedcustomerId() {
-        let customerId = '';
-        let countLength = this.form.product_detail_list.length;
-        if (countLength > 0) {
-          --countLength;
-          customerId = this.form.product_detail_list[countLength].customer_id;
-        }
-        return customerId;
-      },
+      },      
       calculateDiscount(product_wise_total, discount_percentage) {
         var discount_value = product_wise_total * (discount_percentage / 100);
         return discount_value.toFixed(2);
@@ -416,11 +406,11 @@
             loader.hide();
           })
       },
-      getStockInChallanInfo(stockInId) {
-        axios.get('sales/' + stockInId)
+      getSaleInfo(saleId) {
+        axios.get('sales/' + saleId)
           .then((res) => {
             this.form = res.data;          
-            this.form.product_detail_list = res.data.stock_ins;
+            this.form.product_detail_list = res.data.sales;
           })
           .catch((error) => {
             console.log(error);

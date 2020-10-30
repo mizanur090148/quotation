@@ -25,7 +25,7 @@ class BrandController extends BaseController
             return $this->sendResponse($modelData);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
-        }        
+        }
     }
 
     /**

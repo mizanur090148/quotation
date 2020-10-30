@@ -63,6 +63,11 @@ const Sale = () => import(/* webpackChunkName: "Sale" */ './components/forms/Sal
 const Sales = () => import(/* webpackChunkName: "Sales" */ './components/Lists/Sales.vue');
 const SaleInvoice = () => import(/* webpackChunkName: "SaleInvoice" */ './components/Lists/SaleInvoice.vue');
 
+// reports area
+const DateWiseSalesReport = () => import(/* webpackChunkName: "dateWiseSales" */ './components/Reports/DateWiseSales.vue');
+const DateWisePurchaseReport = () => import(/* webpackChunkName: "dateWisePurchase" */ './components/Reports/DateWisePurchase.vue');
+const DateWiseVatReport = () => import(/* webpackChunkName: "dateWiseVat" */ './components/Reports/DateWiseVat.vue');
+
 const router = new VueRouter({
     mode: 'history',
     routes: [
@@ -175,6 +180,23 @@ const router = new VueRouter({
             path: '/brands',
             name: 'Brands',
             component: Brands,
+        },
+
+        /**Report Route**/
+        {
+            path: '/date-wise-purchase-report',
+            name: 'DateWisePurchaseReport',
+            component: DateWisePurchaseReport,
+        },
+        {
+            path: '/date-wise-sales-report',
+            name: 'DateWiseSalesReport',
+            component: DateWiseSalesReport,
+        },
+        {
+            path: '/date-wise-vat-report',
+            name: 'DateWiseVatReport',
+            component: DateWiseVatReport,
         },
     ],
 });

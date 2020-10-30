@@ -84,7 +84,7 @@
           listResponse: null,
           store_info: [],
           pagination: {
-             current_page: 1            
+             current_page: 1
           },
           search_query: ''
        }

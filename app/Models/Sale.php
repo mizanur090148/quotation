@@ -39,8 +39,9 @@ class Sale extends Model
     protected $appends = [
         'total_product_price', 
         'invoice_wise_total_price',
+        'total_tax_value',
         'sale_date',
-        'sale_date_time'
+        'sale_date_time',
     ];
 
     protected $cascadeDeletes = [
@@ -60,6 +61,11 @@ class Sale extends Model
     public function getTotalProductPriceAttribute()
     {
         return round($this->sales()->sum('product_wise_total'));
+    }
+
+    public function getTotalTaxValueAttribute()
+    {
+        return round($this->sales()->sum('tax_value'));
     }
 
     public function getInvoiceWiseTotalPriceAttribute()
@@ -84,7 +90,7 @@ class Sale extends Model
 
     public function getSaleDateAttribute()
     {
-        return $this->created_at->toDateString();
+        return $this->created_at->format('d-M-Y');
     }
 
     public function getSaleDateTimeAttribute()

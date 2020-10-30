@@ -24,7 +24,7 @@
                     <td>SL.</td>
                     <td>Invoice No.</td>
                     <td>Customer</td>
-                    <td>Payment Status</td>                   
+                    <!-- <td>Payment Status</td> -->                   
                     <td>Product Price</td>
                     <td>Delivery Cost</td>
                     <td>Others Cost</td>
@@ -39,11 +39,11 @@
                     <td>{{ ++index }}</td>
                     <td>{{ sale.invoice_number }}</td>
                     <td>{{ sale.customer.name }}</td>
-                    <td>{{ (sale.payment_status == 0) ? 'Due' : 'Sale' }}</td>
-                    <td>{{ sale.total_product_cost }}</td>
+                    <!-- <td>{{ (sale.payment_status == 0) ? 'Due' : 'Cash' }}</td> -->
+                    <td>{{ sale.total_product_price }}</td>
                     <td>{{ sale.delivery_cost }}</td>
                     <td>{{ sale.others_cost }}</td>
-                    <td>{{ sale.total_cost }}</td>
+                    <td>{{ sale.invoice_wise_total_price }}</td>
                     <td>{{ sale.sale_date }}</td>
                     <td>{{ sale.created_by.full_name }}</td>
                     <td>

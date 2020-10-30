@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"Sale":"Sale","SaleInvoice":"SaleInvoice","Sales":"Sales","brands":"brands","categories":"categories","models":"models","product":"product","products":"products","stockIn":"stockIn","stockInView":"stockInView","stockIns":"stockIns","suppliers":"suppliers","user":"user","users":"users"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"Sale":"Sale","SaleInvoice":"SaleInvoice","Sales":"Sales","brands":"brands","categories":"categories","dateWisePurchase":"dateWisePurchase","dateWiseSales":"dateWiseSales","dateWiseVat":"dateWiseVat","models":"models","product":"product","products":"products","stockIn":"stockIn","stockInView":"stockInView","stockIns":"stockIns","suppliers":"suppliers","user":"user","users":"users"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -4697,65 +4697,6 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "row", attrs: { id: "proBanner" } }, [
-        _c("div", { staticClass: "col-md-12 grid-margin" }, [
-          _c("div", { staticClass: "card bg-gradient-primary border-0" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "card-body py-3 px-4 d-flex align-items-center justify-content-between flex-wrap"
-              },
-              [
-                _c("p", { staticClass: "mb-0 text-white font-weight-medium" }, [
-                  _vm._v(
-                    "Like what you see? Checkout our premium version for more."
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "d-flex" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-outline-light mr-2",
-                      attrs: {
-                        href:
-                          "https://github.com/Bootstrapdash/MajesticAdmin-Free-Bootstrap-Admin-Template",
-                        target: "_blank"
-                      }
-                    },
-                    [_vm._v("Download free version")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass:
-                        "btn btn-outline-light mr-2 bg-gradient-danger border-0",
-                      attrs: {
-                        href:
-                          "http://www.bootstrapdash.com/demo/majestic-admin-pro/template/",
-                        target: "_blank"
-                      }
-                    },
-                    [_vm._v("Upgrade to Pro")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn border-0 p-0",
-                      attrs: { id: "bannerClose" }
-                    },
-                    [_c("i", { staticClass: "mdi mdi-close text-white" })]
-                  )
-                ])
-              ]
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-12 grid-margin stretch-card" }, [
           _c("div", { staticClass: "card" }, [
@@ -6643,10 +6584,304 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(3),
+        _c("li", { staticClass: "nav-item" }, [
+          _vm._m(3),
+          _vm._v(" "),
+          _c("div", { staticClass: "collapse", attrs: { id: "quotations" } }, [
+            _c("ul", { staticClass: "nav flex-column sub-menu" }, [
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/quotations/create" }
+                    },
+                    [_vm._v(" Add Quotation")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/quotations" }
+                    },
+                    [_vm._v(" Quotation List ")]
+                  )
+                ],
+                1
+              )
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _c("li", { staticClass: "nav-item" }, [
           _vm._m(4),
+          _vm._v(" "),
+          _c("div", { staticClass: "collapse", attrs: { id: "reports" } }, [
+            _c("ul", { staticClass: "nav flex-column sub-menu" }, [
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/date-wise-purchase-report" }
+                    },
+                    [_vm._v(" Date Wise Purchase Report ")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/date-wise-sales-report" }
+                    },
+                    [_vm._v(" Date Wise Sales Report ")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/date-wise-vat-report" }
+                    },
+                    [_vm._v(" Date Wise Vat Report ")]
+                  )
+                ],
+                1
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "nav-item" }, [
+          _vm._m(5),
+          _vm._v(" "),
+          _c("div", { staticClass: "collapse", attrs: { id: "return" } }, [
+            _c("ul", { staticClass: "nav flex-column sub-menu" }, [
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/sale" }
+                    },
+                    [_vm._v(" Sale ")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/purchase" }
+                    },
+                    [_vm._v(" Purchase ")]
+                  )
+                ],
+                1
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "nav-item" }, [
+          _vm._m(6),
+          _vm._v(" "),
+          _c("div", { staticClass: "collapse", attrs: { id: "hrm" } }, [
+            _c("ul", { staticClass: "nav flex-column sub-menu" }, [
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/department" }
+                    },
+                    [_vm._v(" Department ")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/employee" }
+                    },
+                    [_vm._v(" Employee List ")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/attendence" }
+                    },
+                    [_vm._v(" Attendence ")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/payroll" }
+                    },
+                    [_vm._v(" Payroll ")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/holiday" }
+                    },
+                    [_vm._v(" Holiday ")]
+                  )
+                ],
+                1
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "nav-item" }, [
+          _vm._m(7),
+          _vm._v(" "),
+          _c("div", { staticClass: "collapse", attrs: { id: "accounting" } }, [
+            _c("ul", { staticClass: "nav flex-column sub-menu" }, [
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/account/create" }
+                    },
+                    [_vm._v(" Add Account")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/account" }
+                    },
+                    [_vm._v(" Account List ")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/balance-sheet" }
+                    },
+                    [_vm._v(" Balance Sheet ")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/account-statement" }
+                    },
+                    [_vm._v(" Account Statement ")]
+                  )
+                ],
+                1
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "nav-item" }, [
+          _vm._m(8),
           _vm._v(" "),
           _c("div", { staticClass: "collapse", attrs: { id: "settings" } }, [
             _c("ul", { staticClass: "nav flex-column sub-menu" }, [
@@ -6831,27 +7066,121 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c(
-        "a",
-        {
-          staticClass: "nav-link",
-          attrs: {
-            "data-toggle": "collapse",
-            href: "#reports",
-            "aria-expanded": "false",
-            "aria-controls": "reports"
-          }
-        },
-        [
-          _c("i", { staticClass: "mdi mdi-settings menu-icon" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "menu-title" }, [_vm._v("Reports")]),
-          _vm._v(" "),
-          _c("i", { staticClass: "menu-arrow" })
-        ]
-      )
-    ])
+    return _c(
+      "a",
+      {
+        staticClass: "nav-link",
+        attrs: {
+          "data-toggle": "collapse",
+          href: "#quotations",
+          "aria-expanded": "false",
+          "aria-controls": "quotations"
+        }
+      },
+      [
+        _c("i", { staticClass: "mdi mdi-settings menu-icon" }),
+        _vm._v(" "),
+        _c("span", { staticClass: "menu-title" }, [_vm._v("Quotations")]),
+        _vm._v(" "),
+        _c("i", { staticClass: "menu-arrow" })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "nav-link",
+        attrs: {
+          "data-toggle": "collapse",
+          href: "#reports",
+          "aria-expanded": "false",
+          "aria-controls": "reports"
+        }
+      },
+      [
+        _c("i", { staticClass: "mdi mdi-settings menu-icon" }),
+        _vm._v(" "),
+        _c("span", { staticClass: "menu-title" }, [_vm._v("Reports")]),
+        _vm._v(" "),
+        _c("i", { staticClass: "menu-arrow" })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "nav-link",
+        attrs: {
+          "data-toggle": "collapse",
+          href: "#return",
+          "aria-expanded": "false",
+          "aria-controls": "return"
+        }
+      },
+      [
+        _c("i", { staticClass: "mdi mdi-settings menu-icon" }),
+        _vm._v(" "),
+        _c("span", { staticClass: "menu-title" }, [_vm._v("Return")]),
+        _vm._v(" "),
+        _c("i", { staticClass: "menu-arrow" })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "nav-link",
+        attrs: {
+          "data-toggle": "collapse",
+          href: "#hrm",
+          "aria-expanded": "false",
+          "aria-controls": "hrm"
+        }
+      },
+      [
+        _c("i", { staticClass: "mdi mdi-settings menu-icon" }),
+        _vm._v(" "),
+        _c("span", { staticClass: "menu-title" }, [_vm._v("HRM")]),
+        _vm._v(" "),
+        _c("i", { staticClass: "menu-arrow" })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "nav-link",
+        attrs: {
+          "data-toggle": "collapse",
+          href: "#accounting",
+          "aria-expanded": "false",
+          "aria-controls": "accounting"
+        }
+      },
+      [
+        _c("i", { staticClass: "mdi mdi-settings menu-icon" }),
+        _vm._v(" "),
+        _c("span", { staticClass: "menu-title" }, [_vm._v("Accounting")]),
+        _vm._v(" "),
+        _c("i", { staticClass: "menu-arrow" })
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -23879,6 +24208,19 @@ var Sales = function Sales() {
 
 var SaleInvoice = function SaleInvoice() {
   return __webpack_require__.e(/*! import() | SaleInvoice */ "SaleInvoice").then(__webpack_require__.bind(null, /*! ./components/Lists/SaleInvoice.vue */ "./resources/js/components/Lists/SaleInvoice.vue"));
+}; // reports area
+
+
+var DateWiseSalesReport = function DateWiseSalesReport() {
+  return __webpack_require__.e(/*! import() | dateWiseSales */ "dateWiseSales").then(__webpack_require__.bind(null, /*! ./components/Reports/DateWiseSales.vue */ "./resources/js/components/Reports/DateWiseSales.vue"));
+};
+
+var DateWisePurchaseReport = function DateWisePurchaseReport() {
+  return __webpack_require__.e(/*! import() | dateWisePurchase */ "dateWisePurchase").then(__webpack_require__.bind(null, /*! ./components/Reports/DateWisePurchase.vue */ "./resources/js/components/Reports/DateWisePurchase.vue"));
+};
+
+var DateWiseVatReport = function DateWiseVatReport() {
+  return __webpack_require__.e(/*! import() | dateWiseVat */ "dateWiseVat").then(__webpack_require__.bind(null, /*! ./components/Reports/DateWiseVat.vue */ "./resources/js/components/Reports/DateWiseVat.vue"));
 };
 
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
@@ -23975,6 +24317,20 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
     path: '/brands',
     name: 'Brands',
     component: Brands
+  },
+  /**Report Route**/
+  {
+    path: '/date-wise-purchase-report',
+    name: 'DateWisePurchaseReport',
+    component: DateWisePurchaseReport
+  }, {
+    path: '/date-wise-sales-report',
+    name: 'DateWiseSalesReport',
+    component: DateWiseSalesReport
+  }, {
+    path: '/date-wise-vat-report',
+    name: 'DateWiseVatReport',
+    component: DateWiseVatReport
   }]
 });
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({

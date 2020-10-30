@@ -14,6 +14,8 @@ use App\Http\Controllers\Api\V1\BrandController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\StockInController;
 use App\Http\Controllers\Api\V1\SaleController;
+use App\Http\Controllers\Api\V1\PurchaseReportController;
+use App\Http\Controllers\Api\V1\SalesReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -104,3 +106,8 @@ Route::get('sales/{id}', [SaleController::class, 'show']);
 Route::get('sale-invoice/{id}', [SaleController::class, 'show']);
 Route::delete('sales/{id}', [SaleController::class, 'delete']);
 Route::get('search-sales', [SaleController::class, 'search']);
+
+// reports
+Route::get('date-wise-purchase-report', [PurchaseReportController::class, 'dateWisePurchaseReport']);
+Route::get('date-wise-sales-report', [SalesReportController::class, 'dateWiseSalesReport']);
+Route::get('date-wise-vat-report', [SalesReportController::class, 'dateWiseVatReport']);

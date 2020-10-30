@@ -310,22 +310,16 @@ var render = function() {
                               _c("td", [_vm._v(_vm._s(sale.customer.name))]),
                               _vm._v(" "),
                               _c("td", [
-                                _vm._v(
-                                  _vm._s(
-                                    sale.payment_status == 0 ? "Due" : "Sale"
-                                  )
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(_vm._s(sale.total_product_cost))
+                                _vm._v(_vm._s(sale.total_product_price))
                               ]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(sale.delivery_cost))]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(sale.others_cost))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(sale.total_cost))]),
+                              _c("td", [
+                                _vm._v(_vm._s(sale.invoice_wise_total_price))
+                              ]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(sale.sale_date))]),
                               _vm._v(" "),
@@ -439,8 +433,6 @@ var staticRenderFns = [
         _c("td", [_vm._v("Invoice No.")]),
         _vm._v(" "),
         _c("td", [_vm._v("Customer")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("Payment Status")]),
         _vm._v(" "),
         _c("td", [_vm._v("Product Price")]),
         _vm._v(" "),

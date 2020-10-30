@@ -1,8 +1,14 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/Sale.js": "/Sale.js",
+    "/SaleInvoice.js": "/SaleInvoice.js",
+    "/Sales.js": "/Sales.js",
     "/brands.js": "/brands.js",
     "/categories.js": "/categories.js",
+    "/dateWisePurchase.js": "/dateWisePurchase.js",
+    "/dateWiseSales.js": "/dateWiseSales.js",
+    "/dateWiseVat.js": "/dateWiseVat.js",
     "/models.js": "/models.js",
     "/product.js": "/product.js",
     "/products.js": "/products.js",
@@ -11,10 +17,5 @@
     "/stockIns.js": "/stockIns.js",
     "/suppliers.js": "/suppliers.js",
     "/user.js": "/user.js",
-    "/users.js": "/users.js",
-    "/Sale.js": "/Sale.js",
-    "/Sales.js": "/Sales.js",
-    "/saleView.js": "/saleView.js",
-    "/saleInvoice.js": "/saleInvoice.js",
-    "/SaleInvoice.js": "/SaleInvoice.js"
+    "/users.js": "/users.js"
 }

@@ -14,8 +14,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/vue-loading.min.js");
 /* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_2__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -286,22 +284,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    var _Form;
-
     return {
       product_errors: [],
-      product_form: new Form((_Form = {
+      product_form: new Form({
         category_id: '',
         brand_id: '',
         model_id: '',
         name: '',
         code: '',
         product_unit: 0,
-        tax_percentage: '',
         purchase_price: '',
         sale_price: '',
-        warning_quantity: ''
-      }, _defineProperty(_Form, "tax_percentage", 5), _defineProperty(_Form, "product_detail", ''), _defineProperty(_Form, "image", ''), _Form)),
+        warning_quantity: '',
+        tax_percentage: 5,
+        product_detail: '',
+        image: ''
+      }),
       categories: [],
       category_errors: [],
       category_form: new Form({
@@ -691,19 +689,17 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.product_form.product_code,
-                              expression: "product_form.product_code"
+                              value: _vm.product_form.code,
+                              expression: "product_form.code"
                             }
                           ],
                           staticClass: "form-control form-control-sm",
-                          class: {
-                            "is-invalid": _vm.product_errors.product_code
-                          },
+                          class: { "is-invalid": _vm.product_errors.code },
                           attrs: {
                             type: "text",
                             placeholder: "Enter product code"
                           },
-                          domProps: { value: _vm.product_form.product_code },
+                          domProps: { value: _vm.product_form.code },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
@@ -711,16 +707,16 @@ var render = function() {
                               }
                               _vm.$set(
                                 _vm.product_form,
-                                "product_code",
+                                "code",
                                 $event.target.value
                               )
                             }
                           }
                         }),
                         _vm._v(" "),
-                        _vm.product_errors.product_code
+                        _vm.product_errors.code
                           ? _c("small", { staticClass: "text-danger" }, [
-                              _vm._v(_vm._s(_vm.product_errors.product_code[0]))
+                              _vm._v(_vm._s(_vm.product_errors.code[0]))
                             ])
                           : _vm._e()
                       ])
@@ -1228,7 +1224,7 @@ var render = function() {
                         : _vm._e()
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-4" }, [
+                    _c("div", { staticClass: "col-8" }, [
                       _c("div", { staticClass: "form-group" }, [
                         _c("label", [_vm._v("Product Details")]),
                         _vm._v(" "),
@@ -1241,8 +1237,7 @@ var render = function() {
                               expression: "product_form.product_detail"
                             }
                           ],
-                          staticClass:
-                            "form-control form-control-sm text-right",
+                          staticClass: "form-control form-control-sm",
                           class: {
                             "is-invalid": _vm.product_errors.product_detail
                           },
@@ -1267,35 +1262,6 @@ var render = function() {
                               _vm._v(
                                 _vm._s(_vm.product_errors.product_detail[0])
                               )
-                            ])
-                          : _vm._e()
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-4" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Product Image")]),
-                        _vm._v(" "),
-                        !_vm.product_form.image
-                          ? _c("div", [
-                              _c("input", {
-                                attrs: { type: "file" },
-                                on: { change: _vm.onFileChange }
-                              })
-                            ])
-                          : _c("div", [
-                              _c("img", {
-                                attrs: { src: _vm.product_form.image }
-                              }),
-                              _vm._v(" "),
-                              _c("button", { on: { click: _vm.removeImage } }, [
-                                _vm._v("Remove")
-                              ])
-                            ]),
-                        _vm._v(" "),
-                        _vm.product_errors.image
-                          ? _c("small", { staticClass: "text-danger" }, [
-                              _vm._v(_vm._s(_vm.product_errors.image[0]))
                             ])
                           : _vm._e()
                       ])

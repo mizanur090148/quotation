@@ -12,7 +12,7 @@ class StockIn extends Model
     use HasFactory, SoftDeletes, CascadeSoftDeletes;
 
     protected $fillable = [
-        'stock_in_challan',
+        'purchase_invoice',
         'stock_in_status',
         'stock_in_document',
         'stock_in_id',
@@ -38,8 +38,10 @@ class StockIn extends Model
 
     protected $appends = [
         'total_product_cost', 
+        'total_tax_value',
         'total_cost',
-        'created_date'
+        'purchase_date',
+        'suppliers'
     ];
 
     protected $cascadeDeletes = [
@@ -66,10 +68,31 @@ class StockIn extends Model
         return round($this->total_product_cost + $this->shipping_cost + $this->others_cost);
     }
 
-    public function getCreatedDateAttribute()
+    public function getTotalTaxValueAttribute()
     {
-        return $this->created_at->toDateString();
+        return round($this->stockIns()->sum('tax_value'));
     }
+
+    public function getPurchaseDateAttribute()
+    {
+        return $this->created_at->format('d-M-Y');
+    }
+
+    public function getSuppliersAttribute()
+    {
+        $suppliers = $this->stockIns()->get()->pluck('supplier.name', 'supplier.trn_no')->all();
+        $result = [];        
+        foreach ($suppliers as $key => $supplier) {
+            $result[] = $suppliers[$key] . ' - ' . $key;
+        }
+        return array_unique($result);
+    }
+
+    /* public function getSuppliersAttribute()
+    {
+        $suppliers = $this->stockIns()->get()->pluck('supplier.name')->all();
+        return array_unique($suppliers);
+    } */
 
     public function product()
     {

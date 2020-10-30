@@ -36,7 +36,7 @@
                 <tbody v-if="stock_ins.length">
                   <tr v-for="(stock_in, index) in stock_ins" :key="stock_in.id">
                     <td>{{ ++index }}</td>
-                    <td>{{ stock_in.stock_in_challan }}</td>
+                    <td>{{ stock_in.purchase_invoice }}</td>
                     <td>{{ (stock_in.stock_in_status == 0) ? 'Pending' : 'Received' }}</td>
                     <td>{{ stock_in.total_product_cost }}</td>
                     <td>{{ stock_in.shipping_cost }}</td>
