@@ -232,7 +232,7 @@ __webpack_require__.r(__webpack_exports__);
         canCancel: true,
         loader: 'bars'
       });
-      _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/date-wise-vAT-report', {
+      _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/date-wise-vat-report', {
         params: {
           from_date: this.form.from_date,
           to_date: this.form.to_date
@@ -783,7 +783,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("td", [_vm._v("Datails")]),
+        _c("td", [_vm._v("Details")]),
         _vm._v(" "),
         _c("td", [_vm._v("Taxable Amount(AED)")]),
         _vm._v(" "),

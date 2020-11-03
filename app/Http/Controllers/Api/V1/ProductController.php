@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Api\V1\ApiCommonProcessHandler;
 use App\Http\Controllers\Api\V1\ApiResponseHandler;
+use App\Http\Controllers\Api\V1\Services\ImageUploadService;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 
@@ -70,9 +71,17 @@ class ProductController extends BaseController
      *
      * @return Array
      */
-    public function store(ProductRequest $request)
+    public function store(ProductRequest $request, ImageUploadService $service)
     {
         try {
+            // file upload
+            $productImage = $request->file('product_image');
+            $imageTitle = $request->name.'_'.time().'.';
+            $imageName = $imageTitle.$productImage->getClientOriginalExtension(); 
+            $productImage->storeAs('product_images/', $imageName);           
+            $request->request->add(['image' => 'product_images/'.$imageName]);
+
+            // save or update
             $modelData = $this->apiCrudHandler->store($request, Product::class);
             return $this->sendResponse($modelData);
         } catch (Exception $ex) {

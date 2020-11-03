@@ -49,7 +49,7 @@
               <table class="list-table table table-bordered">
                 <thead>
                   <tr>
-                    <td>Datails</td>
+                    <td>Details</td>
                     <td>Taxable Amount(AED)</td>
                     <td>VAT</td>
                   </tr>
@@ -216,7 +216,7 @@
           canCancel: true,
           loader: 'bars'
         })
-        axios.get('/date-wise-vAT-report', { params: {from_date:this.form.from_date, to_date: this.form.to_date}})
+        axios.get('/date-wise-vat-report', { params: {from_date:this.form.from_date, to_date: this.form.to_date}})
           .then(response => {
             if (response.status == 200) {            
               this.total_data = response.data;

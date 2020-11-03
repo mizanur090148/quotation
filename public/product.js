@@ -279,6 +279,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -286,6 +296,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       product_errors: [],
+      imagepreview: null,
       product_form: new Form({
         category_id: '',
         brand_id: '',
@@ -298,7 +309,7 @@ __webpack_require__.r(__webpack_exports__);
         warning_quantity: '',
         tax_percentage: 5,
         product_detail: '',
-        image: ''
+        product_image: ''
       }),
       categories: [],
       category_errors: [],
@@ -329,24 +340,36 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    onFileChange: function onFileChange(e) {
+    imageSelected: function imageSelected(e) {
+      var _this = this;
+
+      this.product_form.product_image = e.target.files[0];
+      var reader = new FileReader();
+      reader.readAsDataURL(this.product_form.product_image);
+
+      reader.onload = function (e) {
+        _this.imagepreview = e.target.result;
+      };
+    },
+
+    /* onFileChange(e) {
       var files = e.target.files || e.dataTransfer.files;
-      if (!files.length) return;
+      if (!files.length)
+        return;
       this.createImage(files[0]);
     },
-    createImage: function createImage(file) {
+    createImage(file) {
       var image = new Image();
       var reader = new FileReader();
       var vm = this;
-
-      reader.onload = function (e) {// vm.product_form.image = e.target.result;
+       reader.onload = (e) => {
+       // vm.product_form.image = e.target.result;
       };
-
       reader.readAsDataURL(file);
     },
-    removeImage: function removeImage(e) {
+    removeImage: function (e) {
       this.product_form.image = '';
-    },
+    }, */
     getTaxPrcentageDropdownData: function getTaxPrcentageDropdownData() {
       var tax_percentage_dropdown_data = new Array();
 
@@ -360,7 +383,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$modal.hide(modalName);
     },
     getProductInfo: function getProductInfo(productId) {
-      var _this = this;
+      var _this2 = this;
 
       var loader = this.$loading.show({
         container: this.$refs.attendanceTable,
@@ -368,7 +391,7 @@ __webpack_require__.r(__webpack_exports__);
         loader: 'bars'
       });
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('products/' + productId).then(function (res) {
-        _this.product_form = res.data;
+        _this2.product_form = res.data;
       })["catch"](function (error) {
         console.log(error);
       })["finally"](function () {
@@ -376,7 +399,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     productStore: function productStore() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.errors = [];
       var loader = this.$loading.show({
@@ -384,45 +407,58 @@ __webpack_require__.r(__webpack_exports__);
         canCancel: true,
         loader: 'bars'
       });
-      _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/products', this.product_form).then(function (response) {
+      var data = new FormData();
+      data.append('name', this.product_form.name);
+      data.append('code', this.product_form.code);
+      data.append('category_id', this.product_form.category_id);
+      data.append('brand_id', this.product_form.brand_id);
+      data.append('model_id', this.product_form.model_id);
+      data.append('product_unit', this.product_form.product_unit);
+      data.append('purchase_price', this.product_form.purchase_price);
+      data.append('sale_price', this.product_form.sale_price);
+      data.append('warning_quantity', this.product_form.warning_quantity);
+      data.append('tax_percentage', this.product_form.tax_percentage);
+      data.append('product_detail', this.product_form.product_detail);
+      data.append('product_image', this.product_form.product_image);
+      _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/products', data).then(function (response) {
         if (response.status == 200) {
-          _this2.$snotify.success('Successfully created', 'Success');
+          _this3.$snotify.success('Successfully created', 'Success');
 
-          _this2.$router.push({
+          _this3.$router.push({
             name: 'products'
           });
         } else {
-          _this2.$snotify.error('Something went worng', 'error');
+          _this3.$snotify.error('Something went worng', 'error');
         }
       })["catch"](function (errors) {
-        _this2.product_errors = errors.response.data.errors;
+        _this3.product_errors = errors.response.data.errors;
       })["finally"](function (e) {
         loader.hide();
       });
     },
     categoryDropdowndata: function categoryDropdowndata() {
-      var _this3 = this;
+      var _this4 = this;
 
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/category-dropdown-data').then(function (res) {
-        _this3.categories = res.data;
+        _this4.categories = res.data;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     modelDropdowndata: function modelDropdowndata() {
-      var _this4 = this;
+      var _this5 = this;
 
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/model-dropdown-data').then(function (res) {
-        _this4.models = res.data;
+        _this5.models = res.data;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     brandDropdowndata: function brandDropdowndata() {
-      var _this5 = this;
+      var _this6 = this;
 
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/brand-dropdown-data').then(function (res) {
-        _this5.brandss = res.data;
+        _this6.brandss = res.data;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -433,7 +469,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$modal.show('categoryModal');
     },
     categoryStore: function categoryStore() {
-      var _this6 = this;
+      var _this7 = this;
 
       this.category_errors = [];
       var loader = this.$loading.show({
@@ -443,18 +479,18 @@ __webpack_require__.r(__webpack_exports__);
       });
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/categories', this.category_form).then(function (response) {
         if (response.status == 200) {
-          _this6.categoryDropdowndata();
+          _this7.categoryDropdowndata();
 
-          _this6.$snotify.success('Successfully created', 'Success');
+          _this7.$snotify.success('Successfully created', 'Success');
 
-          _this6.$modal.hide('categoryModal');
+          _this7.$modal.hide('categoryModal');
 
-          _this6.loader.hide();
+          _this7.loader.hide();
         } else {
-          _this6.$snotify.error('Something went worng', 'error');
+          _this7.$snotify.error('Something went worng', 'error');
         }
       })["catch"](function (errors) {
-        _this6.category_errors = errors.response.data.errors;
+        _this7.category_errors = errors.response.data.errors;
       })["finally"](function (e) {
         loader.hide();
       });
@@ -465,7 +501,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$modal.show('modelModal');
     },
     modelStore: function modelStore() {
-      var _this7 = this;
+      var _this8 = this;
 
       this.model_errors = [];
       var loader = this.$loading.show({
@@ -475,18 +511,18 @@ __webpack_require__.r(__webpack_exports__);
       });
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/models', this.model_form).then(function (response) {
         if (response.status == 200) {
-          _this7.modelDropdowndata();
+          _this8.modelDropdowndata();
 
-          _this7.$snotify.success('Successfully created', 'Success');
+          _this8.$snotify.success('Successfully created', 'Success');
 
-          _this7.$modal.hide('modelModal');
+          _this8.$modal.hide('modelModal');
 
-          _this7.loader.hide();
+          _this8.loader.hide();
         } else {
-          _this7.$snotify.error('Something went worng', 'error');
+          _this8.$snotify.error('Something went worng', 'error');
         }
       })["catch"](function (errors) {
-        _this7.model_errors = errors.response.data.errors;
+        _this8.model_errors = errors.response.data.errors;
       })["finally"](function (e) {
         loader.hide();
       });
@@ -497,7 +533,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$modal.show('brandModal');
     },
     brandStore: function brandStore() {
-      var _this8 = this;
+      var _this9 = this;
 
       this.brand_errors = [];
       var loader = this.$loading.show({
@@ -507,18 +543,18 @@ __webpack_require__.r(__webpack_exports__);
       });
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/brands', this.brand_form).then(function (response) {
         if (response.status == 200) {
-          _this8.brandDropdowndata();
+          _this9.brandDropdowndata();
 
-          _this8.$snotify.success('Successfully created', 'Success');
+          _this9.$snotify.success('Successfully created', 'Success');
 
-          _this8.$modal.hide('brandModal');
+          _this9.$modal.hide('brandModal');
 
-          _this8.loader.hide();
+          _this9.loader.hide();
         } else {
-          _this8.$snotify.error('Something went worng', 'error');
+          _this9.$snotify.error('Something went worng', 'error');
         }
       })["catch"](function (errors) {
-        _this8.brand_errors = errors.response.data.errors;
+        _this9.brand_errors = errors.response.data.errors;
       })["finally"](function (e) {
         loader.hide();
       });
@@ -629,6 +665,7 @@ var render = function() {
                 "form",
                 {
                   staticClass: "forms-sample",
+                  attrs: { enctype: "multipart/form-data" },
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
@@ -1224,7 +1261,7 @@ var render = function() {
                         : _vm._e()
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-8" }, [
+                    _c("div", { staticClass: "col-4" }, [
                       _c("div", { staticClass: "form-group" }, [
                         _c("label", [_vm._v("Product Details")]),
                         _vm._v(" "),
@@ -1265,6 +1302,44 @@ var render = function() {
                             ])
                           : _vm._e()
                       ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-4" }, [
+                      _c("div", { staticClass: "custom-file" }, [
+                        _c("input", {
+                          staticClass: "custom-file-input",
+                          attrs: { type: "file", id: "customFile" },
+                          on: { change: _vm.imageSelected }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "label",
+                          {
+                            staticClass: "custom-file-label",
+                            attrs: { for: "" }
+                          },
+                          [_vm._v("Choose an image")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success mt-5",
+                            attrs: { type: "submit" }
+                          },
+                          [_vm._v("Upload File")]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.imagepreview
+                        ? _c("div", { staticClass: "mt-3" }, [
+                            _c("img", {
+                              staticClass: "figure-img img-fluid rounded",
+                              staticStyle: { "max-height": "100px" },
+                              attrs: { src: _vm.imagepreview }
+                            })
+                          ])
+                        : _vm._e()
                     ])
                   ]),
                   _vm._v(" "),

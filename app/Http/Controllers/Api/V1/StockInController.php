@@ -128,7 +128,7 @@ class StockInController extends BaseController
             ];
             $modelData = StockIn::with($with)
                 ->where($where)
-                ->where('stock_in_challan', 'like', "%$request->search_key%")               
+                ->where('purchase_invoice', 'like', "%$request->search_key%")               
                 ->orderBy($request->sortByColumn ?? 'id', $request->sortBy ?? 'desc')
                 ->paginate();
             return $this->sendResponse($modelData);

@@ -92,11 +92,12 @@ class ProductRequest extends FormRequest
                 'nullable',
                 'max:255'
             ],
-            'image' => [
+            /* 'image' => [
                 'nullable',
-                //'mimes:jpeg,jpg,png,gif',
-               // 'max:2048'
-            ]
+                'image',
+                'mimes:jpeg,jpg,png,gif',
+                'max:2048'
+            ] */
         ];
     }
 }

@@ -1215,7 +1215,7 @@ var render = function() {
                             [_vm._v("Submit")]
                           ),
                           _vm._v(" "),
-                          _c("router-link", { attrs: { to: "/products" } }, [
+                          _c("router-link", { attrs: { to: "/home" } }, [
                             _c(
                               "button",
                               { staticClass: "btn btn-sm btn-danger mr-2" },

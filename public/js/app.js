@@ -5196,37 +5196,6 @@ var staticRenderFns = [
                         "div",
                         {
                           staticClass:
-                            "d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
-                        },
-                        [
-                          _c("i", {
-                            staticClass:
-                              "mdi mdi-download mr-3 icon-lg text-warning"
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "d-flex flex-column justify-content-around"
-                            },
-                            [
-                              _c("small", { staticClass: "mb-1 text-muted" }, [
-                                _vm._v("Downloads")
-                              ]),
-                              _vm._v(" "),
-                              _c("h5", { staticClass: "mr-2 mb-0" }, [
-                                _vm._v("2233783")
-                              ])
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass:
                             "d-flex py-3 border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
                         },
                         [
@@ -5652,37 +5621,6 @@ var staticRenderFns = [
                               _vm._v(" "),
                               _c("h5", { staticClass: "mr-2 mb-0" }, [
                                 _vm._v("9833550")
-                              ])
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
-                        },
-                        [
-                          _c("i", {
-                            staticClass:
-                              "mdi mdi-download mr-3 icon-lg text-warning"
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "d-flex flex-column justify-content-around"
-                            },
-                            [
-                              _c("small", { staticClass: "mb-1 text-muted" }, [
-                                _vm._v("Downloads")
-                              ]),
-                              _vm._v(" "),
-                              _c("h5", { staticClass: "mr-2 mb-0" }, [
-                                _vm._v("2233783")
                               ])
                             ]
                           )

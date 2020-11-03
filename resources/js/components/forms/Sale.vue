@@ -148,7 +148,7 @@
               <div class="row p-2 justify-content-md-center">
                 <div class="form-group">
                   <button type="submit" class="btn btn-sm btn-primary mr-2">Submit</button>
-                  <router-link to="/products">
+                  <router-link to="/home">
                     <button class="btn btn-sm btn-danger mr-2">Cancel</button>
                   </router-link>
                 </div>

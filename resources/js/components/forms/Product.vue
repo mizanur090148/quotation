@@ -6,7 +6,7 @@
           <div class="card-body">
             <h4 class="card-title">New Entry Form</h4>
             <hr>
-            <form class="forms-sample" @submit.prevent="productStore">
+            <form class="forms-sample" @submit.prevent="productStore" enctype="multipart/form-data">
               <div class="row p-2">
                 <div class="col-4">
                   <div class="form-group">
@@ -113,13 +113,23 @@
                   </div>
                   <small class="text-danger" v-if="product_errors.tax_percentage">{{ product_errors.tax_percentage[0] }}</small>
                 </div>                
-                <div class="col-8">
+                <div class="col-4">
                   <div class="form-group">
                     <label>Product Details</label>
                     <textarea v-model="product_form.product_detail" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.product_detail }" placeholder="Enter product details"></textarea>
                     <small class="text-danger" v-if="product_errors.product_detail">{{ product_errors.product_detail[0] }}</small>
                   </div>
-                </div>                
+                </div>  
+                <div class="col-4">
+                  <div class="custom-file">
+                    <input type="file" @change="imageSelected" class="custom-file-input" id="customFile">
+                    <label for="" class="custom-file-label">Choose an image</label>
+                    <button type="submit" class="btn btn-success mt-5">Upload File</button>
+                  </div>
+                  <div v-if="imagepreview" class="mt-3">
+                    <img :src="imagepreview" class="figure-img img-fluid rounded" style="max-height: 100px;">
+                  </div>
+                </div>              
                 <!-- <div class="col-4">
                   <div class="form-group">
                     <label>Product Image</label>
@@ -271,7 +281,8 @@
   export default {
     data() {
       return { 
-        product_errors: [],
+        product_errors: [],        
+        imagepreview: null,
         product_form: new Form({
           category_id: '',
           brand_id: '',
@@ -284,7 +295,7 @@
           warning_quantity: '',
           tax_percentage: 5,
           product_detail: '',
-          image: ''
+          product_image: ''
         }),
         categories: [],
         category_errors: [],
@@ -315,7 +326,16 @@
       }
     },
     methods: {
-      onFileChange(e) {
+      imageSelected(e) {
+        this.product_form.product_image = e.target.files[0];
+
+        let reader = new FileReader();
+        reader.readAsDataURL(this.product_form.product_image);
+        reader.onload = e => {
+          this.imagepreview = e.target.result;
+        }
+      },
+      /* onFileChange(e) {
         var files = e.target.files || e.dataTransfer.files;
         if (!files.length)
           return;
@@ -333,7 +353,7 @@
       },
       removeImage: function (e) {
         this.product_form.image = '';
-      },
+      }, */
       getTaxPrcentageDropdownData() {
         let tax_percentage_dropdown_data = new Array();
         for (let index = 1; index <= 50; index++) {
@@ -367,10 +387,24 @@
           container: this.$refs.categoryContainer,
           canCancel: true,
           loader: 'bars'
-        })
+        });
 
-        axios.post('/products', this.product_form)            
-          .then(response => {           
+        let data = new FormData;
+        data.append('name', this.product_form.name);
+        data.append('code', this.product_form.code);
+        data.append('category_id', this.product_form.category_id);
+        data.append('brand_id', this.product_form.brand_id);
+        data.append('model_id', this.product_form.model_id);        
+        data.append('product_unit', this.product_form.product_unit);
+        data.append('purchase_price', this.product_form.purchase_price);
+        data.append('sale_price', this.product_form.sale_price);
+        data.append('warning_quantity', this.product_form.warning_quantity);
+        data.append('tax_percentage', this.product_form.tax_percentage);
+        data.append('product_detail', this.product_form.product_detail);
+        data.append('product_image', this.product_form.product_image);
+
+        axios.post('/products', data)
+          .then(response => {
             if (response.status == 200) {           
               this.$snotify.success('Successfully created', 'Success');
               this.$router.push({name: 'products'});
