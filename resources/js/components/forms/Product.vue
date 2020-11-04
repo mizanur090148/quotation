@@ -121,28 +121,15 @@
                   </div>
                 </div>  
                 <div class="col-4">
-                  <div class="custom-file">
-                    <input type="file" @change="imageSelected" class="custom-file-input" id="customFile">
-                    <label for="" class="custom-file-label">Choose an image</label>
-                    <button type="submit" class="btn btn-success mt-5">Upload File</button>
+                  <div class="custom-file mt-4">
+                    <input type="file" @change="imageSelected" class="custom-file-input" id="customFile" accept="image/*">
+                    <label for="" class="custom-file-label">Choose an image</label>                
                   </div>
                   <div v-if="imagepreview" class="mt-3">
-                    <img :src="imagepreview" class="figure-img img-fluid rounded" style="max-height: 100px;">
+                    <img :src="imagepreview" class="figure-img img-fluid rounded" style="max-height: 80px;">
+                    <button type="button" class="btn btn-xs btn-danger text-right" @click="removeImage"><i class="mdi mdi-delete"></i></button>
                   </div>
-                </div>              
-                <!-- <div class="col-4">
-                  <div class="form-group">
-                    <label>Product Image</label>
-                    <div v-if="!product_form.image">                     
-                      <input type="file" @change="onFileChange">
-                    </div>
-                    <div v-else>
-                      <img :src="product_form.image" />
-                      <button @click="removeImage">Remove</button>
-                    </div>
-                    <small class="text-danger" v-if="product_errors.image">{{ product_errors.image[0] }}</small>
-                  </div>
-                </div>  -->          
+                </div>                 
               </div>            
               <div class="row p-2 justify-content-md-center">
                 <div class="form-group">
@@ -335,25 +322,10 @@
           this.imagepreview = e.target.result;
         }
       },
-      /* onFileChange(e) {
-        var files = e.target.files || e.dataTransfer.files;
-        if (!files.length)
-          return;
-        this.createImage(files[0]);
-      },
-      createImage(file) {
-        var image = new Image();
-        var reader = new FileReader();
-        var vm = this;
-
-        reader.onload = (e) => {
-         // vm.product_form.image = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      },
-      removeImage: function (e) {
+      removeImage: function (e) {  
         this.product_form.image = '';
-      }, */
+        this.imagepreview = '';
+      },      
       getTaxPrcentageDropdownData() {
         let tax_percentage_dropdown_data = new Array();
         for (let index = 1; index <= 50; index++) {

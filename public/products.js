@@ -151,6 +151,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -288,7 +324,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.modal-dialog {\n  max-width: 650px !important;\n  width: 650px !important;\n}\nspan {\n  font-weight: bold;\n}\n", ""]);
+exports.push([module.i, "\n.modal-dialog {\n  max-width: 650px !important;\n  width: 650px !important;\n}\nspan {\n  font-weight: bold;\n  padding-left: 10px !important;\n}\n.product-detail td {\n  text-align: left !important;\n}\n", ""]);
 
 // exports
 
@@ -529,7 +565,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "modal",
-        { attrs: { name: "productDetailModal", width: 700, height: 475 } },
+        { attrs: { name: "productDetailModal", width: 700, height: 535 } },
         [
           _c(
             "div",
@@ -562,84 +598,96 @@ var render = function() {
                 _vm._v(" "),
                 _vm.product
                   ? _c("div", { staticClass: "modal-body" }, [
-                      _c("div", { staticClass: "row p-2" }, [
-                        _c("div", { staticClass: "col-md-4" }, [
-                          _c("span", [_vm._v("Product Name:")]),
-                          _vm._v(" " + _vm._s(_vm.product.name))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-4 ml-auto" }, [
-                          _c("span", [_vm._v("Product Code:")]),
-                          _vm._v(" " + _vm._s(_vm.product.code))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row p-2" }, [
-                        _c("div", { staticClass: "col-md-4" }, [
-                          _c("span", [_vm._v("Product Name:")]),
-                          _vm._v(" " + _vm._s(_vm.product.name))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-4 ml-auto" }, [
-                          _c("span", [_vm._v("Product Code:")]),
-                          _vm._v(" " + _vm._s(_vm.product.code))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row p-2" }, [
-                        _c("div", { staticClass: "col-md-4" }, [
-                          _c("span", [_vm._v("Category:")]),
-                          _vm._v(" " + _vm._s(_vm.product.category.name))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-4 ml-auto" }, [
-                          _c("span", [_vm._v("Brand:")]),
-                          _vm._v(" " + _vm._s(_vm.product.brand.name))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row p-2" }, [
-                        _c("div", { staticClass: "col-md-4" }, [
-                          _c("span", [_vm._v("Model:")]),
-                          _vm._v(" " + _vm._s(_vm.product.model.name))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-4 ml-auto" }, [
-                          _c("span", [_vm._v("Product Unit:")]),
-                          _vm._v(" " + _vm._s(_vm.product.product_unit))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row p-2" }, [
-                        _c("div", { staticClass: "col-md-4" }, [
-                          _c("span", [_vm._v("Purchase Price:")]),
-                          _vm._v(" " + _vm._s(_vm.product.purchase_price))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-4 ml-auto" }, [
-                          _c("span", [_vm._v("Sale Price:")]),
-                          _vm._v(" " + _vm._s(_vm.product.sale_price))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row p-2" }, [
-                        _c("div", { staticClass: "col-md-4" }, [
-                          _c("span", [_vm._v("Warning Quantity:")]),
-                          _vm._v(" " + _vm._s(_vm.product.warning_quantity))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-4 ml-auto" }, [
-                          _c("span", [_vm._v("Tax Percentage:")]),
-                          _vm._v(" " + _vm._s(_vm.product.tax_percentage))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row p-2" }, [
-                        _c("div", { staticClass: "col-md-8" }, [
-                          _c("span", [_vm._v("Product Details:")]),
-                          _vm._v(" " + _vm._s(_vm.product.product_detail))
-                        ])
-                      ])
+                      _c(
+                        "table",
+                        { staticClass: "list-table product-detail" },
+                        [
+                          _c("tr", { staticClass: "p-2" }, [
+                            _c(
+                              "td",
+                              { staticClass: "p-2", attrs: { colspan: "2" } },
+                              [
+                                _c("img", {
+                                  staticStyle: {
+                                    height: "220px",
+                                    width: "600px"
+                                  },
+                                  attrs: { src: _vm.product.image }
+                                })
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [
+                              _c("span", [_vm._v("Product Name:")]),
+                              _vm._v(" " + _vm._s(_vm.product.name))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("span", [_vm._v("Product Code:")]),
+                              _vm._v(" " + _vm._s(_vm.product.code))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [
+                              _c("span", [_vm._v("Category:")]),
+                              _vm._v(" " + _vm._s(_vm.product.category.name))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("span", [_vm._v("Brand:")]),
+                              _vm._v(" " + _vm._s(_vm.product.brand.name))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [
+                              _c("span", [_vm._v("Model:")]),
+                              _vm._v(" " + _vm._s(_vm.product.model.name))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("span", [_vm._v("Product Unit:")]),
+                              _vm._v(" " + _vm._s(_vm.product.product_unit))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [
+                              _c("span", [_vm._v("Purchase Price:")]),
+                              _vm._v(" " + _vm._s(_vm.product.purchase_price))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("span", [_vm._v("Sale Price:")]),
+                              _vm._v(" " + _vm._s(_vm.product.sale_price))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [
+                              _c("span", [_vm._v("Warning Quantity:")]),
+                              _vm._v(" " + _vm._s(_vm.product.warning_quantity))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("span", [_vm._v("Tax Percentage:")]),
+                              _vm._v(" " + _vm._s(_vm.product.tax_percentage))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", { attrs: { colspan: "2" } }, [
+                              _c("span", [_vm._v("Product Details:")]),
+                              _vm._v(
+                                " " + _vm._s(_vm.product.product_detail) + " "
+                              )
+                            ])
+                          ])
+                        ]
+                      )
                     ])
                   : _vm._e()
               ])

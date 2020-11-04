@@ -276,19 +276,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -351,25 +338,10 @@ __webpack_require__.r(__webpack_exports__);
         _this.imagepreview = e.target.result;
       };
     },
-
-    /* onFileChange(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length)
-        return;
-      this.createImage(files[0]);
-    },
-    createImage(file) {
-      var image = new Image();
-      var reader = new FileReader();
-      var vm = this;
-       reader.onload = (e) => {
-       // vm.product_form.image = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    },
-    removeImage: function (e) {
+    removeImage: function removeImage(e) {
       this.product_form.image = '';
-    }, */
+      this.imagepreview = '';
+    },
     getTaxPrcentageDropdownData: function getTaxPrcentageDropdownData() {
       var tax_percentage_dropdown_data = new Array();
 
@@ -1305,10 +1277,14 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-4" }, [
-                      _c("div", { staticClass: "custom-file" }, [
+                      _c("div", { staticClass: "custom-file mt-4" }, [
                         _c("input", {
                           staticClass: "custom-file-input",
-                          attrs: { type: "file", id: "customFile" },
+                          attrs: {
+                            type: "file",
+                            id: "customFile",
+                            accept: "image/*"
+                          },
                           on: { change: _vm.imageSelected }
                         }),
                         _vm._v(" "),
@@ -1319,15 +1295,6 @@ var render = function() {
                             attrs: { for: "" }
                           },
                           [_vm._v("Choose an image")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-success mt-5",
-                            attrs: { type: "submit" }
-                          },
-                          [_vm._v("Upload File")]
                         )
                       ]),
                       _vm._v(" "),
@@ -1335,9 +1302,19 @@ var render = function() {
                         ? _c("div", { staticClass: "mt-3" }, [
                             _c("img", {
                               staticClass: "figure-img img-fluid rounded",
-                              staticStyle: { "max-height": "100px" },
+                              staticStyle: { "max-height": "80px" },
                               attrs: { src: _vm.imagepreview }
-                            })
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-xs btn-danger text-right",
+                                attrs: { type: "button" },
+                                on: { click: _vm.removeImage }
+                              },
+                              [_c("i", { staticClass: "mdi mdi-delete" })]
+                            )
                           ])
                         : _vm._e()
                     ])

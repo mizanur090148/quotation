@@ -75,12 +75,12 @@ class ProductController extends BaseController
     {
         try {
             // file upload
+            $destinationPath = 'public/images/product_images';
             $productImage = $request->file('product_image');
             $imageTitle = $request->name.'_'.time().'.';
             $imageName = $imageTitle.$productImage->getClientOriginalExtension(); 
-            $productImage->storeAs('product_images/', $imageName);           
-            $request->request->add(['image' => 'product_images/'.$imageName]);
-
+            $productImage->storeAs($destinationPath, $imageName);
+            $request->request->add(['image' => 'storage/images/product_images/'.$imageName]);
             // save or update
             $modelData = $this->apiCrudHandler->store($request, Product::class);
             return $this->sendResponse($modelData);

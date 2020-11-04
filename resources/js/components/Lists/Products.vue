@@ -80,7 +80,7 @@
     </div>
 
     <!-- Product detail modal -->   
-    <modal name="productDetailModal" :width="700" :height="475">
+    <modal name="productDetailModal" :width="700" :height="535">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -90,34 +90,66 @@
             </button>
           </div>          
             <div class="modal-body" v-if="product">
-              <div class="row p-2">
-                <div class="col-md-4"><span>Product Name:</span> {{ product.name }}</div>
-                <div class="col-md-4 ml-auto"><span>Product Code:</span> {{ product.code }}</div>
+              <table class="list-table product-detail">
+                <tr class="p-2">
+                  <td colspan="2" class="p-2">
+                    <img :src="product.image" style="height: 220px; width: 600px;">
+                  </td>               
+                </tr>
+                <tr>
+                  <td><span>Product Name:</span> {{ product.name }}</td>
+                  <td><span>Product Code:</span> {{ product.code }}</td>
+                </tr>
+                <tr>
+                  <td><span>Category:</span> {{ product.category.name }}</td>
+                  <td><span>Brand:</span> {{ product.brand.name }}</td>
+                </tr>
+                <tr>
+                  <td><span>Model:</span> {{ product.model.name }}</td>
+                  <td><span>Product Unit:</span> {{ product.product_unit }}</td>
+                </tr>
+                <tr>
+                  <td><span>Purchase Price:</span> {{ product.purchase_price }}</td>
+                  <td><span>Sale Price:</span> {{ product.sale_price }}</td>
+                </tr>
+                <tr>
+                  <td><span>Warning Quantity:</span> {{ product.warning_quantity }}</td>
+                  <td><span>Tax Percentage:</span> {{ product.tax_percentage }}</td>
+                </tr>
+                <tr>
+                  <td colspan="2"><span>Product Details:</span> {{ product.product_detail }} </td>                 
+                </tr>
+              </table>
+              <!--
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <img :src="product.image" style="height: 180px; width: 350px;">
+                </div>
               </div>
               <div class="row p-2">
-                <div class="col-md-4"><span>Product Name:</span> {{ product.name }}</div>
-                <div class="col-md-4 ml-auto"><span>Product Code:</span> {{ product.code }}</div>
+                <div class="col-md-6"><span>Product Name:</span> {{ product.name }}</div>
+                <div class="col-md-6"><span>Product Code:</span> {{ product.code }}</div>
               </div>
               <div class="row p-2">
-                <div class="col-md-4"><span>Category:</span> {{ product.category.name }}</div>
-                <div class="col-md-4 ml-auto"><span>Brand:</span> {{ product.brand.name }}</div>
+                <div class="col-md-6"><span>Category:</span> {{ product.category.name }}</div>
+                <div class="col-md-6"><span>Brand:</span> {{ product.brand.name }}</div>
               </div>
               <div class="row p-2">
-                <div class="col-md-4"><span>Model:</span> {{ product.model.name }}</div>
-                <div class="col-md-4 ml-auto"><span>Product Unit:</span> {{ product.product_unit }}</div>
+                <div class="col-md-6"><span>Model:</span> {{ product.model.name }}</div>
+                <div class="col-md-6"><span>Product Unit:</span> {{ product.product_unit }}</div>
               </div>
               <div class="row p-2">
-                <div class="col-md-4"><span>Purchase Price:</span> {{ product.purchase_price }}</div>
-                <div class="col-md-4 ml-auto"><span>Sale Price:</span> {{ product.sale_price }}</div>
+                <div class="col-md-6"><span>Purchase Price:</span> {{ product.purchase_price }}</div>
+                <div class="col-md-6"><span>Sale Price:</span> {{ product.sale_price }}</div>
               </div>
               <div class="row p-2">
-                <div class="col-md-4"><span>Warning Quantity:</span> {{ product.warning_quantity }}</div>
-                <div class="col-md-4 ml-auto"><span>Tax Percentage:</span> {{ product.tax_percentage }}</div>
+                <div class="col-md-6"><span>Warning Quantity:</span> {{ product.warning_quantity }}</div>
+                <div class="col-md-6"><span>Tax Percentage:</span> {{ product.tax_percentage }}</div>
               </div>
               <div class="row p-2">
-                <div class="col-md-8"><span>Product Details:</span> {{ product.product_detail }}</div>
-              </div>
-            </div>                
+                <div class="col-md-6"><span>Product Details:</span> {{ product.product_detail }}</div>
+              </div> -->
+          </div>
         </div>
       </div>
     </modal>
@@ -132,6 +164,10 @@
   }
   span {
     font-weight: bold;
+    padding-left: 10px !important;
+  }
+  .product-detail td {
+    text-align: left !important;
   }
 </style>
 

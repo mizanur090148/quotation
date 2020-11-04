@@ -53,3 +53,6 @@ label {
 input[type=number] {
   text-align: right;
 }
+.form-control, .dataTables_wrapper select {
+  border: 1px solid #f3f3f3;
+}
