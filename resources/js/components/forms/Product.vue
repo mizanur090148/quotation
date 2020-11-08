@@ -122,13 +122,13 @@
                 </div>  
                 <div class="col-4">
                   <div class="custom-file mt-4">
-                    <input type="file" @change="imageSelected" class="custom-file-input" id="customFile" accept="image/*">
+                    <input type="file" @change="imageSelected" class="custom-file-input" id="customFile" accept="">
                     <label for="" class="custom-file-label">Choose an image</label>                
                   </div>
-                  <div v-if="imagepreview" class="mt-3">
-                    <img :src="imagepreview" class="figure-img img-fluid rounded" style="max-height: 80px;">
+                  <div v-if="imagepreview || product_form.image" class="mt-3">
+                    <img :src="imagepreview ? imagepreview : product_form.image" class="figure-img img-fluid rounded" style="max-height: 80px;">
                     <button type="button" class="btn btn-xs btn-danger text-right" @click="removeImage"><i class="mdi mdi-delete"></i></button>
-                  </div>
+                  </div>                  
                 </div>                 
               </div>            
               <div class="row p-2 justify-content-md-center">
@@ -138,13 +138,12 @@
                     <button class="btn btn-sm btn-danger mr-2">Cancel</button>
                   </router-link>
                 </div>
-              </div>
-            </form>
+              </div>              
+            </form>          
           </div>
         </div>
       </div>      
     </div>
-
     <!-- category Modal -->
     <modal name="categoryModal" :width="550" :height="325">
       <div class="modal-dialog" role="document">
@@ -268,9 +267,10 @@
   export default {
     data() {
       return { 
-        product_errors: [],        
-        imagepreview: null,
+        product_errors: [],     
+        imagepreview : null,
         product_form: new Form({
+          id: '',
           category_id: '',
           brand_id: '',
           model_id: '',
@@ -282,7 +282,7 @@
           warning_quantity: '',
           tax_percentage: 5,
           product_detail: '',
-          product_image: ''
+          image: ''
         }),
         categories: [],
         category_errors: [],
@@ -314,10 +314,10 @@
     },
     methods: {
       imageSelected(e) {
-        this.product_form.product_image = e.target.files[0];
+        this.product_form.image = e.target.files[0];
 
         let reader = new FileReader();
-        reader.readAsDataURL(this.product_form.product_image);
+        reader.readAsDataURL(this.product_form.image);
         reader.onload = e => {
           this.imagepreview = e.target.result;
         }
@@ -344,7 +344,7 @@
         })
         axios.get('products/' + productId)
           .then((res) => {
-            this.product_form = res.data;
+            this.product_form = res.data;          
           })
           .catch((error) => {
             console.log(error);
@@ -373,7 +373,7 @@
         data.append('warning_quantity', this.product_form.warning_quantity);
         data.append('tax_percentage', this.product_form.tax_percentage);
         data.append('product_detail', this.product_form.product_detail);
-        data.append('product_image', this.product_form.product_image);
+        data.append('image', this.product_form.image);
 
         axios.post('/products', data)
           .then(response => {

@@ -73,14 +73,19 @@ class ProductController extends BaseController
      */
     public function store(ProductRequest $request, ImageUploadService $service)
     {
-        try {
+        try {          
             // file upload
-            $destinationPath = 'public/images/product_images';
-            $productImage = $request->file('product_image');
-            $imageTitle = $request->name.'_'.time().'.';
-            $imageName = $imageTitle.$productImage->getClientOriginalExtension(); 
-            $productImage->storeAs($destinationPath, $imageName);
-            $request->request->add(['image' => 'storage/images/product_images/'.$imageName]);
+            if ($request->hasFile('image')) {
+                $destinationPath = 'public/product_images';
+                $productImage = $request->file('image');
+                $imageTitle = $request->name.'_'.time().'.';
+                $imageName = $imageTitle.$productImage->getClientOriginalExtension(); 
+                $dbStoreName = '/storage/product_images/'.$imageName;
+                $productImage->storeAs($destinationPath, $imageName);
+                $input = $request->all();
+                $input['image'] =  $dbStoreName;
+                $request = new \Illuminate\Http\Request($input);
+            }
             // save or update
             $modelData = $this->apiCrudHandler->store($request, Product::class);
             return $this->sendResponse($modelData);
@@ -123,7 +128,7 @@ class ProductController extends BaseController
             ];
             $modelData = Product::with($with)
                 ->where('name', 'like', "%$request->search_key%")
-                ->orWhere('product_code', 'like', "%$request->search_key%")
+                ->orWhere('code', 'like', "%$request->search_key%")
                 ->orWhere('purchase_price', 'like', "%$request->search_key%")
                 ->orWhere('sale_price', 'like', "%$request->search_key%")
                 ->orWhere('product_detail', 'like', "%$request->search_key%")

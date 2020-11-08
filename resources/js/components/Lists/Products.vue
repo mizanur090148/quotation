@@ -97,7 +97,7 @@
                   </td>               
                 </tr>
                 <tr>
-                  <td><span>Product Name:</span> {{ product.name }}</td>
+                  <td style="width: 50%"><span>Product Name:</span> {{ product.name }}</td>
                   <td><span>Product Code:</span> {{ product.code }}</td>
                 </tr>
                 <tr>
