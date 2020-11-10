@@ -311,7 +311,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           var discount_value = _this.calculateDiscount(product_wise_total, product_detail.discount_percentage);
 
           product_wise_total = product_wise_total + tax_value - discount_value;
-          product_detail.product_wise_total = Math.round(product_wise_total);
+          product_detail.product_wise_total = product_wise_total.toFixed(2);
         });
       },
       deep: true
@@ -875,7 +875,7 @@ var render = function() {
                                       "\n                        " +
                                         _vm._s(
                                           product_detail.code
-                                            ? product_detail.name
+                                            ? product_detail.code
                                             : product_detail.product.code
                                         ) +
                                         "\n                      "
@@ -1073,7 +1073,7 @@ var render = function() {
                                 ),
                                 _vm._v(" "),
                                 _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(Math.round(_vm.total_cost)))
+                                  _vm._v(_vm._s(_vm.total_cost))
                                 ])
                               ])
                             ],

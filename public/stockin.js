@@ -315,12 +315,13 @@ __webpack_require__.r(__webpack_exports__);
 
         newValue.forEach(function (product_detail) {
           var tax_value = product_detail.tax_value * product_detail.quantity;
-          var product_wise_total = product_detail.quantity * product_detail.purchase_price;
+          var product_wise_total = product_detail.quantity * product_detail.purchase_price ? product_detail.purchase_price : product_detail.product.purchase_price;
 
           var discount_value = _this.calculateDiscount(product_wise_total, product_detail.discount_percentage);
 
+          console.log(product_wise_total + "=>" + tax_value + "=>" + discount_value);
           product_wise_total = product_wise_total + tax_value - discount_value;
-          product_detail.product_wise_total = Math.round(product_wise_total);
+          product_detail.product_wise_total = product_wise_total.toFixed(2);
         });
       },
       deep: true
@@ -332,7 +333,7 @@ __webpack_require__.r(__webpack_exports__);
       this.form.product_detail_list.forEach(function (product_detail) {
         sum += parseFloat(product_detail.product_wise_total);
       });
-      return sum;
+      return sum.toFixed(2);
     }
   },
   methods: {
@@ -978,7 +979,12 @@ var render = function() {
                                   _c("td", { staticClass: "text-center" }, [
                                     _vm._v(
                                       "\n                        " +
-                                        _vm._s(product_detail.purchase_price) +
+                                        _vm._s(
+                                          product_detail.purchase_price
+                                            ? product_detail.purchase_price
+                                            : product_detail.product
+                                                .purchase_price
+                                        ) +
                                         "\n                      "
                                     )
                                   ]),
@@ -1062,9 +1068,7 @@ var render = function() {
                                     _vm._v(
                                       "\n                        " +
                                         _vm._s(
-                                          Math.round(
-                                            product_detail.product_wise_total
-                                          )
+                                          product_detail.product_wise_total
                                         ) +
                                         "\n                      "
                                     )
@@ -1101,9 +1105,7 @@ var render = function() {
                                   _vm._v("Grand Total")
                                 ]),
                                 _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(_vm._s(Math.round(_vm.total_cost)))
-                                ])
+                                _c("td", [_vm._v(_vm._s(_vm.total_cost))])
                               ])
                             ],
                             2

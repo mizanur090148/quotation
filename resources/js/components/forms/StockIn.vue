@@ -101,7 +101,7 @@
                           </div>
                         </td>
                         <td class="text-center">
-                          {{ product_detail.purchase_price }}
+                          {{ product_detail.purchase_price ? product_detail.purchase_price : product_detail.product.purchase_price }}
                         </td>
                         <td>
                           <div class="input-group col-xs-12">
@@ -116,7 +116,7 @@
                           {{ product_detail.tax_percentage }}%
                         </td>
                         <td class="text-center">
-                          {{ Math.round(product_detail.product_wise_total) }}
+                          {{ product_detail.product_wise_total }}
                         </td>
                         <td class="text-center">
                           <button type="button" class="btn btn-xs btn-danger btn-rounded btn-fw" @click="deleteRow(index, product_detail)"><i class="mdi mdi-delete"></i></button>
@@ -124,7 +124,7 @@
                       </tr>
                       <tr class="font-weight-bold">
                         <td colspan="7">Grand Total</td>
-                        <td>{{ Math.round(total_cost) }}</td>
+                        <td>{{ total_cost }}</td>
                       </tr>
                     </tbody>
                 </table>
@@ -299,10 +299,11 @@
         handler (newValue, oldValue) {
           newValue.forEach((product_detail) => {
             let tax_value = product_detail.tax_value * product_detail.quantity;
-            let product_wise_total = product_detail.quantity * product_detail.purchase_price;
-            let discount_value = this.calculateDiscount (product_wise_total, product_detail.discount_percentage);           
+            let product_wise_total = product_detail.quantity * product_detail.purchase_price ? product_detail.purchase_price : product_detail.product.purchase_price;
+            let discount_value = this.calculateDiscount (product_wise_total, product_detail.discount_percentage);
+            console.log(product_wise_total +"=>"+ tax_value + "=>" + discount_value);
             product_wise_total = product_wise_total + tax_value - discount_value;
-            product_detail.product_wise_total = Math.round(product_wise_total);
+            product_detail.product_wise_total = product_wise_total.toFixed(2);
           })
         },
         deep: true
@@ -314,7 +315,7 @@
         this.form.product_detail_list.forEach(product_detail => {
           sum += parseFloat(product_detail.product_wise_total);
         });
-        return sum;
+        return sum.toFixed(2);
       }
     },
     methods: {

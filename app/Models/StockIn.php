@@ -38,7 +38,7 @@ class StockIn extends Model
 
     protected $appends = [
         'total_product_cost', 
-        'total_tax_value',
+        'total_tax_value',       
         'total_cost',
         'purchase_date',
         'suppliers'
