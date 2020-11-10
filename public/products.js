@@ -619,7 +619,7 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("tr", [
-                            _c("td", [
+                            _c("td", { staticStyle: { width: "50%" } }, [
                               _c("span", [_vm._v("Product Name:")]),
                               _vm._v(" " + _vm._s(_vm.product.name))
                             ]),

@@ -276,6 +276,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -285,6 +288,7 @@ __webpack_require__.r(__webpack_exports__);
       product_errors: [],
       imagepreview: null,
       product_form: new Form({
+        id: '',
         category_id: '',
         brand_id: '',
         model_id: '',
@@ -296,7 +300,7 @@ __webpack_require__.r(__webpack_exports__);
         warning_quantity: '',
         tax_percentage: 5,
         product_detail: '',
-        product_image: ''
+        image: ''
       }),
       categories: [],
       category_errors: [],
@@ -330,9 +334,9 @@ __webpack_require__.r(__webpack_exports__);
     imageSelected: function imageSelected(e) {
       var _this = this;
 
-      this.product_form.product_image = e.target.files[0];
+      this.product_form.image = e.target.files[0];
       var reader = new FileReader();
-      reader.readAsDataURL(this.product_form.product_image);
+      reader.readAsDataURL(this.product_form.image);
 
       reader.onload = function (e) {
         _this.imagepreview = e.target.result;
@@ -364,6 +368,9 @@ __webpack_require__.r(__webpack_exports__);
       });
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('products/' + productId).then(function (res) {
         _this2.product_form = res.data;
+        _this2.product_form.brand_id = res.data.brand_id ? res.data.brand_id : '';
+        _this2.product_form.model_id = res.data.model_id ? res.data.model_id : '';
+        _this2.product_form.warning_quantity = res.data.warning_quantity ? res.data.warning_quantity : '';
       })["catch"](function (error) {
         console.log(error);
       })["finally"](function () {
@@ -391,7 +398,7 @@ __webpack_require__.r(__webpack_exports__);
       data.append('warning_quantity', this.product_form.warning_quantity);
       data.append('tax_percentage', this.product_form.tax_percentage);
       data.append('product_detail', this.product_form.product_detail);
-      data.append('product_image', this.product_form.product_image);
+      data.append('image', this.product_form.image);
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/products', data).then(function (response) {
         if (response.status == 200) {
           _this3.$snotify.success('Successfully created', 'Success');
@@ -1049,7 +1056,7 @@ var render = function() {
                             "is-invalid": _vm.product_errors.purchase_price
                           },
                           attrs: {
-                            type: "number",
+                            type: "text",
                             placeholder: "Enter purchase price"
                           },
                           domProps: { value: _vm.product_form.purchase_price },
@@ -1096,8 +1103,8 @@ var render = function() {
                             "is-invalid": _vm.product_errors.sale_price
                           },
                           attrs: {
-                            type: "number",
-                            placeholder: "Enter sale unit"
+                            type: "text",
+                            placeholder: "Enter sale price"
                           },
                           domProps: { value: _vm.product_form.sale_price },
                           on: {
@@ -1141,7 +1148,7 @@ var render = function() {
                             "is-invalid": _vm.product_errors.warning_quantity
                           },
                           attrs: {
-                            type: "number",
+                            type: "text",
                             placeholder: "Enter warning qty"
                           },
                           domProps: {
@@ -1234,6 +1241,53 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-4" }, [
+                      _c("div", { staticClass: "custom-file mt-4" }, [
+                        _c("input", {
+                          staticClass: "custom-file-input",
+                          attrs: { type: "file", id: "customFile", accept: "" },
+                          on: { change: _vm.imageSelected }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "label",
+                          {
+                            staticClass: "custom-file-label",
+                            attrs: { for: "" }
+                          },
+                          [_vm._v("Choose an image")]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-4" }, [
+                      _vm.imagepreview || _vm.product_form.image
+                        ? _c("div", { staticClass: "mt-3" }, [
+                            _c("img", {
+                              staticClass: "figure-img img-fluid rounded",
+                              staticStyle: { "max-height": "60px" },
+                              attrs: {
+                                src: _vm.imagepreview
+                                  ? _vm.imagepreview
+                                  : _vm.product_form.image
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-xs btn-danger text-right",
+                                attrs: { type: "button" },
+                                on: { click: _vm.removeImage }
+                              },
+                              [_c("i", { staticClass: "mdi mdi-delete" })]
+                            )
+                          ])
+                        : _vm._e()
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row p-2" }, [
+                    _c("div", { staticClass: "col-12" }, [
                       _c("div", { staticClass: "form-group" }, [
                         _c("label", [_vm._v("Product Details")]),
                         _vm._v(" "),
@@ -1250,7 +1304,10 @@ var render = function() {
                           class: {
                             "is-invalid": _vm.product_errors.product_detail
                           },
-                          attrs: { placeholder: "Enter product details" },
+                          attrs: {
+                            rows: "3",
+                            placeholder: "Enter product details"
+                          },
                           domProps: { value: _vm.product_form.product_detail },
                           on: {
                             input: function($event) {
@@ -1274,49 +1331,6 @@ var render = function() {
                             ])
                           : _vm._e()
                       ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-4" }, [
-                      _c("div", { staticClass: "custom-file mt-4" }, [
-                        _c("input", {
-                          staticClass: "custom-file-input",
-                          attrs: {
-                            type: "file",
-                            id: "customFile",
-                            accept: "image/*"
-                          },
-                          on: { change: _vm.imageSelected }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "label",
-                          {
-                            staticClass: "custom-file-label",
-                            attrs: { for: "" }
-                          },
-                          [_vm._v("Choose an image")]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _vm.imagepreview
-                        ? _c("div", { staticClass: "mt-3" }, [
-                            _c("img", {
-                              staticClass: "figure-img img-fluid rounded",
-                              staticStyle: { "max-height": "80px" },
-                              attrs: { src: _vm.imagepreview }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-xs btn-danger text-right",
-                                attrs: { type: "button" },
-                                on: { click: _vm.removeImage }
-                              },
-                              [_c("i", { staticClass: "mdi mdi-delete" })]
-                            )
-                          ])
-                        : _vm._e()
                     ])
                   ]),
                   _vm._v(" "),
