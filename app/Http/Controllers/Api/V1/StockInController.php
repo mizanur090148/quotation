@@ -102,7 +102,7 @@ class StockInController extends BaseController
             $with = [
                 'stockIns',
                 'stockIns.supplier:id,name',
-                'stockIns.product:id,name,code,sale_price,tax_percentage'
+                'stockIns.product:id,name,code,sale_price,purchase_price,tax_percentage'
             ];
             $modelData = $this->apiCrudHandler->show($id, StockIn::class, $with);          
             return $this->sendResponse($modelData);

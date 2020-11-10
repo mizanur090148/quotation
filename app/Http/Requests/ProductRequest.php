@@ -58,8 +58,8 @@ class ProductRequest extends FormRequest
     {
         return [
             'category_id' => 'required',
-            'brand_id' => 'required',
-            'model_id' => 'required',
+            //'brand_id' => 'required',
+            //'model_id' => 'required',
             'name' => [
                 'required',
                 'max:100'
@@ -76,22 +76,30 @@ class ProductRequest extends FormRequest
             'purchase_price' => [
                 'required',
                 'numeric',
-                'digits_between:1,8'
+                'gt:0'
+               // 'digits_between:1,8'
             ],
             'sale_price'=> [
                 'required',
                 'numeric',
-                'digits_between:1,8'
+                'gt:0'
+                //'digits_between:1,8'
             ],
             'tax_percentage'=> [
                 'required',
                 'numeric',
-                'digits_between:1,8'
+                'gt:0'
+                //'digits_between:1,8'
             ],
             'product_detail' => [
                 'nullable',
-                'max:255'
+                'max:1000'
             ],
+            'warning_quantity' => [
+                'nullable'
+              //  'numeric'              
+            ],
+            
             /* 'image' => [
                 'nullable',
                 'image',

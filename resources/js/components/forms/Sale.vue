@@ -82,7 +82,7 @@
                           {{ product_detail.name ? product_detail.name : product_detail.product.name }}
                         </td>
                         <td>
-                          {{ product_detail.code ? product_detail.name : product_detail.product.code }}
+                          {{ product_detail.code ? product_detail.code : product_detail.product.code }}
                         </td>
                         <td class="text-center">
                           <div class="input-group col-xs-12">
@@ -117,7 +117,7 @@
                       </tr>
                       <tr class="font-weight-bold">
                         <td colspan="6" class="text-right">Grand Total</td>
-                        <td class="text-center">{{ Math.round(total_cost) }}</td>
+                        <td class="text-center">{{ total_cost }}</td>
                       </tr>
                     </tbody>
                 </table>
@@ -295,7 +295,7 @@
             let product_wise_total = product_detail.quantity * product_detail.sale_price;
             let discount_value = this.calculateDiscount (product_wise_total, product_detail.discount_percentage);           
             product_wise_total = product_wise_total + tax_value - discount_value;         
-            product_detail.product_wise_total = Math.round(product_wise_total);
+            product_detail.product_wise_total = product_wise_total.toFixed(2);
           })
         },
         deep: true

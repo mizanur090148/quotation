@@ -74,7 +74,7 @@
                     <label>Product Unit</label>
                     <select v-model="product_form.product_unit" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.product_unit }">                      
                       <option :value="0" :key="0">Piece</option>
-                      <option :value="1" :key="1">Dozen</option>
+                      <!-- <option :value="1" :key="1">Dozen</option> -->
                     </select>
                   </div>
                   <small class="text-danger" v-if="product_errors.product_unit">{{ product_errors.product_unit[0] }}</small>
@@ -84,26 +84,26 @@
                 <div class="col-4">
                   <div class="form-group">
                     <label>Purchase Price(Unit Price)</label>                    
-                    <input type="number" v-model="product_form.purchase_price" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.purchase_price }" placeholder="Enter purchase price">
+                    <input type="text" v-model="product_form.purchase_price" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.purchase_price }" placeholder="Enter purchase price">
                     <small class="text-danger" v-if="product_errors.purchase_price">{{ product_errors.purchase_price[0] }}</small>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="form-group">
                     <label>Sale Price(Unit Price)</label>                    
-                    <input type="number" v-model="product_form.sale_price" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.sale_price }" placeholder="Enter sale unit">
+                    <input type="text" v-model="product_form.sale_price" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.sale_price }" placeholder="Enter sale price">
                     <small class="text-danger" v-if="product_errors.sale_price">{{ product_errors.sale_price[0] }}</small>
                   </div>
                 </div>                
                 <div class="col-4">
                   <div class="form-group">
                     <label>Warning Quantity</label>
-                    <input type="number" v-model="product_form.warning_quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.warning_quantity }" placeholder="Enter warning qty">
+                    <input type="text" v-model="product_form.warning_quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.warning_quantity }" placeholder="Enter warning qty">
                     <small class="text-danger" v-if="product_errors.warning_quantity">{{ product_errors.warning_quantity[0] }}</small>
                   </div>
-                </div>              
+                </div>
               </div>
-              <div class="row p-2">                
+              <div class="row p-2"> 
                 <div class="col-4">
                   <div class="form-group">
                     <label>Tax Percentage</label>
@@ -112,25 +112,29 @@
                     </select>
                   </div>
                   <small class="text-danger" v-if="product_errors.tax_percentage">{{ product_errors.tax_percentage[0] }}</small>
-                </div>                
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>Product Details</label>
-                    <textarea v-model="product_form.product_detail" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.product_detail }" placeholder="Enter product details"></textarea>
-                    <small class="text-danger" v-if="product_errors.product_detail">{{ product_errors.product_detail[0] }}</small>
-                  </div>
-                </div>  
+                </div>
                 <div class="col-4">
                   <div class="custom-file mt-4">
                     <input type="file" @change="imageSelected" class="custom-file-input" id="customFile" accept="">
-                    <label for="" class="custom-file-label">Choose an image</label>                
-                  </div>
+                    <label for="" class="custom-file-label">Choose an image</label>
+                  </div>                                   
+                </div>  
+                <div class="col-4">
                   <div v-if="imagepreview || product_form.image" class="mt-3">
-                    <img :src="imagepreview ? imagepreview : product_form.image" class="figure-img img-fluid rounded" style="max-height: 80px;">
+                    <img :src="imagepreview ? imagepreview : product_form.image" class="figure-img img-fluid rounded" style="max-height: 60px;">
                     <button type="button" class="btn btn-xs btn-danger text-right" @click="removeImage"><i class="mdi mdi-delete"></i></button>
-                  </div>                  
-                </div>                 
+                  </div> 
+                </div>
               </div>            
+              <div class="row p-2">                
+                <div class="col-12">
+                  <div class="form-group">
+                    <label>Product Details</label>
+                    <textarea v-model="product_form.product_detail" rows="3" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.product_detail }" placeholder="Enter product details"></textarea>
+                    <small class="text-danger" v-if="product_errors.product_detail">{{ product_errors.product_detail[0] }}</small>
+                  </div>
+                </div>
+              </div>
               <div class="row p-2 justify-content-md-center">
                 <div class="form-group">
                   <button type="submit" class="btn btn-sm btn-primary mr-2">Submit</button>
@@ -344,7 +348,10 @@
         })
         axios.get('products/' + productId)
           .then((res) => {
-            this.product_form = res.data;          
+            this.product_form = res.data;
+            this.product_form.brand_id = res.data.brand_id ? res.data.brand_id : '';
+            this.product_form.model_id = res.data.model_id ? res.data.model_id : '';
+            this.product_form.warning_quantity = res.data.warning_quantity ? res.data.warning_quantity : '';
           })
           .catch((error) => {
             console.log(error);

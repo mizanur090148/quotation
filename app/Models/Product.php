@@ -35,6 +35,17 @@ class Product extends Model
         'sale_tax_value'
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'model_id' => 'integer',
+        'brand_id' => 'integer',
+        'warning_quantity' => 'integer' 
+    ];
+
     protected $dates = [
     	'deleted_at'
     ];
