@@ -63,6 +63,8 @@ const Sale = () => import(/* webpackChunkName: "Sale" */ './components/forms/Sal
 const Sales = () => import(/* webpackChunkName: "Sales" */ './components/Lists/Sales.vue');
 const SaleInvoice = () => import(/* webpackChunkName: "SaleInvoice" */ './components/Lists/SaleInvoice.vue');
 
+// inventory report
+const DailyInventoryReport = () => import(/* webpackChunkName: "dateWiseInventory" */ './components/Reports/DailyInventoryReport.vue');
 // reports area
 const DateWiseSalesReport = () => import(/* webpackChunkName: "dateWiseSales" */ './components/Reports/DateWiseSales.vue');
 const DateWisePurchaseReport = () => import(/* webpackChunkName: "dateWisePurchase" */ './components/Reports/DateWisePurchase.vue');
@@ -183,6 +185,11 @@ const router = new VueRouter({
         },
 
         /**Report Route**/
+        {
+            path: '/daily-inventory-report',
+            name: 'DailyInventoryReport',
+            component: DailyInventoryReport,
+        },
         {
             path: '/date-wise-purchase-report',
             name: 'DateWisePurchaseReport',

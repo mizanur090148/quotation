@@ -17,5 +17,6 @@
     "/stockIns.js": "/stockIns.js",
     "/suppliers.js": "/suppliers.js",
     "/user.js": "/user.js",
-    "/users.js": "/users.js"
+    "/users.js": "/users.js",
+    "/dateWiseInventory.js": "/dateWiseInventory.js"
 }

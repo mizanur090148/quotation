@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"Sale":"Sale","SaleInvoice":"SaleInvoice","Sales":"Sales","brands":"brands","categories":"categories","dateWisePurchase":"dateWisePurchase","dateWiseSales":"dateWiseSales","dateWiseVat":"dateWiseVat","models":"models","product":"product","products":"products","stockIn":"stockIn","stockInView":"stockInView","stockIns":"stockIns","suppliers":"suppliers","user":"user","users":"users"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"Sale":"Sale","SaleInvoice":"SaleInvoice","Sales":"Sales","brands":"brands","categories":"categories","dateWiseInventory":"dateWiseInventory","dateWisePurchase":"dateWisePurchase","dateWiseSales":"dateWiseSales","dateWiseVat":"dateWiseVat","models":"models","product":"product","products":"products","stockIn":"stockIn","stockInView":"stockInView","stockIns":"stockIns","suppliers":"suppliers","user":"user","users":"users"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -6598,7 +6598,7 @@ var staticRenderFns = [
                 }),
                 _vm._v(" "),
                 _c("span", { staticClass: "nav-profile-name" }, [
-                  _vm._v("Super Admin")
+                  _vm._v("Admin")
                 ])
               ]
             ),
@@ -6862,6 +6862,38 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "collapse", attrs: { id: "reports" } }, [
             _c("ul", { staticClass: "nav flex-column sub-menu" }, [
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/daily-inventory-report" }
+                    },
+                    [_vm._v(" Daily Inventory report ")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/monthly-inventory-report" }
+                    },
+                    [_vm._v(" Monthly Inventory report ")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
               _c(
                 "li",
                 { staticClass: "nav-item" },
@@ -24441,6 +24473,11 @@ var Sales = function Sales() {
 
 var SaleInvoice = function SaleInvoice() {
   return __webpack_require__.e(/*! import() | SaleInvoice */ "SaleInvoice").then(__webpack_require__.bind(null, /*! ./components/Lists/SaleInvoice.vue */ "./resources/js/components/Lists/SaleInvoice.vue"));
+}; // inventory report
+
+
+var DailyInventoryReport = function DailyInventoryReport() {
+  return __webpack_require__.e(/*! import() | dateWiseInventory */ "dateWiseInventory").then(__webpack_require__.bind(null, /*! ./components/Reports/DailyInventoryReport.vue */ "./resources/js/components/Reports/DailyInventoryReport.vue"));
 }; // reports area
 
 
@@ -24553,6 +24590,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
   },
   /**Report Route**/
   {
+    path: '/daily-inventory-report',
+    name: 'DailyInventoryReport',
+    component: DailyInventoryReport
+  }, {
     path: '/date-wise-purchase-report',
     name: 'DateWisePurchaseReport',
     component: DateWisePurchaseReport
