@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\V1\BaseController as BaseController;
 use App\Http\Controllers\Api\V1\Services\DateWiseSalesReportService;
 use App\Http\Controllers\Api\V1\Services\DateWiseVatReportService;
-use App\Http\Controllers\Api\V1\Services\BestSalesProductService;
-use App\Models\Sale;
-use DB;
 
 class SalesReportController extends BaseController
 {    
@@ -44,15 +40,5 @@ class SalesReportController extends BaseController
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
         }
-    }
-
-    public function getBestSalesProduct(BestSalesProductService $service)
-    {
-        try {
-            $reportData = $service->getBestSalesProduct();
-            return $this->sendResponse($reportData);
-        } catch (Exception $e) {
-            return $this->sendError($e->getMessage());
-        }
-    }
+    }    
 }

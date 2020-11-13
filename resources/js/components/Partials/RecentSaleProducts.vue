@@ -2,21 +2,21 @@
   <div class="col-md-6 stretch-card">
     <div class="card">
       <div class="card-body">
-        <p class="card-title">Best sale of current month</p>
+        <p class="card-title">Recent Sale Products</p>
         <div class="table-responsive">
           <table id="recent-purchases-listing" class="list-table table-bordered">
             <thead>
               <tr>
-                <th>SL.</th>
-                <th>Name</th>
-                <th>Number Of Sales</th>
+                <td>SL.</td>
+                <td>Name</td>
+                <td>Sell Price</td>
               </tr>
             </thead>
-            <tbody v-if="best_sales.length">
-              <tr v-for="(product, index) in best_sales" :key="index">  
+            <tbody v-if="recent_sale_products.length">
+              <tr v-for="(product, index) in recent_sale_products" :key="index">  
                 <td>{{ ++index }}</td>
-                <td>{{ product.product_name }}</td>
-                <td>{{ product.sales_count }}</td>
+                <td>{{ product.product.name }}</td>
+                <td>{{ product.product.sale_price }}</td>
               </tr>
             </tbody>
           </table>
@@ -32,17 +32,17 @@
   export default {
     data() {
       return {
-        best_sales: []
+        recent_sale_products: []
       }
     },
     mounted() {
-      this.getBestSaleProduct()
+      this.getRecentSaleProducts()
     },    
     methods: {      
-      getBestSaleProduct(stockInId) {
-        axios.get('get-best-sales-product')
+      getRecentSaleProducts() {
+        axios.get('get-recent-sale-products')
           .then((res) => {
-            this.best_sales = res.data;
+            this.recent_sale_products = res.data;
             console.log(this.best_sales);
           })
           .catch((error) => {

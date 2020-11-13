@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\V1\SaleController;
 use App\Http\Controllers\Api\V1\PurchaseReportController;
 use App\Http\Controllers\Api\V1\SalesReportController;
 use App\Http\Controllers\Api\V1\InventoryReportController;
+use App\Http\Controllers\Api\V1\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -36,7 +37,10 @@ use App\Http\Controllers\Api\V1\InventoryReportController;
 Route::post('login', 'AuthController@login');
 
 // dashboard
-Route::get('get-best-sales-product', [SalesReportController::class, 'getBestSalesProduct']);
+Route::get('get-best-purchase-products', [DashboardController::class, 'getBestPurchaseProducts']);
+Route::get('get-best-sale-products', [DashboardController::class, 'getBestSaleProducts']);
+Route::get('get-recent-purchase-products', [DashboardController::class, 'getRecentPurchaseProducts']);
+Route::get('get-recent-sale-products', [DashboardController::class, 'getRecentSaleProducts']);
 
 Route::get('suppliers', [SupplierController::class, 'index']);
 Route::get('supplier-dropdown-data', [SupplierController::class, 'supplierDropdownData']);
