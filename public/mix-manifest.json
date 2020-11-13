@@ -6,6 +6,7 @@
     "/Sales.js": "/Sales.js",
     "/brands.js": "/brands.js",
     "/categories.js": "/categories.js",
+    "/dateWiseInventory.js": "/dateWiseInventory.js",
     "/dateWisePurchase.js": "/dateWisePurchase.js",
     "/dateWiseSales.js": "/dateWiseSales.js",
     "/dateWiseVat.js": "/dateWiseVat.js",
@@ -17,6 +18,5 @@
     "/stockIns.js": "/stockIns.js",
     "/suppliers.js": "/suppliers.js",
     "/user.js": "/user.js",
-    "/users.js": "/users.js",
-    "/dateWiseInventory.js": "/dateWiseInventory.js"
+    "/users.js": "/users.js"
 }

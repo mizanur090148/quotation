@@ -3,24 +3,31 @@
 namespace App\Http\Controllers\Api\V1\Services;
 
 use App\Models\StockIn;
-use App\Models\Sale;
 use DB;
 
 class DailyInventoryReportService
 {
-    public function dailyInventoryReport($form_date, $to_date)
+    public function dailyInventoryReportData($report_date)
     {
-        $with = [
-            'stockIns',
-            'stockIns.supplier:id,name'  
-        ];
-        $where = [
-            'stock_in_id' => null
-        ];
+        $with = [           
+            'product:id,name,code'  
+        ];       
+        
         $reportData = StockIn::with($with)
-            ->whereNull('stock_in_id')
-            ->whereDate('created_at', '>=', $form_date)
-            ->whereDate('created_at', '<=', $to_date)
+            ->leftJoin('sales', 'stock_ins.product_id', 'sales.product_id')
+           // ->leftJoin('products', 'stock_ins.product_id', 'products.id')
+            ->selectRaw('
+                sum(COALESCE(stock_ins.quantity, 0)) as stock_qty, 
+                sum(COALESCE(sales.quantity, 0)) as sale_qty, 
+                (sum(COALESCE(stock_ins.quantity, 0)) - sum(COALESCE(sales.quantity, 0))) as inventory_qty,
+                stock_ins.product_id
+            ')
+            ->whereDate('stock_ins.created_at', '<=', $report_date)
+            ->orWhereDate('stock_ins.created_at', '<=', $report_date)
+            ->whereNull('stock_ins.purchase_invoice')
+            ->whereNull('sales.invoice_number')
+            // ->groupBy('stock_ins.product_id')
+            ->groupBy(DB::raw('stock_ins.product_id WITH ROLLUP'))
             ->get();
             
         return $reportData;

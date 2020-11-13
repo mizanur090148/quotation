@@ -331,6 +331,17 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    isNumber: function isNumber(evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode;
+
+      if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode !== 46) {
+        evt.preventDefault();
+        ;
+      } else {
+        return true;
+      }
+    },
     imageSelected: function imageSelected(e) {
       var _this = this;
 
@@ -1057,6 +1068,9 @@ var render = function() {
                           },
                           domProps: { value: _vm.product_form.purchase_price },
                           on: {
+                            keypress: function($event) {
+                              return _vm.isNumber($event)
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -1104,6 +1118,9 @@ var render = function() {
                           },
                           domProps: { value: _vm.product_form.sale_price },
                           on: {
+                            keypress: function($event) {
+                              return _vm.isNumber($event)
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -1151,6 +1168,9 @@ var render = function() {
                             value: _vm.product_form.warning_quantity
                           },
                           on: {
+                            keypress: function($event) {
+                              return _vm.isNumber($event)
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return

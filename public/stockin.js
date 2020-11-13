@@ -1128,9 +1128,10 @@ var render = function() {
                               expression: "form.shipping_cost"
                             }
                           ],
-                          staticClass: "form-control form-control-sm",
+                          staticClass:
+                            "form-control form-control-sm text-right",
                           class: { "is-invalid": _vm.errors.shipping_cost },
-                          attrs: { type: "number" },
+                          attrs: { type: "text" },
                           domProps: { value: _vm.form.shipping_cost },
                           on: {
                             input: function($event) {
@@ -1167,9 +1168,10 @@ var render = function() {
                               expression: "form.others_cost"
                             }
                           ],
-                          staticClass: "form-control form-control-sm",
+                          staticClass:
+                            "form-control form-control-sm text-right",
                           class: { "is-invalid": _vm.errors.others_cost },
-                          attrs: { type: "number" },
+                          attrs: { type: "text" },
                           domProps: { value: _vm.form.others_cost },
                           on: {
                             input: function($event) {

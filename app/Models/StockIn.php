@@ -36,13 +36,13 @@ class StockIn extends Model
     	'deleted_at'
     ];
 
-    protected $appends = [
+    /* protected $appends = [
         'total_product_cost', 
-        'total_tax_value',       
+        'total_tax_value',
         'total_cost',
         'purchase_date',
         'suppliers'
-    ];
+    ]; */
 
     protected $cascadeDeletes = [
         'stockIns'
@@ -75,7 +75,7 @@ class StockIn extends Model
 
     public function getPurchaseDateAttribute()
     {
-        return $this->created_at->format('d-M-Y');
+        return $this->created_at ? $this->created_at->format('d-M-Y') : '';
     }
 
     public function getSuppliersAttribute()

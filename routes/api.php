@@ -111,7 +111,7 @@ Route::delete('sales/{id}', [SaleController::class, 'delete']);
 Route::get('search-sales', [SaleController::class, 'search']);
 
 // reports
-Route::get('daily-inventory-report', [InventoryReportController::class', 'dailyInventoryReport']);
+Route::get('daily-inventory-report', [InventoryReportController::class, 'dailyInventoryReport']);
 Route::get('date-wise-purchase-report', [PurchaseReportController::class, 'dateWisePurchaseReport']);
 Route::get('date-wise-sales-report', [SalesReportController::class, 'dateWiseSalesReport']);
 Route::get('date-wise-vat-report', [SalesReportController::class, 'dateWiseVatReport']);

@@ -120,31 +120,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      errors: [],
       reports: [],
-      total_data: null,
       form: new Form({
-        from_date: new Date().toISOString().split('T')[0],
-        to_date: new Date().toISOString().split('T')[0]
+        report_date: new Date().toISOString().split('T')[0]
       })
     };
   },
@@ -158,7 +142,6 @@ __webpack_require__.r(__webpack_exports__);
     getDailyInventoryReport: function getDailyInventoryReport() {
       var _this = this;
 
-      this.errors = [];
       var loader = this.$loading.show({
         container: this.$refs.customerContainer,
         canCancel: true,
@@ -166,13 +149,11 @@ __webpack_require__.r(__webpack_exports__);
       });
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/daily-inventory-report', {
         params: {
-          from_date: this.form.from_date,
-          to_date: this.form.to_date
+          report_date: this.form.report_date
         }
       }).then(function (response) {
         if (response.status == 200) {
-          _this.reports = response.data.reports;
-          _this.total_data = response.data;
+          _this.reports = response.data;
 
           _this.loader.hide();
         } else {
@@ -180,7 +161,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (errors) {
         loader.hide();
-        _this.errors = errors.response.errors;
       })["finally"](function (e) {
         loader.hide();
       });
@@ -358,7 +338,7 @@ var render = function() {
                       _c("div", { staticClass: "col-3" }, [
                         _c("div", { staticClass: "form-group" }, [
                           _c("label", { staticClass: "no-print" }, [
-                            _vm._v("From Date")
+                            _vm._v("Report Date")
                           ]),
                           _vm._v(" "),
                           _c("input", {
@@ -366,79 +346,32 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.form.from_date,
-                                expression: "form.from_date"
+                                value: _vm.form.report_date,
+                                expression: "form.report_date"
                               }
                             ],
                             staticClass:
                               "form-control form-control-sm no-print",
-                            class: { "is-invalid": _vm.errors.from_date },
                             attrs: { type: "date" },
-                            domProps: { value: _vm.form.from_date },
+                            domProps: { value: _vm.form.report_date },
                             on: {
+                              change: _vm.getDailyInventoryReport,
                               input: function($event) {
                                 if ($event.target.composing) {
                                   return
                                 }
                                 _vm.$set(
                                   _vm.form,
-                                  "from_date",
+                                  "report_date",
                                   $event.target.value
                                 )
                               }
                             }
-                          }),
-                          _vm._v(" "),
-                          _vm.errors.from_date
-                            ? _c("small", { staticClass: "text-danger" }, [
-                                _vm._v(_vm._s(_vm.errors.from_date[0]))
-                              ])
-                            : _vm._e()
+                          })
                         ])
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-3" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", [_vm._v("To Date")]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.to_date,
-                                expression: "form.to_date"
-                              }
-                            ],
-                            staticClass: "form-control form-control-sm",
-                            class: { "is-invalid": _vm.errors.to_date },
-                            attrs: { type: "date" },
-                            domProps: { value: _vm.form.to_date },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "to_date",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm.errors.to_date
-                            ? _c("small", { staticClass: "text-danger" }, [
-                                _vm._v(_vm._s(_vm.errors.to_date[0]))
-                              ])
-                            : _vm._e()
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _vm._m(0),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-2" }),
+                      _c("div", { staticClass: "col-7" }),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-2 text-right" }, [
                         _c(
@@ -460,102 +393,103 @@ var render = function() {
                     "table",
                     { staticClass: "list-table table table-bordered" },
                     [
-                      _vm._m(1),
+                      _vm._m(0),
                       _vm._v(" "),
-                      _vm._m(2),
+                      _vm._m(1),
                       _vm._v(" "),
                       _vm.reports.length
                         ? _c(
                             "tbody",
-                            [
-                              _vm._l(_vm.reports, function(report, index) {
-                                return _c("tr", { key: index }, [
-                                  _c("td", [
-                                    _vm._v(
-                                      "\n                      " +
-                                        _vm._s(++index) +
-                                        "\n                    "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(
-                                      "\n                      " +
-                                        _vm._s(report.purchase_date) +
-                                        "\n                    "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(
-                                      "\n                      " +
-                                        _vm._s(report.purchase_invoice) +
-                                        "\n                    "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(
-                                      "\n                      " +
-                                        _vm._s(report.suppliers.join(", ")) +
-                                        "\n                    "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-center" }, [
-                                    _vm._v(
-                                      "\n                      " +
-                                        _vm._s(report.total_product_cost) +
-                                        "\n                    "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-center" }, [
-                                    _vm._v(
-                                      "\n                      " +
-                                        _vm._s(report.total_tax_value) +
-                                        "\n                    "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-center" }, [
-                                    _vm._v(
-                                      "\n                      " +
-                                        _vm._s(
-                                          report.total_product_cost +
-                                            report.total_tax_value
-                                        ) +
-                                        "\n                    "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td")
-                                ])
-                              }),
-                              _vm._v(" "),
-                              _c("tr", { staticClass: "font-weight-bold" }, [
-                                _c("td", { attrs: { colspan: "4" } }, [
-                                  _vm._v("Total")
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(_vm._s(_vm.total_data.total_taxable))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(_vm._s(_vm.total_data.total_tax_value))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(_vm._s(_vm.total_data.total_amount))
-                                ]),
-                                _vm._v(" "),
-                                _c("td")
-                              ])
-                            ],
-                            2
+                            _vm._l(_vm.reports, function(report, index) {
+                              return index != _vm.reports.length - 1
+                                ? _c("tr", { key: index }, [
+                                    _c("td", [
+                                      _vm._v(
+                                        "\n                      " +
+                                          _vm._s(++index) +
+                                          "\n                    "
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(
+                                        "\n                      " +
+                                          _vm._s(report.product.name) +
+                                          "\n                    "
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(
+                                        "\n                      " +
+                                          _vm._s(report.product.code) +
+                                          "\n                    "
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(
+                                        "\n                      " +
+                                          _vm._s(report.stock_qty) +
+                                          "\n                    "
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", { staticClass: "text-center" }, [
+                                      _vm._v(
+                                        "\n                      " +
+                                          _vm._s(report.sale_qty) +
+                                          "\n                    "
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", { staticClass: "text-center" }, [
+                                      _vm._v(
+                                        "\n                      " +
+                                          _vm._s(report.inventory_qty) +
+                                          "\n                    "
+                                      )
+                                    ])
+                                  ])
+                                : _c(
+                                    "tr",
+                                    { staticClass: "font-weight-bold" },
+                                    [
+                                      _c("td", { attrs: { colspan: "3" } }, [
+                                        _vm._v(
+                                          "\n                      Total\n                    "
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(
+                                          "\n                      " +
+                                            _vm._s(report.stock_qty) +
+                                            "\n                    "
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", { staticClass: "text-center" }, [
+                                        _vm._v(
+                                          "\n                      " +
+                                            _vm._s(report.sale_qty) +
+                                            "\n                    "
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", { staticClass: "text-center" }, [
+                                        _vm._v(
+                                          "\n                      " +
+                                            _vm._s(report.inventory_qty) +
+                                            "\n                    "
+                                        )
+                                      ])
+                                    ]
+                                  )
+                            }),
+                            0
                           )
-                        : _c("tbody", [_vm._m(3)])
+                        : _c("tbody", [_vm._m(2)])
                     ]
                   )
                 ])
@@ -575,25 +509,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-2" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v(" ")]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "form-control form-control-sm btn btn-sm btn-primary",
-            attrs: { type: "submit" }
-          },
-          [_vm._v("Search")]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c(
@@ -602,26 +517,22 @@ var staticRenderFns = [
             staticClass: "text-center font-weight-bold",
             attrs: { colspan: "9" }
           },
-          [_vm._v("Report From ")]
+          [_vm._v("Daily Inventory Report ")]
         )
       ]),
       _vm._v(" "),
       _c("tr", [
         _c("td", [_vm._v("SL.")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Date")]),
+        _c("td", [_vm._v("Product Name")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Invoice Number")]),
+        _c("td", [_vm._v("Product Code")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Supplier With TRN")]),
+        _c("td", [_vm._v("Total Stock In Qty")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Taxable Amount")]),
+        _c("td", [_vm._v("Total Sales Qty")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Vat(5%)")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("Total Amount")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("Comment")])
+        _c("td", [_vm._v("Inventory Qty")])
       ])
     ])
   },

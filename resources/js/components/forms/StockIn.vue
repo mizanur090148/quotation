@@ -133,14 +133,14 @@
                 <div class="col-3">
                   <div class="form-group">
                     <label>Shipping Cost</label>
-                    <input type="number" v-model="form.shipping_cost" class="form-control form-control-sm" :class="{ 'is-invalid': errors.shipping_cost }">
+                    <input type="text" v-model="form.shipping_cost" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.shipping_cost }">
                     <small class="text-danger" v-if="errors.shipping_cost">{{ errors.shipping_cost[0] }}</small>
                   </div>
                 </div>
                 <div class="col-3">
                   <div class="form-group">
                     <label>Other's Cost</label>
-                    <input type="number" v-model="form.others_cost" class="form-control form-control-sm" :class="{ 'is-invalid': errors.others_cost }">
+                    <input type="text" v-model="form.others_cost" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.others_cost }">
                     <small class="text-danger" v-if="errors.others_cost">{{ errors.others_cost[0] }}</small>
                   </div>
                 </div>

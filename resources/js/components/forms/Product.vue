@@ -84,21 +84,21 @@
                 <div class="col-4">
                   <div class="form-group">
                     <label>Purchase Price(Unit Price)</label>                    
-                    <input type="text" v-model="product_form.purchase_price" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.purchase_price }" placeholder="Enter purchase price">
+                    <input type="text" @keypress="isNumber($event)" v-model="product_form.purchase_price" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.purchase_price }" placeholder="Enter purchase price">
                     <small class="text-danger" v-if="product_errors.purchase_price">{{ product_errors.purchase_price[0] }}</small>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="form-group">
                     <label>Sale Price(Unit Price)</label>                    
-                    <input type="text" v-model="product_form.sale_price" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.sale_price }" placeholder="Enter sale price">
+                    <input type="text" @keypress="isNumber($event)" v-model="product_form.sale_price" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.sale_price }" placeholder="Enter sale price">
                     <small class="text-danger" v-if="product_errors.sale_price">{{ product_errors.sale_price[0] }}</small>
                   </div>
                 </div>                
                 <div class="col-4">
                   <div class="form-group">
                     <label>Warning Quantity</label>
-                    <input type="text" v-model="product_form.warning_quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.warning_quantity }" placeholder="Enter warning qty">
+                    <input type="text" @keypress="isNumber($event)" v-model="product_form.warning_quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.warning_quantity }" placeholder="Enter warning qty">
                     <small class="text-danger" v-if="product_errors.warning_quantity">{{ product_errors.warning_quantity[0] }}</small>
                   </div>
                 </div>
@@ -317,9 +317,17 @@
       }
     },
     methods: {
+      isNumber: function(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+          evt.preventDefault();;
+        } else {
+          return true;
+        }
+      },
       imageSelected(e) {
         this.product_form.image = e.target.files[0];
-
         let reader = new FileReader();
         reader.readAsDataURL(this.product_form.image);
         reader.onload = e => {
