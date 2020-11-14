@@ -114,6 +114,9 @@ Route::get('sale-invoice/{id}', [SaleController::class, 'show']);
 Route::delete('sales/{id}', [SaleController::class, 'delete']);
 Route::get('search-sales', [SaleController::class, 'search']);
 
+// Return 
+
+
 // reports
 Route::get('daily-inventory-report', [InventoryReportController::class, 'dailyInventoryReport']);
 Route::get('date-wise-purchase-report', [PurchaseReportController::class, 'dateWisePurchaseReport']);

@@ -222,6 +222,7 @@
       <BestSaleProducts></BestSaleProducts>
       <BestPurchaseProducts></BestPurchaseProducts>
     </div>
+    <br/>
     <div class="row">
       <RecentSaleProducts></RecentSaleProducts>
       <RecentPurchaseProducts></RecentPurchaseProducts>

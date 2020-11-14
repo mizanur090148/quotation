@@ -63,6 +63,8 @@ const Sale = () => import(/* webpackChunkName: "Sale" */ './components/forms/Sal
 const Sales = () => import(/* webpackChunkName: "Sales" */ './components/Lists/Sales.vue');
 const SaleInvoice = () => import(/* webpackChunkName: "SaleInvoice" */ './components/Lists/SaleInvoice.vue');
 
+const PurchaseOrSaleRetun = () => import(/* webpackChunkName: "purchaseOrSaleRetun" */ './components/forms/PurchaseOrSaleRetun.vue');
+
 // inventory report
 const DailyInventoryReport = () => import(/* webpackChunkName: "dateWiseInventory" */ './components/Reports/DailyInventoryReport.vue');
 // reports area
@@ -182,6 +184,11 @@ const router = new VueRouter({
             path: '/brands',
             name: 'Brands',
             component: Brands,
+        },
+        {
+            path: '/purchase-or-sale-return',
+            name: 'purchaseOrSaleRetun',
+            component: PurchaseOrSaleRetun,
         },
 
         /**Report Route**/

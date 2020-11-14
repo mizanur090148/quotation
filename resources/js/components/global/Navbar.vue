@@ -113,11 +113,8 @@
             <div class="collapse" id="return">
                <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                     <router-link tag="a" class="nav-link" to="/sale"> Sale </router-link> 
-                  </li>
-                  <li class="nav-item">
-                     <router-link tag="a" class="nav-link" to="/purchase"> Purchase </router-link> 
-                  </li>                 
+                     <router-link tag="a" class="nav-link" to="/purchase-or-sale-return"> Purchase/Sale Return</router-link> 
+                  </li>                                                
                </ul>
             </div>
          </li>

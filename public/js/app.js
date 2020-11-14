@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"Sale":"Sale","SaleInvoice":"SaleInvoice","Sales":"Sales","brands":"brands","categories":"categories","dateWiseInventory":"dateWiseInventory","dateWisePurchase":"dateWisePurchase","dateWiseSales":"dateWiseSales","dateWiseVat":"dateWiseVat","models":"models","product":"product","products":"products","stockIn":"stockIn","stockInView":"stockInView","stockIns":"stockIns","suppliers":"suppliers","user":"user","users":"users"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"Sale":"Sale","SaleInvoice":"SaleInvoice","Sales":"Sales","brands":"brands","categories":"categories","dateWiseInventory":"dateWiseInventory","dateWisePurchase":"dateWisePurchase","dateWiseSales":"dateWiseSales","dateWiseVat":"dateWiseVat","models":"models","product":"product","products":"products","purchaseOrSaleRetun":"purchaseOrSaleRetun","stockIn":"stockIn","stockInView":"stockInView","stockIns":"stockIns","suppliers":"suppliers","user":"user","users":"users"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -2072,6 +2072,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Partials_BestSaleProducts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Partials/BestSaleProducts */ "./resources/js/components/Partials/BestSaleProducts.vue");
 /* harmony import */ var _Partials_RecentPurchaseProducts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Partials/RecentPurchaseProducts */ "./resources/js/components/Partials/RecentPurchaseProducts.vue");
 /* harmony import */ var _Partials_RecentSaleProducts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Partials/RecentSaleProducts */ "./resources/js/components/Partials/RecentSaleProducts.vue");
+//
 //
 //
 //
@@ -5121,6 +5122,8 @@ var render = function() {
       1
     ),
     _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "row" },
@@ -7107,25 +7110,9 @@ var render = function() {
                     "router-link",
                     {
                       staticClass: "nav-link",
-                      attrs: { tag: "a", to: "/sale" }
+                      attrs: { tag: "a", to: "/purchase-or-sale-return" }
                     },
-                    [_vm._v(" Sale ")]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                { staticClass: "nav-item" },
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "nav-link",
-                      attrs: { tag: "a", to: "/purchase" }
-                    },
-                    [_vm._v(" Purchase ")]
+                    [_vm._v(" Purchase/Sale Return")]
                   )
                 ],
                 1
@@ -24622,6 +24609,10 @@ var Sales = function Sales() {
 
 var SaleInvoice = function SaleInvoice() {
   return __webpack_require__.e(/*! import() | SaleInvoice */ "SaleInvoice").then(__webpack_require__.bind(null, /*! ./components/Lists/SaleInvoice.vue */ "./resources/js/components/Lists/SaleInvoice.vue"));
+};
+
+var PurchaseOrSaleRetun = function PurchaseOrSaleRetun() {
+  return __webpack_require__.e(/*! import() | purchaseOrSaleRetun */ "purchaseOrSaleRetun").then(__webpack_require__.bind(null, /*! ./components/forms/PurchaseOrSaleRetun.vue */ "./resources/js/components/forms/PurchaseOrSaleRetun.vue"));
 }; // inventory report
 
 
@@ -24736,6 +24727,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
     path: '/brands',
     name: 'Brands',
     component: Brands
+  }, {
+    path: '/purchase-or-sale-return',
+    name: 'purchaseOrSaleRetun',
+    component: PurchaseOrSaleRetun
   },
   /**Report Route**/
   {
