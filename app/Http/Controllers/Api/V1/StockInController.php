@@ -106,7 +106,7 @@ class StockInController extends BaseController
             ];
             $modelData = $this->apiCrudHandler->show($id, StockIn::class, $with);          
             return $this->sendResponse($modelData);
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             return $this->sendError($e->getMessage());
         }
     }

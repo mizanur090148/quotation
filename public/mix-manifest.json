@@ -13,11 +13,11 @@
     "/models.js": "/models.js",
     "/product.js": "/product.js",
     "/products.js": "/products.js",
+    "/purchaseOrSaleRetun.js": "/purchaseOrSaleRetun.js",
     "/stockIn.js": "/stockIn.js",
     "/stockInView.js": "/stockInView.js",
     "/stockIns.js": "/stockIns.js",
     "/suppliers.js": "/suppliers.js",
     "/user.js": "/user.js",
-    "/users.js": "/users.js",
-    "/purchaseOrSaleRetun.js": "/purchaseOrSaleRetun.js"
+    "/users.js": "/users.js"
 }

@@ -300,8 +300,7 @@
           newValue.forEach((product_detail) => {
             let tax_value = product_detail.tax_value * product_detail.quantity;
             let product_wise_total = product_detail.quantity * product_detail.purchase_price ? product_detail.purchase_price : product_detail.product.purchase_price;
-            let discount_value = this.calculateDiscount (product_wise_total, product_detail.discount_percentage);
-            console.log(product_wise_total +"=>"+ tax_value + "=>" + discount_value);
+            let discount_value = this.calculateDiscount (product_wise_total, product_detail.discount_percentage);            
             product_wise_total = product_wise_total + tax_value - discount_value;
             product_detail.product_wise_total = product_wise_total.toFixed(2);
           })

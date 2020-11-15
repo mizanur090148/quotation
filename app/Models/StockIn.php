@@ -36,13 +36,13 @@ class StockIn extends Model
     	'deleted_at'
     ];
 
-    /* protected $appends = [
+    protected $appends = [
         'total_product_cost', 
         'total_tax_value',
         'total_cost',
         'purchase_date',
         'suppliers'
-    ]; */
+    ];
 
     protected $cascadeDeletes = [
         'stockIns'

@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\V1\PurchaseReportController;
 use App\Http\Controllers\Api\V1\SalesReportController;
 use App\Http\Controllers\Api\V1\InventoryReportController;
 use App\Http\Controllers\Api\V1\DashboardController;
+use App\Http\Controllers\Api\V1\PurchaseSaleReturnController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -114,8 +115,10 @@ Route::get('sale-invoice/{id}', [SaleController::class, 'show']);
 Route::delete('sales/{id}', [SaleController::class, 'delete']);
 Route::get('search-sales', [SaleController::class, 'search']);
 
-// Return 
-
+// Return
+Route::get('get-invoice-dropdown', [PurchaseSaleReturnController::class, 'getInvoiceDropdown']);
+//Route::get('get-invoice-details', [PurchaseSaleReturnController::class, 'getInvoiceDetails']);
+Route::get('get-invoice-details-for-return', [PurchaseSaleReturnController::class, 'getInvoiceDetailsForReturn']);
 
 // reports
 Route::get('daily-inventory-report', [InventoryReportController::class, 'dailyInventoryReport']);

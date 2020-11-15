@@ -319,7 +319,6 @@ __webpack_require__.r(__webpack_exports__);
 
           var discount_value = _this.calculateDiscount(product_wise_total, product_detail.discount_percentage);
 
-          console.log(product_wise_total + "=>" + tax_value + "=>" + discount_value);
           product_wise_total = product_wise_total + tax_value - discount_value;
           product_detail.product_wise_total = product_wise_total.toFixed(2);
         });
