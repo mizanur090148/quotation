@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\Api\V1\BaseController as BaseController;
-use App\Http\Controllers\Api\ApiCrudHandler;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Validator;
 use Auth;
 
 class AuthController extends BaseController
-{   
-
+{
     public function login(Request $request)
     {
         try {
@@ -21,7 +17,7 @@ class AuthController extends BaseController
                 'password' => $request->password
             ];
 
-            if (auth()->attempt($credential)) {
+            if (Auth::attempt($credential)) {
                 $user = Auth::user();
                 return $this->sendResponse($user);              
             }

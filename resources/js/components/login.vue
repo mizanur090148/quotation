@@ -1,84 +1,61 @@
 <template>	
-   <div class="container-fluid page-body-wrapper full-page-wrapper">
-	  <div class="content-wrapper d-flex align-items-stretch auth auth-img-bg">
-	    <div class="row flex-grow">
-	      <div class="col-lg-6 d-flex align-items-center justify-content-center">
-	        <div class="auth-form-transparent text-left p-3">
-	          <div class="brand-logo">
-	           <!-- <img :src="../../images/logo.svg" alt="logo"> -->
-	          </div>
-	          <h4>Welcome back!</h4>
-	          <h6 class="font-weight-light">Happy to see you again!</h6>
-	          <form @submit.prevent="login" class="pt-3">
-	            <div class="form-group">
-	              <label for="exampleInputEmail">Username</label>
-	              <div class="input-group">
-	                <div class="input-group-prepend bg-transparent">
-	                  <span class="input-group-text bg-transparent border-right-0">
-	                    <i class="mdi mdi-account-outline text-primary"></i>
-	                  </span>
-	                </div>
-	                <input type="text" class="form-control form-control-lg border-left-0" id="exampleInputEmail" placeholder="Username">
-	              </div>
-	            </div>
-	            <div class="form-group">
-	              <label for="exampleInputPassword">Password</label>
-	              <div class="input-group">
-	                <div class="input-group-prepend bg-transparent">
-	                  <span class="input-group-text bg-transparent border-right-0">
-	                    <i class="mdi mdi-lock-outline text-primary"></i>
-	                  </span>
-	                </div>
-	                <input type="password" class="form-control form-control-lg border-left-0" id="exampleInputPassword" placeholder="Password">                        
-	              </div>
-	            </div>
-	            <div class="my-2 d-flex justify-content-between align-items-center">
-	              <div class="form-check">
-	                <label class="form-check-label text-muted">
-	                  <input type="checkbox" class="form-check-input">
-	                  Keep me signed in
-	                </label>
-	              </div>
-	              <a href="#" class="auth-link text-black">Forgot password?</a>
-	            </div>
-	            <div class="my-3">
-	              <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="../../index.html">LOGIN</button>
-	            </div>
-	        <!--
-	            <div class="mb-2 d-flex">
-	              <button type="button" class="btn btn-facebook auth-form-btn flex-grow mr-1">
-	                <i class="mdi mdi-facebook mr-2"></i>Facebook
-	              </button>
-	              <button type="button" class="btn btn-google auth-form-btn flex-grow ml-1">
-	                <i class="mdi mdi-google mr-2"></i>Google
-	              </button>
-	            </div>
-	            <div class="text-center mt-4 font-weight-light">
-	              Don't have an account? <a href="register-2.html" class="text-primary">Create</a>
-	            </div>
-	        -->
-	          </form>
-	        </div>
-	      </div>
-	      <div class="col-lg-6 login-half-bg d-flex flex-row">
-	        <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright &copy; 2018  All rights reserved.</p>
-	      </div>
-	    </div>
-	  </div>
-	  <!-- content-wrapper ends -->
+   <div class="main-panel">
+	   <div class="content-wrapper">
+		   <div class="row justify-content-md-center">
+			   <div class="col-md-8 justify-content-md-center">
+				   <div class="card">
+						<div class="card-body">
+							<h4 class="card-title">Sign In To Continue</h4> 
+							<hr> 
+							<form class="forms-sample" @submit.prevent="login">
+								<div class="row p-2">
+									<div class="col-8">
+										<div class="form-group">
+											<label>User Name</label> 
+											<input type="text" v-model="form.email" placeholder="Enter user name" class="form-control form-control-sm">
+										</div>
+									</div>
+								</div>
+								<div class="row p-2">
+									<div class="col-8">
+										<div class="form-group">
+											<label>Password</label>
+											<input type="password" v-model="form.password" placeholder="Enter password" class="form-control form-control-sm">
+										</div>
+									</div>
+								</div>								
+								<div class="row p-2">
+									<div class="col-8">
+										<div class="form-group">
+											<button type="button" @click="login" class="btn btn-block btn-primary font-weight-medium auth-form-btn">Login</button>											
+										</div>
+									</div>							
+								</div>
+							</form>
+						</div>
+				    </div>
+				</div>
+			</div>
+		</div>
    </div>
 </template>
-<script>
 
+<style scoped>
+	.main-panel {
+       min-height: 50% !important;
+	}
+</style>
+
+<script>
   import axios from 'axios'
   axios.defaults.withCredentials = true
-  axios.defaults.baseURL = 'http://inventory-dev/'
+  axios.defaults.baseURL = 'http://dev-quotation/'
   axios.crossDomain = true;
 
   export default {
     data() {
       return {
-        user: {
+        form: {
           email: '',
           password: ''
         },
@@ -87,18 +64,18 @@
     },
     methods: {
       login() {
+		  console.log(this.form.email);
         axios.get("airlock/csrf-cookie").then(response => {
-          axios.post("/api/login", {
-            email: this.email,
-            password: this.password
-          }).then(response2 => {
-            localStorage.setItem('loggedIn', 'true');
-            this.loggedIn = true;
-            this.$router.push({name: 'home'});
-          })
-          .catch(error => {
-            console.log(error)
-          });
+		  axios.post("/api/login", this.form)
+			.then(response2 => {				
+				localStorage.setItem('loggedIn', 'true');
+				this.loggedIn = true;
+				this.$router.push({name: 'home'});
+			})
+			.catch(error => {
+				console.log(error)
+				this.$snotify.error('Something went worng', 'error');
+			});
         });
       }
     }

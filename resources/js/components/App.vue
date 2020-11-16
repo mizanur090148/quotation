@@ -9,8 +9,9 @@
 		    </div>
 	    </div>
     </div>
-    <div v-else>    
-       <div class="container-fluid page-body-wrapper">	  
+    <div v-else>		
+        <div class="container-fluid page-body-wrapper">
+			<div style="width: 257px !important;"></div>
 	        <div class="main-panel">
 		       <router-view></router-view>
 		    </div>

@@ -30,12 +30,12 @@ use App\Http\Controllers\Api\V1\PurchaseSaleReturnController;
 |
 */
 
-/* Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-}); */
-
 //Route::post('register', 'AuthController@register');
-Route::post('login', 'AuthController@login');
+Route::post('login', [AuthController::class, 'login']);
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 // dashboard
 Route::get('get-best-purchase-products', [DashboardController::class, 'getBestPurchaseProducts']);
