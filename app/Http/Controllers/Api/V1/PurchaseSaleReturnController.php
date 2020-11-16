@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\V1\BaseController as BaseController;
 use App\Http\Controllers\Api\V1\ApiCrudHandler;
+use App\Http\Controllers\Api\V1\Services\PurchaseOrSaleReturnService;
 use App\Models\StockIn;
 use App\Models\Sale;
 
@@ -86,8 +87,18 @@ class PurchaseSaleReturnController extends BaseController
                 $modelData = $this->apiCrudHandler->show($request->invoice_id, Sale::class, $with);
             }
             return $this->sendResponse($modelData);
-        } catch (\Exception $ex) {
-            return $this->sendError($e->getMessage());
+        } catch (\Exception $e) {
+            
         }   
+    }
+
+    public function getInvoiceDetailsForReturnProduct(Request $request, PurchaseOrSaleReturnService $service)
+    {
+        try {
+            $modelData = $service->purchaseOrSaleReturn($request);
+            return $this->sendResponse($modelData);
+        } catch (\Exception $e) {dd($e->getMessage());
+            return $this->sendError($e->getMessage());
+        }
     }
 }

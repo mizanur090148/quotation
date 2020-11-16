@@ -119,6 +119,7 @@ Route::get('search-sales', [SaleController::class, 'search']);
 Route::get('get-invoice-dropdown', [PurchaseSaleReturnController::class, 'getInvoiceDropdown']);
 //Route::get('get-invoice-details', [PurchaseSaleReturnController::class, 'getInvoiceDetails']);
 Route::get('get-invoice-details-for-return', [PurchaseSaleReturnController::class, 'getInvoiceDetailsForReturn']);
+Route::get('purchase-or-sale-return-product', [PurchaseSaleReturnController::class, 'getInvoiceDetailsForReturnProduct']);
 
 // reports
 Route::get('daily-inventory-report', [InventoryReportController::class, 'dailyInventoryReport']);

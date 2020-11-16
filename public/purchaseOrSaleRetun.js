@@ -181,6 +181,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -189,8 +209,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       errors: [],
       invoices: [],
-      stock_challan: '',
-      sale: '',
+      purchase_invoice: '',
+      sale_invoice: '',
       purchase_detail_list: [],
       sale_detail_list: [],
       form: new Form({
@@ -208,6 +228,11 @@ __webpack_require__.r(__webpack_exports__);
           return_type: this.form.return_type
         }
       }).then(function (res) {
+        _this.purchase_detail_list = [];
+        _this.sale_detail_list = [];
+        _this.purchase_invoice = '';
+        _this.sale_invoice = '';
+        _this.invoices = [];
         _this.invoices = res.data;
       })["catch"](function (error) {
         console.log(error);
@@ -227,14 +252,16 @@ __webpack_require__.r(__webpack_exports__);
           invoice_id: this.form.invoice_id
         }
       }).then(function (res) {
+        _this2.purchase_invoice = '';
+        _this2.sale_invoice = '';
         _this2.purchase_detail_list = [];
         _this2.sale_detail_list = [];
 
         if (_this2.form.return_type == 0) {
-          _this2.stock_challan = res.data;
+          _this2.purchase_invoice = res.data;
           _this2.purchase_detail_list = res.data.stock_ins;
         } else {
-          _this2.sale = res.data;
+          _this2.sale_invoice = res.data;
           _this2.sale_detail_list = res.data.sales;
         }
       })["catch"](function (error) {
@@ -243,23 +270,7 @@ __webpack_require__.r(__webpack_exports__);
         loader.hide();
       });
     },
-
-    /*  getInvoiceWiseDetails() {
-       axios.get('/get-invoice-details', { params: { return_type: this.form.return_type, invoice_id: this.form.invoice_id }})
-         .then((res) => {
-           this.sale_details = [];
-           this.purchase_details = [];
-           if (this.form.return_type == 0) {
-             this.purchase_details = res.data;  
-           } else {
-             this.sale_details = res.data;
-           }           
-         })
-         .catch((error) => {
-            console.log(error);
-         })
-     }, */
-    deleteRow: function deleteRow(index, item) {
+    returnProduct: function returnProduct(type, productId) {
       var _this3 = this;
 
       this.$snotify.confirm("Do you want to return this product?", {
@@ -268,13 +279,29 @@ __webpack_require__.r(__webpack_exports__);
         buttons: [{
           text: "Yes",
           action: function action(toast) {
-            _this3.$snotify.remove(toast.id);
+            _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('purchase-or-sale-return-product/', {
+              params: {
+                return_type: _this3.form.return_type,
+                type: type,
+                product_id: productId
+              }
+            }).then(function (res) {
+              if (type == 'invoice') {
+                _this3.purchase_invoice = '';
+                _this3.sale_invoice = '';
+              }
 
-            var idx = _this3.form.product_detail_list.indexOf(index);
+              _this3.purchase_detail_list = [];
+              _this3.sale_detail_list = [];
 
-            _this3.form.product_detail_list.splice(idx, 1);
+              _this3.$snotify.clear();
 
-            getInvoiceWiseDetails();
+              _this3.$snotify.success('Successfully Returned', 'Success');
+
+              _this3.getInvoiceWiseDetails();
+            })["catch"](function (error) {
+              _this3.$snotify.error('Something went worng', 'error');
+            });
           },
           bold: true
         }, {
@@ -491,384 +518,373 @@ var render = function() {
                           : _vm._e()
                       ])
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "row" }, [
-                    _c("table", { staticClass: "list-table" }, [
-                      _c("thead", [
-                        _vm._m(0),
-                        _vm._v(" "),
-                        _c("tr", [
-                          this.form.return_type == 0
-                            ? _c("td", [_vm._v("Supplier Name")])
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("Product Name")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("Product Code")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("Quantity")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("Unit Price")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("Discount")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("Tax(5%)")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("Total")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("Actions")])
-                        ])
-                      ]),
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _vm.purchase_detail_list.length
+                  ? _c("table", { staticClass: "list-table" }, [
+                      _vm._m(0),
                       _vm._v(" "),
-                      _vm.purchase_detail_list.length
-                        ? _c(
-                            "tbody",
-                            [
-                              _vm._l(_vm.purchase_detail_list, function(
-                                product_detail,
-                                index
-                              ) {
-                                return _c("tr", { key: index }, [
-                                  _c("td", [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(product_detail.supplier.name) +
-                                        "\n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-left" }, [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(product_detail.product.name) +
-                                        "\n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-left" }, [
-                                    _vm._v(
-                                      "                    \n                        " +
-                                        _vm._s(product_detail.product.code) +
-                                        "\n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(product_detail.quantity) +
-                                        "                        \n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(
-                                          product_detail.product.purchase_price
-                                        ) +
-                                        "\n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(
-                                          product_detail.discount_percentage
-                                        ) +
-                                        "\n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(product_detail.tax_value) +
-                                        "\n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(
-                                          product_detail.product_wise_total
-                                        ) +
-                                        "\n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-center" }, [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-xs btn-primary btn-rounded btn-fw",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.deleteRow(
-                                              index,
-                                              _vm.stock_challan
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [_vm._v("Return")]
-                                    )
-                                  ])
-                                ])
-                              }),
-                              _vm._v(" "),
-                              _c("tr", { staticClass: "font-weight-bold" }, [
-                                _c("td", { attrs: { colspan: "7" } }, [
-                                  _vm._v("Total Product Cost")
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(
-                                    _vm._s(_vm.stock_challan.total_product_cost)
-                                  )
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("tr", { staticClass: "font-weight-bold" }, [
-                                _c("td", { attrs: { colspan: "7" } }, [
-                                  _vm._v("Shipping Cost")
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(
-                                    _vm._s(_vm.stock_challan.shipping_cost)
-                                  )
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("tr", { staticClass: "font-weight-bold" }, [
-                                _c("td", { attrs: { colspan: "7" } }, [
-                                  _vm._v("Others Cost")
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(_vm._s(_vm.stock_challan.others_cost))
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("tr", { staticClass: "font-weight-bold" }, [
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass: "grand",
-                                    attrs: { colspan: "7" }
-                                  },
-                                  [_vm._v("Grand Total")]
-                                ),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "grand" }, [
-                                  _vm._v(_vm._s(_vm.stock_challan.total_cost))
-                                ])
-                              ])
-                            ],
-                            2
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.sale_detail_list.length
-                        ? _c(
-                            "tbody",
-                            [
-                              _vm._l(_vm.sale_detail_list, function(
-                                product_detail,
-                                index
-                              ) {
-                                return _c("tr", { key: index }, [
-                                  _c("td", { staticClass: "text-left" }, [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(product_detail.product.name) +
-                                        "\n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-left" }, [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(product_detail.product.code) +
-                                        "\n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-right" }, [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(product_detail.quantity) +
-                                        "\n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-right" }, [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(product_detail.sale_price) +
-                                        "\n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-right" }, [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(
-                                          product_detail.discount_percentage
-                                        ) +
-                                        "\n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-right" }, [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(product_detail.tax_value) +
-                                        "\n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-right" }, [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(
-                                          Math.round(
-                                            product_detail.product_wise_total
-                                          )
-                                        ) +
-                                        "\n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-center" }, [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-xs btn-primary btn-rounded btn-fw",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.deleteRow(
-                                              index,
-                                              _vm.stock_challan
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [_vm._v("Return")]
-                                    )
-                                  ])
-                                ])
-                              }),
-                              _vm._v(" "),
-                              _c("tr", { staticClass: "font-weight-bold" }, [
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass: "text-right",
-                                    attrs: { colspan: "6" }
-                                  },
-                                  [_vm._v("Total Product Cost")]
-                                ),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-right" }, [
-                                  _vm._v(_vm._s(_vm.sale.total_product_price))
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("tr", { staticClass: "font-weight-bold" }, [
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass: "text-right",
-                                    attrs: { colspan: "6" }
-                                  },
-                                  [_vm._v("Shipping Cost")]
-                                ),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-right" }, [
-                                  _vm._v(_vm._s(_vm.sale.delivery_cost))
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("tr", { staticClass: "font-weight-bold" }, [
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass: "text-right",
-                                    attrs: { colspan: "6" }
-                                  },
-                                  [_vm._v("Others Cost")]
-                                ),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-right" }, [
-                                  _vm._v(_vm._s(_vm.sale.others_cost))
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("tr", { staticClass: "font-weight-bold" }, [
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass: "text-right grand",
-                                    attrs: { colspan: "6" }
-                                  },
-                                  [_vm._v("Grand Total")]
-                                ),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-right grand" }, [
-                                  _vm._v(
-                                    _vm._s(_vm.sale.invoice_wise_total_price)
-                                  )
-                                ])
-                              ])
-                            ],
-                            2
-                          )
-                        : _vm._e()
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "row p-2 justify-content-md-center" },
-                    [
                       _c(
-                        "div",
-                        { staticClass: "form-group" },
+                        "tbody",
                         [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-sm btn-primary mr-2",
-                              attrs: { type: "submit" }
-                            },
-                            [_vm._v("Return All")]
-                          ),
+                          _vm._l(_vm.purchase_detail_list, function(
+                            purchase_product,
+                            index
+                          ) {
+                            return _c("tr", { key: index }, [
+                              _c("td", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(purchase_product.supplier.name) +
+                                    "\n                      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-left" }, [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(purchase_product.product.name) +
+                                    "\n                      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-left" }, [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(purchase_product.product.code) +
+                                    "\n                      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(purchase_product.quantity) +
+                                    "\n                      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(
+                                      purchase_product.product.purchase_price
+                                    ) +
+                                    "\n                      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(
+                                      purchase_product.discount_percentage
+                                    ) +
+                                    "\n                      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(purchase_product.tax_value) +
+                                    "\n                      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(
+                                      purchase_product.product_wise_total
+                                    ) +
+                                    "\n                      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-center" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "btn btn-xs btn-primary btn-rounded btn-fw",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.returnProduct(
+                                          "single",
+                                          purchase_product.id
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Return")]
+                                )
+                              ])
+                            ])
+                          }),
                           _vm._v(" "),
-                          _c("router-link", { attrs: { to: "/home" } }, [
+                          _c("tr", { staticClass: "font-weight-bold" }, [
+                            _c("td", { attrs: { colspan: "7" } }, [
+                              _vm._v("Total Product Cost")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(_vm.purchase_invoice.total_product_cost)
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", { staticClass: "font-weight-bold" }, [
+                            _c("td", { attrs: { colspan: "7" } }, [
+                              _vm._v("Shipping Cost")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.purchase_invoice.shipping_cost))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", { staticClass: "font-weight-bold" }, [
+                            _c("td", { attrs: { colspan: "7" } }, [
+                              _vm._v("Others Cost")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.purchase_invoice.others_cost))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", { staticClass: "font-weight-bold" }, [
                             _c(
-                              "button",
-                              { staticClass: "btn btn-sm btn-danger mr-2" },
-                              [_vm._v("Cancel")]
-                            )
+                              "td",
+                              { staticClass: "grand", attrs: { colspan: "7" } },
+                              [_vm._v("Grand Total")]
+                            ),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "grand" }, [
+                              _vm._v(_vm._s(_vm.purchase_invoice.total_cost))
+                            ])
                           ])
                         ],
-                        1
+                        2
                       )
-                    ]
-                  )
-                ]
-              )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.sale_detail_list.length
+                  ? _c("table", { staticClass: "list-table" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        [
+                          _vm._l(_vm.sale_detail_list, function(
+                            sale_product,
+                            index
+                          ) {
+                            return _c("tr", { key: index }, [
+                              _c("td", { staticClass: "text-left" }, [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(sale_product.product.name) +
+                                    "\n                      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-left" }, [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(sale_product.product.code) +
+                                    "\n                      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-right" }, [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(sale_product.quantity) +
+                                    "\n                      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-right" }, [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(sale_product.sale_price) +
+                                    "\n                      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-right" }, [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(sale_product.discount_percentage) +
+                                    "\n                      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-right" }, [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(sale_product.tax_value) +
+                                    "\n                      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-right" }, [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(
+                                      Math.round(
+                                        sale_product.product_wise_total
+                                      )
+                                    ) +
+                                    "\n                      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-center" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "btn btn-xs btn-primary btn-rounded btn-fw",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.returnProduct(
+                                          "single",
+                                          sale_product.id
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Return")]
+                                )
+                              ])
+                            ])
+                          }),
+                          _vm._v(" "),
+                          _c("tr", { staticClass: "font-weight-bold" }, [
+                            _c(
+                              "td",
+                              {
+                                staticClass: "text-right",
+                                attrs: { colspan: "6" }
+                              },
+                              [_vm._v("Total Product Cost")]
+                            ),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-right" }, [
+                              _vm._v(
+                                _vm._s(_vm.sale_invoice.total_product_price)
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", { staticClass: "font-weight-bold" }, [
+                            _c(
+                              "td",
+                              {
+                                staticClass: "text-right",
+                                attrs: { colspan: "6" }
+                              },
+                              [_vm._v("Shipping Cost")]
+                            ),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-right" }, [
+                              _vm._v(_vm._s(_vm.sale_invoice.delivery_cost))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", { staticClass: "font-weight-bold" }, [
+                            _c(
+                              "td",
+                              {
+                                staticClass: "text-right",
+                                attrs: { colspan: "6" }
+                              },
+                              [_vm._v("Others Cost")]
+                            ),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-right" }, [
+                              _vm._v(_vm._s(_vm.sale_invoice.others_cost))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", { staticClass: "font-weight-bold" }, [
+                            _c(
+                              "td",
+                              {
+                                staticClass: "text-right grand",
+                                attrs: { colspan: "6" }
+                              },
+                              [_vm._v("Grand Total")]
+                            ),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-right grand" }, [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.sale_invoice.invoice_wise_total_price
+                                )
+                              )
+                            ])
+                          ])
+                        ],
+                        2
+                      )
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row p-2 col-sm-2 offset-sm-10" }, [
+                _c("div", { staticClass: "form-group text-right" }, [
+                  _vm.purchase_invoice
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-sm btn-primary mr-2 text-right",
+                          attrs: { type: "submit" },
+                          on: {
+                            click: function($event) {
+                              return _vm.returnProduct(
+                                "invoice",
+                                _vm.purchase_invoice.id
+                              )
+                            }
+                          }
+                        },
+                        [_vm._v("Return All")]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.sale_invoice
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-sm btn-primary mr-2 text-right",
+                          attrs: { type: "submit" },
+                          on: {
+                            click: function($event) {
+                              return _vm.returnProduct(
+                                "invoice",
+                                _vm.sale_invoice.id
+                              )
+                            }
+                          }
+                        },
+                        [_vm._v("Return All")]
+                      )
+                    : _vm._e()
+                ])
+              ])
             ])
           ])
         ])
@@ -884,8 +900,62 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", { attrs: { colspan: "9" } }, [_vm._v("Ordered Product Details")])
+    return _c("thead", [
+      _c("tr", [
+        _c("td", { attrs: { colspan: "9" } }, [
+          _vm._v("Ordered Product Details")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("tr", [
+        _c("td", [_vm._v("Supplier Name")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Product Name")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Product Code")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Quantity")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Unit Price")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Discount")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Tax(5%)")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Total")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Actions")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("td", { attrs: { colspan: "8" } }, [
+          _vm._v("Ordered Product Details")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("tr", [
+        _c("td", [_vm._v("Product Name")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Product Code")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Quantity")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Unit Price")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Discount")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Tax(5%)")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Total")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Actions")])
+      ])
     ])
   }
 ]
