@@ -49,7 +49,7 @@
 <script>
   import axios from 'axios'
   axios.defaults.withCredentials = true
-  axios.defaults.baseURL = 'http://dev-quotation/'
+  axios.defaults.baseURL = 'http://139.162.47.137:52/'
   axios.crossDomain = true;
 
   export default {
