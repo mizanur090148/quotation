@@ -90,11 +90,11 @@ class Sale extends Model
 
     public function getSaleDateAttribute()
     {
-        return $this->created_at->format('d-M-Y');
+        return $this->created_at ? $this->created_at->format('d-M-Y') : '';
     }
 
     public function getSaleDateTimeAttribute()
     {
-        return $this->created_at->format('Y-m-d H:i:s');
+        return $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : '';
     }
 }

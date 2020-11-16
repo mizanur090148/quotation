@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\V1\BaseController as BaseController;
 use App\Http\Controllers\Api\V1\ApiCrudHandler;
@@ -32,7 +31,7 @@ class StockInController extends BaseController
             ];
             $modelData = $this->apiCrudHandler->index($request, StockIn::class, $where, $with);           
             return $this->sendResponse($modelData);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }
@@ -42,7 +41,7 @@ class StockInController extends BaseController
         try {            
             $modelData = StockIn::where('category_id', $categoryId)->get();
             return $this->sendResponse($modelData);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }
@@ -61,7 +60,7 @@ class StockInController extends BaseController
             $select = ['id', 'name'];        
             $modelData = $this->apiCrudHandler->dropdownData($request, StockIn::class, $where = [],  $with = [], $select);
             return $this->sendResponse($modelData);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }   
@@ -85,7 +84,7 @@ class StockInController extends BaseController
             $stockIn->stockIns()->createMany($request->product_detail_list);            
             DB::commit();
             return $this->sendResponse($stockIn);
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             DB::rollback();
             return $this->sendError($e->getMessage());
         }
@@ -106,7 +105,7 @@ class StockInController extends BaseController
             ];
             $modelData = $this->apiCrudHandler->show($id, StockIn::class, $with);          
             return $this->sendResponse($modelData);
-        } catch (Exception $ex) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }
@@ -132,7 +131,7 @@ class StockInController extends BaseController
                 ->orderBy($request->sortByColumn ?? 'id', $request->sortBy ?? 'desc')
                 ->paginate();
             return $this->sendResponse($modelData);
-        } catch (Exception $ex) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }
@@ -148,7 +147,7 @@ class StockInController extends BaseController
         try {
             $delete = $this->apiCrudHandler->delete($id, StockIn::class);
             return $this->sendResponse($delete);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }  
     }

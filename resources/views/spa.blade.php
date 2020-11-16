@@ -30,7 +30,7 @@
 	<script src="{{ asset('vendors/base/vendor.bundle.base.js') }}"></script>
 	<!-- endinject -->
 	<!-- Plugin js for this page-->
-	<script src="vendors/chart.js/Chart.min.js"></script>
+	{{-- <script src="vendors/chart.js/Chart.min.js"></script> --}}
 	<script src="{{ asset('vendors/datatables.net/jquery.dataTables.js') }}"></script>
 	<script src="{{ asset('vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
 	<!-- End plugin js for this page-->
@@ -40,7 +40,7 @@
 	<script src="{{ asset('js/template.js') }}"></script>
 	<!-- endinject -->
 	<!-- Custom js for this page-->
-	<script src="{{ asset('js/dashboard.js') }}"></script>
+{{-- 	<script src="{{ asset('js/dashboard.js') }}"></script> --}}
 	<script src="{{ asset('js/data-table.js') }}"></script>
 	<script src="{{ asset('js/jquery.dataTables.js') }}"></script>
 	<script src="{{ asset('js/dataTables.bootstrap4.js') }}"></script>

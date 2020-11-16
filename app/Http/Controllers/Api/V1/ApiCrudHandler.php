@@ -79,7 +79,7 @@ class ApiCrudHandler
      * @return \Illuminate\Http\Response
      */
     public function show($id, $modelClassName, $with)
-    {
+    {        
         $modelData = $modelClassName::with($with)->find($id);
         return $modelData;
     }

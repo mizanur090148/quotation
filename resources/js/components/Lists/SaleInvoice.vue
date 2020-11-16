@@ -142,7 +142,7 @@
 
         axios.get('sale-invoice/' + saleId)
           .then((res) => {
-            this.sale = res.data;          
+            this.sale = res.data;
             this.product_detail_list = res.data.sales;
           })
           .catch((error) => {

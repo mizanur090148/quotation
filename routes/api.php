@@ -16,7 +16,9 @@ use App\Http\Controllers\Api\V1\StockInController;
 use App\Http\Controllers\Api\V1\SaleController;
 use App\Http\Controllers\Api\V1\PurchaseReportController;
 use App\Http\Controllers\Api\V1\SalesReportController;
-
+use App\Http\Controllers\Api\V1\InventoryReportController;
+use App\Http\Controllers\Api\V1\DashboardController;
+use App\Http\Controllers\Api\V1\PurchaseSaleReturnController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,15 +30,18 @@ use App\Http\Controllers\Api\V1\SalesReportController;
 |
 */
 
-/* Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-}); */
-
 //Route::post('register', 'AuthController@register');
-Route::post('login', 'AuthController@login');
+Route::post('login', [AuthController::class, 'login']);
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 // dashboard
-Route::get('get-best-sales-product', [SalesReportController::class, 'getBestSalesProduct']);
+Route::get('get-best-purchase-products', [DashboardController::class, 'getBestPurchaseProducts']);
+Route::get('get-best-sale-products', [DashboardController::class, 'getBestSaleProducts']);
+Route::get('get-recent-purchase-products', [DashboardController::class, 'getRecentPurchaseProducts']);
+Route::get('get-recent-sale-products', [DashboardController::class, 'getRecentSaleProducts']);
 
 Route::get('suppliers', [SupplierController::class, 'index']);
 Route::get('supplier-dropdown-data', [SupplierController::class, 'supplierDropdownData']);
@@ -110,7 +115,14 @@ Route::get('sale-invoice/{id}', [SaleController::class, 'show']);
 Route::delete('sales/{id}', [SaleController::class, 'delete']);
 Route::get('search-sales', [SaleController::class, 'search']);
 
+// Return
+Route::get('get-invoice-dropdown', [PurchaseSaleReturnController::class, 'getInvoiceDropdown']);
+//Route::get('get-invoice-details', [PurchaseSaleReturnController::class, 'getInvoiceDetails']);
+Route::get('get-invoice-details-for-return', [PurchaseSaleReturnController::class, 'getInvoiceDetailsForReturn']);
+Route::get('purchase-or-sale-return-product', [PurchaseSaleReturnController::class, 'getInvoiceDetailsForReturnProduct']);
+
 // reports
+Route::get('daily-inventory-report', [InventoryReportController::class, 'dailyInventoryReport']);
 Route::get('date-wise-purchase-report', [PurchaseReportController::class, 'dateWisePurchaseReport']);
 Route::get('date-wise-sales-report', [SalesReportController::class, 'dateWiseSalesReport']);
 Route::get('date-wise-vat-report', [SalesReportController::class, 'dateWiseVatReport']);

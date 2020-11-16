@@ -96,8 +96,8 @@ class ProductRequest extends FormRequest
                 'max:1000'
             ],
             'warning_quantity' => [
-                'nullable'
-              //  'numeric'              
+                'nullable',
+                'numeric'              
             ],
             
             /* 'image' => [
