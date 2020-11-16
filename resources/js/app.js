@@ -107,22 +107,22 @@ const router = new VueRouter({
         },
         {
             path: '/stock-in/create',
-            name: 'StockIn',
+            name: 'stockIn',
             component: StockIn,
         },
         {
             path: '/stock-ins',
-            name: 'stock-ins',
+            name: 'stockIns',
             component: StockIns,
         },
         {
             path: '/stock-ins/:id',
-            name: 'stock-ins',
+            name: 'stockIn',
             component: StockIn,
         },
         {
             path: '/stock-in-view/:id',
-            name: 'stock-in-view',
+            name: 'stockInView',
             component: StockInView,
         },
         {
