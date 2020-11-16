@@ -107,7 +107,7 @@ const router = new VueRouter({
         },
         {
             path: '/stock-in/create',
-            name: 'stockIn',
+            name: 'StockIn',
             component: StockIn,
         },
         {
