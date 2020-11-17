@@ -42,7 +42,7 @@
                     <td>{{ stock_in.shipping_cost }}</td>
                     <td>{{ stock_in.others_cost }}</td>
                     <td>{{ stock_in.total_cost }}</td>
-                    <td>{{ stock_in.created_date }}</td>
+                    <td>{{ stock_in.purchase_date }}</td>
                     <td>{{ stock_in.created_by.full_name }}</td>
                     <td>
                       <router-link

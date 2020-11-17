@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"Sale":"Sale","SaleInvoice":"SaleInvoice","Sales":"Sales","brands":"brands","categories":"categories","dateWiseInventory":"dateWiseInventory","dateWisePurchase":"dateWisePurchase","dateWiseSales":"dateWiseSales","dateWiseVat":"dateWiseVat","models":"models","product":"product","products":"products","purchaseOrSaleRetun":"purchaseOrSaleRetun","stockIn":"stockIn","stockInView":"stockInView","stockIns":"stockIns","suppliers":"suppliers","user":"user","users":"users"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"Milon":"Milon","MilonView":"MilonView","Milons":"Milons","Sale":"Sale","SaleInvoice":"SaleInvoice","Sales":"Sales","brands":"brands","categories":"categories","dateWiseInventory":"dateWiseInventory","dateWisePurchase":"dateWisePurchase","dateWiseSales":"dateWiseSales","dateWiseVat":"dateWiseVat","models":"models","product":"product","products":"products","purchaseOrSaleRetun":"purchaseOrSaleRetun","suppliers":"suppliers","user":"user","users":"users"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -6990,22 +6990,6 @@ var render = function() {
                       attrs: { tag: "a", to: "/daily-inventory-report" }
                     },
                     [_vm._v(" Daily Inventory report ")]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                { staticClass: "nav-item" },
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "nav-link",
-                      attrs: { tag: "a", to: "/monthly-inventory-report" }
-                    },
-                    [_vm._v(" Monthly Inventory report ")]
                   )
                 ],
                 1
@@ -24552,16 +24536,16 @@ var Suppliers = function Suppliers() {
   return __webpack_require__.e(/*! import() | suppliers */ "suppliers").then(__webpack_require__.bind(null, /*! ./components/lists/Suppliers.vue */ "./resources/js/components/lists/Suppliers.vue"));
 };
 
-var StockIns = function StockIns() {
-  return __webpack_require__.e(/*! import() | stockIns */ "stockIns").then(__webpack_require__.bind(null, /*! ./components/lists/StockIns.vue */ "./resources/js/components/lists/StockIns.vue"));
+var Milons = function Milons() {
+  return __webpack_require__.e(/*! import() | Milons */ "Milons").then(__webpack_require__.bind(null, /*! ./components/lists/StockIns.vue */ "./resources/js/components/lists/StockIns.vue"));
 };
 
-var StockIn = function StockIn() {
-  return __webpack_require__.e(/*! import() | stockIn */ "stockIn").then(__webpack_require__.bind(null, /*! ./components/forms/StockIn.vue */ "./resources/js/components/forms/StockIn.vue"));
+var Milon = function Milon() {
+  return __webpack_require__.e(/*! import() | Milon */ "Milon").then(__webpack_require__.bind(null, /*! ./components/forms/StockIn.vue */ "./resources/js/components/forms/StockIn.vue"));
 };
 
-var StockInView = function StockInView() {
-  return __webpack_require__.e(/*! import() | stockInView */ "stockInView").then(__webpack_require__.bind(null, /*! ./components/lists/StockInView.vue */ "./resources/js/components/lists/StockInView.vue"));
+var MilonView = function MilonView() {
+  return __webpack_require__.e(/*! import() | MilonView */ "MilonView").then(__webpack_require__.bind(null, /*! ./components/lists/StockInView.vue */ "./resources/js/components/lists/StockInView.vue"));
 };
 
 var Sale = function Sale() {
@@ -24628,20 +24612,20 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
     component: Product
   }, {
     path: '/stock-in/create',
-    name: 'StockIn',
-    component: StockIn
+    name: 'milon',
+    component: Milon
   }, {
     path: '/stock-ins',
-    name: 'stock-ins',
-    component: StockIns
+    name: 'milons',
+    component: Milons
   }, {
     path: '/stock-ins/:id',
-    name: 'stock-ins',
-    component: StockIn
+    name: 'milon',
+    component: Milon
   }, {
     path: '/stock-in-view/:id',
-    name: 'stock-in-view',
-    component: StockInView
+    name: 'milonView',
+    component: MilonView
   }, {
     path: '/sales',
     name: 'sales',
@@ -24656,7 +24640,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
     component: Sale
   }, {
     path: '/sale-invoice/:id',
-    name: 'sale-invoice',
+    name: 'saleInvoice',
     component: SaleInvoice
   }, {
     path: '/users',
