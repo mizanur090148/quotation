@@ -60,7 +60,7 @@
               </div>
 
               <div class="row">
-                <table class="list-table">
+                <table class="list-table table-bordered">
                    <thead>
                      <tr>
                         <td colspan="9">Ordered Product Details</td>
