@@ -1,6 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/Milons.js": "/Milons.js",
     "/Sale.js": "/Sale.js",
     "/SaleInvoice.js": "/SaleInvoice.js",
     "/Sales.js": "/Sales.js",
@@ -16,7 +17,6 @@
     "/purchaseOrSaleRetun.js": "/purchaseOrSaleRetun.js",
     "/stockIn.js": "/stockIn.js",
     "/stockInView.js": "/stockInView.js",
-    "/stockIns.js": "/stockIns.js",
     "/suppliers.js": "/suppliers.js",
     "/user.js": "/user.js",
     "/users.js": "/users.js"
