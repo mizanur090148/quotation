@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->double('product_unit', 12,4)->default(0)->comment('piece = 0, dozen = 1');
             $table->double('purchase_price', 12,4)->default(0);
             $table->double('sale_price', 12,4)->default(0);
-            $table->integer('warning_quantity')->default(0);
+            $table->integer('warning_quantity')->nullable();
             $table->smallInteger('tax_percentage')->default(0)->comment('percentage(%)');
             $table->text('product_detail')->nullable();
             $table->string('image', 130)->nullable();
