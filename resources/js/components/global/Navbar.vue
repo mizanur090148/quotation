@@ -89,9 +89,9 @@
                   <li class="nav-item">
                      <router-link tag="a" class="nav-link" to="/daily-inventory-report"> Daily Inventory report </router-link> 
                   </li>
-                  <li class="nav-item">
+                  <!-- <li class="nav-item">
                      <router-link tag="a" class="nav-link" to="/monthly-inventory-report"> Monthly Inventory report </router-link> 
-                  </li>
+                  </li> -->
                   <li class="nav-item">
                      <router-link tag="a" class="nav-link" to="/date-wise-purchase-report"> Date Wise Purchase Report </router-link> 
                   </li>

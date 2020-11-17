@@ -142,7 +142,7 @@ const router = new VueRouter({
         },
         {
             path: '/sale-invoice/:id',
-            name: 'sale-invoice',
+            name: 'saleInvoice',
             component: SaleInvoice,
         },
         {
