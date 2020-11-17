@@ -55,7 +55,7 @@ const Brands = () => import(/* webpackChunkName: "brands" */ './components/lists
 //const Supplier = () => import(/* webpackChunkName: "supplier" */ './components/forms/Supplier.vue');
 const Suppliers = () => import(/* webpackChunkName: "suppliers" */ './components/lists/Suppliers.vue');
 
-const StockIns = () => import(/* webpackChunkName: "Milons" */ './components/lists/StockIns.vue');
+const Milons = () => import(/* webpackChunkName: "Milons" */ './components/lists/StockIns.vue');
 const StockIn = () => import(/* webpackChunkName: "stockIn" */ './components/forms/StockIn.vue');
 const StockInView = () => import(/* webpackChunkName: "stockInView" */ './components/lists/StockInView.vue');
 
