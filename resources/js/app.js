@@ -56,8 +56,8 @@ const Brands = () => import(/* webpackChunkName: "brands" */ './components/lists
 const Suppliers = () => import(/* webpackChunkName: "suppliers" */ './components/lists/Suppliers.vue');
 
 const Milons = () => import(/* webpackChunkName: "Milons" */ './components/lists/StockIns.vue');
-const StockIn = () => import(/* webpackChunkName: "stockIn" */ './components/forms/StockIn.vue');
-const StockInView = () => import(/* webpackChunkName: "stockInView" */ './components/lists/StockInView.vue');
+const Milon = () => import(/* webpackChunkName: "Milon" */ './components/forms/StockIn.vue');
+const MilonView = () => import(/* webpackChunkName: "MilonView" */ './components/lists/StockInView.vue');
 
 const Sale = () => import(/* webpackChunkName: "Sale" */ './components/forms/Sale.vue');
 const Sales = () => import(/* webpackChunkName: "Sales" */ './components/Lists/Sales.vue');
@@ -107,8 +107,8 @@ const router = new VueRouter({
         },
         {
             path: '/stock-in/create',
-            name: 'StockIn',
-            component: StockIn,
+            name: 'milon',
+            component: Milon,
         },
         {
             path: '/stock-ins',
@@ -122,8 +122,8 @@ const router = new VueRouter({
         },
         {
             path: '/stock-in-view/:id',
-            name: 'stockInView',
-            component: StockInView,
+            name: 'milonView',
+            component: MilonView,
         },
         {
             path: '/sales',
