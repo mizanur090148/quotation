@@ -419,7 +419,7 @@
           .then(response => {
             if (response.status == 200) {
               this.$snotify.success('Successfully created', 'Success');
-              this.$router.push({name: 'stock-ins'});
+              this.$router.push({name: 'milons'});
             } else {
               this.$snotify.error('Something went worng', 'error');
             }
