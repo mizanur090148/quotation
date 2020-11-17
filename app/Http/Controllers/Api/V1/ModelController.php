@@ -23,7 +23,7 @@ class ModelController extends BaseController
         try {           
             $modelData = $this->apiCrudHandler->index($request, Modell::class, $where = [], $with = []);
             return $this->sendResponse($modelData);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }
@@ -34,7 +34,7 @@ class ModelController extends BaseController
             $select = ['id', 'name'];          
             $modelData = $this->apiCrudHandler->dropdownData($request, Modell::class, $where = [],  $with = [], $select);
             return $this->sendResponse($modelData);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }
@@ -52,7 +52,7 @@ class ModelController extends BaseController
         try {           
             $modelData = $this->apiCrudHandler->store($request, Modell::class);
             return $this->sendResponse($modelData);
-        } catch (Exception $ex) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
     } 
@@ -67,7 +67,7 @@ class ModelController extends BaseController
         try {
             $modelData = $this->apiCrudHandler->show($id, Modell::class, $with = []);
             return $this->sendResponse($modelData);
-        } catch (Exception $ex) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }
@@ -81,7 +81,7 @@ class ModelController extends BaseController
         try {
             $modelData = $this->apiCrudHandler->search($request, Modell::class);
             return $this->sendResponse($modelData);
-        } catch (Exception $ex) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }
@@ -97,7 +97,7 @@ class ModelController extends BaseController
         try {
             $delete = $this->apiCrudHandler->delete($id, Modell::class);
             return $this->sendResponse($delete);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }  
     }

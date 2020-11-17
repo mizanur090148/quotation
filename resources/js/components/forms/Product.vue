@@ -273,8 +273,8 @@
       return { 
         product_errors: [],     
         imagepreview : null,
-        product_form: new Form({
-          id: '',
+        product_form: new Form({  
+          id: '',       
           category_id: '',
           brand_id: '',
           model_id: '',
@@ -356,7 +356,7 @@
         })
         axios.get('products/' + productId)
           .then((res) => {
-            this.product_form = res.data;
+            this.product_form = res.data;           
             this.product_form.brand_id = res.data.brand_id ? res.data.brand_id : '';
             this.product_form.model_id = res.data.model_id ? res.data.model_id : '';
             this.product_form.warning_quantity = res.data.warning_quantity ? res.data.warning_quantity : '';
@@ -377,11 +377,12 @@
         });
 
         let data = new FormData;
+        data.append('id', this.product_form.id);
         data.append('name', this.product_form.name);
         data.append('code', this.product_form.code);
         data.append('category_id', this.product_form.category_id);
         data.append('brand_id', this.product_form.brand_id);
-        data.append('model_id', this.product_form.model_id);        
+        data.append('model_id', this.product_form.model_id);
         data.append('product_unit', this.product_form.product_unit);
         data.append('purchase_price', this.product_form.purchase_price);
         data.append('sale_price', this.product_form.sale_price);
