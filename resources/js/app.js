@@ -61,7 +61,7 @@ const MilonView = () => import(/* webpackChunkName: "MilonView" */ './components
 
 const Sale = () => import(/* webpackChunkName: "Sale" */ './components/forms/Sale.vue');
 const Sales = () => import(/* webpackChunkName: "Sales" */ './components/Lists/Sales.vue');
-const SaleInvoice = () => import(/* webpackChunkName: "SaleInvoice" */ './components/Lists/SaleInvoice.vue');
+const SumonView = () => import(/* webpackChunkName: "SumonView" */ './components/Lists/SaleInvoice.vue');
 
 const PurchaseOrSaleRetun = () => import(/* webpackChunkName: "purchaseOrSaleRetun" */ './components/forms/PurchaseOrSaleRetun.vue');
 
@@ -142,8 +142,8 @@ const router = new VueRouter({
         },
         {
             path: '/sale-invoice/:id',
-            name: 'saleInvoice',
-            component: SaleInvoice,
+            name: 'sumonView',
+            component: SumonView,
         },
         {
             path: '/users',

@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"Milon":"Milon","MilonView":"MilonView","Milons":"Milons","Sale":"Sale","SaleInvoice":"SaleInvoice","Sales":"Sales","brands":"brands","categories":"categories","dateWiseInventory":"dateWiseInventory","dateWisePurchase":"dateWisePurchase","dateWiseSales":"dateWiseSales","dateWiseVat":"dateWiseVat","models":"models","product":"product","products":"products","purchaseOrSaleRetun":"purchaseOrSaleRetun","suppliers":"suppliers","user":"user","users":"users"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"Milon":"Milon","MilonView":"MilonView","Milons":"Milons","Sale":"Sale","Sales":"Sales","SumonView":"SumonView","brands":"brands","categories":"categories","dateWiseInventory":"dateWiseInventory","dateWisePurchase":"dateWisePurchase","dateWiseSales":"dateWiseSales","dateWiseVat":"dateWiseVat","models":"models","product":"product","products":"products","purchaseOrSaleRetun":"purchaseOrSaleRetun","suppliers":"suppliers","user":"user","users":"users"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -24556,8 +24556,8 @@ var Sales = function Sales() {
   return __webpack_require__.e(/*! import() | Sales */ "Sales").then(__webpack_require__.bind(null, /*! ./components/Lists/Sales.vue */ "./resources/js/components/Lists/Sales.vue"));
 };
 
-var SaleInvoice = function SaleInvoice() {
-  return __webpack_require__.e(/*! import() | SaleInvoice */ "SaleInvoice").then(__webpack_require__.bind(null, /*! ./components/Lists/SaleInvoice.vue */ "./resources/js/components/Lists/SaleInvoice.vue"));
+var SumonView = function SumonView() {
+  return __webpack_require__.e(/*! import() | SumonView */ "SumonView").then(__webpack_require__.bind(null, /*! ./components/Lists/SaleInvoice.vue */ "./resources/js/components/Lists/SaleInvoice.vue"));
 };
 
 var PurchaseOrSaleRetun = function PurchaseOrSaleRetun() {
@@ -24640,8 +24640,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
     component: Sale
   }, {
     path: '/sale-invoice/:id',
-    name: 'saleInvoice',
-    component: SaleInvoice
+    name: 'sumonView',
+    component: SumonView
   }, {
     path: '/users',
     name: 'users',
