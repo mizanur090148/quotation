@@ -29,7 +29,7 @@ class ProductController extends BaseController
             ];
             $modelData = $this->apiCrudHandler->index($request, Product::class, $where = [], $with);
             return $this->sendResponse($modelData);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }
@@ -39,7 +39,7 @@ class ProductController extends BaseController
         try {            
             $modelData = Product::where('category_id', $categoryId)->get();
             return $this->sendResponse($modelData);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }
@@ -58,7 +58,7 @@ class ProductController extends BaseController
             $select = ['id', 'name'];        
             $modelData = $this->apiCrudHandler->dropdownData($request, Product::class, $where = [],  $with = [], $select);
             return $this->sendResponse($modelData);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }   
@@ -89,7 +89,7 @@ class ProductController extends BaseController
             // save or update
             $modelData = $this->apiCrudHandler->store($request, Product::class);
             return $this->sendResponse($modelData);
-        } catch (Exception $ex) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
     } 
@@ -109,7 +109,7 @@ class ProductController extends BaseController
             ];
             $modelData = $this->apiCrudHandler->show($id, Product::class, $with);
             return $this->sendResponse($modelData);
-        } catch (Exception $ex) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }
@@ -135,7 +135,7 @@ class ProductController extends BaseController
                 ->orderBy($request->sortByColumn ?? 'id', $request->sortBy ?? 'desc')
                 ->paginate();
             return $this->sendResponse($modelData);
-        } catch (Exception $ex) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }
@@ -150,7 +150,7 @@ class ProductController extends BaseController
             $modelData = Product::where('name', 'like', "%$request->search_product%")            
                 ->get();
             return $this->sendResponse($modelData);
-        } catch (Exception $ex) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }
@@ -166,7 +166,7 @@ class ProductController extends BaseController
         try {
             $delete = $this->apiCrudHandler->delete($id, Product::class);
             return $this->sendResponse($delete);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }  
     }

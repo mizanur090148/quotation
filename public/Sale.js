@@ -846,7 +846,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "row" }, [
-                    _c("table", { staticClass: "list-table" }, [
+                    _c("table", { staticClass: "list-table table-bordered" }, [
                       _vm._m(0),
                       _vm._v(" "),
                       _vm.form.product_detail_list.length

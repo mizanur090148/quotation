@@ -398,6 +398,7 @@ __webpack_require__.r(__webpack_exports__);
         loader: 'bars'
       });
       var data = new FormData();
+      data.append('id', this.product_form.id);
       data.append('name', this.product_form.name);
       data.append('code', this.product_form.code);
       data.append('category_id', this.product_form.category_id);
