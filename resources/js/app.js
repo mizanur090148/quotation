@@ -117,8 +117,8 @@ const router = new VueRouter({
         },
         {
             path: '/stock-ins/:id',
-            name: 'stockIn',
-            component: StockIn,
+            name: 'milon',
+            component: Milon,
         },
         {
             path: '/stock-in-view/:id',
