@@ -84,7 +84,7 @@ class StockInController extends BaseController
             $stockIn->stockIns()->createMany($request->product_detail_list);            
             DB::commit();
             return $this->sendResponse($stockIn);
-        } catch (\Exception $ex) {
+        } catch (\Exception $e) {
             DB::rollback();
             return $this->sendError($e->getMessage());
         }
