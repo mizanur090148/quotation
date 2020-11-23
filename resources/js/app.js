@@ -72,6 +72,9 @@ const DateWiseSalesReport = () => import(/* webpackChunkName: "dateWiseSales" */
 const DateWisePurchaseReport = () => import(/* webpackChunkName: "dateWisePurchase" */ './components/Reports/DateWisePurchase.vue');
 const DateWiseVatReport = () => import(/* webpackChunkName: "dateWiseVat" */ './components/Reports/DateWiseVat.vue');
 
+
+const Pos = () => import(/* webpackChunkName: "pos" */ './components/Pos.vue');
+
 const router = new VueRouter({
     mode: 'history',
     routes: [
@@ -79,6 +82,11 @@ const router = new VueRouter({
             path: '/login',
             name: 'login',
             component: Login
+        },
+        {
+            path: '/pos',
+            name: 'pos',
+            component: Pos
         },
         /* {
             path: '/',

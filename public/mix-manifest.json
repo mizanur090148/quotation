@@ -5,8 +5,8 @@
     "/MilonView.js": "/MilonView.js",
     "/Milons.js": "/Milons.js",
     "/Sale.js": "/Sale.js",
-    "/SaleInvoice.js": "/SaleInvoice.js",
     "/Sales.js": "/Sales.js",
+    "/SumonView.js": "/SumonView.js",
     "/brands.js": "/brands.js",
     "/categories.js": "/categories.js",
     "/dateWiseInventory.js": "/dateWiseInventory.js",
@@ -14,11 +14,12 @@
     "/dateWiseSales.js": "/dateWiseSales.js",
     "/dateWiseVat.js": "/dateWiseVat.js",
     "/models.js": "/models.js",
+    "/pos.js": "/pos.js",
     "/product.js": "/product.js",
     "/products.js": "/products.js",
     "/purchaseOrSaleRetun.js": "/purchaseOrSaleRetun.js",
     "/suppliers.js": "/suppliers.js",
     "/user.js": "/user.js",
     "/users.js": "/users.js",
-    "/SumonView.js": "/SumonView.js"
+    "/vendors~pos.js": "/vendors~pos.js"
 }
