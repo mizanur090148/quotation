@@ -2201,6 +2201,147 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Charts/WeeklyBarChart.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Charts/WeeklyBarChart.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_chartjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-chartjs */ "./node_modules/vue-chartjs/es/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  "extends": vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["Bar"],
+  data: function data() {
+    return {
+      /* chartData: {
+        labels: ["Jan", "2015-02", "2015-03", "2015-04", "2015-05", "2015-06", "2015-07", "2015-08", "2015-09",
+          "2015-10", "2015-11", "2015-12"
+        ],
+        datasets: [{
+          label: 'Purchase',
+          borderWidth: 1,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          pointBorderColor: '#2554FF',
+          data: [12, 19, 3, 5, 2, 30, 20, 3, 5, 6, 2, 1]
+        }]
+      },*/
+      chartData: {
+        labels: ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"],
+        datasets: [{
+          label: "Sale",
+          backgroundColor: "rgb(181, 204, 37)",
+          data: [3, 7, 4, 3, 3, 4, 3]
+        }, {
+          label: "Purchase",
+          backgroundColor: "#01A3A5",
+          data: [3, 7, 4, 3, 7, 4, 5]
+        }, {
+          label: "Balance",
+          backgroundColor: "red",
+          data: [3, 7, 4, 3, 7, 4, 3]
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: 'Amount'
+            },
+            ticks: {
+              beginAtZero: true
+            },
+            gridLines: {
+              display: true
+            }
+          }],
+          xAxes: [{
+            gridLines: {
+              display: false
+            }
+            /* ticks: {
+              autoSkip: false,
+              maxRotation: 90,
+              minRotation: 90,
+              fontSize: 10,
+              fontColor:"Black",
+              defaultFontFamily: "Arial, Helvetica, sans-serif"
+            } */
+
+          }]
+        },
+        title: {
+          display: true,
+          text: 'Week Wise Graph'
+        },
+        hover: {
+          animationDuration: 0
+        },
+        legend: {
+          display: true
+        },
+        animation: {
+          onComplete: function onComplete() {
+            var chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+            ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'bottom';
+            this.data.datasets.forEach(function (dataset, i) {
+              var meta = chartInstance.controller.getDatasetMeta(i);
+              meta.data.forEach(function (bar, index) {
+                var data = dataset.data[index];
+                ctx.fillText(data, bar._model.x, bar._model.y - 5);
+              });
+            });
+          }
+        },
+        tooltips: {
+          enabled: true
+        },
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    };
+  },
+  mounted: function mounted() {
+    this.renderChart(this.chartData, this.options);
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Home.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Home.vue?vue&type=script&lang=js& ***!
@@ -2216,6 +2357,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Partials_RecentPurchaseProducts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Partials/RecentPurchaseProducts */ "./resources/js/components/Partials/RecentPurchaseProducts.vue");
 /* harmony import */ var _Partials_RecentSaleProducts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Partials/RecentSaleProducts */ "./resources/js/components/Partials/RecentSaleProducts.vue");
 /* harmony import */ var _Charts_BarChart__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Charts/BarChart */ "./resources/js/components/Charts/BarChart.vue");
+/* harmony import */ var _Charts_WeeklyBarChart__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Charts/WeeklyBarChart */ "./resources/js/components/Charts/WeeklyBarChart.vue");
 //
 //
 //
@@ -2275,6 +2417,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -2288,7 +2448,8 @@ __webpack_require__.r(__webpack_exports__);
     BestSaleProducts: _Partials_BestSaleProducts__WEBPACK_IMPORTED_MODULE_2__["default"],
     RecentPurchaseProducts: _Partials_RecentPurchaseProducts__WEBPACK_IMPORTED_MODULE_3__["default"],
     RecentSaleProducts: _Partials_RecentSaleProducts__WEBPACK_IMPORTED_MODULE_4__["default"],
-    BarChart: _Charts_BarChart__WEBPACK_IMPORTED_MODULE_5__["default"]
+    BarChart: _Charts_BarChart__WEBPACK_IMPORTED_MODULE_5__["default"],
+    WeeklyBarChart: _Charts_WeeklyBarChart__WEBPACK_IMPORTED_MODULE_6__["default"]
   }
 });
 
@@ -2691,31 +2852,65 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       years: [],
-      best_sale_products: []
+      months: [],
+      monthly_details: null,
+      form: {
+        year: 2020,
+        month: new Date().getMonth()
+      }
     };
   },
   mounted: function mounted() {
-    // this.getYears()
-    this.getBestSaleProducts();
+    this.getYears();
+    this.getMonths();
+    this.getMonthlyDashboardDetails();
   },
   methods: {
     getYears: function getYears() {
-      for (var index = 1; index <= 50; index++) {
-        this.years.push(index);
+      for (var index = 0; index < 10; index++) {
+        this.years.push('202' + index);
       }
-
-      this.tax_percentage_dropdown_data = tax_percentage_dropdown_data;
     },
-    getBestSaleProducts: function getBestSaleProducts() {
+    getMonths: function getMonths() {
+      var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      this.months = months;
+    },
+    getMonthlyDashboardDetails: function getMonthlyDashboardDetails() {
       var _this = this;
 
-      _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('get-best-sale-products').then(function (res) {
-        _this.best_sale_products = res.data;
+      _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('get-monthly-dashboard-details', {
+        params: {
+          year: this.form.year,
+          month: this.form.month
+        }
+      }).then(function (res) {
+        _this.monthly_details = res.data;
       })["catch"](function (error) {});
     }
   }
@@ -19312,6 +19507,25 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 // module
 exports.push([module.i, "\n.main-panel[data-v-6bdc8b8e] {\n       min-height: 50% !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Partials/DashboardTopSummary.vue?vue&type=style&index=0&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Partials/DashboardTopSummary.vue?vue&type=style&index=0&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\nselect.form-control {\n  color: #000000;\n}\n", ""]);
 
 // exports
 
@@ -41429,6 +41643,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Partials/DashboardTopSummary.vue?vue&type=style&index=0&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Partials/DashboardTopSummary.vue?vue&type=style&index=0&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./DashboardTopSummary.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Partials/DashboardTopSummary.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -43421,7 +43665,18 @@ var render = function() {
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-12" }, [
           _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-body" }, [_c("BarChart")], 1)
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-12" }, [_c("BarChart")], 1),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-md-12" },
+                  [_c("WeeklyBarChart")],
+                  1
+                )
+              ])
+            ])
           ])
         ])
       ]),
@@ -43761,663 +44016,299 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mb-2" }, [
-      _c("div", { staticClass: "col-md-12 stretch-card" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-body dashboard-tabs p-0" }, [
-            _c("div", { staticClass: "tab-content py-0 px-0" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "tab-pane fade show active",
-                  attrs: {
-                    id: "overview",
-                    role: "tabpanel",
-                    "aria-labelledby": "overview-tab"
-                  }
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "d-flex flex-wrap justify-content-xl-between"
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
+  return _c("div", { staticClass: "row mb-2" }, [
+    _c("div", { staticClass: "col-md-12 stretch-card" }, [
+      _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card-body dashboard-tabs p-0" }, [
+          _c("div", { staticClass: "tab-content py-0 px-0" }, [
+            _c(
+              "div",
+              {
+                staticClass: "tab-pane fade show active",
+                attrs: {
+                  id: "overview",
+                  role: "tabpanel",
+                  "aria-labelledby": "overview-tab"
+                }
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "d-flex flex-wrap justify-content-xl-between"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
+                      },
+                      [
+                        _c("i", {
                           staticClass:
-                            "d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
-                        },
-                        [
-                          _c("i", {
+                            "mdi mdi-calendar-heart icon-lg mr-3 text-primary"
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
                             staticClass:
-                              "mdi mdi-calendar-heart icon-lg mr-3 text-primary"
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "d-flex flex-column justify-content-around"
-                            },
-                            [
-                              _c("small", { staticClass: "mb-1 text-muted" }, [
-                                _vm._v("Start date")
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "dropdown" }, [
-                                _c(
-                                  "a",
+                              "d-flex flex-column justify-content-around"
+                          },
+                          [
+                            _c("small", { staticClass: "mb-1 text-muted" }, [
+                              _vm._v("Year")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
                                   {
-                                    staticClass:
-                                      "btn btn-secondary dropdown-toggle p-0 bg-transparent border-0 text-dark shadow-none font-weight-medium",
-                                    attrs: {
-                                      href: "#",
-                                      role: "button",
-                                      id: "dropdownMenuLinkA",
-                                      "data-toggle": "dropdown",
-                                      "aria-haspopup": "true",
-                                      "aria-expanded": "false"
-                                    }
-                                  },
-                                  [
-                                    _c(
-                                      "h5",
-                                      { staticClass: "mb-0 d-inline-block" },
-                                      [_vm._v("26 Jul 2018")]
-                                    )
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.year,
+                                    expression: "form.year"
+                                  }
+                                ],
+                                staticClass: "form-control form-control-sm",
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "year",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    },
+                                    _vm.getMonthlyDashboardDetails
                                   ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass: "dropdown-menu",
-                                    attrs: {
-                                      "aria-labelledby": "dropdownMenuLinkA"
-                                    }
-                                  },
-                                  [
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "dropdown-item",
-                                        attrs: { href: "#" }
-                                      },
-                                      [_vm._v("12 Aug 2018")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "dropdown-item",
-                                        attrs: { href: "#" }
-                                      },
-                                      [_vm._v("22 Sep 2018")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "dropdown-item",
-                                        attrs: { href: "#" }
-                                      },
-                                      [_vm._v("21 Oct 2018")]
-                                    )
-                                  ]
+                                }
+                              },
+                              _vm._l(_vm.years, function(year, key) {
+                                return _c(
+                                  "option",
+                                  { key: key, domProps: { value: year } },
+                                  [_vm._v(_vm._s(year))]
                                 )
-                              ])
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
+                              }),
+                              0
+                            )
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
+                      },
+                      [
+                        _c("i", {
                           staticClass:
-                            "d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
-                        },
-                        [
-                          _c("i", {
+                            "mdi mdi-calendar-heart icon-lg mr-3 text-primary"
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
                             staticClass:
-                              "mdi mdi-currency-usd mr-3 icon-lg text-danger"
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "d-flex flex-column justify-content-around"
-                            },
-                            [
-                              _c("small", { staticClass: "mb-1 text-muted" }, [
-                                _vm._v("Sale")
-                              ]),
-                              _vm._v(" "),
-                              _c("h5", { staticClass: "mr-2 mb-0" }, [
-                                _vm._v("$577545")
-                              ])
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
-                        },
-                        [
-                          _c("i", {
-                            staticClass:
-                              "mdi mdi-currency-usd mr-3 icon-lg text-danger"
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "d-flex flex-column justify-content-around"
-                            },
-                            [
-                              _c("small", { staticClass: "mb-1 text-muted" }, [
-                                _vm._v("Purchase")
-                              ]),
-                              _vm._v(" "),
-                              _c("h5", { staticClass: "mr-2 mb-0" }, [
-                                _vm._v("9833550")
-                              ])
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex py-3 border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
-                        },
-                        [
-                          _c("i", {
-                            staticClass:
-                              "mdi mdi-currency-usd mr-3 icon-lg text-danger"
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "d-flex flex-column justify-content-around"
-                            },
-                            [
-                              _c("small", { staticClass: "mb-1 text-muted" }, [
-                                _vm._v("Balance")
-                              ]),
-                              _vm._v(" "),
-                              _c("h5", { staticClass: "mr-2 mb-0" }, [
-                                _vm._v("3497843")
-                              ])
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "tab-pane fade",
-                  attrs: {
-                    id: "sales",
-                    role: "tabpanel",
-                    "aria-labelledby": "sales-tab"
-                  }
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "d-flex flex-wrap justify-content-xl-between"
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
-                        },
-                        [
-                          _c("i", {
-                            staticClass:
-                              "mdi mdi-calendar-heart icon-lg mr-3 text-primary"
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "d-flex flex-column justify-content-around"
-                            },
-                            [
-                              _c("small", { staticClass: "mb-1 text-muted" }, [
-                                _vm._v("Sale")
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "dropdown" }, [
-                                _c(
-                                  "a",
+                              "d-flex flex-column justify-content-around"
+                          },
+                          [
+                            _c("small", { staticClass: "mb-1 text-muted" }, [
+                              _vm._v("Month")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
                                   {
-                                    staticClass:
-                                      "btn btn-secondary dropdown-toggle p-0 bg-transparent border-0 text-dark shadow-none font-weight-medium",
-                                    attrs: {
-                                      href: "#",
-                                      role: "button",
-                                      id: "dropdownMenuLinkA",
-                                      "data-toggle": "dropdown",
-                                      "aria-haspopup": "true",
-                                      "aria-expanded": "false"
-                                    }
-                                  },
-                                  [
-                                    _c(
-                                      "h5",
-                                      { staticClass: "mb-0 d-inline-block" },
-                                      [_vm._v("26 Jul 2018")]
-                                    )
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.month,
+                                    expression: "form.month"
+                                  }
+                                ],
+                                staticClass: "form-control form-control-sm",
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "month",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    },
+                                    _vm.getMonthlyDashboardDetails
                                   ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass: "dropdown-menu",
-                                    attrs: {
-                                      "aria-labelledby": "dropdownMenuLinkA"
-                                    }
-                                  },
-                                  [
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "dropdown-item",
-                                        attrs: { href: "#" }
-                                      },
-                                      [_vm._v("12 Aug 2018")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "dropdown-item",
-                                        attrs: { href: "#" }
-                                      },
-                                      [_vm._v("22 Sep 2018")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "dropdown-item",
-                                        attrs: { href: "#" }
-                                      },
-                                      [_vm._v("21 Oct 2018")]
-                                    )
-                                  ]
+                                }
+                              },
+                              _vm._l(_vm.months, function(month, key) {
+                                return _c(
+                                  "option",
+                                  { key: key, domProps: { value: key } },
+                                  [_vm._v(_vm._s(month))]
                                 )
-                              ])
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
+                              }),
+                              0
+                            )
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
+                      },
+                      [
+                        _c("i", {
                           staticClass:
-                            "d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
-                        },
-                        [
-                          _c("i", {
+                            "mdi mdi-currency-usd mr-3 icon-lg text-danger"
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
                             staticClass:
-                              "mdi mdi-download mr-3 icon-lg text-warning"
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "d-flex flex-column justify-content-around"
-                            },
-                            [
-                              _c("small", { staticClass: "mb-1 text-muted" }, [
-                                _vm._v("Revenue")
-                              ]),
-                              _vm._v(" "),
-                              _c("h5", { staticClass: "mr-2 mb-0" }, [
-                                _vm._v("2233783")
-                              ])
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "mdi mdi-eye mr-3 icon-lg text-success"
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "d-flex flex-column justify-content-around"
-                            },
-                            [
-                              _c("small", { staticClass: "mb-1 text-muted" }, [
-                                _vm._v("Total views")
-                              ]),
-                              _vm._v(" "),
-                              _c("h5", { staticClass: "mr-2 mb-0" }, [
-                                _vm._v("9833550")
-                              ])
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
-                        },
-                        [
-                          _c("i", {
-                            staticClass:
-                              "mdi mdi-currency-usd mr-3 icon-lg text-danger"
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "d-flex flex-column justify-content-around"
-                            },
-                            [
-                              _c("small", { staticClass: "mb-1 text-muted" }, [
-                                _vm._v("Revenue")
-                              ]),
-                              _vm._v(" "),
-                              _c("h5", { staticClass: "mr-2 mb-0" }, [
-                                _vm._v("$577545")
-                              ])
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex py-3 border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "mdi mdi-flag mr-3 icon-lg text-danger"
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "d-flex flex-column justify-content-around"
-                            },
-                            [
-                              _c("small", { staticClass: "mb-1 text-muted" }, [
-                                _vm._v("Flagged")
-                              ]),
-                              _vm._v(" "),
-                              _c("h5", { staticClass: "mr-2 mb-0" }, [
-                                _vm._v("3497843")
-                              ])
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "tab-pane fade",
-                  attrs: {
-                    id: "purchases",
-                    role: "tabpanel",
-                    "aria-labelledby": "purchases-tab"
-                  }
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "d-flex flex-wrap justify-content-xl-between"
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
-                        },
-                        [
-                          _c("i", {
-                            staticClass:
-                              "mdi mdi-calendar-heart icon-lg mr-3 text-primary"
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "d-flex flex-column justify-content-around"
-                            },
-                            [
-                              _c("small", { staticClass: "mb-1 text-muted" }, [
-                                _vm._v("Start date")
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "dropdown" }, [
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass:
-                                      "btn btn-secondary dropdown-toggle p-0 bg-transparent border-0 text-dark shadow-none font-weight-medium",
-                                    attrs: {
-                                      href: "#",
-                                      role: "button",
-                                      id: "dropdownMenuLinkA",
-                                      "data-toggle": "dropdown",
-                                      "aria-haspopup": "true",
-                                      "aria-expanded": "false"
-                                    }
-                                  },
-                                  [
-                                    _c(
-                                      "h5",
-                                      { staticClass: "mb-0 d-inline-block" },
-                                      [_vm._v("26 Jul 2018")]
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass: "dropdown-menu",
-                                    attrs: {
-                                      "aria-labelledby": "dropdownMenuLinkA"
-                                    }
-                                  },
-                                  [
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "dropdown-item",
-                                        attrs: { href: "#" }
-                                      },
-                                      [_vm._v("12 Aug 2018")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "dropdown-item",
-                                        attrs: { href: "#" }
-                                      },
-                                      [_vm._v("22 Sep 2018")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "dropdown-item",
-                                        attrs: { href: "#" }
-                                      },
-                                      [_vm._v("21 Oct 2018")]
-                                    )
-                                  ]
+                              "d-flex flex-column justify-content-around"
+                          },
+                          [
+                            _c("small", { staticClass: "mb-1 text-muted" }, [
+                              _vm._v("Sale")
+                            ]),
+                            _vm._v(" "),
+                            _c("h5", { staticClass: "mr-2 mb-0" }, [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.monthly_details
+                                    ? _vm.monthly_details.sale_amount
+                                    : ""
                                 )
-                              ])
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
+                              )
+                            ])
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
+                      },
+                      [
+                        _c("i", {
                           staticClass:
-                            "d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
-                        },
-                        [
-                          _c("i", {
+                            "mdi mdi-currency-usd mr-3 icon-lg text-danger"
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
                             staticClass:
-                              "mdi mdi-currency-usd mr-3 icon-lg text-danger"
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "d-flex flex-column justify-content-around"
-                            },
-                            [
-                              _c("small", { staticClass: "mb-1 text-muted" }, [
-                                _vm._v("Revenue")
-                              ]),
-                              _vm._v(" "),
-                              _c("h5", { staticClass: "mr-2 mb-0" }, [
-                                _vm._v("$577545")
-                              ])
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
+                              "d-flex flex-column justify-content-around"
+                          },
+                          [
+                            _c("small", { staticClass: "mb-1 text-muted" }, [
+                              _vm._v("Purchase")
+                            ]),
+                            _vm._v(" "),
+                            _c("h5", { staticClass: "mr-2 mb-0" }, [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.monthly_details
+                                    ? _vm.monthly_details.purchase_amount
+                                    : ""
+                                )
+                              )
+                            ])
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex py-3 border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
+                      },
+                      [
+                        _c("i", {
                           staticClass:
-                            "d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "mdi mdi-eye mr-3 icon-lg text-success"
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "d-flex flex-column justify-content-around"
-                            },
-                            [
-                              _c("small", { staticClass: "mb-1 text-muted" }, [
-                                _vm._v("Total views")
-                              ]),
-                              _vm._v(" "),
-                              _c("h5", { staticClass: "mr-2 mb-0" }, [
-                                _vm._v("9833550")
-                              ])
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex py-3 border-md-right flex-grow-1 align-items-center justify-content-center p-3 item"
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "mdi mdi-flag mr-3 icon-lg text-danger"
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "d-flex flex-column justify-content-around"
-                            },
-                            [
-                              _c("small", { staticClass: "mb-1 text-muted" }, [
-                                _vm._v("Flagged")
-                              ]),
-                              _vm._v(" "),
-                              _c("h5", { staticClass: "mr-2 mb-0" }, [
-                                _vm._v("3497843")
-                              ])
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              )
-            ])
+                            "mdi mdi-currency-usd mr-3 icon-lg text-danger"
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "d-flex flex-column justify-content-around"
+                          },
+                          [
+                            _c("small", { staticClass: "mb-1 text-muted" }, [
+                              _vm._v("Balance")
+                            ]),
+                            _vm._v(" "),
+                            _c("h5", { staticClass: "mr-2 mb-0" }, [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.monthly_details
+                                    ? _vm.monthly_details.balance
+                                    : ""
+                                )
+                              )
+                            ])
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ]
+            )
           ])
         ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -63195,6 +63086,56 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Charts/WeeklyBarChart.vue":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/Charts/WeeklyBarChart.vue ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _WeeklyBarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./WeeklyBarChart.vue?vue&type=script&lang=js& */ "./resources/js/components/Charts/WeeklyBarChart.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _WeeklyBarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Charts/WeeklyBarChart.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Charts/WeeklyBarChart.vue?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/Charts/WeeklyBarChart.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_WeeklyBarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./WeeklyBarChart.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Charts/WeeklyBarChart.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_WeeklyBarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/Home.vue":
 /*!******************************************!*\
   !*** ./resources/js/components/Home.vue ***!
@@ -63518,7 +63459,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _DashboardTopSummary_vue_vue_type_template_id_61308993___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DashboardTopSummary.vue?vue&type=template&id=61308993& */ "./resources/js/components/Partials/DashboardTopSummary.vue?vue&type=template&id=61308993&");
 /* harmony import */ var _DashboardTopSummary_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DashboardTopSummary.vue?vue&type=script&lang=js& */ "./resources/js/components/Partials/DashboardTopSummary.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _DashboardTopSummary_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DashboardTopSummary.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/Partials/DashboardTopSummary.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -63526,7 +63469,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _DashboardTopSummary_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _DashboardTopSummary_vue_vue_type_template_id_61308993___WEBPACK_IMPORTED_MODULE_0__["render"],
   _DashboardTopSummary_vue_vue_type_template_id_61308993___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -63555,6 +63498,22 @@ component.options.__file = "resources/js/components/Partials/DashboardTopSummary
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DashboardTopSummary_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./DashboardTopSummary.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Partials/DashboardTopSummary.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DashboardTopSummary_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Partials/DashboardTopSummary.vue?vue&type=style&index=0&lang=css&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/Partials/DashboardTopSummary.vue?vue&type=style&index=0&lang=css& ***!
+  \***************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DashboardTopSummary_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./DashboardTopSummary.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Partials/DashboardTopSummary.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DashboardTopSummary_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DashboardTopSummary_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DashboardTopSummary_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DashboardTopSummary_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DashboardTopSummary_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 

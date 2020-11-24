@@ -68,5 +68,21 @@ class DashboardService
             
         return $reportData;
     }
+    
+    public function dashboardMonthlyDetails($request)
+    {
+        $sale_amount = Sale::whereYear('created_at', $request->year)
+            ->whereMonth('created_at', $request->month + 1)
+            ->sum('product_wise_total');
+        
+        $purchase_amount = StockIn::whereYear('created_at', $request->year)
+            ->whereMonth('created_at', $request->month + 1)
+            ->sum('product_wise_total');
 
+        return [
+            'sale_amount' => round($sale_amount),
+            'purchase_amount' => round($purchase_amount),
+            'balance' => round($sale_amount) - round($purchase_amount)
+        ];
+    }
 }

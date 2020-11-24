@@ -79,7 +79,7 @@ class SaleController extends BaseController
         try {
             DB::beginTransaction();
             if ($request->id) {
-                $delete = $this->apiCrudHandler->delete($request->id, Sale::class);                
+                $this->apiCrudHandler->delete($request->id, Sale::class);                
             } 
             $sale = Sale::create($request->except('product_detail_list'));
             $sale->sales()->createMany($request->product_detail_list);            

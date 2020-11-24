@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Api\V1\BaseController as BaseController;
 use App\Http\Controllers\Api\V1\Services\DashboardService;
 use Exception;
@@ -50,6 +51,16 @@ class DashboardController extends BaseController
         try {
             $reports = $this->service->getBestPurchaseProducts();
             return $this->sendResponse($reports);
+        } catch (Exception $e) {
+            return $this->sendError($e->getMessage());
+        }
+    }
+
+    public function getMonthlyDashboardDetails(Request $request)
+    {
+        try {
+            $result = $this->service->dashboardMonthlyDetails($request);
+            return $this->sendResponse($result);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
         }

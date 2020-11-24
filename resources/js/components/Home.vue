@@ -35,11 +35,28 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-body">
-            <BarChart></BarChart>
+            <div class="row">
+              <div class="col-md-12">
+                <BarChart></BarChart>
+              </div>
+              <div class="col-md-12">
+                <WeeklyBarChart></WeeklyBarChart>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- <div class="row">
+      <div class="col-md-6">
+        <BarChart></BarChart>
+      </div>
+      <div class="col-md-6">
+        <BarChart></BarChart>         
+      </div>
+    </div> -->
+
     <div class="row mt-2">      
       <BestSaleProducts></BestSaleProducts>
       <BestPurchaseProducts></BestPurchaseProducts>
@@ -63,7 +80,8 @@
   import BestSaleProducts from "./Partials/BestSaleProducts";
   import RecentPurchaseProducts from "./Partials/RecentPurchaseProducts";
   import RecentSaleProducts from "./Partials/RecentSaleProducts";
-  import BarChart from './Charts/BarChart'
+  import BarChart from './Charts/BarChart';
+  import WeeklyBarChart from './Charts/WeeklyBarChart'
   
   export default {
     components: {
@@ -72,7 +90,8 @@
       BestSaleProducts,
       RecentPurchaseProducts,
       RecentSaleProducts,
-      BarChart
+      BarChart,
+      WeeklyBarChart
     }
   }
 </script>

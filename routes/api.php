@@ -42,6 +42,7 @@ Route::get('get-best-purchase-products', [DashboardController::class, 'getBestPu
 Route::get('get-best-sale-products', [DashboardController::class, 'getBestSaleProducts']);
 Route::get('get-recent-purchase-products', [DashboardController::class, 'getRecentPurchaseProducts']);
 Route::get('get-recent-sale-products', [DashboardController::class, 'getRecentSaleProducts']);
+Route::get('get-monthly-dashboard-details', [DashboardController::class, 'getMonthlyDashboardDetails']);
 
 Route::get('suppliers', [SupplierController::class, 'index']);
 Route::get('supplier-dropdown-data', [SupplierController::class, 'supplierDropdownData']);
