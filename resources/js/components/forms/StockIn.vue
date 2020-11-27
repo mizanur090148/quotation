@@ -42,8 +42,7 @@
                   </div>
                 </div> -->
               </div>
-              <hr>
-              
+              <hr>              
               <div class="row p-2">               
                 <div class="col-6">
                   <div class="form-group">
@@ -59,77 +58,79 @@
                 </div>
               </div>
 
-              <div class="row">
-                <table class="list-table table-bordered">
-                   <thead>
-                     <tr>
-                        <td colspan="9">Product Details Table</td>
-                     </tr>
+              <div class="row p-2">
+                <div class="col-12">
+                  <table class="list-table table-bordered">
+                    <thead>
                       <tr>
-                        <td>Supplier</td>
-                        <td>Product Name</td>
-                        <td>Product Code</td>
-                        <td>Quantity</td>
-                        <td>Unit Cost</td>
-                        <td>Discount(%)</td>
-                        <td>Tax(%)</td>
-                        <td>Product Total</td>
-                        <td>Actions</td>
+                          <td colspan="9">Product Details Table</td>
                       </tr>
-                    </thead>
-                    <tbody v-if="form.product_detail_list.length">
-                      <tr v-for="(product_detail, index) in form.product_detail_list" :key="index">
-                        <td>
-                          <select v-model="product_detail.supplier_id" required class="form-control form-control-sm" :class="{ 'is-invalid': errors.supplier_id }">
-                            <option value="">Please select a supplier</option>
-                            <option v-for="(supplier, key) in suppliers" :value="supplier.id" :key="key">{{ supplier.name }}</option>
-                          </select>
-                        </td>
-                        <td>
-                          {{ product_detail.name ? product_detail.name : product_detail.product.name }}
-                        </td>
-                        <td>                    
-                          {{ product_detail.code ? product_detail.code : product_detail.product.code }}
-                        </td>
-                        <td class="text-center">
-                          <div class="input-group col-xs-12">
-                            <input type="number" style="width:70px !important;" v-model="product_detail.quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
-                            <span class="input-group-append">
-                              <button class="btn btn-sm btn-primary" type="button">Pcs</button>
-                            </span>
-                            <small class="text-danger" v-if="errors.quantity">{{ errors.quantity[0] }}</small>
-                          </div>
-                        </td>
-                        <td class="text-center">
-                          {{ product_detail.purchase_price ? product_detail.purchase_price : product_detail.product.purchase_price }}
-                        </td>
-                        <td>
-                          <div class="input-group col-xs-12">
-                            <input type="number" style="width:60px !important;" v-model="product_detail.discount_percentage" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.discount_percentage }" placeholder="Discount percentage">
-                            <span class="input-group-append">
-                              <button class="btn btn-sm btn-primary" type="button">%</button>
-                            </span>
-                            <small class="text-danger" v-if="errors.discount_percentage">{{ errors.discount_percentage[0] }}</small>
-                          </div>
-                        </td>
-                        <td>                     
-                          {{ product_detail.tax_percentage }}%
-                        </td>
-                        <td class="text-center">
-                          {{ product_detail.product_wise_total }}
-                        </td>
-                        <td class="text-center">
-                          <button type="button" class="btn btn-xs btn-danger btn-rounded btn-fw" @click="deleteRow(index, product_detail)"><i class="mdi mdi-delete"></i></button>
-                        </td>
-                      </tr>
-                      <tr class="font-weight-bold">
-                        <td colspan="7">Grand Total</td>
-                        <td>{{ total_cost }}</td>
-                      </tr>
-                    </tbody>
-                </table>
+                        <tr>
+                          <td>Supplier</td>
+                          <td>Product Name</td>
+                          <td>Product Code</td>
+                          <td>Quantity</td>
+                          <td>Unit Cost</td>
+                          <td>Discount(%)</td>
+                          <td>Tax(%)</td>
+                          <td>Product Total</td>
+                          <td>Actions</td>
+                        </tr>
+                      </thead>
+                      <tbody v-if="form.product_detail_list.length">
+                        <tr v-for="(product_detail, index) in form.product_detail_list" :key="index">
+                          <td>
+                            <select v-model="product_detail.supplier_id" required class="form-control form-control-sm" :class="{ 'is-invalid': errors.supplier_id }">
+                              <option value="">Please select a supplier</option>
+                              <option v-for="(supplier, key) in suppliers" :value="supplier.id" :key="key">{{ supplier.name }}</option>
+                            </select>
+                          </td>
+                          <td>
+                            {{ product_detail.name ? product_detail.name : product_detail.product.name }}
+                          </td>
+                          <td>                    
+                            {{ product_detail.code ? product_detail.code : product_detail.product.code }}
+                          </td>
+                          <td class="text-center">
+                            <div class="input-group col-xs-12">
+                              <input type="number" style="width:70px !important;" v-model="product_detail.quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
+                              <span class="input-group-append">
+                                <button class="btn btn-sm btn-primary" type="button">Pcs</button>
+                              </span>
+                              <small class="text-danger" v-if="errors.quantity">{{ errors.quantity[0] }}</small>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            {{ product_detail.purchase_price ? product_detail.purchase_price : product_detail.product.purchase_price }}
+                          </td>
+                          <td>
+                            <div class="input-group col-xs-12">
+                              <input type="number" style="width:60px !important;" v-model="product_detail.discount_percentage" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.discount_percentage }" placeholder="Discount percentage">
+                              <span class="input-group-append">
+                                <button class="btn btn-sm btn-primary" type="button">%</button>
+                              </span>
+                              <small class="text-danger" v-if="errors.discount_percentage">{{ errors.discount_percentage[0] }}</small>
+                            </div>
+                          </td>
+                          <td>                     
+                            {{ product_detail.tax_percentage }}%
+                          </td>
+                          <td class="text-center">
+                            {{ product_detail.product_wise_total }}
+                          </td>
+                          <td class="text-center">
+                            <button type="button" class="btn btn-xs btn-danger btn-rounded btn-fw" @click="deleteRow(index, product_detail)"><i class="mdi mdi-delete"></i></button>
+                          </td>
+                        </tr>
+                        <tr class="font-weight-bold">
+                          <td colspan="7">Grand Total</td>
+                          <td>{{ total_cost }}</td>
+                        </tr>
+                      </tbody>
+                  </table>
+                </div>
               </div>
-              <div class="row p-4">
+              <div class="row p-2">
                 <div class="col-3">
                   <div class="form-group">
                     <label>Shipping Cost</label>

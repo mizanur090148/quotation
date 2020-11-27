@@ -59,70 +59,72 @@
                 </div>
               </div>
 
-              <div class="row">
-                <table class="list-table table-bordered">
-                   <thead>
-                     <tr>
-                        <td colspan="9">Ordered Product Details</td>
-                     </tr>
-                      <tr>             
-                        <td>Product Name</td>
-                        <td>Product Code</td>
-                        <td>Quantity</td>
-                        <td>Unit Price</td>
-                        <td>Discount</td>
-                        <td>Tax(5%)</td>
-                        <td>Total</td>
-                        <td>Actions</td>
+              <div class="row p-2">
+                <div class="col-12">
+                  <table class="list-table table-bordered">
+                    <thead>
+                      <tr>
+                          <td colspan="9">Ordered Product Details</td>
                       </tr>
-                    </thead>
-                    <tbody v-if="form.product_detail_list.length">
-                      <tr v-for="(product_detail, index) in form.product_detail_list" :key="index">
-                        <td>
-                          {{ product_detail.name ? product_detail.name : product_detail.product.name }}
-                        </td>
-                        <td>
-                          {{ product_detail.code ? product_detail.code : product_detail.product.code }}
-                        </td>
-                        <td class="text-center">
-                          <div class="input-group col-xs-12">
-                            <input type="number" style="width:70px !important;" v-model="product_detail.quantity" class="form-control form-control-sm" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
-                            <span class="input-group-append">
-                              <button class="btn btn-sm btn-primary" type="button">Pcs</button>
-                            </span>
-                            <small class="text-danger" v-if="errors.quantity">{{ errors.quantity[0] }}</small>
-                          </div>
-                        </td>
-                        <td class="text-center">
-                          {{ product_detail.sale_price }}
-                        </td>
-                        <td>
-                          <div class="input-group col-xs-12">
-                            <input type="number" style="width:60px !important;" v-model="product_detail.discount_percentage" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.discount_percentage }" placeholder="Discount percentage">
-                            <span class="input-group-append">
-                                <button class="btn btn-sm btn-primary" type="button">%</button>
+                        <tr>             
+                          <td>Product Name</td>
+                          <td>Product Code</td>
+                          <td>Quantity</td>
+                          <td>Unit Price</td>
+                          <td>Discount</td>
+                          <td>Tax(5%)</td>
+                          <td>Total</td>
+                          <td>Actions</td>
+                        </tr>
+                      </thead>
+                      <tbody v-if="form.product_detail_list.length">
+                        <tr v-for="(product_detail, index) in form.product_detail_list" :key="index">
+                          <td>
+                            {{ product_detail.name ? product_detail.name : product_detail.product.name }}
+                          </td>
+                          <td>
+                            {{ product_detail.code ? product_detail.code : product_detail.product.code }}
+                          </td>
+                          <td class="text-center">
+                            <div class="input-group col-xs-12">
+                              <input type="number" style="width:70px !important;" v-model="product_detail.quantity" class="form-control form-control-sm" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
+                              <span class="input-group-append">
+                                <button class="btn btn-sm btn-primary" type="button">Pcs</button>
                               </span>
-                            <small class="text-danger" v-if="errors.discount_percentage">{{ errors.discount_percentage[0] }}</small>
-                          </div>
-                        </td>
-                        <td class="text-center">
-                          {{ product_detail.tax_percentage }}%
-                        </td>
-                        <td class="text-center">
-                          {{ product_detail.product_wise_total }}
-                        </td>
-                        <td class="text-center">
-                          <button type="button" class="btn btn-xs btn-danger btn-rounded btn-fw" @click="deleteRow(index, product_detail)"><i class="mdi mdi-delete"></i></button>
-                        </td>
-                      </tr>
-                      <tr class="font-weight-bold">
-                        <td colspan="6" class="text-right">Grand Total</td>
-                        <td class="text-center">{{ total_cost }}</td>
-                      </tr>
-                    </tbody>
-                </table>
+                              <small class="text-danger" v-if="errors.quantity">{{ errors.quantity[0] }}</small>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            {{ product_detail.sale_price }}
+                          </td>
+                          <td>
+                            <div class="input-group col-xs-12">
+                              <input type="number" style="width:60px !important;" v-model="product_detail.discount_percentage" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.discount_percentage }" placeholder="Discount percentage">
+                              <span class="input-group-append">
+                                  <button class="btn btn-sm btn-primary" type="button">%</button>
+                                </span>
+                              <small class="text-danger" v-if="errors.discount_percentage">{{ errors.discount_percentage[0] }}</small>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            {{ product_detail.tax_percentage }}%
+                          </td>
+                          <td class="text-center">
+                            {{ product_detail.product_wise_total }}
+                          </td>
+                          <td class="text-center">
+                            <button type="button" class="btn btn-xs btn-danger btn-rounded btn-fw" @click="deleteRow(index, product_detail)"><i class="mdi mdi-delete"></i></button>
+                          </td>
+                        </tr>
+                        <tr class="font-weight-bold">
+                          <td colspan="6" class="text-right">Grand Total</td>
+                          <td class="text-center">{{ total_cost }}</td>
+                        </tr>
+                      </tbody>
+                  </table>
+                </div>
               </div>
-              <div class="row p-4">
+              <div class="row p-2">
                 <div class="col-3">
                   <div class="form-group">
                     <label>Delivery Cost</label>

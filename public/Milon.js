@@ -265,6 +265,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -809,311 +810,346 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "row" }, [
-                    _c("table", { staticClass: "list-table table-bordered" }, [
-                      _vm._m(0),
-                      _vm._v(" "),
-                      _vm.form.product_detail_list.length
-                        ? _c(
-                            "tbody",
-                            [
-                              _vm._l(_vm.form.product_detail_list, function(
-                                product_detail,
-                                index
-                              ) {
-                                return _c("tr", { key: index }, [
-                                  _c("td", [
-                                    _c(
-                                      "select",
-                                      {
-                                        directives: [
+                  _c("div", { staticClass: "row p-2" }, [
+                    _c("div", { staticClass: "col-12" }, [
+                      _c(
+                        "table",
+                        { staticClass: "list-table table-bordered" },
+                        [
+                          _vm._m(0),
+                          _vm._v(" "),
+                          _vm.form.product_detail_list.length
+                            ? _c(
+                                "tbody",
+                                [
+                                  _vm._l(_vm.form.product_detail_list, function(
+                                    product_detail,
+                                    index
+                                  ) {
+                                    return _c("tr", { key: index }, [
+                                      _c("td", [
+                                        _c(
+                                          "select",
                                           {
-                                            name: "model",
-                                            rawName: "v-model",
-                                            value: product_detail.supplier_id,
-                                            expression:
-                                              "product_detail.supplier_id"
-                                          }
-                                        ],
-                                        staticClass:
-                                          "form-control form-control-sm",
-                                        class: {
-                                          "is-invalid": _vm.errors.supplier_id
-                                        },
-                                        attrs: { required: "" },
-                                        on: {
-                                          change: function($event) {
-                                            var $$selectedVal = Array.prototype.filter
-                                              .call(
-                                                $event.target.options,
-                                                function(o) {
-                                                  return o.selected
-                                                }
-                                              )
-                                              .map(function(o) {
-                                                var val =
-                                                  "_value" in o
-                                                    ? o._value
-                                                    : o.value
-                                                return val
-                                              })
-                                            _vm.$set(
-                                              product_detail,
-                                              "supplier_id",
-                                              $event.target.multiple
-                                                ? $$selectedVal
-                                                : $$selectedVal[0]
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("option", { attrs: { value: "" } }, [
-                                          _vm._v("Please select a supplier")
-                                        ]),
-                                        _vm._v(" "),
-                                        _vm._l(_vm.suppliers, function(
-                                          supplier,
-                                          key
-                                        ) {
-                                          return _c(
-                                            "option",
-                                            {
-                                              key: key,
-                                              domProps: { value: supplier.id }
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value:
+                                                  product_detail.supplier_id,
+                                                expression:
+                                                  "product_detail.supplier_id"
+                                              }
+                                            ],
+                                            staticClass:
+                                              "form-control form-control-sm",
+                                            class: {
+                                              "is-invalid":
+                                                _vm.errors.supplier_id
                                             },
-                                            [_vm._v(_vm._s(supplier.name))]
-                                          )
-                                        })
-                                      ],
-                                      2
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(
-                                          product_detail.name
-                                            ? product_detail.name
-                                            : product_detail.product.name
-                                        ) +
-                                        "\n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(
-                                      "                    \n                        " +
-                                        _vm._s(
-                                          product_detail.code
-                                            ? product_detail.code
-                                            : product_detail.product.code
-                                        ) +
-                                        "\n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-center" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "input-group col-xs-12" },
-                                      [
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value: product_detail.quantity,
-                                              expression:
-                                                "product_detail.quantity"
-                                            }
-                                          ],
-                                          staticClass:
-                                            "form-control form-control-sm text-right",
-                                          class: {
-                                            "is-invalid": _vm.errors.quantity
-                                          },
-                                          staticStyle: {
-                                            width: "70px !important"
-                                          },
-                                          attrs: {
-                                            type: "number",
-                                            placeholder: "Enter quantity"
-                                          },
-                                          domProps: {
-                                            value: product_detail.quantity
-                                          },
-                                          on: {
-                                            input: function($event) {
-                                              if ($event.target.composing) {
-                                                return
-                                              }
-                                              _vm.$set(
-                                                product_detail,
-                                                "quantity",
-                                                $event.target.value
-                                              )
-                                            }
-                                          }
-                                        }),
-                                        _vm._v(" "),
-                                        _vm._m(1, true),
-                                        _vm._v(" "),
-                                        _vm.errors.quantity
-                                          ? _c(
-                                              "small",
-                                              { staticClass: "text-danger" },
-                                              [
-                                                _vm._v(
-                                                  _vm._s(_vm.errors.quantity[0])
-                                                )
-                                              ]
-                                            )
-                                          : _vm._e()
-                                      ]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-center" }, [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(
-                                          product_detail.purchase_price
-                                            ? product_detail.purchase_price
-                                            : product_detail.product
-                                                .purchase_price
-                                        ) +
-                                        "\n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _c(
-                                      "div",
-                                      { staticClass: "input-group col-xs-12" },
-                                      [
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value:
-                                                product_detail.discount_percentage,
-                                              expression:
-                                                "product_detail.discount_percentage"
-                                            }
-                                          ],
-                                          staticClass:
-                                            "form-control form-control-sm text-right",
-                                          class: {
-                                            "is-invalid":
-                                              _vm.errors.discount_percentage
-                                          },
-                                          staticStyle: {
-                                            width: "60px !important"
-                                          },
-                                          attrs: {
-                                            type: "number",
-                                            placeholder: "Discount percentage"
-                                          },
-                                          domProps: {
-                                            value:
-                                              product_detail.discount_percentage
-                                          },
-                                          on: {
-                                            input: function($event) {
-                                              if ($event.target.composing) {
-                                                return
-                                              }
-                                              _vm.$set(
-                                                product_detail,
-                                                "discount_percentage",
-                                                $event.target.value
-                                              )
-                                            }
-                                          }
-                                        }),
-                                        _vm._v(" "),
-                                        _vm._m(2, true),
-                                        _vm._v(" "),
-                                        _vm.errors.discount_percentage
-                                          ? _c(
-                                              "small",
-                                              { staticClass: "text-danger" },
-                                              [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm.errors
-                                                      .discount_percentage[0]
+                                            attrs: { required: "" },
+                                            on: {
+                                              change: function($event) {
+                                                var $$selectedVal = Array.prototype.filter
+                                                  .call(
+                                                    $event.target.options,
+                                                    function(o) {
+                                                      return o.selected
+                                                    }
                                                   )
+                                                  .map(function(o) {
+                                                    var val =
+                                                      "_value" in o
+                                                        ? o._value
+                                                        : o.value
+                                                    return val
+                                                  })
+                                                _vm.$set(
+                                                  product_detail,
+                                                  "supplier_id",
+                                                  $event.target.multiple
+                                                    ? $$selectedVal
+                                                    : $$selectedVal[0]
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c(
+                                              "option",
+                                              { attrs: { value: "" } },
+                                              [
+                                                _vm._v(
+                                                  "Please select a supplier"
                                                 )
                                               ]
-                                            )
-                                          : _vm._e()
-                                      ]
-                                    )
-                                  ]),
+                                            ),
+                                            _vm._v(" "),
+                                            _vm._l(_vm.suppliers, function(
+                                              supplier,
+                                              key
+                                            ) {
+                                              return _c(
+                                                "option",
+                                                {
+                                                  key: key,
+                                                  domProps: {
+                                                    value: supplier.id
+                                                  }
+                                                },
+                                                [_vm._v(_vm._s(supplier.name))]
+                                              )
+                                            })
+                                          ],
+                                          2
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(
+                                          "\n                          " +
+                                            _vm._s(
+                                              product_detail.name
+                                                ? product_detail.name
+                                                : product_detail.product.name
+                                            ) +
+                                            "\n                        "
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(
+                                          "                    \n                          " +
+                                            _vm._s(
+                                              product_detail.code
+                                                ? product_detail.code
+                                                : product_detail.product.code
+                                            ) +
+                                            "\n                        "
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", { staticClass: "text-center" }, [
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass: "input-group col-xs-12"
+                                          },
+                                          [
+                                            _c("input", {
+                                              directives: [
+                                                {
+                                                  name: "model",
+                                                  rawName: "v-model",
+                                                  value:
+                                                    product_detail.quantity,
+                                                  expression:
+                                                    "product_detail.quantity"
+                                                }
+                                              ],
+                                              staticClass:
+                                                "form-control form-control-sm text-right",
+                                              class: {
+                                                "is-invalid":
+                                                  _vm.errors.quantity
+                                              },
+                                              staticStyle: {
+                                                width: "70px !important"
+                                              },
+                                              attrs: {
+                                                type: "number",
+                                                placeholder: "Enter quantity"
+                                              },
+                                              domProps: {
+                                                value: product_detail.quantity
+                                              },
+                                              on: {
+                                                input: function($event) {
+                                                  if ($event.target.composing) {
+                                                    return
+                                                  }
+                                                  _vm.$set(
+                                                    product_detail,
+                                                    "quantity",
+                                                    $event.target.value
+                                                  )
+                                                }
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _vm._m(1, true),
+                                            _vm._v(" "),
+                                            _vm.errors.quantity
+                                              ? _c(
+                                                  "small",
+                                                  {
+                                                    staticClass: "text-danger"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        _vm.errors.quantity[0]
+                                                      )
+                                                    )
+                                                  ]
+                                                )
+                                              : _vm._e()
+                                          ]
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", { staticClass: "text-center" }, [
+                                        _vm._v(
+                                          "\n                          " +
+                                            _vm._s(
+                                              product_detail.purchase_price
+                                                ? product_detail.purchase_price
+                                                : product_detail.product
+                                                    .purchase_price
+                                            ) +
+                                            "\n                        "
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass: "input-group col-xs-12"
+                                          },
+                                          [
+                                            _c("input", {
+                                              directives: [
+                                                {
+                                                  name: "model",
+                                                  rawName: "v-model",
+                                                  value:
+                                                    product_detail.discount_percentage,
+                                                  expression:
+                                                    "product_detail.discount_percentage"
+                                                }
+                                              ],
+                                              staticClass:
+                                                "form-control form-control-sm text-right",
+                                              class: {
+                                                "is-invalid":
+                                                  _vm.errors.discount_percentage
+                                              },
+                                              staticStyle: {
+                                                width: "60px !important"
+                                              },
+                                              attrs: {
+                                                type: "number",
+                                                placeholder:
+                                                  "Discount percentage"
+                                              },
+                                              domProps: {
+                                                value:
+                                                  product_detail.discount_percentage
+                                              },
+                                              on: {
+                                                input: function($event) {
+                                                  if ($event.target.composing) {
+                                                    return
+                                                  }
+                                                  _vm.$set(
+                                                    product_detail,
+                                                    "discount_percentage",
+                                                    $event.target.value
+                                                  )
+                                                }
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _vm._m(2, true),
+                                            _vm._v(" "),
+                                            _vm.errors.discount_percentage
+                                              ? _c(
+                                                  "small",
+                                                  {
+                                                    staticClass: "text-danger"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        _vm.errors
+                                                          .discount_percentage[0]
+                                                      )
+                                                    )
+                                                  ]
+                                                )
+                                              : _vm._e()
+                                          ]
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(
+                                          "                     \n                          " +
+                                            _vm._s(
+                                              product_detail.tax_percentage
+                                            ) +
+                                            "%\n                        "
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", { staticClass: "text-center" }, [
+                                        _vm._v(
+                                          "\n                          " +
+                                            _vm._s(
+                                              product_detail.product_wise_total
+                                            ) +
+                                            "\n                        "
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", { staticClass: "text-center" }, [
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "btn btn-xs btn-danger btn-rounded btn-fw",
+                                            attrs: { type: "button" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.deleteRow(
+                                                  index,
+                                                  product_detail
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "mdi mdi-delete"
+                                            })
+                                          ]
+                                        )
+                                      ])
+                                    ])
+                                  }),
                                   _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(
-                                      "                     \n                        " +
-                                        _vm._s(product_detail.tax_percentage) +
-                                        "%\n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-center" }, [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(
-                                          product_detail.product_wise_total
-                                        ) +
-                                        "\n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-center" }, [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-xs btn-danger btn-rounded btn-fw",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.deleteRow(
-                                              index,
-                                              product_detail
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "mdi mdi-delete"
-                                        })
-                                      ]
-                                    )
-                                  ])
-                                ])
-                              }),
-                              _vm._v(" "),
-                              _c("tr", { staticClass: "font-weight-bold" }, [
-                                _c("td", { attrs: { colspan: "7" } }, [
-                                  _vm._v("Grand Total")
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(_vm.total_cost))])
-                              ])
-                            ],
-                            2
-                          )
-                        : _vm._e()
+                                  _c(
+                                    "tr",
+                                    { staticClass: "font-weight-bold" },
+                                    [
+                                      _c("td", { attrs: { colspan: "7" } }, [
+                                        _vm._v("Grand Total")
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [_vm._v(_vm._s(_vm.total_cost))])
+                                    ]
+                                  )
+                                ],
+                                2
+                              )
+                            : _vm._e()
+                        ]
+                      )
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "row p-4" }, [
+                  _c("div", { staticClass: "row p-2" }, [
                     _c("div", { staticClass: "col-3" }, [
                       _c("div", { staticClass: "form-group" }, [
                         _c("label", [_vm._v("Shipping Cost")]),

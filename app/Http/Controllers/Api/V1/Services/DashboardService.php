@@ -6,6 +6,7 @@ use App\Models\Sale;
 use App\Models\StockIn;
 use Carbon\Carbon;
 use DB;
+use Swift_LoadBalancedTransport;
 
 class DashboardService
 {
@@ -68,21 +69,58 @@ class DashboardService
             
         return $reportData;
     }
+
+    public function datesOfCurrentMonth($request)
+    {
+        $days_of_given_month = cal_days_in_month(CAL_GREGORIAN, $request->month, $request->year);
+
+        $all_dates = [];
+        for ($i = 1; $i <= $days_of_given_month; $i++) {
+            $all_dates[] = $request->year . '-' . str_pad($request->month, 2, '0', STR_PAD_LEFT) . '-' . str_pad($i, 2, '0', STR_PAD_LEFT);
+        }
+        return $all_dates;
+    }
     
     public function dashboardMonthlyDetails($request)
-    {
-        $sale_amount = Sale::whereYear('created_at', $request->year)
-            ->whereMonth('created_at', $request->month + 1)
-            ->sum('product_wise_total');
+    { 
+        $all_dates_of_month = $this->datesOfCurrentMonth($request);
+
+        $purchases = StockIn::whereYear('created_at', $request->year)
+            ->whereMonth('created_at', $request->month)
+            ->selectRaw("DATE_FORMAT(created_at, '%Y-%m-%d') as purchasing_date,product_wise_total")
+            ->get();        
         
-        $purchase_amount = StockIn::whereYear('created_at', $request->year)
-            ->whereMonth('created_at', $request->month + 1)
-            ->sum('product_wise_total');
+        $sales = Sale::whereYear('created_at', $request->year)
+            ->whereMonth('created_at', $request->month)
+            ->selectRaw("DATE_FORMAT(created_at, '%Y-%m-%d') as selling_date,product_wise_total")
+            ->get();
+                
+        $days_no = [];
+        $date_wise_purchases = [];
+        $date_wise_sales = [];
+        $date_wise_balance = [];
+        foreach ($all_dates_of_month as $key => $date) {
+            $purchase = $purchases->where('purchasing_date', $date)->sum('product_wise_total');
+            $sale = $sales->where('selling_date', $date)->sum('product_wise_total');
+
+            $days_no[] = str_pad(++$key, 2, '0', STR_PAD_LEFT); 
+            $date_wise_purchases[] = $purchase + 10;
+            $date_wise_sales[] = $sale + 20;
+            $date_wise_balance[] = (($sale - $purchase) > 0) ? ($sale - $purchase) : 0;
+        }       
+
+        $sale_amount = $sales->sum('product_wise_total');
+        $purchase_amount = $purchases->sum('product_wise_total');
+        $balance = $sale_amount - $purchase_amount;
 
         return [
+            'days_no' => $days_no,
+            'date_wise_purchases' => $date_wise_purchases,
+            'date_wise_sales' => $date_wise_sales, 
+            'date_wise_balance' => $date_wise_balance,
             'sale_amount' => round($sale_amount),
             'purchase_amount' => round($purchase_amount),
-            'balance' => round($sale_amount) - round($purchase_amount)
+            'balance' => round($balance)
         ];
     }
 }

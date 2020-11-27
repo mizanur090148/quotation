@@ -2069,75 +2069,49 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_chartjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-chartjs */ "./node_modules/vue-chartjs/es/index.js");
+/* harmony import */ var _axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../axios */ "./resources/js/axios/index.js");
+/* harmony import */ var vue_chartjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-chartjs */ "./node_modules/vue-chartjs/es/index.js");
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  "extends": vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["Bar"],
+  "extends": vue_chartjs__WEBPACK_IMPORTED_MODULE_1__["Bar"],
   data: function data() {
     return {
-      /* chartData: {
-        labels: ["Jan", "2015-02", "2015-03", "2015-04", "2015-05", "2015-06", "2015-07", "2015-08", "2015-09",
-          "2015-10", "2015-11", "2015-12"
-        ],
-        datasets: [{
-          label: 'Purchase',
-          borderWidth: 1,
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255,99,132,1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(255,99,132,1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          pointBorderColor: '#2554FF',
-          data: [12, 19, 3, 5, 2, 30, 20, 3, 5, 6, 2, 1]
-        }]
-      },*/
+      years: [],
+      months: null,
+      monthly_details: null,
+      sale_amount: null,
+      purchase_amount: null,
+      balance: null,
+      form: {
+        year: 2020,
+        month: new Date().getMonth() + 1
+      },
       chartData: {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        labels: [],
         datasets: [{
           label: "Sale",
           backgroundColor: "rgb(181, 204, 37)",
-          data: [3, 7, 4, 3, 3, 4, 3, 7, 4, 3, 7, 4]
+          data: []
         }, {
           label: "Purchase",
           backgroundColor: "#01A3A5",
-          data: [3, 7, 4, 3, 7, 4, 5, 7, 4, 3, 7, 4]
+          data: []
         }, {
           label: "Balance",
           backgroundColor: "red",
-          data: [3, 7, 4, 3, 7, 4, 3, 7, 4, 3, 7, 4]
+          data: []
         }]
       },
       options: {
         scales: {
           yAxes: [{
             display: true,
-            scaleLabel: {
+
+            /* scaleLabel: {
               display: true,
               labelString: 'Amount'
-            },
+            }, */
             ticks: {
               beginAtZero: true
             },
@@ -2149,20 +2123,11 @@ __webpack_require__.r(__webpack_exports__);
             gridLines: {
               display: false
             }
-            /* ticks: {
-              autoSkip: false,
-              maxRotation: 90,
-              minRotation: 90,
-              fontSize: 10,
-              fontColor:"Black",
-              defaultFontFamily: "Arial, Helvetica, sans-serif"
-            } */
-
           }]
         },
         title: {
           display: true,
-          text: 'Month Wise Graph'
+          text: 'Day Wise Graph'
         },
         hover: {
           animationDuration: 0
@@ -2180,8 +2145,9 @@ __webpack_require__.r(__webpack_exports__);
             this.data.datasets.forEach(function (dataset, i) {
               var meta = chartInstance.controller.getDatasetMeta(i);
               meta.data.forEach(function (bar, index) {
-                var data = dataset.data[index];
-                ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                var data = dataset.data[index]; //  ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                //  ctx.rotate(0.9 * Math.PI);
+                //  ctx.restore();
               });
             });
           }
@@ -2195,7 +2161,58 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.renderChart(this.chartData, this.options);
+    this.getYears();
+    this.getMonths();
+    this.getMonthlyDashboardDetails();
+  },
+  methods: {
+    getYears: function getYears() {
+      for (var index = 0; index < 10; index++) {
+        this.years.push('202' + index);
+      }
+    },
+    getMonths: function getMonths() {
+      var months = {
+        1: 'January',
+        2: 'February',
+        3: 'March',
+        4: 'April',
+        5: 'May',
+        6: 'June',
+        7: 'July',
+        8: 'August',
+        9: 'September',
+        10: 'October',
+        11: 'November',
+        12: 'December'
+      };
+      this.months = months;
+    },
+    getMonthlyDashboardDetails: function getMonthlyDashboardDetails() {
+      var _this = this;
+
+      _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('get-monthly-dashboard-details', {
+        params: {
+          year: this.form.year,
+          month: this.form.month
+        }
+      }).then(function (res) {
+        var result = res.data;
+        /*  this.sale_amount = result.sale_amount;
+         this.purchase_amount = result.purchase_amount;
+         this.balance = result.sale_amount - result.purchase_amount; */
+
+        _this.sale_amount = result.sale_amount;
+        _this.purchase_amount = result.purchase_amount;
+        _this.balance = result.sale_amount - result.purchase_amount;
+        _this.chartData.labels = result.days_no;
+        _this.chartData.datasets[0].data = result.date_wise_sales;
+        _this.chartData.datasets[1].data = result.date_wise_purchases;
+        _this.chartData.datasets[2].data = result.date_wise_balance;
+
+        _this.renderChart(_this.chartData, _this.options);
+      })["catch"](function (error) {});
+    }
   }
 });
 
@@ -2741,148 +2758,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       years: [],
-      months: [],
+      months: null,
       monthly_details: null,
+      sale_amount: null,
+      purchase_amount: null,
+      balance: null,
       form: {
         year: 2020,
-        month: new Date().getMonth()
+        month: new Date().getMonth() + 1
       }
     };
   },
@@ -2898,7 +2786,20 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     getMonths: function getMonths() {
-      var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      var months = {
+        1: 'January',
+        2: 'February',
+        3: 'March',
+        4: 'April',
+        5: 'May',
+        6: 'June',
+        7: 'July',
+        8: 'August',
+        9: 'September',
+        10: 'October',
+        11: 'November',
+        12: 'December'
+      };
       this.months = months;
     },
     getMonthlyDashboardDetails: function getMonthlyDashboardDetails() {
@@ -2910,7 +2811,12 @@ __webpack_require__.r(__webpack_exports__);
           month: this.form.month
         }
       }).then(function (res) {
-        _this.monthly_details = res.data;
+        //this.monthly_details = res.data;
+        var result = res.data;
+        _this.sale_amount = result.sale_amount;
+        _this.purchase_amount = result.purchase_amount;
+        _this.balance = result.sale_amount - result.purchase_amount; // this.day_wise_purchases = res.data;
+        // this.day_wise_sales = res.data;
       })["catch"](function (error) {});
     }
   }
@@ -44212,13 +44118,7 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("h5", { staticClass: "mr-2 mb-0" }, [
-                              _vm._v(
-                                _vm._s(
-                                  _vm.monthly_details
-                                    ? _vm.monthly_details.sale_amount
-                                    : ""
-                                )
-                              )
+                              _vm._v(_vm._s(this.sale_amount))
                             ])
                           ]
                         )
@@ -44249,13 +44149,7 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("h5", { staticClass: "mr-2 mb-0" }, [
-                              _vm._v(
-                                _vm._s(
-                                  _vm.monthly_details
-                                    ? _vm.monthly_details.purchase_amount
-                                    : ""
-                                )
-                              )
+                              _vm._v(_vm._s(this.purchase_amount))
                             ])
                           ]
                         )
@@ -44286,13 +44180,7 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("h5", { staticClass: "mr-2 mb-0" }, [
-                              _vm._v(
-                                _vm._s(
-                                  _vm.monthly_details
-                                    ? _vm.monthly_details.balance
-                                    : ""
-                                )
-                              )
+                              _vm._v(_vm._s(this.balance))
                             ])
                           ]
                         )
@@ -62827,13 +62715,11 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
     path: '/pos',
     name: 'pos',
     component: Pos
-  },
-  /* {
-      path: '/',
-      name: 'home',
-      component: Home
-  }, */
-  {
+  }, {
+    path: '/',
+    name: 'home',
+    component: _components_Home__WEBPACK_IMPORTED_MODULE_13__["default"]
+  }, {
     path: '/home',
     name: 'home',
     component: _components_Home__WEBPACK_IMPORTED_MODULE_13__["default"]

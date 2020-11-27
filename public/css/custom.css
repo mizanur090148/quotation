@@ -57,7 +57,11 @@ input[type=number] {
   text-align: right;
 }
 .form-control, .dataTables_wrapper select {
-  border: 1px solid #f3f3f3;
+  /*border: 1px solid #f3f3f3;*/
+  border: 1px solid #80bdff;
+}
+select.form-control {
+  border: 1px solid #80bdff;
 }
 .btn i {
   font-size: 12px !important;

@@ -88,11 +88,11 @@ const router = new VueRouter({
             name: 'pos',
             component: Pos
         },
-        /* {
+        {
             path: '/',
             name: 'home',
             component: Home
-        }, */
+        },
         {
             path: '/home',
             name: 'home',

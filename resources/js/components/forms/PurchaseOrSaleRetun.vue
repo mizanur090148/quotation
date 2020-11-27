@@ -37,7 +37,7 @@
             </form>
               <hr>
               <div class="row">
-                <table class="list-table" v-if="purchase_detail_list.length">
+                <table class="list-table table-bordered" v-if="purchase_detail_list.length">
                    <thead>
                       <tr>
                         <td colspan="9">Ordered Product Details</td>
@@ -85,24 +85,24 @@
                         </td>
                       </tr>
                       <tr class="font-weight-bold">
-                        <td colspan="7">Total Product Cost</td>
+                        <td colspan="7" class="text-right">Total Product Cost</td>
                         <td>{{ purchase_invoice.total_product_cost }}</td>
                       </tr>
                       <tr class="font-weight-bold">
-                        <td colspan="7">Shipping Cost</td>
+                        <td colspan="7" class="text-right">Shipping Cost</td>
                         <td>{{ purchase_invoice.shipping_cost }}</td>
                       </tr>
                       <tr class="font-weight-bold">
-                        <td colspan="7">Others Cost</td>
+                        <td colspan="7" class="text-right">Others Cost</td>
                         <td>{{ purchase_invoice.others_cost }}</td>
                       </tr>
                       <tr class="font-weight-bold">
-                        <td colspan="7" class="grand">Grand Total</td>
+                        <td colspan="7" class="grand text-right">Grand Total</td>
                         <td class="grand">{{ purchase_invoice.total_cost }}</td>
                       </tr>
                     </tbody>
                   </table>
-                  <table class="list-table" v-if="sale_detail_list.length">
+                  <table class="list-table table-bordered" v-if="sale_detail_list.length">
                    <thead>
                       <tr>
                         <td colspan="8">Ordered Product Details</td>
@@ -165,11 +165,11 @@
                 </table>
               </div>
              
-              <div class="row p-2 col-sm-2 offset-sm-10">
-                <div class="form-group text-right">
-                  <button type="submit" v-if="purchase_invoice" class="btn btn-sm btn-primary mr-2 text-right"                    
+              <div class="row p-2 col-sm-2 offset-sm-11 text-right">
+                <div class="form-group">
+                  <button type="submit" v-if="purchase_invoice" class="btn btn-sm btn-primary mr-2"                    
                     @click="returnProduct('invoice', purchase_invoice.id)">Return All</button>
-                  <button type="submit" v-if="sale_invoice" class="btn btn-sm btn-primary mr-2 text-right"                    
+                  <button type="submit" v-if="sale_invoice" class="btn btn-sm btn-primary mr-2"                    
                     @click="returnProduct('invoice', sale_invoice.id)">Return All</button>
                   <!-- <router-link to="/home">
                     <button class="btn btn-sm btn-danger mr-2">Cancel</button>
@@ -291,3 +291,9 @@
     }    
   }
 </script>
+
+<style>
+  .text-right {    
+    padding-right: 7px !important
+  }
+</style>

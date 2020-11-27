@@ -1,73 +1,45 @@
 <script>
+  import axios from '../../axios';
   import { Bar } from 'vue-chartjs'
 
   export default {
     extends: Bar,
     data() {
-      return {        
-        /* chartData: {
-          labels: ["Jan", "2015-02", "2015-03", "2015-04", "2015-05", "2015-06", "2015-07", "2015-08", "2015-09",
-            "2015-10", "2015-11", "2015-12"
-          ],
-          datasets: [{
-            label: 'Purchase',
-            borderWidth: 1,
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)',
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-              'rgba(255,99,132,1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)',
-              'rgba(255,99,132,1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)'
-            ],
-            pointBorderColor: '#2554FF',
-            data: [12, 19, 3, 5, 2, 30, 20, 3, 5, 6, 2, 1]
-          }]
-        },*/
+      return {
+        years: [],
+        months: null,
+        monthly_details: null,
+        sale_amount: null,
+        purchase_amount: null,
+        balance: null,
+        form: {
+          year: 2020,
+          month: new Date().getMonth() + 1
+        },       
         chartData: {
-          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug","Sep", "Oct", "Nov", "Dec"],
+          labels: [],
           datasets: [{
             label: "Sale",
             backgroundColor: "rgb(181, 204, 37)",
-            data: [3, 7, 4,3,3, 4,3, 7, 4,3, 7, 4],
+            data: [],
           }, {
             label: "Purchase",
             backgroundColor: "#01A3A5",
-            data: [3, 7, 4,3, 7, 4,5, 7, 4,3, 7, 4]
+            data: [],
           }, {
             label: "Balance",
             backgroundColor: "red",
-            data: [3, 7, 4,3, 7, 4,3, 7, 4,3, 7, 4]
+            data: []
           }]
         },
         options: {
           scales: {
             yAxes: [{
               display: true,
-              scaleLabel: {
+              /* scaleLabel: {
                 display: true,
                 labelString: 'Amount'
-              },
+              }, */
               ticks: {
                 beginAtZero: true
               },
@@ -78,23 +50,15 @@
             xAxes: [{
               gridLines: {
                 display: false
-              },
-              /* ticks: {
-                autoSkip: false,
-                maxRotation: 90,
-                minRotation: 90,
-                fontSize: 10,
-                fontColor:"Black",
-                defaultFontFamily: "Arial, Helvetica, sans-serif"
-              } */
+              }               
             }]
           },
           title: {
             display: true,
-            text: 'Month Wise Graph'
+            text: 'Day Wise Graph'
           },
           hover: {
-             animationDuration: 0
+            animationDuration: 0
           },
           legend: {
             display: true
@@ -110,9 +74,11 @@
               this.data.datasets.forEach(function (dataset, i) {
                   var meta = chartInstance.controller.getDatasetMeta(i);
                   meta.data.forEach(function (bar, index) {
-                      var data = dataset.data[index];                     
-                      ctx.fillText(data, bar._model.x, bar._model.y - 5);
-                  });                   
+                     var data = dataset.data[index];                     
+                    //  ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                    //  ctx.rotate(0.9 * Math.PI);
+                    //  ctx.restore();
+                  });
               });
             }
           },
@@ -124,8 +90,56 @@
         }
       }
     },
-    mounted() {
-      this.renderChart(this.chartData, this.options)
+    mounted() {  
+      this.getYears();
+      this.getMonths();    
+      this.getMonthlyDashboardDetails()
+    },
+    methods: {
+      getYears() {       
+        for (let index = 0; index < 10; index++) {
+          this.years.push('202' + index);
+        }
+      },
+      getMonths() {       
+        let months = {
+          1 : 'January',
+          2 : 'February',
+          3 : 'March',
+          4 : 'April',
+          5 : 'May',
+          6 : 'June',
+          7 : 'July',
+          8 : 'August',
+          9 : 'September',
+          10 : 'October',
+          11 : 'November',
+          12 : 'December'
+        };
+        this.months = months;
+      },
+      getMonthlyDashboardDetails() {
+        axios.get('get-monthly-dashboard-details', { params: { year: this.form.year, month: this.form.month}})
+          .then((res) => {
+            let result = res.data;
+           /*  this.sale_amount = result.sale_amount;
+            this.purchase_amount = result.purchase_amount;
+            this.balance = result.sale_amount - result.purchase_amount; */
+
+            this.sale_amount = result.sale_amount;
+            this.purchase_amount = result.purchase_amount;
+            this.balance = result.sale_amount - result.purchase_amount;
+
+            this.chartData.labels = result.days_no;
+            this.chartData.datasets[0].data = result.date_wise_sales;
+            this.chartData.datasets[1].data = result.date_wise_purchases;
+            this.chartData.datasets[2].data = result.date_wise_balance;
+
+            this.renderChart(this.chartData, this.options);
+          })
+          .catch((error) => {
+          })        
+      }
     }
   }
 </script>
