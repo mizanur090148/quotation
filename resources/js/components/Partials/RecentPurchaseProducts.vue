@@ -2,7 +2,7 @@
   <div class="col-md-6 stretch-card">
     <div class="card">
       <div class="card-body">
-        <p class="card-title">Recent Purchase Products</p>
+        <p class="card-title">Recent 5 Purchase Products</p>
         <div class="table-responsive">
           <table id="recent-purchases-listing" class="list-table table-bordered">
             <thead>

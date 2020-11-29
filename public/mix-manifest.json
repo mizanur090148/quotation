@@ -20,5 +20,6 @@
     "/purchaseOrSaleRetun.js": "/purchaseOrSaleRetun.js",
     "/suppliers.js": "/suppliers.js",
     "/user.js": "/user.js",
-    "/users.js": "/users.js"
+    "/users.js": "/users.js",
+    "/outlets.js": "/outlets.js"
 }

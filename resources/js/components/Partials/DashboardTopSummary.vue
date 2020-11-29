@@ -9,7 +9,7 @@
                 <div class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
                   <i class="mdi mdi-calendar-heart icon-lg mr-3 text-primary"></i>
                   <div class="d-flex flex-column justify-content-around">
-                    <small class="mb-1 text-muted">Year</small>                    
+                    <!-- <small class="mb-1 text-muted">Year</small> -->
                     <select class="form-control form-control-sm" v-model="form.year" @change="getMonthlyDashboardDetails">                     
                       <option v-for="(year, key) in years" :key="key" :value="year">{{ year }}</option>
                     </select>
@@ -18,7 +18,7 @@
                 <div class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
                   <i class="mdi mdi-calendar-heart icon-lg mr-3 text-primary"></i>
                   <div class="d-flex flex-column justify-content-around">
-                    <small class="mb-1 text-muted">Month</small>                    
+                    <!-- <small class="mb-1 text-muted">Month</small> -->
                     <select class="form-control form-control-sm" v-model="form.month" @change="getMonthlyDashboardDetails">                     
                       <option v-for="(month, key) in months" :key="key" :value="key">{{ month }}</option>
                     </select>

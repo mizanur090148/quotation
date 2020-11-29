@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"Milon":"Milon","MilonView":"MilonView","Milons":"Milons","Sale":"Sale","Sales":"Sales","SumonView":"SumonView","brands":"brands","categories":"categories","dateWiseInventory":"dateWiseInventory","dateWisePurchase":"dateWisePurchase","dateWiseSales":"dateWiseSales","dateWiseVat":"dateWiseVat","models":"models","pos":"pos","product":"product","products":"products","purchaseOrSaleRetun":"purchaseOrSaleRetun","suppliers":"suppliers","user":"user","users":"users"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"Milon":"Milon","MilonView":"MilonView","Milons":"Milons","Sale":"Sale","Sales":"Sales","SumonView":"SumonView","brands":"brands","categories":"categories","dateWiseInventory":"dateWiseInventory","dateWisePurchase":"dateWisePurchase","dateWiseSales":"dateWiseSales","dateWiseVat":"dateWiseVat","models":"models","outlets":"outlets","pos":"pos","product":"product","products":"products","purchaseOrSaleRetun":"purchaseOrSaleRetun","suppliers":"suppliers","user":"user","users":"users"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -2211,91 +2211,61 @@ __webpack_require__.r(__webpack_exports__);
         _this.chartData.datasets[2].data = result.date_wise_balance;
 
         _this.renderChart(_this.chartData, _this.options);
-      })["catch"](function (error) {});
+      })["catch"](function (error) {})["finally"](function () {});
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Charts/WeeklyBarChart.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Charts/WeeklyBarChart.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Charts/MonthlyBarChart.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Charts/MonthlyBarChart.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_chartjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-chartjs */ "./node_modules/vue-chartjs/es/index.js");
+/* harmony import */ var _axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../axios */ "./resources/js/axios/index.js");
+/* harmony import */ var vue_chartjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-chartjs */ "./node_modules/vue-chartjs/es/index.js");
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  "extends": vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["Bar"],
+  "extends": vue_chartjs__WEBPACK_IMPORTED_MODULE_1__["Bar"],
   data: function data() {
     return {
-      /* chartData: {
-        labels: ["Jan", "2015-02", "2015-03", "2015-04", "2015-05", "2015-06", "2015-07", "2015-08", "2015-09",
-          "2015-10", "2015-11", "2015-12"
-        ],
-        datasets: [{
-          label: 'Purchase',
-          borderWidth: 1,
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255,99,132,1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(255,99,132,1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          pointBorderColor: '#2554FF',
-          data: [12, 19, 3, 5, 2, 30, 20, 3, 5, 6, 2, 1]
-        }]
-      },*/
+      yearly_sale_amount: null,
+      yearly_purchase_amount: null,
+      yearly_balance: null,
+      form: {
+        year: 2020
+      },
       chartData: {
-        labels: ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"],
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         datasets: [{
           label: "Sale",
           backgroundColor: "rgb(181, 204, 37)",
-          data: [3, 7, 4, 3, 3, 4, 3]
+          data: [121, 234, 234, 234]
         }, {
           label: "Purchase",
           backgroundColor: "#01A3A5",
-          data: [3, 7, 4, 3, 7, 4, 5]
+          data: [121, 234, 234, 234]
         }, {
           label: "Balance",
           backgroundColor: "red",
-          data: [3, 7, 4, 3, 7, 4, 3]
+          data: [121, 234, 234, 2341]
         }]
       },
       options: {
         scales: {
           yAxes: [{
             display: true,
-            scaleLabel: {
+
+            /* scaleLabel: {
               display: true,
               labelString: 'Amount'
-            },
+            }, */
             ticks: {
               beginAtZero: true
             },
@@ -2307,20 +2277,11 @@ __webpack_require__.r(__webpack_exports__);
             gridLines: {
               display: false
             }
-            /* ticks: {
-              autoSkip: false,
-              maxRotation: 90,
-              minRotation: 90,
-              fontSize: 10,
-              fontColor:"Black",
-              defaultFontFamily: "Arial, Helvetica, sans-serif"
-            } */
-
           }]
         },
         title: {
           display: true,
-          text: 'Week Wise Graph'
+          text: 'Monthly Graph'
         },
         hover: {
           animationDuration: 0
@@ -2338,8 +2299,9 @@ __webpack_require__.r(__webpack_exports__);
             this.data.datasets.forEach(function (dataset, i) {
               var meta = chartInstance.controller.getDatasetMeta(i);
               meta.data.forEach(function (bar, index) {
-                var data = dataset.data[index];
-                ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                var data = dataset.data[index]; //  ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                //  ctx.rotate(0.9 * Math.PI);
+                //  ctx.restore();
               });
             });
           }
@@ -2353,7 +2315,28 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.renderChart(this.chartData, this.options);
+    this.getYearlyDashboardDetails();
+  },
+  methods: {
+    getYearlyDashboardDetails: function getYearlyDashboardDetails() {
+      var _this = this;
+
+      _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('get-yearly-dashboard-details', {
+        params: {
+          year: this.form.year
+        }
+      }).then(function (res) {
+        var result = res.data;
+        _this.yearly_sale_amount = result.yearly_sale_amount;
+        _this.yearly_purchase_amount = result.yearly_purchase_amount;
+        _this.yearly_balance = result.yearly_balance;
+        _this.chartData.datasets[0].data = result.month_wise_sales;
+        _this.chartData.datasets[1].data = result.month_wise_purchases;
+        _this.chartData.datasets[2].data = result.month_wise_balance;
+
+        _this.renderChart(_this.chartData, _this.options);
+      })["catch"](function (error) {});
+    }
   }
 });
 
@@ -2374,7 +2357,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Partials_RecentPurchaseProducts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Partials/RecentPurchaseProducts */ "./resources/js/components/Partials/RecentPurchaseProducts.vue");
 /* harmony import */ var _Partials_RecentSaleProducts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Partials/RecentSaleProducts */ "./resources/js/components/Partials/RecentSaleProducts.vue");
 /* harmony import */ var _Charts_BarChart__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Charts/BarChart */ "./resources/js/components/Charts/BarChart.vue");
-/* harmony import */ var _Charts_WeeklyBarChart__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Charts/WeeklyBarChart */ "./resources/js/components/Charts/WeeklyBarChart.vue");
+/* harmony import */ var _Charts_MonthlyBarChart__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Charts/MonthlyBarChart */ "./resources/js/components/Charts/MonthlyBarChart.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2456,6 +2467,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+/* import WeeklyBarChart from './Charts/WeeklyBarChart'; */
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2466,7 +2479,9 @@ __webpack_require__.r(__webpack_exports__);
     RecentPurchaseProducts: _Partials_RecentPurchaseProducts__WEBPACK_IMPORTED_MODULE_3__["default"],
     RecentSaleProducts: _Partials_RecentSaleProducts__WEBPACK_IMPORTED_MODULE_4__["default"],
     BarChart: _Charts_BarChart__WEBPACK_IMPORTED_MODULE_5__["default"],
-    WeeklyBarChart: _Charts_WeeklyBarChart__WEBPACK_IMPORTED_MODULE_6__["default"]
+
+    /* WeeklyBarChart, */
+    MonthlyBarChart: _Charts_MonthlyBarChart__WEBPACK_IMPORTED_MODULE_6__["default"]
   }
 });
 
@@ -19393,7 +19408,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#bar-chart {\n  height: 260px !important;\n}\n", ""]);
+exports.push([module.i, "\n#bar-chart {\n  height: 220px !important;\n}\n", ""]);
 
 // exports
 
@@ -43568,17 +43583,27 @@ var render = function() {
     [
       _c("DashboardTopSummary"),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "row mt-2" }, [
         _c("div", { staticClass: "col-md-12" }, [
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-body" }, [
               _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-12" }, [_c("BarChart")], 1),
-                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12" }, [_c("BarChart")], 1)
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row mt-2" }, [
+        _c("div", { staticClass: "col-md-12" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "row" }, [
                 _c(
                   "div",
                   { staticClass: "col-md-12" },
-                  [_c("WeeklyBarChart")],
+                  [_c("MonthlyBarChart")],
                   1
                 )
               ])
@@ -43771,7 +43796,7 @@ var render = function() {
     _c("div", { staticClass: "card" }, [
       _c("div", { staticClass: "card-body" }, [
         _c("p", { staticClass: "card-title" }, [
-          _vm._v("Best Purchase of current month")
+          _vm._v("Best 5 purchase products of the current month")
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "table-responsive" }, [
@@ -43850,7 +43875,7 @@ var render = function() {
     _c("div", { staticClass: "card" }, [
       _c("div", { staticClass: "card-body" }, [
         _c("p", { staticClass: "card-title" }, [
-          _vm._v("Best sale of current month")
+          _vm._v("Best 5 sale products of the current month")
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "table-responsive" }, [
@@ -43963,10 +43988,6 @@ var render = function() {
                               "d-flex flex-column justify-content-around"
                           },
                           [
-                            _c("small", { staticClass: "mb-1 text-muted" }, [
-                              _vm._v("Year")
-                            ]),
-                            _vm._v(" "),
                             _c(
                               "select",
                               {
@@ -44038,10 +44059,6 @@ var render = function() {
                               "d-flex flex-column justify-content-around"
                           },
                           [
-                            _c("small", { staticClass: "mb-1 text-muted" }, [
-                              _vm._v("Month")
-                            ]),
-                            _vm._v(" "),
                             _c(
                               "select",
                               {
@@ -44222,7 +44239,7 @@ var render = function() {
     _c("div", { staticClass: "card" }, [
       _c("div", { staticClass: "card-body" }, [
         _c("p", { staticClass: "card-title" }, [
-          _vm._v("Recent Purchase Products")
+          _vm._v("Recent 5 Purchase Products")
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "table-responsive" }, [
@@ -44303,7 +44320,7 @@ var render = function() {
     _c("div", { staticClass: "card" }, [
       _c("div", { staticClass: "card-body" }, [
         _c("p", { staticClass: "card-title" }, [
-          _vm._v("Recent Sale Products")
+          _vm._v("Recent 5 Sale Products")
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "table-responsive" }, [
@@ -62622,6 +62639,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_html_to_paper__WEBPACK_IMPORT
 
 
 
+var Outlets = function Outlets() {
+  return __webpack_require__.e(/*! import() | outlets */ "outlets").then(__webpack_require__.bind(null, /*! ./components/lists/Outlets.vue */ "./resources/js/components/lists/Outlets.vue"));
+};
+
 var Users = function Users() {
   return __webpack_require__.e(/*! import() | users */ "users").then(__webpack_require__.bind(null, /*! ./components/lists/Users.vue */ "./resources/js/components/lists/Users.vue"));
 };
@@ -62712,6 +62733,22 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
     name: 'login',
     component: _components_Login__WEBPACK_IMPORTED_MODULE_12__["default"]
   }, {
+    path: '/outlets',
+    name: 'outlets',
+    component: Outlets
+  }, {
+    path: '/users',
+    name: 'users',
+    component: Users
+  }, {
+    path: '/user/create',
+    name: 'users-create',
+    component: User
+  }, {
+    path: '/user/:id',
+    name: 'user',
+    component: User
+  }, {
     path: '/pos',
     name: 'pos',
     component: Pos
@@ -62767,18 +62804,6 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
     path: '/sale-invoice/:id',
     name: 'sumonView',
     component: SumonView
-  }, {
-    path: '/users',
-    name: 'users',
-    component: Users
-  }, {
-    path: '/user/create',
-    name: 'users-create',
-    component: User
-  }, {
-    path: '/user/:id',
-    name: 'user',
-    component: User
   }, {
     path: '/suppliers',
     name: 'suppliers',
@@ -62972,16 +62997,16 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/Charts/WeeklyBarChart.vue":
-/*!***********************************************************!*\
-  !*** ./resources/js/components/Charts/WeeklyBarChart.vue ***!
-  \***********************************************************/
+/***/ "./resources/js/components/Charts/MonthlyBarChart.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/Charts/MonthlyBarChart.vue ***!
+  \************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _WeeklyBarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./WeeklyBarChart.vue?vue&type=script&lang=js& */ "./resources/js/components/Charts/WeeklyBarChart.vue?vue&type=script&lang=js&");
+/* harmony import */ var _MonthlyBarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MonthlyBarChart.vue?vue&type=script&lang=js& */ "./resources/js/components/Charts/MonthlyBarChart.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 var render, staticRenderFns
 
@@ -62991,7 +63016,7 @@ var render, staticRenderFns
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  _WeeklyBarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  _MonthlyBarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
   render,
   staticRenderFns,
   false,
@@ -63003,22 +63028,22 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/Charts/WeeklyBarChart.vue"
+component.options.__file = "resources/js/components/Charts/MonthlyBarChart.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/Charts/WeeklyBarChart.vue?vue&type=script&lang=js&":
-/*!************************************************************************************!*\
-  !*** ./resources/js/components/Charts/WeeklyBarChart.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************/
+/***/ "./resources/js/components/Charts/MonthlyBarChart.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/Charts/MonthlyBarChart.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_WeeklyBarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./WeeklyBarChart.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Charts/WeeklyBarChart.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_WeeklyBarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MonthlyBarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./MonthlyBarChart.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Charts/MonthlyBarChart.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MonthlyBarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 

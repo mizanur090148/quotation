@@ -20,7 +20,7 @@ class PurchaseReportController extends BaseController
                 'total_amount' => $reports->sum('total_product_cost') + $reports->sum('total_tax_value'),
             ];
             return $this->sendResponse($reportData);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }    

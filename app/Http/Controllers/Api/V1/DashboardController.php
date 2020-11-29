@@ -65,4 +65,14 @@ class DashboardController extends BaseController
             return $this->sendError($e->getMessage());
         }
     }
+
+    public function getYearlyDashboardDetails(Request $request)
+    {
+        try {
+            $result = $this->service->yearlyDashboardDetails($request);
+            return $this->sendResponse($result);
+        } catch (Exception $e) {
+            return $this->sendError($e->getMessage());
+        }
+    }
 }

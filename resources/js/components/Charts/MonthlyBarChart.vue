@@ -5,31 +5,40 @@
   export default {
     extends: Bar,
     data() {
-      return {
-        years: [],
-        months: null,
-        monthly_details: null,
-        sale_amount: null,
-        purchase_amount: null,
-        balance: null,
+      return {        
+        yearly_sale_amount: null,
+        yearly_purchase_amount: null,
+        yearly_balance: null,
         form: {
-          year: 2020,
-          month: new Date().getMonth() + 1
-        }, 
+          year: 2020          
+        },       
         chartData: {
-          labels: [],
+          labels: [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December'
+          ],
           datasets: [{
             label: "Sale",
             backgroundColor: "rgb(181, 204, 37)",
-            data: [],
+            data: [121,234,234,234],
           }, {
             label: "Purchase",
             backgroundColor: "#01A3A5",
-            data: [],
+            data: [121,234,234,234],
           }, {
             label: "Balance",
             backgroundColor: "red",
-            data: []
+            data: [121,234,234,2341]
           }]
         },
         options: {
@@ -50,12 +59,12 @@
             xAxes: [{
               gridLines: {
                 display: false
-              }
+              }               
             }]
           },
           title: {
             display: true,
-            text: 'Day Wise Graph'
+            text: 'Monthly Graph'
           },
           hover: {
             animationDuration: 0
@@ -74,7 +83,7 @@
               this.data.datasets.forEach(function (dataset, i) {
                   var meta = chartInstance.controller.getDatasetMeta(i);
                   meta.data.forEach(function (bar, index) {
-                     var data = dataset.data[index];
+                     var data = dataset.data[index];                     
                     //  ctx.fillText(data, bar._model.x, bar._model.y - 5);
                     //  ctx.rotate(0.9 * Math.PI);
                     //  ctx.restore();
@@ -90,59 +99,27 @@
         }
       }
     },
-    mounted() {  
-      this.getYears();
-      this.getMonths();    
-      this.getMonthlyDashboardDetails()
+    mounted() {     
+      this.getYearlyDashboardDetails()
     },
-    methods: {
-      getYears() {       
-        for (let index = 0; index < 10; index++) {
-          this.years.push('202' + index);
-        }
-      },
-      getMonths() {
-        let months = {
-          1 : 'January',
-          2 : 'February',
-          3 : 'March',
-          4 : 'April',
-          5 : 'May',
-          6 : 'June',
-          7 : 'July',
-          8 : 'August',
-          9 : 'September',
-          10 : 'October',
-          11 : 'November',
-          12 : 'December'
-        };
-        this.months = months;
-      },
-      getMonthlyDashboardDetails() {
-        axios.get('get-monthly-dashboard-details', { params: { year: this.form.year, month: this.form.month}})
+    methods: {      
+      getYearlyDashboardDetails() {
+        axios.get('get-yearly-dashboard-details', { params: { year: this.form.year }})
           .then((res) => {
-            let result = res.data;
-           /*  this.sale_amount = result.sale_amount;
-            this.purchase_amount = result.purchase_amount;
-            this.balance = result.sale_amount - result.purchase_amount; */
+            let result = res.data;            
+            this.yearly_sale_amount = result.yearly_sale_amount;
+            this.yearly_purchase_amount = result.yearly_purchase_amount;
+            this.yearly_balance = result.yearly_balance;
 
-            this.sale_amount = result.sale_amount;
-            this.purchase_amount = result.purchase_amount;
-            this.balance = result.sale_amount - result.purchase_amount;
-
-            this.chartData.labels = result.days_no;
-            this.chartData.datasets[0].data = result.date_wise_sales;
-            this.chartData.datasets[1].data = result.date_wise_purchases;
-            this.chartData.datasets[2].data = result.date_wise_balance;
+            this.chartData.datasets[0].data = result.month_wise_sales;
+            this.chartData.datasets[1].data = result.month_wise_purchases;
+            this.chartData.datasets[2].data = result.month_wise_balance;
 
             this.renderChart(this.chartData, this.options);
           })
           .catch((error) => {
-          })
-          .finally(() => {
-            
-          });     
+          })        
       }
     }
   }
-</script>
+</script>>

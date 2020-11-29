@@ -44,6 +44,8 @@ import App from './components/App'
 import Login from './components/Login'
 import Home from './components/Home'
 
+const Outlets = () => import(/* webpackChunkName: "outlets" */ './components/lists/Outlets.vue');
+
 const Users = () => import(/* webpackChunkName: "users" */ './components/lists/Users.vue');
 const User = () => import(/* webpackChunkName: "user" */ './components/forms/User.vue');
 const Product = () => import(/* webpackChunkName: "product" */ './components/forms/Product.vue');
@@ -82,6 +84,26 @@ const router = new VueRouter({
             path: '/login',
             name: 'login',
             component: Login
+        },
+        {
+            path: '/outlets',
+            name: 'outlets',
+            component: Outlets,
+        },
+        {
+            path: '/users',
+            name: 'users',
+            component: Users,
+        },
+        {
+            path: '/user/create',
+            name: 'users-create',
+            component: User,
+        }, 
+        {
+            path: '/user/:id',
+            name: 'user',
+            component: User,
         },
         {
             path: '/pos',
@@ -152,22 +174,7 @@ const router = new VueRouter({
             path: '/sale-invoice/:id',
             name: 'sumonView',
             component: SumonView,
-        },
-        {
-            path: '/users',
-            name: 'users',
-            component: Users,
-        },
-        {
-            path: '/user/create',
-            name: 'users-create',
-            component: User,
-        }, 
-        {
-            path: '/user/:id',
-            name: 'user',
-            component: User,
-        },
+        },       
         {
             path: '/suppliers',
             name: 'suppliers',

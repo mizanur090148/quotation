@@ -29,8 +29,8 @@
                     <th>Action</th>
                 </tr>
                 </thead>
-                <tbody>
-                  <tr v-if="outlets.length > 0" v-for="(outlet, index) in outlets" :key="outlet.id">
+                <tbody v-if="outlets.length">
+                  <tr v-for="(outlet, index) in outlets" :key="outlet.id">
                     <td>{{ ++index }}</td>
                     <td>{{ outlet.name }}</td>
                     <td>{{ outlet.responsible_person }}</td>
@@ -41,17 +41,19 @@
                       <button type="button" class="btn btn-sm btn-success btn-rounded btn-fw" @click="">
                         <i class="mdi mdi-grease-pencil"></i>
                       </button>
-                      <button type="button" class="btn btn-sm btn-danger btn-rounded btn-fw" @click="deleteoutlet(outlet.id)">
+                      <button type="button" class="btn btn-sm btn-danger btn-rounded btn-fw" @click="deleteOutlet(outlet.id)">
                         <i class="mdi mdi-delete"></i>
                       </button>
                     </td>
                   </tr>
-                  <tr v-else>
+                </tbody>
+                <tbody v-else>
+                  <tr>
                     <td>Not Found</td>
-                  </tr> 
+                  </tr>
                 </tbody>
               </table>
-              <v-pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="8" @paginate="getoutlets()"></v-pagination>
+              <v-pagination v-if="pagination.last_page > 1" :pagination="pagination" :offset="8" @paginate="getOutlets()"></v-pagination>
             </div>
           </div>
         </div>
@@ -61,7 +63,7 @@
 </template>
 
 <script>
-  import axios from '../axios';
+  import axios from '../../axios';
   import "vue-loading-overlay/dist/vue-loading.css";
   import Loading from 'vue-loading-overlay';
   
@@ -76,10 +78,10 @@
        }
     },     
     mounted() {
-      this.getoutlets()
+      this.getOutlets()
     },
     methods: {
-       deleteoutlet(id) { alert(id);
+       deleteOutlet(id) {
           this.$snotify.confirm(
             "Are you sure to delete this?",
             {
@@ -92,7 +94,7 @@
                     this.$snotify.remove(toast.id);
                     axios.delete('/outlets/'+quotationId)
                       .then(response => {
-                          this.getoutlets();
+                          this.getOutlets();
                           this.$snotify.success('Successfully deleted', 'Success');
                       })
                       .catch(e => {
@@ -112,7 +114,7 @@
             }
           );
        },
-       getoutlets() {          
+       getOutlets() {          
           const loader = this.$loading.show({
              container: this.$refs.attendanceTable,
              canCancel: true,
@@ -120,8 +122,8 @@
           })
           axios.get('outlets?page='+this.pagination.current_page)
               .then((res) => {
-                this.outlets = res.data.content.data;
-                this.pagination = res.data.content;
+                this.outlets = res.data.data;
+                this.pagination = res.data;
              })
              .catch((error) => {
                 console.log(error);

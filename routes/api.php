@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\V1\SalesReportController;
 use App\Http\Controllers\Api\V1\InventoryReportController;
 use App\Http\Controllers\Api\V1\DashboardController;
 use App\Http\Controllers\Api\V1\PurchaseSaleReturnController;
+use App\Http\Controllers\Api\V1\OutletController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -43,6 +44,7 @@ Route::get('get-best-sale-products', [DashboardController::class, 'getBestSalePr
 Route::get('get-recent-purchase-products', [DashboardController::class, 'getRecentPurchaseProducts']);
 Route::get('get-recent-sale-products', [DashboardController::class, 'getRecentSaleProducts']);
 Route::get('get-monthly-dashboard-details', [DashboardController::class, 'getMonthlyDashboardDetails']);
+Route::get('get-yearly-dashboard-details', [DashboardController::class, 'getYearlyDashboardDetails']);
 
 Route::get('suppliers', [SupplierController::class, 'index']);
 Route::get('supplier-dropdown-data', [SupplierController::class, 'supplierDropdownData']);
@@ -57,6 +59,13 @@ Route::post('customers', [CustomerController::class, 'store']);
 Route::get('customers/{id}', [CustomerController::class, 'show']);
 Route::delete('customers/{id}', [CustomerController::class, 'delete']);
 Route::get('search-customers', [CustomerController::class, 'search']);
+
+// outlets
+Route::get('outlets', [OutletController::class, 'index']);
+Route::post('outlets', [OutletController::class, 'store']);
+Route::get('outlets/{id}', [OutletController::class, 'show']);
+Route::delete('outlets/{id}', [OutletController::class, 'delete']);
+Route::get('search-outlets', [OutletController::class, 'search']);
 
 // users route
 Route::get('users', [UserController::class, 'index']);

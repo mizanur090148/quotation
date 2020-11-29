@@ -2,42 +2,30 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\V1\BaseController as BaseController;
 use App\Http\Controllers\Api\V1\ApiCrudHandler;
-use App\Http\Requests\CustomerRequest;
-use App\Models\Customer;
+use App\Http\Requests\OutletRequest;
+use App\Models\Outlet;
 use Validator;
 
-class CustomerController extends BaseController
+class OutletController extends BaseController
 {
     protected $apiCrudHandler;
 
-    public function __construct()
+    public function __construct(ApiCrudHandler $apiCrudHandler)
     {
-        $this->apiCrudHandler = new ApiCrudHandler();
+        $this->apiCrudHandler = $apiCrudHandler;
     }
 
     public function index(Request $request)
     {
         try {
-            $modelData = $this->apiCrudHandler->index($request, Customer::class, $where = [], $with = []);
+            $modelData = $this->apiCrudHandler->index($request, Outlet::class, $where = [], $with = []);
             return $this->sendResponse($modelData);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }        
-    }
-
-    public function CustomerDropdownData(Request $request)
-    {
-        try {
-            $select = ['id', 'name'];
-            $modelData = $this->apiCrudHandler->dropdownData($request, Customer::class, $where = [], $with = [], $select);
-            return $this->sendResponse($modelData);
-        } catch (Exception $e) {
-            return $this->sendError($e->getMessage());
-        }
     }
 
     /**
@@ -48,12 +36,12 @@ class CustomerController extends BaseController
      *
      * @return Array
      */
-    public function store(CustomerRequest $request)
+    public function store(OutletRequest $request)
     {       
         try {
-            $modelData = $this->apiCrudHandler->store($request, Customer::class);
+            $modelData = $this->apiCrudHandler->store($request, Outlet::class);
             return $this->sendResponse($modelData);
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             return $this->sendError($e->getMessage());
         }
     } 
@@ -65,7 +53,7 @@ class CustomerController extends BaseController
     public function search(Request $request)
     {
         try {            
-            $modelData = Customer::where('name', 'like', "%$request->search_key%")               
+            $modelData = Outlet::where('name', 'like', "%$request->search_key%")               
                 ->orWhere('address', 'like', "%$request->search_key%")
                 ->orWhere('mobile_no', 'like', "%$request->search_key%")
                 ->orWhere('telephone_no', 'like', "%$request->search_key%")
@@ -74,7 +62,7 @@ class CustomerController extends BaseController
                 ->orderBy($request->sortByColumn ?? 'id', $request->sortBy ?? 'desc')
                 ->paginate();
             return $this->sendResponse($modelData);
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             return $this->sendError($e->getMessage());
         }
     }
@@ -85,12 +73,12 @@ class CustomerController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($id, Customer $customer)
+    public function delete($id, Outlet $outlet)
     {
         try {
-            $delete = $this->apiCrudHandler->delete($id, Customer::class);
+            $delete = $this->apiCrudHandler->delete($id, Outlet::class);
             return $this->sendResponse($delete);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }  
     }

@@ -31,7 +31,7 @@
     </div> -->   
     <DashboardTopSummary></DashboardTopSummary>
    
-    <div class="row">
+    <div class="row mt-2">
       <div class="col-md-12">
         <div class="card">
           <div class="card-body">
@@ -39,14 +39,42 @@
               <div class="col-md-12">
                 <BarChart></BarChart>
               </div>
-              <div class="col-md-12">
+              <!-- <div class="col-md-12">
                 <WeeklyBarChart></WeeklyBarChart>
+              </div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">              
+              <div class="col-md-12">
+                <MonthlyBarChart></MonthlyBarChart>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- <div class="row mt-2">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">              
+              <div class="col-md-12">
+                <MonthlyBarChart></MonthlyBarChart>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
 
     <!-- <div class="row">
       <div class="col-md-6">
@@ -70,7 +98,7 @@
 
 <style>
   #bar-chart {
-    height: 260px !important;
+    height: 220px !important;
   }
 </style>
 
@@ -81,7 +109,8 @@
   import RecentPurchaseProducts from "./Partials/RecentPurchaseProducts";
   import RecentSaleProducts from "./Partials/RecentSaleProducts";
   import BarChart from './Charts/BarChart';
-  import WeeklyBarChart from './Charts/WeeklyBarChart'
+  /* import WeeklyBarChart from './Charts/WeeklyBarChart'; */
+  import MonthlyBarChart from './Charts/MonthlyBarChart'
   
   export default {
     components: {
@@ -91,7 +120,8 @@
       RecentPurchaseProducts,
       RecentSaleProducts,
       BarChart,
-      WeeklyBarChart
+      /* WeeklyBarChart, */
+      MonthlyBarChart
     }
   }
 </script>
