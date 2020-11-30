@@ -65,7 +65,6 @@ class ApiCrudHandler
      */
     public function store(Request $request, $modelClassName)
     {
-        dd($request->all());
         $obj = $modelClassName::findOrNew($request->id);
         $obj->fill($request->all());
         $obj->save();

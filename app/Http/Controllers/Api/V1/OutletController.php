@@ -7,7 +7,6 @@ use App\Http\Controllers\Api\V1\BaseController as BaseController;
 use App\Http\Controllers\Api\V1\ApiCrudHandler;
 use App\Http\Requests\OutletRequest;
 use App\Models\Outlet;
-use Validator;
 
 class OutletController extends BaseController
 {
@@ -55,8 +54,7 @@ class OutletController extends BaseController
         try {            
             $modelData = Outlet::where('name', 'like', "%$request->search_key%")               
                 ->orWhere('address', 'like', "%$request->search_key%")
-                ->orWhere('mobile_no', 'like', "%$request->search_key%")
-                ->orWhere('telephone_no', 'like', "%$request->search_key%")
+                ->orWhere('phone_no', 'like', "%$request->search_key%")              
                 ->orWhere('responsible_person', 'like', "%$request->search_key%")
                 ->orWhere('email', 'like', "%$request->search_key%")
                 ->orderBy($request->sortByColumn ?? 'id', $request->sortBy ?? 'desc')

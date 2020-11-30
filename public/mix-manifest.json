@@ -14,12 +14,12 @@
     "/dateWiseSales.js": "/dateWiseSales.js",
     "/dateWiseVat.js": "/dateWiseVat.js",
     "/models.js": "/models.js",
+    "/outlets.js": "/outlets.js",
     "/pos.js": "/pos.js",
     "/product.js": "/product.js",
     "/products.js": "/products.js",
     "/purchaseOrSaleRetun.js": "/purchaseOrSaleRetun.js",
     "/suppliers.js": "/suppliers.js",
     "/user.js": "/user.js",
-    "/users.js": "/users.js",
-    "/outlets.js": "/outlets.js"
+    "/users.js": "/users.js"
 }
