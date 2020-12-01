@@ -61,6 +61,7 @@ class OutletRequest extends FormRequest
                 'max:20'
             ],
             'email'=> [
+                'required',
                 'email',
                 'max:30',
                 new UniqueCheck(Outlet::class)

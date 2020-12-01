@@ -62,6 +62,23 @@
             </div>
          </li>
          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#inventories" aria-expanded="false" aria-controls="sales">
+               <i class="mdi mdi-settings menu-icon"></i>
+               <span class="menu-title">Inventories</span>
+               <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="inventories">
+               <ul class="nav flex-column sub-menu">                  
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/inventories"> Sales List </router-link> 
+                  </li>
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/inventories"> Pos </router-link> 
+                  </li>
+               </ul>
+            </div>
+         </li>
+         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#quotations" aria-expanded="false" aria-controls="quotations">
             <i class="mdi mdi-settings menu-icon"></i>
             <span class="menu-title">Quotations</span>

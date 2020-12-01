@@ -45040,6 +45040,46 @@ var render = function() {
         _c("li", { staticClass: "nav-item" }, [
           _vm._m(3),
           _vm._v(" "),
+          _c("div", { staticClass: "collapse", attrs: { id: "inventories" } }, [
+            _c("ul", { staticClass: "nav flex-column sub-menu" }, [
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/inventories" }
+                    },
+                    [_vm._v(" Sales List ")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/inventories" }
+                    },
+                    [_vm._v(" Pos ")]
+                  )
+                ],
+                1
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "nav-item" }, [
+          _vm._m(4),
+          _vm._v(" "),
           _c("div", { staticClass: "collapse", attrs: { id: "quotations" } }, [
             _c("ul", { staticClass: "nav flex-column sub-menu" }, [
               _c(
@@ -45078,7 +45118,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("li", { staticClass: "nav-item" }, [
-          _vm._m(4),
+          _vm._m(5),
           _vm._v(" "),
           _c("div", { staticClass: "collapse", attrs: { id: "reports" } }, [
             _c("ul", { staticClass: "nav flex-column sub-menu" }, [
@@ -45150,7 +45190,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("li", { staticClass: "nav-item" }, [
-          _vm._m(5),
+          _vm._m(6),
           _vm._v(" "),
           _c("div", { staticClass: "collapse", attrs: { id: "return" } }, [
             _c("ul", { staticClass: "nav flex-column sub-menu" }, [
@@ -45174,7 +45214,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("li", { staticClass: "nav-item" }, [
-          _vm._m(6),
+          _vm._m(7),
           _vm._v(" "),
           _c("div", { staticClass: "collapse", attrs: { id: "hrm" } }, [
             _c("ul", { staticClass: "nav flex-column sub-menu" }, [
@@ -45262,7 +45302,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("li", { staticClass: "nav-item" }, [
-          _vm._m(7),
+          _vm._m(8),
           _vm._v(" "),
           _c("div", { staticClass: "collapse", attrs: { id: "accounting" } }, [
             _c("ul", { staticClass: "nav flex-column sub-menu" }, [
@@ -45334,7 +45374,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("li", { staticClass: "nav-item" }, [
-          _vm._m(8),
+          _vm._m(9),
           _vm._v(" "),
           _c("div", { staticClass: "collapse", attrs: { id: "settings" } }, [
             _c("ul", { staticClass: "nav flex-column sub-menu" }, [
@@ -45510,6 +45550,30 @@ var staticRenderFns = [
         _c("i", { staticClass: "mdi mdi-settings menu-icon" }),
         _vm._v(" "),
         _c("span", { staticClass: "menu-title" }, [_vm._v("Sales")]),
+        _vm._v(" "),
+        _c("i", { staticClass: "menu-arrow" })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "nav-link",
+        attrs: {
+          "data-toggle": "collapse",
+          href: "#inventories",
+          "aria-expanded": "false",
+          "aria-controls": "sales"
+        }
+      },
+      [
+        _c("i", { staticClass: "mdi mdi-settings menu-icon" }),
+        _vm._v(" "),
+        _c("span", { staticClass: "menu-title" }, [_vm._v("Inventories")]),
         _vm._v(" "),
         _c("i", { staticClass: "menu-arrow" })
       ]
