@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\V1\InventoryReportController;
 use App\Http\Controllers\Api\V1\DashboardController;
 use App\Http\Controllers\Api\V1\PurchaseSaleReturnController;
 use App\Http\Controllers\Api\V1\OutletController;
+use App\Http\Controllers\Api\V1\InventoryController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -82,6 +83,8 @@ Route::get('products/{id}', [ProductController::class, 'show']);
 Route::delete('products/{id}', [ProductController::class, 'delete']);
 Route::get('search-products', [ProductController::class, 'search']);
 Route::get('get-products-by-category/{categoryId}', [ProductController::class, 'getProductsByCategory']);
+
+Route::get('available-products', [InventoryController::class, 'getAvailableProducts']);
 
 // categories route
 Route::get('categories', [CategoryController::class, 'index']);

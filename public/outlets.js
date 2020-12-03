@@ -510,7 +510,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("modal", { attrs: { name: "outletModal", width: 690, height: 400 } }, [
+      _c("modal", { attrs: { name: "outletModal", width: 690, height: 420 } }, [
         _c(
           "div",
           { staticClass: "modal-dialog", attrs: { role: "document" } },

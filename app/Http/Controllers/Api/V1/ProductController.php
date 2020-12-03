@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Api\V1\ApiCommonProcessHandler;
-use App\Http\Controllers\Api\V1\ApiResponseHandler;
+use App\Http\Controllers\Api\V1\ApiCrudHandler;
 use App\Http\Controllers\Api\V1\Services\ImageUploadService;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
@@ -14,9 +12,9 @@ class ProductController extends BaseController
 {
     protected $apiCrudHandler;
 
-    public function __construct()
+    public function __construct(ApiCrudHandler $apiCrudHandler)
     {
-        $this->apiCrudHandler = new ApiCrudHandler();
+        $this->apiCrudHandler = $apiCrudHandler;
     }
 
     public function index(Request $request)
@@ -32,7 +30,7 @@ class ProductController extends BaseController
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
         }
-    }
+    }   
 
     public function getProductsByCategory($categoryId)
     {

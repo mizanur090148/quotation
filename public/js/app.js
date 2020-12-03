@@ -45050,9 +45050,9 @@ var render = function() {
                     "router-link",
                     {
                       staticClass: "nav-link",
-                      attrs: { tag: "a", to: "/inventories" }
+                      attrs: { tag: "a", to: "/available-products" }
                     },
-                    [_vm._v(" Sales List ")]
+                    [_vm._v(" Available Products ")]
                   )
                 ],
                 1
@@ -62764,6 +62764,10 @@ var SumonView = function SumonView() {
   return __webpack_require__.e(/*! import() | SumonView */ "SumonView").then(__webpack_require__.bind(null, /*! ./components/Lists/SaleInvoice.vue */ "./resources/js/components/Lists/SaleInvoice.vue"));
 };
 
+var AvailableProducts = function AvailableProducts() {
+  return __webpack_require__.e(/*! import() | suppliers */ "suppliers").then(__webpack_require__.bind(null, /*! ./components/lists/AvailableProducts.vue */ "./resources/js/components/lists/AvailableProducts.vue"));
+};
+
 var PurchaseOrSaleRetun = function PurchaseOrSaleRetun() {
   return __webpack_require__.e(/*! import() | purchaseOrSaleRetun */ "purchaseOrSaleRetun").then(__webpack_require__.bind(null, /*! ./components/forms/PurchaseOrSaleRetun.vue */ "./resources/js/components/forms/PurchaseOrSaleRetun.vue"));
 }; // inventory report
@@ -62868,6 +62872,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
     path: '/sale-invoice/:id',
     name: 'sumonView',
     component: SumonView
+  }, {
+    path: '/available-products',
+    name: 'AvailableProducts',
+    component: AvailableProducts
   }, {
     path: '/suppliers',
     name: 'suppliers',

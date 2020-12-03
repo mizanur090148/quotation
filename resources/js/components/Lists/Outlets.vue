@@ -60,7 +60,7 @@
     </div>
 
     <!-- outlet Modal -->
-    <modal name="outletModal" :width="690" :height="400">
+    <modal name="outletModal" :width="690" :height="420">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">

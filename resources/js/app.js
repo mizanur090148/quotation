@@ -45,7 +45,6 @@ import Login from './components/Login'
 import Home from './components/Home'
 
 const Outlets = () => import(/* webpackChunkName: "outlets" */ './components/lists/Outlets.vue');
-
 const Users = () => import(/* webpackChunkName: "users" */ './components/lists/Users.vue');
 const User = () => import(/* webpackChunkName: "user" */ './components/forms/User.vue');
 const Product = () => import(/* webpackChunkName: "product" */ './components/forms/Product.vue');
@@ -65,6 +64,7 @@ const Sale = () => import(/* webpackChunkName: "Sale" */ './components/forms/Sal
 const Sales = () => import(/* webpackChunkName: "Sales" */ './components/Lists/Sales.vue');
 const SumonView = () => import(/* webpackChunkName: "SumonView" */ './components/Lists/SaleInvoice.vue');
 
+const AvailableProducts = () => import(/* webpackChunkName: "suppliers" */ './components/lists/AvailableProducts.vue');
 const PurchaseOrSaleRetun = () => import(/* webpackChunkName: "purchaseOrSaleRetun" */ './components/forms/PurchaseOrSaleRetun.vue');
 
 // inventory report
@@ -174,7 +174,12 @@ const router = new VueRouter({
             path: '/sale-invoice/:id',
             name: 'sumonView',
             component: SumonView,
-        },       
+        },
+        {
+            path: '/available-products',
+            name: 'AvailableProducts',
+            component: AvailableProducts,
+        },
         {
             path: '/suppliers',
             name: 'suppliers',

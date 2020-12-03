@@ -41,9 +41,10 @@ class Product extends Model
      * @var array
      */
     protected $casts = [
-        'model_id' => 'integer',
+        /* 'model_id' => 'integer',
         'brand_id' => 'integer',
-        'warning_quantity' => 'integer' 
+        'warning_quantity' => 'integer'  */
+        'avaialble_product'
     ];
 
     protected $dates = [
@@ -63,6 +64,16 @@ class Product extends Model
     public function model()
     {
         return $this->belongsTo(Modell::class)->withDefault();
+    }
+
+    public function stock_ins()
+    {
+        return $this->hasMany(StockIn::class);
+    }
+
+    public function sales()
+    {
+        return $this->hasMany(Sale::class);
     }
 
     public function getPurchaseTaxValueAttribute()

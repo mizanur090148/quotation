@@ -68,9 +68,9 @@
                <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="inventories">
-               <ul class="nav flex-column sub-menu">                  
+               <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                     <router-link tag="a" class="nav-link" to="/inventories"> Sales List </router-link> 
+                     <router-link tag="a" class="nav-link" to="/available-products"> Available Products </router-link> 
                   </li>
                   <li class="nav-item">
                      <router-link tag="a" class="nav-link" to="/inventories"> Pos </router-link> 
