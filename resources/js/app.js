@@ -65,7 +65,8 @@ const Sales = () => import(/* webpackChunkName: "Sales" */ './components/Lists/S
 const SumonView = () => import(/* webpackChunkName: "SumonView" */ './components/Lists/SaleInvoice.vue');
 
 const AvailableProducts = () => import(/* webpackChunkName: "suppliers" */ './components/lists/AvailableProducts.vue');
-const PurchaseOrSaleRetun = () => import(/* webpackChunkName: "purchaseOrSaleRetun" */ './components/forms/PurchaseOrSaleRetun.vue');
+const PurchaseRetun = () => import(/* webpackChunkName: "purchaseOrSaleRetun" */ './components/forms/PurchaseRetun.vue');
+const SaleRetun = () => import(/* webpackChunkName: "purchaseOrSaleRetun" */ './components/forms/SaleRetun.vue');
 
 // inventory report
 const DailyInventoryReport = () => import(/* webpackChunkName: "dateWiseInventory" */ './components/Reports/DailyInventoryReport.vue');
@@ -206,11 +207,15 @@ const router = new VueRouter({
             component: Brands,
         },
         {
-            path: '/purchase-or-sale-return',
-            name: 'purchaseOrSaleRetun',
-            component: PurchaseOrSaleRetun,
+            path: '/purchase-return',
+            name: 'purchasRetun',
+            component: PurchaseRetun,
         },
-
+        {
+            path: '/sale-return',
+            name: 'saleRetun',
+            component: SaleRetun,
+        },
         /**Report Route**/
         {
             path: '/daily-inventory-report',

@@ -45202,9 +45202,25 @@ var render = function() {
                     "router-link",
                     {
                       staticClass: "nav-link",
-                      attrs: { tag: "a", to: "/purchase-or-sale-return" }
+                      attrs: { tag: "a", to: "/purchase-return" }
                     },
-                    [_vm._v(" Purchase/Sale Return")]
+                    [_vm._v(" Purchase Return")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { tag: "a", to: "/sale-return" }
+                    },
+                    [_vm._v(" Sale Return")]
                   )
                 ],
                 1
@@ -62768,8 +62784,12 @@ var AvailableProducts = function AvailableProducts() {
   return __webpack_require__.e(/*! import() | suppliers */ "suppliers").then(__webpack_require__.bind(null, /*! ./components/lists/AvailableProducts.vue */ "./resources/js/components/lists/AvailableProducts.vue"));
 };
 
-var PurchaseOrSaleRetun = function PurchaseOrSaleRetun() {
-  return __webpack_require__.e(/*! import() | purchaseOrSaleRetun */ "purchaseOrSaleRetun").then(__webpack_require__.bind(null, /*! ./components/forms/PurchaseOrSaleRetun.vue */ "./resources/js/components/forms/PurchaseOrSaleRetun.vue"));
+var PurchaseRetun = function PurchaseRetun() {
+  return __webpack_require__.e(/*! import() | purchaseOrSaleRetun */ "purchaseOrSaleRetun").then(__webpack_require__.bind(null, /*! ./components/forms/PurchaseRetun.vue */ "./resources/js/components/forms/PurchaseRetun.vue"));
+};
+
+var SaleRetun = function SaleRetun() {
+  return __webpack_require__.e(/*! import() | purchaseOrSaleRetun */ "purchaseOrSaleRetun").then(__webpack_require__.bind(null, /*! ./components/forms/SaleRetun.vue */ "./resources/js/components/forms/SaleRetun.vue"));
 }; // inventory report
 
 
@@ -62899,9 +62919,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
     name: 'Brands',
     component: Brands
   }, {
-    path: '/purchase-or-sale-return',
-    name: 'purchaseOrSaleRetun',
-    component: PurchaseOrSaleRetun
+    path: '/purchase-return',
+    name: 'purchasRetun',
+    component: PurchaseRetun
+  }, {
+    path: '/sale-return',
+    name: 'saleRetun',
+    component: SaleRetun
   },
   /**Report Route**/
   {

@@ -1031,6 +1031,10 @@ var render = function() {
                           [
                             _c("option", { key: 0, domProps: { value: 0 } }, [
                               _vm._v("Piece")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { key: 1, domProps: { value: 1 } }, [
+                              _vm._v("Dzn")
                             ])
                           ]
                         )

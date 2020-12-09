@@ -46,8 +46,8 @@
               <div class="row p-2">               
                 <div class="col-6">
                   <div class="form-group">
-                    Search & Select Product
-                    <input type="text" v-model="search_product" v-on:keyup="autoComplete" class="form-control form-control-sm" placeholder="Search product">
+                    <label>&nbsp; Search & Select Product</label>
+                    <input type="text" v-model="search_product" v-on:keyup="autoComplete" class="form-control form-control-sm product-seach" placeholder="Search product">
                     <small class="text-danger" v-if="errors.product">{{ errors.product[0] }}</small>                    
                     <div class="panel-footer" v-if="products.length">
                       <ul class="list-group">
@@ -63,70 +63,73 @@
                   <table class="list-table table-bordered">
                     <thead>
                       <tr>
-                          <td colspan="9">Product Details Table</td>
+                        <td colspan="9">Product Details Table</td>
                       </tr>
-                        <tr>
-                          <td>Supplier</td>
-                          <td>Product Name</td>
-                          <td>Product Code</td>
-                          <td>Quantity</td>
-                          <td>Unit Cost</td>
-                          <td>Discount(%)</td>
-                          <td>Tax(%)</td>
-                          <td>Product Total</td>
-                          <td>Actions</td>
-                        </tr>
-                      </thead>
-                      <tbody v-if="form.product_detail_list.length">
-                        <tr v-for="(product_detail, index) in form.product_detail_list" :key="index">
-                          <td>
-                            <select v-model="product_detail.supplier_id" required class="form-control form-control-sm" :class="{ 'is-invalid': errors.supplier_id }">
-                              <option value="">Please select a supplier</option>
-                              <option v-for="(supplier, key) in suppliers" :value="supplier.id" :key="key">{{ supplier.name }}</option>
-                            </select>
-                          </td>
-                          <td>
-                            {{ product_detail.name ? product_detail.name : product_detail.product.name }}
-                          </td>
-                          <td>                    
-                            {{ product_detail.code ? product_detail.code : product_detail.product.code }}
-                          </td>
-                          <td class="text-center">
-                            <div class="input-group col-xs-12">
-                              <input type="number" style="width:70px !important;" v-model="product_detail.quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
-                              <span class="input-group-append">
-                                <button class="btn btn-sm btn-primary" type="button">Pcs</button>
-                              </span>
-                              <small class="text-danger" v-if="errors.quantity">{{ errors.quantity[0] }}</small>
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            {{ product_detail.purchase_price ? product_detail.purchase_price : product_detail.product.purchase_price }}
-                          </td>
-                          <td>
-                            <div class="input-group col-xs-12">
-                              <input type="number" style="width:60px !important;" v-model="product_detail.discount_percentage" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.discount_percentage }" placeholder="Discount percentage">
-                              <span class="input-group-append">
-                                <button class="btn btn-sm btn-primary" type="button">%</button>
-                              </span>
-                              <small class="text-danger" v-if="errors.discount_percentage">{{ errors.discount_percentage[0] }}</small>
-                            </div>
-                          </td>
-                          <td>                     
-                            {{ product_detail.tax_percentage }}%
-                          </td>
-                          <td class="text-center">
-                            {{ product_detail.product_wise_total }}
-                          </td>
-                          <td class="text-center">
-                            <button type="button" class="btn btn-xs btn-danger btn-rounded btn-fw" @click="deleteRow(index, product_detail)"><i class="mdi mdi-delete"></i></button>
-                          </td>
-                        </tr>
-                        <tr class="font-weight-bold">
-                          <td colspan="7">Grand Total</td>
-                          <td>{{ total_cost }}</td>
-                        </tr>
-                      </tbody>
+                      <tr>
+                        <td>Supplier</td>
+                        <td>Product Name</td>
+                        <td>Product Code</td>
+                        <td>Quantity</td>
+                        <td>Unit Cost</td>
+                        <td>Discount(%)</td>
+                        <td>Tax(%)</td>
+                        <td>Product Total</td>
+                        <td>Actions</td>
+                      </tr>
+                    </thead>
+                    <tbody v-if="form.product_detail_list.length">
+                      <tr v-for="(product_detail, index) in form.product_detail_list" :key="index">
+                        <td>
+                          <select v-model="product_detail.supplier_id" required class="form-control form-control-sm" :class="{ 'is-invalid': errors.supplier_id }">
+                            <option value="">Please select a supplier</option>
+                            <option v-for="(supplier, key) in suppliers" :value="supplier.id" :key="key">{{ supplier.name }}</option>
+                          </select>
+                        </td>
+                        <td class="text-left">
+                          {{ product_detail.name ? product_detail.name : product_detail.product.name }}
+                        </td>
+                        <td class="text-left">                    
+                          {{ product_detail.code ? product_detail.code : product_detail.product.code }}
+                        </td>
+                        <td class="text-center">
+                          <div class="input-group col-xs-12">
+                            <input type="number" style="width:70px !important;" v-model="product_detail.quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
+                            <span class="input-group-append">
+                              <button class="btn btn-sm btn-primary" type="button">
+                                <span v-if="product_detail.product_unit">Pcs</span>
+                                <span v-else>Dzn</span>
+                              </button>
+                            </span>
+                            <small class="text-danger" v-if="errors.quantity">{{ errors.quantity[0] }}</small>
+                          </div>
+                        </td>
+                        <td class="text-right">
+                          {{ product_detail.purchase_price ? product_detail.purchase_price : product_detail.product.purchase_price }}
+                        </td>
+                        <td>
+                          <div class="input-group col-xs-12">
+                            <input type="number" style="width:60px !important;" v-model="product_detail.discount_percentage" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.discount_percentage }" placeholder="Discount percentage">
+                            <span class="input-group-append">
+                              <button class="btn btn-sm btn-primary" type="button">%</button>
+                            </span>
+                            <small class="text-danger" v-if="errors.discount_percentage">{{ errors.discount_percentage[0] }}</small>
+                          </div>
+                        </td>
+                        <td>                     
+                          {{ product_detail.tax_percentage }}%
+                        </td>
+                        <td class="text-right">
+                          {{ product_detail.product_wise_total }}
+                        </td>
+                        <td class="text-right">
+                          <button type="button" class="btn btn-xs btn-danger btn-rounded btn-fw" @click="deleteRow(index, product_detail)"><i class="mdi mdi-delete"></i></button>
+                        </td>
+                      </tr>
+                      <tr class="font-weight-bold">
+                        <td colspan="7">Grand Total</td>
+                        <td class="text-right">{{ total_cost }}</td>
+                      </tr>
+                    </tbody>
                   </table>
                 </div>
               </div>
@@ -168,7 +171,7 @@
     </div>
 
     <!-- supplier Modal -->
-    <modal name="supplierModal" :width="795" :height="375">
+    <modal name="supplierModal" :width="795" :height="400">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -240,15 +243,6 @@
     <vue-snotify></vue-snotify>
   </div>
 </template>
-
-<style scoped>
-  .modal-dialog {
-    max-width: 750px !important;
-  }
-/*   .btn i {
-    font-size: 10px !important;
-  } */
-</style>
 
 <script>  
   import axios from '../../axios';
@@ -377,6 +371,7 @@
       },     
       deleteRow(index, item) {
         if (this.form.product_detail_list.length > 1) {
+          this.$snotify.clear();
           this.$snotify.confirm(
             "Are you sure to delete this?",
             {
@@ -419,6 +414,7 @@
         axios.post('/stock-ins', this.form)
           .then(response => {
             if (response.status == 200) {
+              this.$snotify.clear();
               this.$snotify.success('Successfully created', 'Success');
               this.$router.push({name: 'milons'});
             } else {
@@ -472,6 +468,7 @@
           .then(response => {
             if (response.status == 200) {
               this.supplierDropdowndata();
+              this.$snotify.clear();
               this.$snotify.success('Successfully created', 'Success');
               this.$modal.hide('supplierModal');
               this.loader.hide();
@@ -489,3 +486,21 @@
     }    
   }
 </script>
+
+
+
+<style scoped>
+  .modal-dialog {
+    max-width: 750px !important;
+  }
+  .list-group-item {
+    padding: 0.25rem 0.75rem;
+    border-radius: 17px !important;
+  }
+  .text-right {
+    padding-right: 6px !important
+  }
+  .text-left {
+    padding-left: 5px !important
+  }
+</style>

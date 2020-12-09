@@ -18,7 +18,7 @@ use App\Http\Controllers\Api\V1\PurchaseReportController;
 use App\Http\Controllers\Api\V1\SalesReportController;
 use App\Http\Controllers\Api\V1\InventoryReportController;
 use App\Http\Controllers\Api\V1\DashboardController;
-use App\Http\Controllers\Api\V1\PurchaseSaleReturnController;
+use App\Http\Controllers\Api\V1\ReturnController;
 use App\Http\Controllers\Api\V1\OutletController;
 use App\Http\Controllers\Api\V1\InventoryController;
 /*
@@ -129,10 +129,14 @@ Route::delete('sales/{id}', [SaleController::class, 'delete']);
 Route::get('search-sales', [SaleController::class, 'search']);
 
 // Return
-Route::get('get-invoice-dropdown', [PurchaseSaleReturnController::class, 'getInvoiceDropdown']);
+//Route::get('get-invoice-dropdown', [PurchaseSaleReturnController::class, 'getInvoiceDropdown']);
+Route::get('get-purchase-invoices-dropdown', [ReturnController::class, 'getPurchaseInvoicesDropdown']);
+Route::get('get-sale-invoices-dropdown', [ReturnController::class, 'getSaleInvoicesDropdown']);
+
 //Route::get('get-invoice-details', [PurchaseSaleReturnController::class, 'getInvoiceDetails']);
-Route::get('get-invoice-details-for-return', [PurchaseSaleReturnController::class, 'getInvoiceDetailsForReturn']);
-Route::get('purchase-or-sale-return-product', [PurchaseSaleReturnController::class, 'getInvoiceDetailsForReturnProduct']);
+Route::get('get-invoice-details-for-return', [ReturnController::class, 'getInvoiceDetailsForReturn']);
+Route::get('purchase-return', [ReturnController::class, 'purchaseReturn']);
+Route::get('sale-return', [ReturnController::class, 'saleReturn']);
 
 // reports
 Route::get('daily-inventory-report', [InventoryReportController::class, 'dailyInventoryReport']);

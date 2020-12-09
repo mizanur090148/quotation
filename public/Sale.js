@@ -256,11 +256,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -521,7 +516,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.modal-dialog[data-v-6fd3a352] {\n    max-width: 750px !important;\n}\n/*   .btn i {\n    font-size: 10px !important;\n  } */\n", ""]);
+exports.push([module.i, "\n.modal-dialog[data-v-6fd3a352] {\n  max-width: 750px !important;\n}\n.list-group-item[data-v-6fd3a352] {\n  padding: 0.25rem 0.75rem;\n  border-radius: 17px !important;\n}\n.text-right[data-v-6fd3a352] {\n  padding-right: 6px !important\n}\n.text-left[data-v-6fd3a352] {\n  padding-left: 5px !important\n}\n", ""]);
 
 // exports
 
@@ -785,9 +780,8 @@ var render = function() {
                   _c("div", { staticClass: "row p-2" }, [
                     _c("div", { staticClass: "col-6" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._v(
-                          "\n                  Search & Select Product\n                  "
-                        ),
+                        _c("label", [_vm._v("  Search & Select Product")]),
+                        _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
@@ -797,7 +791,8 @@ var render = function() {
                               expression: "search_product"
                             }
                           ],
-                          staticClass: "form-control form-control-sm",
+                          staticClass:
+                            "form-control form-control-sm product-seach",
                           class: { "is-invalid": _vm.errors.product },
                           attrs: { type: "text" },
                           domProps: { value: _vm.search_product },
@@ -864,7 +859,7 @@ var render = function() {
                                     index
                                   ) {
                                     return _c("tr", { key: index }, [
-                                      _c("td", [
+                                      _c("td", { staticClass: "text-left" }, [
                                         _vm._v(
                                           "\n                          " +
                                             _vm._s(
@@ -876,7 +871,7 @@ var render = function() {
                                         )
                                       ]),
                                       _vm._v(" "),
-                                      _c("td", [
+                                      _c("td", { staticClass: "text-left" }, [
                                         _vm._v(
                                           "\n                          " +
                                             _vm._s(
@@ -936,7 +931,32 @@ var render = function() {
                                               }
                                             }),
                                             _vm._v(" "),
-                                            _vm._m(1, true),
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "input-group-append"
+                                              },
+                                              [
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-sm btn-primary",
+                                                    attrs: { type: "button" }
+                                                  },
+                                                  [
+                                                    product_detail.product_unit
+                                                      ? _c("span", [
+                                                          _vm._v("Pcs")
+                                                        ])
+                                                      : _c("span", [
+                                                          _vm._v("Dzn")
+                                                        ])
+                                                  ]
+                                                )
+                                              ]
+                                            ),
                                             _vm._v(" "),
                                             _vm.errors.quantity
                                               ? _c(
@@ -957,7 +977,7 @@ var render = function() {
                                         )
                                       ]),
                                       _vm._v(" "),
-                                      _c("td", { staticClass: "text-center" }, [
+                                      _c("td", { staticClass: "text-right" }, [
                                         _vm._v(
                                           "\n                          " +
                                             _vm._s(product_detail.sale_price) +
@@ -1015,7 +1035,7 @@ var render = function() {
                                               }
                                             }),
                                             _vm._v(" "),
-                                            _vm._m(2, true),
+                                            _vm._m(1, true),
                                             _vm._v(" "),
                                             _vm.errors.discount_percentage
                                               ? _c(
@@ -1037,7 +1057,7 @@ var render = function() {
                                         )
                                       ]),
                                       _vm._v(" "),
-                                      _c("td", { staticClass: "text-center" }, [
+                                      _c("td", { staticClass: "text-right" }, [
                                         _vm._v(
                                           "\n                          " +
                                             _vm._s(
@@ -1047,7 +1067,7 @@ var render = function() {
                                         )
                                       ]),
                                       _vm._v(" "),
-                                      _c("td", { staticClass: "text-center" }, [
+                                      _c("td", { staticClass: "text-right" }, [
                                         _vm._v(
                                           "\n                          " +
                                             _vm._s(
@@ -1096,7 +1116,7 @@ var render = function() {
                                         [_vm._v("Grand Total")]
                                       ),
                                       _vm._v(" "),
-                                      _c("td", { staticClass: "text-center" }, [
+                                      _c("td", { staticClass: "text-right" }, [
                                         _vm._v(_vm._s(_vm.total_cost))
                                       ])
                                     ]
@@ -1655,18 +1675,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("td", [_vm._v("Actions")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "input-group-append" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-sm btn-primary", attrs: { type: "button" } },
-        [_vm._v("Pcs")]
-      )
     ])
   },
   function() {

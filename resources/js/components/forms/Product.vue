@@ -74,7 +74,7 @@
                     <label>Product Unit</label>
                     <select v-model="product_form.product_unit" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.product_unit }">                      
                       <option :value="0" :key="0">Piece</option>
-                      <!-- <option :value="1" :key="1">Dozen</option> -->
+                      <option :value="1" :key="1">Dzn</option>
                     </select>
                   </div>
                   <small class="text-danger" v-if="product_errors.product_unit">{{ product_errors.product_unit[0] }}</small>
