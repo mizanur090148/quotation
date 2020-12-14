@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"Milon":"Milon","MilonView":"MilonView","Milons":"Milons","Sale":"Sale","Sales":"Sales","SumonView":"SumonView","brands":"brands","categories":"categories","dateWiseInventory":"dateWiseInventory","dateWisePurchase":"dateWisePurchase","dateWiseSales":"dateWiseSales","dateWiseVat":"dateWiseVat","models":"models","outlets":"outlets","pos":"pos","product":"product","products":"products","purchaseOrSaleRetun":"purchaseOrSaleRetun","suppliers":"suppliers","user":"user","users":"users"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"Milon":"Milon","MilonView":"MilonView","Milons":"Milons","Sale":"Sale","Sales":"Sales","SumonView":"SumonView","brands":"brands","categories":"categories","dateWiseInventory":"dateWiseInventory","dateWisePurchase":"dateWisePurchase","dateWisePurchaseAndSaleReport":"dateWisePurchaseAndSaleReport","dateWiseSales":"dateWiseSales","dateWiseVat":"dateWiseVat","models":"models","outlets":"outlets","pos":"pos","product":"product","products":"products","purchaseOrSaleRetun":"purchaseOrSaleRetun","suppliers":"suppliers","user":"user","users":"users"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -45080,7 +45080,7 @@ var render = function() {
         _c("li", { staticClass: "nav-item" }, [
           _vm._m(4),
           _vm._v(" "),
-          _c("div", { staticClass: "collapse", attrs: { id: "quotations" } }, [
+          _c("div", { staticClass: "collapse", attrs: { id: "return" } }, [
             _c("ul", { staticClass: "nav flex-column sub-menu" }, [
               _c(
                 "li",
@@ -45090,9 +45090,9 @@ var render = function() {
                     "router-link",
                     {
                       staticClass: "nav-link",
-                      attrs: { tag: "a", to: "/quotations/create" }
+                      attrs: { tag: "a", to: "/purchase-return" }
                     },
-                    [_vm._v(" Add Quotation")]
+                    [_vm._v(" Purchase Return")]
                   )
                 ],
                 1
@@ -45106,9 +45106,9 @@ var render = function() {
                     "router-link",
                     {
                       staticClass: "nav-link",
-                      attrs: { tag: "a", to: "/quotations" }
+                      attrs: { tag: "a", to: "/sale-return" }
                     },
-                    [_vm._v(" Quotation List ")]
+                    [_vm._v(" Sale Return")]
                   )
                 ],
                 1
@@ -45146,6 +45146,25 @@ var render = function() {
                     "router-link",
                     {
                       staticClass: "nav-link",
+                      attrs: {
+                        tag: "a",
+                        to: "/date-wise-purchase-and-sale-report"
+                      }
+                    },
+                    [_vm._v(" Date Wise Purchase & Sale report ")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
                       attrs: { tag: "a", to: "/date-wise-purchase-report" }
                     },
                     [_vm._v(" Date Wise Purchase Report ")]
@@ -45168,22 +45187,6 @@ var render = function() {
                   )
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                { staticClass: "nav-item" },
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "nav-link",
-                      attrs: { tag: "a", to: "/date-wise-vat-report" }
-                    },
-                    [_vm._v(" Date Wise Vat Report ")]
-                  )
-                ],
-                1
               )
             ])
           ])
@@ -45192,7 +45195,7 @@ var render = function() {
         _c("li", { staticClass: "nav-item" }, [
           _vm._m(6),
           _vm._v(" "),
-          _c("div", { staticClass: "collapse", attrs: { id: "return" } }, [
+          _c("div", { staticClass: "collapse", attrs: { id: "quotations" } }, [
             _c("ul", { staticClass: "nav flex-column sub-menu" }, [
               _c(
                 "li",
@@ -45202,9 +45205,9 @@ var render = function() {
                     "router-link",
                     {
                       staticClass: "nav-link",
-                      attrs: { tag: "a", to: "/purchase-return" }
+                      attrs: { tag: "a", to: "/quotations/create" }
                     },
-                    [_vm._v(" Purchase Return")]
+                    [_vm._v(" Add Quotation")]
                   )
                 ],
                 1
@@ -45218,9 +45221,9 @@ var render = function() {
                     "router-link",
                     {
                       staticClass: "nav-link",
-                      attrs: { tag: "a", to: "/sale-return" }
+                      attrs: { tag: "a", to: "/quotations" }
                     },
-                    [_vm._v(" Sale Return")]
+                    [_vm._v(" Quotation List ")]
                   )
                 ],
                 1
@@ -45605,15 +45608,15 @@ var staticRenderFns = [
         staticClass: "nav-link",
         attrs: {
           "data-toggle": "collapse",
-          href: "#quotations",
+          href: "#return",
           "aria-expanded": "false",
-          "aria-controls": "quotations"
+          "aria-controls": "return"
         }
       },
       [
         _c("i", { staticClass: "mdi mdi-settings menu-icon" }),
         _vm._v(" "),
-        _c("span", { staticClass: "menu-title" }, [_vm._v("Quotations")]),
+        _c("span", { staticClass: "menu-title" }, [_vm._v("Return")]),
         _vm._v(" "),
         _c("i", { staticClass: "menu-arrow" })
       ]
@@ -45653,15 +45656,15 @@ var staticRenderFns = [
         staticClass: "nav-link",
         attrs: {
           "data-toggle": "collapse",
-          href: "#return",
+          href: "#quotations",
           "aria-expanded": "false",
-          "aria-controls": "return"
+          "aria-controls": "quotations"
         }
       },
       [
         _c("i", { staticClass: "mdi mdi-settings menu-icon" }),
         _vm._v(" "),
-        _c("span", { staticClass: "menu-title" }, [_vm._v("Return")]),
+        _c("span", { staticClass: "menu-title" }, [_vm._v("Quotations")]),
         _vm._v(" "),
         _c("i", { staticClass: "menu-arrow" })
       ]
@@ -62798,6 +62801,10 @@ var DailyInventoryReport = function DailyInventoryReport() {
 }; // reports area
 
 
+var DateWisePurchaseAndSaleReport = function DateWisePurchaseAndSaleReport() {
+  return __webpack_require__.e(/*! import() | dateWisePurchaseAndSaleReport */ "dateWisePurchaseAndSaleReport").then(__webpack_require__.bind(null, /*! ./components/Reports/DateWisePurchaseAndSaleReport.vue */ "./resources/js/components/Reports/DateWisePurchaseAndSaleReport.vue"));
+};
+
 var DateWiseSalesReport = function DateWiseSalesReport() {
   return __webpack_require__.e(/*! import() | dateWiseSales */ "dateWiseSales").then(__webpack_require__.bind(null, /*! ./components/Reports/DateWiseSales.vue */ "./resources/js/components/Reports/DateWiseSales.vue"));
 };
@@ -62932,6 +62939,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
     path: '/daily-inventory-report',
     name: 'DailyInventoryReport',
     component: DailyInventoryReport
+  }, {
+    path: '/date-wise-purchase-and-sale-report',
+    name: 'dateWisePurchaseAndSalesReport',
+    component: DateWisePurchaseAndSaleReport
   }, {
     path: '/date-wise-purchase-report',
     name: 'DateWisePurchaseReport',

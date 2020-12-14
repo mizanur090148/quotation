@@ -4,17 +4,23 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title text-center">Daily Inventory Report</h4>
+            <h4 class="card-title text-center">Date Wise Purchase & Sale Report</h4>
             <hr>
-            <form class="forms-sample" @submit.prevent="getDailyInventoryReport">
+            <form class="forms-sample" @submit.prevent="getDateWisePurchaseAndSaleReport">
               <div class="row">
                 <div class="col-3">
                   <div class="form-group">
-                    <label class="no-print">Report Date</label>
-                    <input type="date" v-model="form.report_date" @change="getDailyInventoryReport" class="form-control form-control-sm no-print">                    
+                    <label class="no-print">From Date</label>
+                    <input type="date" v-model="form.report_date" @change="getDateWisePurchaseAndSaleReport" class="form-control form-control-sm no-print">                    
                   </div>
                 </div>
-                <div class="col-7"></div>
+                <div class="col-3">
+                  <div class="form-group">
+                    <label class="no-print">To Date</label>
+                    <input type="date" v-model="form.to_date" @change="getDateWisePurchaseAndSaleReport" class="form-control form-control-sm no-print">                    
+                  </div>
+                </div>
+                <div class="col-4"></div>
                 <div class="col-2 text-right">
                   <a href="#" class="text-right" @click="printSection"><i class="mdi mdi-printer"></i></a>
                 </div>                
@@ -32,8 +38,7 @@
                     <td>Product Name</td>
                     <td>Product Code</td>
                     <td>Total Stock In Qty</td>
-                    <td>Total Sales Qty</td>
-                    <td>Inventory Qty</td>
+                    <td>Total Sales Qty</td>                 
                   </tr>
                 </thead>
                 <tbody>
@@ -117,28 +122,29 @@
       return {       
         reports: [],      
         form: new Form({
-          report_date: new Date().toISOString().split('T')[0]        
+          form_date: new Date().toISOString().split('T')[0],
+          to_date: new Date().toISOString().split('T')[0]
         })
       }
     },
     mounted() {     
-      this.getDailyInventoryReport(); 
+      this.getDateWisePurchaseAndSaleReport(); 
     },    
     methods: {
       printSection() {
         this.$htmlToPaper("printArea");
       },      
-      getDailyInventoryReport() {       
+      getDateWisePurchaseAndSaleReport() {       
         const loader = this.$loading.show({
           container: this.$refs.customerContainer,
           canCancel: true,
           loader: 'bars'
         })
-        axios.get('/daily-inventory-report', { params: { report_date: this.form.report_date}})
+        axios.get('/date-wise-purchase-and-sale-report', { params: { form_date: this.form.form_date ,report_date: this.form.report_date}})
           .then(response => {
+            this.loader.hide();
             if (response.status == 200) {
-              this.reports = response.data;             
-              this.loader.hide();
+              this.reports = response.data;              
             } else {
               this.$snotify.error('Something went worng', 'error');
             }

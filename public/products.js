@@ -324,7 +324,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.modal-dialog {\n  max-width: 650px !important;\n  width: 650px !important;\n}\nspan {\n  font-weight: bold;\n  padding-left: 10px !important;\n}\n.product-detail td {\n  text-align: left !important;\n}\n", ""]);
+exports.push([module.i, "\n.modal-dialog {\n  max-width: 650px !important;\n  width: 650px !important;\n}\ntr span {\n  font-weight: bold;\n  padding-left: 10px !important;\n}\n.product-detail td {\n  text-align: left !important;\n}\n", ""]);
 
 // exports
 

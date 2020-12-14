@@ -12,7 +12,9 @@
                   <button type="button" class="btn btn-primary btn-sm btn-rounded btn-fw">Add New <i class="fas fa-plus"></i></button>
                 </router-link> -->
               </div>
-              <div class="col-md-3"></div>
+              <div class="col-md-3">
+                
+              </div>
               <div class="col-md-3">
                 <select v-model="amount" class="form-control form-control-sm search-field" @change="getAvailableProducts">
                   <option value="">Select a quantity</option>
@@ -39,7 +41,7 @@
                 </select>
               </div>
               <div class="col-md-3 pr-1">
-                <input type="text" class="form-control search-field" v-model="search_key" placeholder="Search"/>
+                <input type="text" class="form-control search-field" v-model="search_key" placeholder="Search by name and code"/>
               </div>
             </div>
             <div class="table-responsive">
@@ -81,20 +83,6 @@
     <vue-snotify></vue-snotify>
   </div>
 </template>
-
-<style>
-  .modal-dialog {
-    max-width: 650px !important;
-    width: 650px !important;
-  }
-  span {
-    font-weight: bold;
-    padding-left: 10px !important;
-  }
-  .product-detail td {
-    text-align: left !important;
-  }
-</style>
 
 <script>
   import axios from '../../axios';

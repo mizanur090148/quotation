@@ -7,7 +7,7 @@
             <h4 class="card-title text-center">Date Wise Purchase Report</h4>
             <hr>
             <form class="forms-sample" @submit.prevent="getDateWiseSlaesReport">
-              <div class="row p-2">
+              <div class="row">
                 <div class="col-3">
                   <div class="form-group">
                     <label class="no-print">From Date</label>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="col-2"></div>
                 <div class="col-2 text-right">
-                  <a href="#" class="text-right" @click="printSection"><i class="mdi mdi-printer"></i></a>
+                  <a href="#" @click="printSection"><i class="mdi mdi-printer"></i></a>
                 </div>
               </div>
             </form>
@@ -107,7 +107,10 @@
   hr {
     margin-top: 0rem !important;
     margin-bottom: 0.2rem !important;
-  }  
+  }
+  .col-3 {
+    padding-left: 0px !important;
+  }
 </style>
 <style>
   @media print {

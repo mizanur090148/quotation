@@ -71,6 +71,7 @@ const SaleRetun = () => import(/* webpackChunkName: "purchaseOrSaleRetun" */ './
 // inventory report
 const DailyInventoryReport = () => import(/* webpackChunkName: "dateWiseInventory" */ './components/Reports/DailyInventoryReport.vue');
 // reports area
+const DateWisePurchaseAndSaleReport = () => import(/* webpackChunkName: "dateWisePurchaseAndSaleReport" */ './components/Reports/DateWisePurchaseAndSaleReport.vue');
 const DateWiseSalesReport = () => import(/* webpackChunkName: "dateWiseSales" */ './components/Reports/DateWiseSales.vue');
 const DateWisePurchaseReport = () => import(/* webpackChunkName: "dateWisePurchase" */ './components/Reports/DateWisePurchase.vue');
 const DateWiseVatReport = () => import(/* webpackChunkName: "dateWiseVat" */ './components/Reports/DateWiseVat.vue');
@@ -216,11 +217,16 @@ const router = new VueRouter({
             name: 'saleRetun',
             component: SaleRetun,
         },
-        /**Report Route**/
+        /**Report Route**/ 
         {
             path: '/daily-inventory-report',
             name: 'DailyInventoryReport',
             component: DailyInventoryReport,
+        },
+        {
+            path: '/date-wise-purchase-and-sale-report',
+            name: 'dateWisePurchaseAndSalesReport',
+            component: DateWisePurchaseAndSaleReport,
         },
         {
             path: '/date-wise-purchase-report',

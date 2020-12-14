@@ -11,6 +11,7 @@
     "/categories.js": "/categories.js",
     "/dateWiseInventory.js": "/dateWiseInventory.js",
     "/dateWisePurchase.js": "/dateWisePurchase.js",
+    "/dateWisePurchaseAndSaleReport.js": "/dateWisePurchaseAndSaleReport.js",
     "/dateWiseSales.js": "/dateWiseSales.js",
     "/dateWiseVat.js": "/dateWiseVat.js",
     "/models.js": "/models.js",

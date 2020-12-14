@@ -24,7 +24,7 @@ class CreateProductsTable extends Migration
             $table->double('purchase_price', 12,4)->default(0);
             $table->double('sale_price', 12,4)->default(0);
             $table->integer('warning_quantity')->nullable();
-            $table->smallInteger('tax_percentage')->default(0)->comment('percentage(%)');
+            $table->smallInteger('tax_percentage')->nullable()->comment('percentage(%)');
             $table->text('product_detail')->nullable();
             $table->string('image', 130)->nullable();
             $table->unsignedBigInteger('outlet_id')->nullable();

@@ -76,7 +76,7 @@
               <div class="row p-2 ">
                 <div class="form-group">
                   <button type="submit" class="btn btn-sm btn-primary mr-2">Submit</button>
-                  <button class="btn btn-sm btn-danger mr-2" @click="closeModal('categoryModal')">Close</button>
+                  <button type="button" class="btn btn-sm btn-danger mr-2" @click="closeModal('categoryModal')">Close</button>
                 </div>
               </div>
             </div>

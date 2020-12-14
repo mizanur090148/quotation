@@ -75,6 +75,7 @@
                     <select v-model="product_form.product_unit" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.product_unit }">                      
                       <option :value="0" :key="0">Piece</option>
                       <option :value="1" :key="1">Dzn</option>
+                      <option :value="2" :key="1">Kgs</option>
                     </select>
                   </div>
                   <small class="text-danger" v-if="product_errors.product_unit">{{ product_errors.product_unit[0] }}</small>
@@ -108,6 +109,7 @@
                   <div class="form-group">
                     <label>Tax Percentage</label>
                     <select v-model="product_form.tax_percentage" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.tax_percentage }">
+                      <option value="">Please select a percentage</option>
                       <option v-for="(percentage, key) in tax_percentage_dropdown_data" :value="percentage" :key="key">{{ percentage }}%</option>
                     </select>
                   </div>
@@ -284,7 +286,7 @@
           purchase_price: '',
           sale_price: '',
           warning_quantity: '',
-          tax_percentage: 5,
+          tax_percentage: '',
           product_detail: '',
           image: ''
         }),
@@ -338,8 +340,8 @@
         this.product_form.image = '';
         this.imagepreview = '';
       },      
-      getTaxPrcentageDropdownData() {
-        let tax_percentage_dropdown_data = new Array();
+      getTaxPrcentageDropdownData() { 
+        let tax_percentage_dropdown_data = [];      
         for (let index = 1; index <= 50; index++) {
           tax_percentage_dropdown_data.push(index);          
         }

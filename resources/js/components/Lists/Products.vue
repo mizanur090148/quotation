@@ -162,7 +162,7 @@
     max-width: 650px !important;
     width: 650px !important;
   }
-  span {
+  tr span {
     font-weight: bold;
     padding-left: 10px !important;
   }

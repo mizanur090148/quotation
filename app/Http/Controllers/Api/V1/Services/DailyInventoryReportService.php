@@ -31,5 +31,30 @@ class DailyInventoryReportService
             ->get();
             
         return $reportData;
-    }    
+    }
+    
+    public function dateWisePurchaseAndSaleReportData($fromDate, $toDate)
+    {
+        $with = [           
+            'product:id,name,code'  
+        ];       
+        
+        $reportData = StockIn::with($with)
+            ->leftJoin('sales', 'stock_ins.product_id', 'sales.product_id')
+           // ->leftJoin('products', 'stock_ins.product_id', 'products.id')
+            ->selectRaw('
+                sum(COALESCE(stock_ins.quantity, 0)) as stock_qty, 
+                sum(COALESCE(sales.quantity, 0)) as sale_qty,               
+                stock_ins.product_id
+            ')
+            ->whereDate('stock_ins.created_at', '<=', $fromDate)
+            ->orWhereDate('stock_ins.created_at', '<=', $toDate)
+            ->whereNull('stock_ins.purchase_invoice')
+            ->whereNull('sales.invoice_number')
+            // ->groupBy('stock_ins.product_id')
+            ->groupBy(DB::raw('stock_ins.product_id WITH ROLLUP'))
+            ->get();
+            
+        return $reportData;
+    }
 }

@@ -140,6 +140,7 @@ Route::get('sale-return', [ReturnController::class, 'saleReturn']);
 
 // reports
 Route::get('daily-inventory-report', [InventoryReportController::class, 'dailyInventoryReport']);
+Route::get('date-wise-purchase-and-sale-report', [InventoryReportController::class, 'dateWisePurchaseAndSaleReport']);
 Route::get('date-wise-purchase-report', [PurchaseReportController::class, 'dateWisePurchaseReport']);
 Route::get('date-wise-sales-report', [SalesReportController::class, 'dateWiseSalesReport']);
 Route::get('date-wise-vat-report', [SalesReportController::class, 'dateWiseVatReport']);

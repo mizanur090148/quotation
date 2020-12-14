@@ -522,6 +522,7 @@ var render = function() {
                             "button",
                             {
                               staticClass: "btn btn-sm btn-danger mr-2",
+                              attrs: { type: "button" },
                               on: {
                                 click: function($event) {
                                   return _vm.closeModal("modelModal")

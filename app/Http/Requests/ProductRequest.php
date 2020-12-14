@@ -42,7 +42,7 @@ class ProductRequest extends FormRequest
             'sale_price.numeric' => 'Sale price must be numeric',
             'sale_price.min' => 'Must be greater than 0',
             'sale_price.max' => 'Out of range',
-            'tax_percentage.required' => 'Tax percentage is required',
+         //   'tax_percentage.required' => 'Tax percentage is required',
             'tax_percentage.numeric' => 'Tax percentage must be numeric',
             'tax_percentage.min' => 'Must be greater than 0',
             'tax_percentage.max' => 'Out of range',
@@ -85,12 +85,12 @@ class ProductRequest extends FormRequest
                 'gt:0'
                 //'digits_between:1,8'
             ],
-            'tax_percentage'=> [
+           /*  'tax_percentage'=> [
                 'required',
                 'numeric',
                 'gt:0'
                 //'digits_between:1,8'
-            ],
+            ], */
             'product_detail' => [
                 'nullable',
                 'max:1000'

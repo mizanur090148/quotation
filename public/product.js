@@ -279,6 +279,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -298,7 +299,7 @@ __webpack_require__.r(__webpack_exports__);
         purchase_price: '',
         sale_price: '',
         warning_quantity: '',
-        tax_percentage: 5,
+        tax_percentage: '',
         product_detail: '',
         image: ''
       }),
@@ -358,7 +359,7 @@ __webpack_require__.r(__webpack_exports__);
       this.imagepreview = '';
     },
     getTaxPrcentageDropdownData: function getTaxPrcentageDropdownData() {
-      var tax_percentage_dropdown_data = new Array();
+      var tax_percentage_dropdown_data = [];
 
       for (var index = 1; index <= 50; index++) {
         tax_percentage_dropdown_data.push(index);
@@ -1240,17 +1241,23 @@ var render = function() {
                               }
                             }
                           },
-                          _vm._l(_vm.tax_percentage_dropdown_data, function(
-                            percentage,
-                            key
-                          ) {
-                            return _c(
-                              "option",
-                              { key: key, domProps: { value: percentage } },
-                              [_vm._v(_vm._s(percentage) + "%")]
-                            )
-                          }),
-                          0
+                          [
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v("Please select a percentage")
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(_vm.tax_percentage_dropdown_data, function(
+                              percentage,
+                              key
+                            ) {
+                              return _c(
+                                "option",
+                                { key: key, domProps: { value: percentage } },
+                                [_vm._v(_vm._s(percentage) + "%")]
+                              )
+                            })
+                          ],
+                          2
                         )
                       ]),
                       _vm._v(" "),

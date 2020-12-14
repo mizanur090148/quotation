@@ -133,6 +133,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -221,7 +224,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nhr[data-v-6421f7ef] {\n  margin-top: 0rem !important;\n  margin-bottom: 0.2rem !important;\n}  \n", ""]);
+exports.push([module.i, "\nhr[data-v-6421f7ef] {\n  margin-top: 0rem !important;\n  margin-bottom: 0.2rem !important;\n}\n.col-3[data-v-6421f7ef] {\n  padding-left: 0px !important;\n} \n", ""]);
 
 // exports
 
@@ -354,7 +357,7 @@ var render = function() {
                     }
                   },
                   [
-                    _c("div", { staticClass: "row p-2" }, [
+                    _c("div", { staticClass: "row" }, [
                       _c("div", { staticClass: "col-3" }, [
                         _c("div", { staticClass: "form-group" }, [
                           _c("label", { staticClass: "no-print" }, [
@@ -444,7 +447,6 @@ var render = function() {
                         _c(
                           "a",
                           {
-                            staticClass: "text-right",
                             attrs: { href: "#" },
                             on: { click: _vm.printSection }
                           },
