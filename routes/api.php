@@ -74,7 +74,7 @@ Route::post('users', [UserController::class, 'store']);
 Route::get('users/{id}', [UserController::class, 'show']);
 Route::delete('users/{id}', [UserController::class, 'delete']);
 Route::get('search-users', [UserController::class, 'search']);
-Route::get('role-dropdown-data', [RoleController::class, 'RoleDropdownData']);
+Route::get('role-dropdown-data', [RoleController::class, 'roleDropdownData']);
 
 // products route
 Route::get('products', [ProductController::class, 'index']);
@@ -104,7 +104,7 @@ Route::get('search-brands', [BrandController::class, 'search']);
 
 // models route
 Route::get('models', [ModelController::class, 'index']);
-Route::get('model-dropdown-data', [ModelController::class, 'ModelDropdownData']);
+Route::get('model-dropdown-data', [ModelController::class, 'modelDropdownData']);
 Route::post('models', [ModelController::class, 'store']);
 Route::get('models/{id}', [ModelController::class, 'show']);
 Route::delete('models/{id}', [ModelController::class, 'delete']);

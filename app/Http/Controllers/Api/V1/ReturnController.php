@@ -25,7 +25,7 @@ class ReturnController extends BaseController
             $where = [
                 ['purchase_invoice', '<>', NULL]
             ];
-            $modelData = $this->apiCrudHandler->dropdownData($request, StockIn::class, $where,  $with = [], $select);            
+            $modelData = $this->apiCrudHandler->dropdownData($request, StockIn::class, $where, $select);            
             return $this->sendResponse($modelData);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
@@ -39,7 +39,7 @@ class ReturnController extends BaseController
             $where = [
                 ['invoice_number', '<>', NULL]
             ];
-            $modelData = $this->apiCrudHandler->dropdownData($request, Sale::class, $where,  $with = [], $select);       
+            $modelData = $this->apiCrudHandler->dropdownData($request, Sale::class, $where, $select);       
             return $this->sendResponse($modelData);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());

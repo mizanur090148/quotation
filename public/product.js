@@ -280,6 +280,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -1036,6 +1037,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("option", { key: 1, domProps: { value: 1 } }, [
                               _vm._v("Dzn")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { key: 2, domProps: { value: 2 } }, [
+                              _vm._v("Kg")
                             ])
                           ]
                         )

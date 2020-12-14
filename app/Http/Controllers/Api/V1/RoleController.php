@@ -27,11 +27,11 @@ class RoleController extends BaseController
         }
     }
 
-    public function RoleDropdownData(Request $request)
+    public function roleDropdownData(Request $request)
     {
         try {
             $select = ['id', 'name'];
-            $modelData = $this->apiCrudHandler->dropdownData($request, Role::class, $where = [],  $with = [], $select);
+            $modelData = $this->apiCrudHandler->dropdownData($request, Role::class, $where = [], $select);
             return $this->sendResponse($modelData);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());

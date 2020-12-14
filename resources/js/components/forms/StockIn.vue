@@ -93,7 +93,7 @@
                         </td>
                         <td class="text-center">
                           <div class="input-group col-xs-12">
-                            <input type="number" style="width:70px !important;" v-model="product_detail.quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
+                            <input type="number" style="width:60px !important;" v-model="product_detail.quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
                             <span class="input-group-append">
                               <button class="btn btn-sm btn-primary" type="button">
                                 <span v-if="product_detail.product_unit">Pcs</span>
@@ -115,7 +115,7 @@
                             <small class="text-danger" v-if="errors.discount_percentage">{{ errors.discount_percentage[0] }}</small>
                           </div>
                         </td>
-                        <td>                     
+                        <td class="text-right">                     
                           {{ product_detail.tax_percentage }}%
                         </td>
                         <td class="text-right">
@@ -137,14 +137,14 @@
                 <div class="col-3">
                   <div class="form-group">
                     <label>Shipping Cost</label>
-                    <input type="text" v-model="form.shipping_cost" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.shipping_cost }">
+                    <input type="number" v-model="form.shipping_cost" @keypress="isNumber($event)" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.shipping_cost }">
                     <small class="text-danger" v-if="errors.shipping_cost">{{ errors.shipping_cost[0] }}</small>
                   </div>
                 </div>
                 <div class="col-3">
                   <div class="form-group">
                     <label>Other's Cost</label>
-                    <input type="text" v-model="form.others_cost" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.others_cost }">
+                    <input type="number" v-model="form.others_cost" @keypress="isNumber($event)" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.others_cost }">
                     <small class="text-danger" v-if="errors.others_cost">{{ errors.others_cost[0] }}</small>
                   </div>
                 </div>
@@ -257,8 +257,8 @@
           purchase_invoice: '',
           stock_in_status: 1,
           stock_in_document: '',
-          shipping_cost: 0,
-          others_cost: 0,
+          shipping_cost: null,
+          others_cost: null,
           note: '',
           created_by: 1,
           outlet_id: 1,
@@ -313,6 +313,15 @@
       }
     },
     methods: {
+      isNumber: function(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+          evt.preventDefault();;
+        } else {
+          return true;
+        }
+      },
       getStockInChallan() {
         this.form.purchase_invoice = Date.now();
       },
@@ -486,8 +495,6 @@
     }    
   }
 </script>
-
-
 
 <style scoped>
   .modal-dialog {

@@ -75,7 +75,7 @@
                     <select v-model="product_form.product_unit" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.product_unit }">                      
                       <option :value="0" :key="0">Piece</option>
                       <option :value="1" :key="1">Dzn</option>
-                      <option :value="2" :key="1">Kgs</option>
+                      <option :value="2" :key="2">Kg</option>
                     </select>
                   </div>
                   <small class="text-danger" v-if="product_errors.product_unit">{{ product_errors.product_unit[0] }}</small>
@@ -84,7 +84,7 @@
               <div class="row p-2">
                 <div class="col-4">
                   <div class="form-group">
-                    <label>Purchase Price(Unit Price)</label>                    
+                    <label>Purchase Price(Unit Price)</label>
                     <input type="text" @keypress="isNumber($event)" v-model="product_form.purchase_price" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.purchase_price }" placeholder="Enter purchase price">
                     <small class="text-danger" v-if="product_errors.purchase_price">{{ product_errors.purchase_price[0] }}</small>
                   </div>

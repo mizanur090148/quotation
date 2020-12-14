@@ -271,8 +271,8 @@ __webpack_require__.r(__webpack_exports__);
         purchase_invoice: '',
         stock_in_status: 1,
         stock_in_document: '',
-        shipping_cost: 0,
-        others_cost: 0,
+        shipping_cost: null,
+        others_cost: null,
         note: '',
         created_by: 1,
         outlet_id: 1,
@@ -331,6 +331,17 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    isNumber: function isNumber(evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode;
+
+      if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode !== 46) {
+        evt.preventDefault();
+        ;
+      } else {
+        return true;
+      }
+    },
     getStockInChallan: function getStockInChallan() {
       this.form.purchase_invoice = Date.now();
     },
@@ -953,7 +964,7 @@ var render = function() {
                                                   _vm.errors.quantity
                                               },
                                               staticStyle: {
-                                                width: "70px !important"
+                                                width: "60px !important"
                                               },
                                               attrs: {
                                                 type: "number",
@@ -1107,7 +1118,7 @@ var render = function() {
                                         )
                                       ]),
                                       _vm._v(" "),
-                                      _c("td", [
+                                      _c("td", { staticClass: "text-right" }, [
                                         _vm._v(
                                           "                     \n                        " +
                                             _vm._s(
@@ -1192,9 +1203,12 @@ var render = function() {
                           staticClass:
                             "form-control form-control-sm text-right",
                           class: { "is-invalid": _vm.errors.shipping_cost },
-                          attrs: { type: "text" },
+                          attrs: { type: "number" },
                           domProps: { value: _vm.form.shipping_cost },
                           on: {
+                            keypress: function($event) {
+                              return _vm.isNumber($event)
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -1232,9 +1246,12 @@ var render = function() {
                           staticClass:
                             "form-control form-control-sm text-right",
                           class: { "is-invalid": _vm.errors.others_cost },
-                          attrs: { type: "text" },
+                          attrs: { type: "number" },
                           domProps: { value: _vm.form.others_cost },
                           on: {
+                            keypress: function($event) {
+                              return _vm.isNumber($event)
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return

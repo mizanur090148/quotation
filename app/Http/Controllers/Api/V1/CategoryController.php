@@ -32,7 +32,7 @@ class CategoryController extends BaseController
     {
         try {
             $select = ['id', 'name'];
-            $modelData = $this->apiCrudHandler->dropdownData($request, Category::class, $where = [],  $with = [], $select);
+            $modelData = $this->apiCrudHandler->dropdownData($request, Category::class, $where = [], $select);
             return $this->sendResponse($modelData);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());

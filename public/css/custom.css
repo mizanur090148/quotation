@@ -75,3 +75,10 @@ select.form-control {
 .product-seach {
   border-radius: 17px !important;
 }
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}

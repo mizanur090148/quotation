@@ -54,7 +54,7 @@ class ProductController extends BaseController
     {       
         try {
             $select = ['id', 'name'];        
-            $modelData = $this->apiCrudHandler->dropdownData($request, Product::class, $where = [],  $with = [], $select);
+            $modelData = $this->apiCrudHandler->dropdownData($request, Product::class, $where = [], $select);
             return $this->sendResponse($modelData);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());

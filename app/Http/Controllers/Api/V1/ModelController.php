@@ -13,9 +13,9 @@ class ModelController extends BaseController
 {
     protected $apiCrudHandler;
 
-    public function __construct()
+    public function __construct(ApiCrudHandler $apiCrudHandler)
     {
-        $this->apiCrudHandler = new ApiCrudHandler();
+        $this->apiCrudHandler = $apiCrudHandler;
     }
 
     public function index(Request $request)
@@ -28,11 +28,11 @@ class ModelController extends BaseController
         }
     }
 
-    public function ModelDropdownData(Request $request)
+    public function modelDropdownData(Request $request)
     {
         try {
             $select = ['id', 'name'];          
-            $modelData = $this->apiCrudHandler->dropdownData($request, Modell::class, $where = [],  $with = [], $select);
+            $modelData = $this->apiCrudHandler->dropdownData($request, Modell::class, $where = [], $select);
             return $this->sendResponse($modelData);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());

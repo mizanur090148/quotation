@@ -54,11 +54,11 @@ class StockInController extends BaseController
      *
      * @return Array
      */
-    public function StockInDropdowndata(Request $request)
+    public function stockInDropdowndata(Request $request)
     {       
         try {
             $select = ['id', 'name'];        
-            $modelData = $this->apiCrudHandler->dropdownData($request, StockIn::class, $where = [],  $with = [], $select);
+            $modelData = $this->apiCrudHandler->dropdownData($request, StockIn::class, $where = [], $select);
             return $this->sendResponse($modelData);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());

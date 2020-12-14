@@ -34,7 +34,7 @@ class ApiCrudHandler
      *
      * @return Array
      */
-    public function dropdownData(Request $request, $modelClassName, array $where, array $with, array $select)
+    public function dropdownData(Request $request, $modelClassName, array $where, array $select)
     {
         // Load model class object
         $modelData = new $modelClassName();
@@ -42,10 +42,6 @@ class ApiCrudHandler
             $modelData = $modelData->select($select);
         } else {
             $modelData = $modelData->select('*');
-        }
-        // where
-        if (count($with)) {
-            $modelData = $modelData->with($with);
         }
         // where
         if (count($where)) {
