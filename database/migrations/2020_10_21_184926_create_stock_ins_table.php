@@ -20,14 +20,14 @@ class CreateStockInsTable extends Migration
             $table->string('stock_in_document', 30)->nullable();
             $table->unsignedBigInteger('stock_in_id')->nullable();
             $table->unsignedBigInteger('supplier_id')->nullable(); 
-            $table->unsignedBigInteger('product_id')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();            
             $table->integer('quantity')->default(0);
             $table->integer('tax_percentage')->default(0);
             $table->double('tax_value', 12,4)->default(0);
             $table->integer('discount_percentage')->default(0);
             $table->double('product_wise_total', 12,4)->default(0);
-            $table->double('shipping_cost', 12,4)->default(0);
-            $table->double('others_cost', 12,4)->default(0);
+            $table->double('shipping_cost', 12,4)->nullable();
+            $table->double('others_cost', 12,4)->nullable();
             $table->string('note')->nullable();           
             $table->unsignedBigInteger('outlet_id')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
@@ -37,7 +37,7 @@ class CreateStockInsTable extends Migration
             $table->timestamps();
 
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');            
             $table->foreign('outlet_id')->references('id')->on('outlets')->onDelete('cascade');
         });
     }

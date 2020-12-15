@@ -43,7 +43,7 @@
                   </thead>
                   <tbody v-if="product_detail_list.length">
                     <tr v-for="(product_detail, index) in product_detail_list" :key="index">
-                      <td>
+                      <td class="text-left">
                         {{ product_detail.supplier.name }}
                       </td>
                       <td class="text-left">
@@ -52,37 +52,37 @@
                       <td class="text-left">                    
                         {{ product_detail.product.code }}
                       </td>
-                      <td>
-                        {{ product_detail.quantity }}                        
+                      <td class="text-right">
+                        {{ product_detail.quantity + ' ' + product_detail.product.unit.name }}
                       </td>
-                      <td>
-                        {{ product_detail.purchase_price }}
+                      <td class="text-right">
+                        {{ product_detail.product.purchase_price }}
                       </td>
-                      <td>
+                      <td class="text-right">
                         {{ product_detail.discount_percentage }}
                       </td>
-                      <td>
+                      <td class="text-right">
                         {{ product_detail.tax_value }}
                       </td>
-                      <td>
+                      <td class="text-right">
                         {{ product_detail.product_wise_total }}
                       </td>                      
                     </tr>
                     <tr class="font-weight-bold">
-                      <td colspan="7">Total Product Cost</td>
-                      <td>{{ stock_challan.total_product_cost }}</td>
+                      <td colspan="7" class="text-right">Total Product Cost</td>
+                      <td class="text-right">{{ stock_challan.total_product_cost }}</td>
                     </tr>
                     <tr class="font-weight-bold">
-                      <td colspan="7">Shipping Cost</td>
-                      <td>{{ stock_challan.shipping_cost }}</td>
+                      <td colspan="7" class="text-right">Shipping Cost</td>
+                      <td class="text-right">{{ stock_challan.shipping_cost }}</td>
                     </tr>
                     <tr class="font-weight-bold">
-                      <td colspan="7">Others Cost</td>
-                      <td>{{ stock_challan.others_cost }}</td>
+                      <td colspan="7" class="text-right">Others Cost</td>
+                      <td class="text-right">{{ stock_challan.others_cost }}</td>
                     </tr>
                     <tr class="font-weight-bold">
-                      <td colspan="7" class="grand">Grand Total</td>
-                      <td class="grand">{{ stock_challan.total_cost }}</td>
+                      <td colspan="7" class="grand text-right">Grand Total</td>
+                      <td class="grand text-right">{{ stock_challan.total_cost }}</td>
                     </tr>
                   </tbody>
               </table>
@@ -104,18 +104,6 @@
   </div>
 </template>
 
-<style>
-  .grand {
-    font-size: 17px !important;
-  }
-  /* hr {
-    margin-top: 0rem !important;
-    margin-bottom: 0.2rem !important;
-  } */
-  .print-td {
-    padding-right: 0px !important;
-  }
-</style>
 <script>
   import axios from '../../axios';
   import "vue-loading-overlay/dist/vue-loading.css";
@@ -157,3 +145,23 @@
     }    
   }
 </script>
+
+
+<style>
+  .grand {
+    font-size: 17px !important;
+  }
+  /* hr {
+    margin-top: 0rem !important;
+    margin-bottom: 0.2rem !important;
+  } */
+  .print-td {
+    padding-right: 0px !important;
+  }
+  .text-right {
+    padding-right: 7px !important
+  }
+  .text-left {
+    padding-left: 5px !important
+  }
+</style>

@@ -60,11 +60,13 @@ class SaleRequest extends FormRequest
                 'min:0'
             ],
             'delivery_cost'=> [
+                'nullable',
                 'numeric',
                 'min:0',
                 'digits_between:0,8'
             ],
             'others_cost'=> [
+                'nullable',
                 'numeric',
                 'min:0',
                 'digits_between:0,8'

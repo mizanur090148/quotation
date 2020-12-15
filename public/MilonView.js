@@ -120,18 +120,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -202,7 +190,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.grand {\n  font-size: 17px !important;\n}\n/* hr {\n  margin-top: 0rem !important;\n  margin-bottom: 0.2rem !important;\n} */\n.print-td {\n  padding-right: 0px !important;\n}\n", ""]);
+exports.push([module.i, "\n.grand {\n  font-size: 17px !important;\n}\n/* hr {\n  margin-top: 0rem !important;\n  margin-bottom: 0.2rem !important;\n} */\n.print-td {\n  padding-right: 0px !important;\n}\n.text-right {\n  padding-right: 7px !important\n}\n.text-left {\n  padding-left: 5px !important\n}\n", ""]);
 
 // exports
 
@@ -328,7 +316,7 @@ var render = function() {
                               index
                             ) {
                               return _c("tr", { key: index }, [
-                                _c("td", [
+                                _c("td", { staticClass: "text-left" }, [
                                   _vm._v(
                                     "\n                      " +
                                       _vm._s(product_detail.supplier.name) +
@@ -352,23 +340,29 @@ var render = function() {
                                   )
                                 ]),
                                 _vm._v(" "),
-                                _c("td", [
+                                _c("td", { staticClass: "text-right" }, [
                                   _vm._v(
                                     "\n                      " +
-                                      _vm._s(product_detail.quantity) +
-                                      "                        \n                    "
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(
-                                    "\n                      " +
-                                      _vm._s(product_detail.purchase_price) +
+                                      _vm._s(
+                                        product_detail.quantity +
+                                          " " +
+                                          product_detail.product.unit.name
+                                      ) +
                                       "\n                    "
                                   )
                                 ]),
                                 _vm._v(" "),
-                                _c("td", [
+                                _c("td", { staticClass: "text-right" }, [
+                                  _vm._v(
+                                    "\n                      " +
+                                      _vm._s(
+                                        product_detail.product.purchase_price
+                                      ) +
+                                      "\n                    "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-right" }, [
                                   _vm._v(
                                     "\n                      " +
                                       _vm._s(
@@ -378,7 +372,7 @@ var render = function() {
                                   )
                                 ]),
                                 _vm._v(" "),
-                                _c("td", [
+                                _c("td", { staticClass: "text-right" }, [
                                   _vm._v(
                                     "\n                      " +
                                       _vm._s(product_detail.tax_value) +
@@ -386,7 +380,7 @@ var render = function() {
                                   )
                                 ]),
                                 _vm._v(" "),
-                                _c("td", [
+                                _c("td", { staticClass: "text-right" }, [
                                   _vm._v(
                                     "\n                      " +
                                       _vm._s(
@@ -399,11 +393,16 @@ var render = function() {
                             }),
                             _vm._v(" "),
                             _c("tr", { staticClass: "font-weight-bold" }, [
-                              _c("td", { attrs: { colspan: "7" } }, [
-                                _vm._v("Total Product Cost")
-                              ]),
+                              _c(
+                                "td",
+                                {
+                                  staticClass: "text-right",
+                                  attrs: { colspan: "7" }
+                                },
+                                [_vm._v("Total Product Cost")]
+                              ),
                               _vm._v(" "),
-                              _c("td", [
+                              _c("td", { staticClass: "text-right" }, [
                                 _vm._v(
                                   _vm._s(_vm.stock_challan.total_product_cost)
                                 )
@@ -411,21 +410,31 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("tr", { staticClass: "font-weight-bold" }, [
-                              _c("td", { attrs: { colspan: "7" } }, [
-                                _vm._v("Shipping Cost")
-                              ]),
+                              _c(
+                                "td",
+                                {
+                                  staticClass: "text-right",
+                                  attrs: { colspan: "7" }
+                                },
+                                [_vm._v("Shipping Cost")]
+                              ),
                               _vm._v(" "),
-                              _c("td", [
+                              _c("td", { staticClass: "text-right" }, [
                                 _vm._v(_vm._s(_vm.stock_challan.shipping_cost))
                               ])
                             ]),
                             _vm._v(" "),
                             _c("tr", { staticClass: "font-weight-bold" }, [
-                              _c("td", { attrs: { colspan: "7" } }, [
-                                _vm._v("Others Cost")
-                              ]),
+                              _c(
+                                "td",
+                                {
+                                  staticClass: "text-right",
+                                  attrs: { colspan: "7" }
+                                },
+                                [_vm._v("Others Cost")]
+                              ),
                               _vm._v(" "),
-                              _c("td", [
+                              _c("td", { staticClass: "text-right" }, [
                                 _vm._v(_vm._s(_vm.stock_challan.others_cost))
                               ])
                             ]),
@@ -434,13 +443,13 @@ var render = function() {
                               _c(
                                 "td",
                                 {
-                                  staticClass: "grand",
+                                  staticClass: "grand text-right",
                                   attrs: { colspan: "7" }
                                 },
                                 [_vm._v("Grand Total")]
                               ),
                               _vm._v(" "),
-                              _c("td", { staticClass: "grand" }, [
+                              _c("td", { staticClass: "grand text-right" }, [
                                 _vm._v(_vm._s(_vm.stock_challan.total_cost))
                               ])
                             ])

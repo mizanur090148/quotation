@@ -60,11 +60,13 @@ class StockInRequest extends FormRequest
                 'min:0'
             ],
             'shipping_cost'=> [
+                'nullable',
                 'numeric',
                 'min:0',
                 'digits_between:0,8'
             ],
             'others_cost'=> [
+                'nullable',
                 'numeric',
                 'min:0',
                 'digits_between:0,8'

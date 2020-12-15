@@ -73,9 +73,8 @@
                   <div class="form-group">
                     <label>Product Unit</label>
                     <select v-model="product_form.product_unit" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.product_unit }">                      
-                      <option :value="0" :key="0">Piece</option>
-                      <option :value="1" :key="1">Dzn</option>
-                      <option :value="2" :key="2">Kg</option>
+                      <option value="">Please select a unit</option>
+                      <option v-for="(unit, key) in units" :value="unit.id" :key="key">{{ unit.name }}</option>
                     </select>
                   </div>
                   <small class="text-danger" v-if="product_errors.product_unit">{{ product_errors.product_unit[0] }}</small>
@@ -305,13 +304,15 @@
         tax_percentage_dropdown_data: [],
         brand_form: new Form({
           name: ''
-        })
+        }),
+        units: []
       }
     },
     mounted() {
       this.categoryDropdowndata();
       this.modelDropdowndata();
       this.brandDropdowndata();
+      this.brandUnitdata();
       this.getTaxPrcentageDropdownData();
 
       if (this.$route.params.id) {
@@ -431,6 +432,15 @@
         axios.get('/brand-dropdown-data')
           .then((res) => {
             this.brandss = res.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+      },
+      unitDropdowndata() {
+        axios.get('/unit-dropdown-data')
+          .then((res) => {
+            this.units = res.data;
           })
           .catch((error) => {
             console.log(error);

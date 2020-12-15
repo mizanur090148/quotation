@@ -17,7 +17,7 @@ class Product extends Model
         'category_id',
         'brand_id',
         'model_id',       
-        'product_unit',
+        'unit_id',
         'purchase_price',
         'sale_price',
         'warning_quantity',
@@ -40,10 +40,7 @@ class Product extends Model
      *
      * @var array
      */
-    protected $casts = [
-        /* 'model_id' => 'integer',
-        'brand_id' => 'integer',
-        'warning_quantity' => 'integer'  */
+    protected $casts = [       
         'avaialble_product'
     ];
 
@@ -64,6 +61,11 @@ class Product extends Model
     public function model()
     {
         return $this->belongsTo(Modell::class)->withDefault();
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class)->withDefault();
     }
 
     public function stock_ins()

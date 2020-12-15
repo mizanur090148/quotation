@@ -259,7 +259,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -271,8 +270,8 @@ __webpack_require__.r(__webpack_exports__);
         purchase_invoice: '',
         stock_in_status: 1,
         stock_in_document: '',
-        shipping_cost: null,
-        others_cost: null,
+        shipping_cost: '',
+        others_cost: '',
         note: '',
         created_by: 1,
         outlet_id: 1,
@@ -377,6 +376,7 @@ __webpack_require__.r(__webpack_exports__);
           code: _this3.product.code,
           product_id: _this3.product.id,
           quantity: 1,
+          unit: _this3.product.unit.name,
           purchase_price: _this3.product.purchase_price,
           tax_percentage: _this3.product.tax_percentage,
           tax_value: _this3.product.purchase_tax_value,
@@ -998,17 +998,19 @@ var render = function() {
                                                   "button",
                                                   {
                                                     staticClass:
-                                                      "btn btn-sm btn-primary",
+                                                      "btn btn-xs btn-primary",
                                                     attrs: { type: "button" }
                                                   },
                                                   [
-                                                    product_detail.product_unit
+                                                    product_detail.unit
                                                       ? _c("span", [
-                                                          _vm._v("Pcs")
+                                                          _vm._v(
+                                                            _vm._s(
+                                                              product_detail.unit
+                                                            )
+                                                          )
                                                         ])
-                                                      : _c("span", [
-                                                          _vm._v("Dzn")
-                                                        ])
+                                                      : _vm._e()
                                                   ]
                                                 )
                                               ]
@@ -1203,7 +1205,7 @@ var render = function() {
                           staticClass:
                             "form-control form-control-sm text-right",
                           class: { "is-invalid": _vm.errors.shipping_cost },
-                          attrs: { type: "number" },
+                          attrs: { type: "text" },
                           domProps: { value: _vm.form.shipping_cost },
                           on: {
                             keypress: function($event) {
@@ -1246,7 +1248,7 @@ var render = function() {
                           staticClass:
                             "form-control form-control-sm text-right",
                           class: { "is-invalid": _vm.errors.others_cost },
-                          attrs: { type: "number" },
+                          attrs: { type: "text" },
                           domProps: { value: _vm.form.others_cost },
                           on: {
                             keypress: function($event) {

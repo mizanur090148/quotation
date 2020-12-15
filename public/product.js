@@ -280,7 +280,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -319,13 +318,15 @@ __webpack_require__.r(__webpack_exports__);
       tax_percentage_dropdown_data: [],
       brand_form: new Form({
         name: ''
-      })
+      }),
+      units: []
     };
   },
   mounted: function mounted() {
     this.categoryDropdowndata();
     this.modelDropdowndata();
     this.brandDropdowndata();
+    this.brandUnitdata();
     this.getTaxPrcentageDropdownData();
 
     if (this.$route.params.id) {
@@ -456,13 +457,22 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
+    unitDropdowndata: function unitDropdowndata() {
+      var _this7 = this;
+
+      _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/unit-dropdown-data').then(function (res) {
+        _this7.units = res.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
     categoryModal: function categoryModal() {
       this.category_form.reset();
       this.category_form.clear();
       this.$modal.show('categoryModal');
     },
     categoryStore: function categoryStore() {
-      var _this7 = this;
+      var _this8 = this;
 
       this.category_errors = [];
       var loader = this.$loading.show({
@@ -472,18 +482,18 @@ __webpack_require__.r(__webpack_exports__);
       });
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/categories', this.category_form).then(function (response) {
         if (response.status == 200) {
-          _this7.categoryDropdowndata();
+          _this8.categoryDropdowndata();
 
-          _this7.$snotify.success('Successfully created', 'Success');
+          _this8.$snotify.success('Successfully created', 'Success');
 
-          _this7.$modal.hide('categoryModal');
+          _this8.$modal.hide('categoryModal');
 
-          _this7.loader.hide();
+          _this8.loader.hide();
         } else {
-          _this7.$snotify.error('Something went worng', 'error');
+          _this8.$snotify.error('Something went worng', 'error');
         }
       })["catch"](function (errors) {
-        _this7.category_errors = errors.response.data.errors;
+        _this8.category_errors = errors.response.data.errors;
       })["finally"](function (e) {
         loader.hide();
       });
@@ -494,7 +504,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$modal.show('modelModal');
     },
     modelStore: function modelStore() {
-      var _this8 = this;
+      var _this9 = this;
 
       this.model_errors = [];
       var loader = this.$loading.show({
@@ -504,18 +514,18 @@ __webpack_require__.r(__webpack_exports__);
       });
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/models', this.model_form).then(function (response) {
         if (response.status == 200) {
-          _this8.modelDropdowndata();
+          _this9.modelDropdowndata();
 
-          _this8.$snotify.success('Successfully created', 'Success');
+          _this9.$snotify.success('Successfully created', 'Success');
 
-          _this8.$modal.hide('modelModal');
+          _this9.$modal.hide('modelModal');
 
-          _this8.loader.hide();
+          _this9.loader.hide();
         } else {
-          _this8.$snotify.error('Something went worng', 'error');
+          _this9.$snotify.error('Something went worng', 'error');
         }
       })["catch"](function (errors) {
-        _this8.model_errors = errors.response.data.errors;
+        _this9.model_errors = errors.response.data.errors;
       })["finally"](function (e) {
         loader.hide();
       });
@@ -526,7 +536,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$modal.show('brandModal');
     },
     brandStore: function brandStore() {
-      var _this9 = this;
+      var _this10 = this;
 
       this.brand_errors = [];
       var loader = this.$loading.show({
@@ -536,18 +546,18 @@ __webpack_require__.r(__webpack_exports__);
       });
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/brands', this.brand_form).then(function (response) {
         if (response.status == 200) {
-          _this9.brandDropdowndata();
+          _this10.brandDropdowndata();
 
-          _this9.$snotify.success('Successfully created', 'Success');
+          _this10.$snotify.success('Successfully created', 'Success');
 
-          _this9.$modal.hide('brandModal');
+          _this10.$modal.hide('brandModal');
 
-          _this9.loader.hide();
+          _this10.loader.hide();
         } else {
-          _this9.$snotify.error('Something went worng', 'error');
+          _this10.$snotify.error('Something went worng', 'error');
         }
       })["catch"](function (errors) {
-        _this9.brand_errors = errors.response.data.errors;
+        _this10.brand_errors = errors.response.data.errors;
       })["finally"](function (e) {
         loader.hide();
       });
@@ -1031,18 +1041,19 @@ var render = function() {
                             }
                           },
                           [
-                            _c("option", { key: 0, domProps: { value: 0 } }, [
-                              _vm._v("Piece")
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v("Please select a unit")
                             ]),
                             _vm._v(" "),
-                            _c("option", { key: 1, domProps: { value: 1 } }, [
-                              _vm._v("Dzn")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { key: 2, domProps: { value: 2 } }, [
-                              _vm._v("Kg")
-                            ])
-                          ]
+                            _vm._l(_vm.units, function(unit, key) {
+                              return _c(
+                                "option",
+                                { key: key, domProps: { value: unit.id } },
+                                [_vm._v(_vm._s(unit.name))]
+                              )
+                            })
+                          ],
+                          2
                         )
                       ]),
                       _vm._v(" "),

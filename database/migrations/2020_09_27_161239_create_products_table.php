@@ -19,8 +19,8 @@ class CreateProductsTable extends Migration
             $table->string('code', 20)->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('brand_id')->nullable();
-            $table->unsignedBigInteger('model_id')->nullable();            
-            $table->double('product_unit', 12,4)->default(0)->comment('piece = 0, dozen = 1');
+            $table->unsignedBigInteger('model_id')->nullable();
+            $table->unsignedBigInteger('unit_id')->nullable();           
             $table->double('purchase_price', 12,4)->default(0);
             $table->double('sale_price', 12,4)->default(0);
             $table->integer('warning_quantity')->nullable();
@@ -37,6 +37,7 @@ class CreateProductsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
             $table->foreign('model_id')->references('id')->on('models')->onDelete('cascade');
+            $table->foreign('unit_id')->references('id')->on('units')->onDelete('cascade');
             $table->foreign('outlet_id')->references('id')->on('outlets')->onDelete('cascade');
         });
     }

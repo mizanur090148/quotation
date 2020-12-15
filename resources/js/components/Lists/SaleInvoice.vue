@@ -51,7 +51,7 @@
                         {{ product_detail.product.code }}
                       </td>
                       <td class="text-right">
-                        {{ product_detail.quantity }}                        
+                        {{ product_detail.quantity + ' ' + product_detail.product.unit.name }}
                       </td>
                       <td class="text-right">
                         {{ product_detail.sale_price }}
@@ -102,18 +102,6 @@
   </div>
 </template>
 
-<style>
-  .grand {
-    font-size: 17px !important;
-  }
-  hr {
-    margin-top: 0rem !important;
-    margin-bottom: 0.2rem !important;
-  }
-  .print-td {
-    padding-right: 0px !important;
-  }
-</style>
 <script>
   import axios from '../../axios';
   import "vue-loading-overlay/dist/vue-loading.css";
@@ -155,3 +143,22 @@
     }    
   }
 </script>
+
+<style>
+  .grand {
+    font-size: 17px !important;
+  }
+  hr {
+    margin-top: 0rem !important;
+    margin-bottom: 0.2rem !important;
+  }
+  .print-td {
+    padding-right: 0px !important;
+  }
+  .text-right {
+    padding-right: 7px !important
+  }
+  .text-left {
+    padding-left: 5px !important
+  }
+</style>

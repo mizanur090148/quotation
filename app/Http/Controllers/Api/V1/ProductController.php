@@ -103,7 +103,8 @@ class ProductController extends BaseController
             $with = [
                 'category:id,name',
                 'model:id,name',
-                'brand:id,name'
+                'brand:id,name',
+                'unit:id,name'
             ];
             $modelData = $this->apiCrudHandler->show($id, Product::class, $with);
             return $this->sendResponse($modelData);
@@ -144,9 +145,8 @@ class ProductController extends BaseController
      */
     public function searchProductInPurchase(Request $request)
     {
-        try {            
-            $modelData = Product::where('name', 'like', "%$request->search_product%")            
-                ->get();
+        try {
+            $modelData = Product::where('name', 'like', "%$request->search_product%")->get();          
             return $this->sendResponse($modelData);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());

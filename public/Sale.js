@@ -255,7 +255,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -271,8 +270,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         invoice_number: '',
         payment_status: 1,
         stock_in_document: '',
-        delivery_cost: 0,
-        others_cost: 0,
+        delivery_cost: '',
+        others_cost: '',
         note: '',
         created_by: 1,
         outlet_id: 1,
@@ -357,6 +356,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           code: _this3.product.code,
           product_id: _this3.product.id,
           quantity: 1,
+          unit: _this3.product.unit.name,
           sale_price: _this3.product.sale_price,
           tax_percentage: _this3.product.tax_percentage,
           tax_value: _this3.product.sale_tax_value,
@@ -946,13 +946,15 @@ var render = function() {
                                                     attrs: { type: "button" }
                                                   },
                                                   [
-                                                    product_detail.product_unit
+                                                    product_detail.unit
                                                       ? _c("span", [
-                                                          _vm._v("Pcs")
+                                                          _vm._v(
+                                                            _vm._s(
+                                                              product_detail.unit
+                                                            )
+                                                          )
                                                         ])
-                                                      : _c("span", [
-                                                          _vm._v("Dzn")
-                                                        ])
+                                                      : _vm._e()
                                                   ]
                                                 )
                                               ]

@@ -19,15 +19,15 @@ class CreateSalesTable extends Migration
             $table->string('invoice_number', 30)->nullable();
             $table->tinyInteger('payment_status')->default(1)->comment('due = 0, cash = 1');;
             $table->unsignedBigInteger('customer_id')->nullable();
-            $table->unsignedBigInteger('product_id')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();           
             $table->double('sale_price', 12,4)->default(0);
             $table->integer('quantity')->default(0);
             $table->integer('tax_percentage')->default(0);
             $table->double('tax_value', 12,4)->default(0);
             $table->integer('discount_percentage')->default(0);
             $table->double('product_wise_total', 12,4)->default(0);
-            $table->double('delivery_cost', 12,4)->default(0);
-            $table->double('others_cost', 12,4)->default(0);
+            $table->double('delivery_cost', 12,4)->nullable();
+            $table->double('others_cost', 12,4)->nullable();
             $table->string('note')->nullable();
             $table->unsignedBigInteger('outlet_id')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
@@ -37,7 +37,7 @@ class CreateSalesTable extends Migration
             $table->timestamps();
 
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');            
             $table->foreign('outlet_id')->references('id')->on('outlets')->onDelete('cascade');
         });
     }

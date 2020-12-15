@@ -18,6 +18,7 @@ class StockIn extends Model
         'stock_in_id',
         'supplier_id',
         'product_id',
+        'unit_id',
         'quantity', 
         'tax_percentage', 
         'tax_value', 
@@ -107,5 +108,10 @@ class StockIn extends Model
     public function outlet()
     {
         return $this->belongsTo(Outlet::class, 'outlet_id')->withDefault();
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class, 'unit_id')->withDefault();
     }
 }

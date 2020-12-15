@@ -90,8 +90,7 @@
                               <input type="number" style="width:70px !important;" v-model="product_detail.quantity" class="form-control form-control-sm" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
                               <span class="input-group-append">
                                 <button class="btn btn-sm btn-primary" type="button">
-                                  <span v-if="product_detail.product_unit">Pcs</span>
-                                  <span v-else>Dzn</span>
+                                  <span v-if="product_detail.unit">{{ product_detail.unit }}</span>
                                 </button>
                               </span>
                               <small class="text-danger" v-if="errors.quantity">{{ errors.quantity[0] }}</small>
@@ -253,8 +252,8 @@
           invoice_number: '',
           payment_status: 1,
           stock_in_document: '',
-          delivery_cost: 0,
-          others_cost: 0,
+          delivery_cost: '',
+          others_cost: '',
           note: '',
           created_by: 1,
           outlet_id: 1,
@@ -334,6 +333,7 @@
               code: this.product.code,
               product_id: this.product.id,
               quantity: 1,
+              unit: this.product.unit.name,
               sale_price: this.product.sale_price,
               tax_percentage: this.product.tax_percentage,
               tax_value: this.product.sale_tax_value,

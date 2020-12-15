@@ -95,9 +95,8 @@
                           <div class="input-group col-xs-12">
                             <input type="number" style="width:60px !important;" v-model="product_detail.quantity" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
                             <span class="input-group-append">
-                              <button class="btn btn-sm btn-primary" type="button">
-                                <span v-if="product_detail.product_unit">Pcs</span>
-                                <span v-else>Dzn</span>
+                              <button class="btn btn-xs btn-primary" type="button">
+                                <span v-if="product_detail.unit">{{ product_detail.unit }}</span>
                               </button>
                             </span>
                             <small class="text-danger" v-if="errors.quantity">{{ errors.quantity[0] }}</small>
@@ -137,14 +136,14 @@
                 <div class="col-3">
                   <div class="form-group">
                     <label>Shipping Cost</label>
-                    <input type="number" v-model="form.shipping_cost" @keypress="isNumber($event)" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.shipping_cost }">
+                    <input type="text" v-model="form.shipping_cost" @keypress="isNumber($event)" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.shipping_cost }">
                     <small class="text-danger" v-if="errors.shipping_cost">{{ errors.shipping_cost[0] }}</small>
                   </div>
                 </div>
                 <div class="col-3">
                   <div class="form-group">
                     <label>Other's Cost</label>
-                    <input type="number" v-model="form.others_cost" @keypress="isNumber($event)" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.others_cost }">
+                    <input type="text" v-model="form.others_cost" @keypress="isNumber($event)" class="form-control form-control-sm text-right" :class="{ 'is-invalid': errors.others_cost }">
                     <small class="text-danger" v-if="errors.others_cost">{{ errors.others_cost[0] }}</small>
                   </div>
                 </div>
@@ -257,14 +256,13 @@
           purchase_invoice: '',
           stock_in_status: 1,
           stock_in_document: '',
-          shipping_cost: null,
-          others_cost: null,
+          shipping_cost: '',
+          others_cost: '',
           note: '',
           created_by: 1,
           outlet_id: 1,
           product_detail_list: []
         }),
-
         suppliers: [],
         supplier_errors: [],
         supplier_form: new Form({
@@ -344,13 +342,14 @@
 
         axios.get('products/' + productId)
           .then((res) => {
-            this.product = res.data;    
+            this.product = res.data;
             this.form.product_detail_list.push({
               supplier_id: lastSelectedSupplierId,
               name: this.product.name,
               code: this.product.code,
               product_id: this.product.id,
-              quantity: 1,            
+              quantity: 1,
+              unit: this.product.unit.name,
               purchase_price: this.product.purchase_price,
               tax_percentage: this.product.tax_percentage,
               tax_value: this.product.purchase_tax_value,

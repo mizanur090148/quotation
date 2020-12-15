@@ -118,18 +118,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -200,7 +188,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.grand {\n  font-size: 17px !important;\n}\nhr {\n  margin-top: 0rem !important;\n  margin-bottom: 0.2rem !important;\n}\n.print-td {\n  padding-right: 0px !important;\n}\n", ""]);
+exports.push([module.i, "\n.grand {\n  font-size: 17px !important;\n}\nhr {\n  margin-top: 0rem !important;\n  margin-bottom: 0.2rem !important;\n}\n.print-td {\n  padding-right: 0px !important;\n}\n.text-right {\n  padding-right: 7px !important\n}\n.text-left {\n  padding-left: 5px !important\n}\n", ""]);
 
 // exports
 
@@ -344,8 +332,12 @@ var render = function() {
                                 _c("td", { staticClass: "text-right" }, [
                                   _vm._v(
                                     "\n                      " +
-                                      _vm._s(product_detail.quantity) +
-                                      "                        \n                    "
+                                      _vm._s(
+                                        product_detail.quantity +
+                                          " " +
+                                          product_detail.product.unit.name
+                                      ) +
+                                      "\n                    "
                                   )
                                 ]),
                                 _vm._v(" "),

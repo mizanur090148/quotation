@@ -101,7 +101,8 @@ class SaleController extends BaseController
             $with = [
                 'sales',
                 'customer:id,name',
-                'sales.product:id,name,code,sale_price,tax_percentage'
+                'sales.product:id,name,code,unit_id,sale_price,tax_percentage',
+                'sales.product.unit:id,name',
             ];
             $modelData = $this->apiCrudHandler->show($id, Sale::class, $with);
             return $this->sendResponse($modelData);
