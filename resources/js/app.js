@@ -42,7 +42,7 @@ Vue.use(VueHtmlToPaper, options);
 
 import App from './components/App'
 import Login from './components/Login'
-import Home from './components/Home'
+import Dashboard from './components/Home'
 
 const Outlets = () => import(/* webpackChunkName: "outlets" */ './components/lists/Outlets.vue');
 const Users = () => import(/* webpackChunkName: "users" */ './components/lists/Users.vue');
@@ -76,12 +76,11 @@ const DateWiseSalesReport = () => import(/* webpackChunkName: "dateWiseSales" */
 const DateWisePurchaseReport = () => import(/* webpackChunkName: "dateWisePurchase" */ './components/Reports/DateWisePurchase.vue');
 const DateWiseVatReport = () => import(/* webpackChunkName: "dateWiseVat" */ './components/Reports/DateWiseVat.vue');
 
-
 const Pos = () => import(/* webpackChunkName: "pos" */ './components/Pos.vue');
 
 const router = new VueRouter({
     mode: 'history',
-    routes: [
+    routes: [       
         {
             path: '/login',
             name: 'login',
@@ -111,16 +110,12 @@ const router = new VueRouter({
             path: '/pos',
             name: 'pos',
             component: Pos
-        },
+        },        
         {
-            path: '/',
-            name: 'home',
-            component: Home
-        },
-        {
-            path: '/home',
-            name: 'home',
-            component: Home
+            path: '/dashboard',
+            name: 'dashboard',
+            component: Dashboard,
+            meta: { authOnly: true }
         },
         {
             path: '/product/create',
@@ -251,3 +246,26 @@ const app = new Vue({
     components: { App },
     router,
 });
+
+function isLoggedIn() {
+    return localStorage.getItem("auth");
+}
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.authOnly)) {
+      // this route requires auth, check if logged in
+      // if not, redirect to login page.
+      let mm = isLoggedIn();
+      console.log(mm);
+      if (!isLoggedIn()) {
+        next({
+          path: '/login',
+          query: { redirect: to.fullPath }
+        })
+      } else {
+        next()
+      }
+    } else {
+      next() // make sure to always call next()!
+    }
+  })

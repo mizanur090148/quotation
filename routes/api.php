@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\V1\CustomerController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\ModelController;
 use App\Http\Controllers\Api\V1\BrandController;
+use App\Http\Controllers\Api\V1\UnitController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\StockInController;
 use App\Http\Controllers\Api\V1\SaleController;
@@ -34,8 +35,9 @@ use App\Http\Controllers\Api\V1\InventoryController;
 
 //Route::post('register', 'AuthController@register');
 Route::post('login', [AuthController::class, 'login']);
+Route::post('logout', [AuthController::class, 'logout']);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
@@ -85,6 +87,9 @@ Route::get('search-products', [ProductController::class, 'search']);
 Route::get('get-products-by-category/{categoryId}', [ProductController::class, 'getProductsByCategory']);
 
 Route::get('available-products', [InventoryController::class, 'getAvailableProducts']);
+
+// product units
+Route::get('/unit-dropdown-data', [UnitController::class, 'unitDropdownData']);
 
 // categories route
 Route::get('categories', [CategoryController::class, 'index']);

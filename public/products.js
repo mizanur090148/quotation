@@ -650,7 +650,7 @@ var render = function() {
                             _vm._v(" "),
                             _c("td", [
                               _c("span", [_vm._v("Product Unit:")]),
-                              _vm._v(" " + _vm._s(_vm.product.product_unit))
+                              _vm._v(" " + _vm._s(_vm.product.unit.name))
                             ])
                           ]),
                           _vm._v(" "),

@@ -1002,15 +1002,17 @@ var render = function() {
                                                     attrs: { type: "button" }
                                                   },
                                                   [
-                                                    product_detail.unit
-                                                      ? _c("span", [
-                                                          _vm._v(
-                                                            _vm._s(
-                                                              product_detail.unit
-                                                            )
-                                                          )
-                                                        ])
-                                                      : _vm._e()
+                                                    _c("span", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          product_detail.unit
+                                                            ? product_detail.unit
+                                                            : product_detail
+                                                                .product.unit
+                                                                .name
+                                                        )
+                                                      )
+                                                    ])
                                                   ]
                                                 )
                                               ]

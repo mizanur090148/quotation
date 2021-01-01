@@ -106,7 +106,7 @@
                 </tr>
                 <tr>
                   <td><span>Model:</span> {{ product.model.name }}</td>
-                  <td><span>Product Unit:</span> {{ product.product_unit }}</td>
+                  <td><span>Product Unit:</span> {{ product.unit.name }}</td>
                 </tr>
                 <tr>
                   <td><span>Purchase Price:</span> {{ product.purchase_price }}</td>

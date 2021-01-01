@@ -125,7 +125,7 @@
         <li class="nav-item nav-profile dropdown">
           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
             <img src="images/faces/face5.jpg" alt="profile"/>
-            <span class="nav-profile-name">Admin</span>
+            <span class="nav-profile-name">{{ user.first_name }}</span>
           </a>
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
             <a class="dropdown-item">
@@ -147,7 +147,21 @@
 </template>
 
 <script>
-  export default {
-    
-  }
-<script>
+  
+	export default {
+		data() {
+			return {
+				user: null
+			}
+		},
+		beforeMount() {   
+      this.getUser();
+    },
+    methods: {
+      getUser: function() {
+        let userInfo = localStorage.getItem('user');
+        this.user = JSON.parse(userInfo);
+      }
+    }
+	};
+</script>

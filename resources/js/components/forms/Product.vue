@@ -38,7 +38,7 @@
                   </div>
                 </div>
               </div>  
-              <div class="row p-2">  
+              <div class="row p-2">
                 <div class="col-4">
                   <div class="form-group">
                     <label>Brand</label>
@@ -72,14 +72,14 @@
                 <div class="col-4">
                   <div class="form-group">
                     <label>Product Unit</label>
-                    <select v-model="product_form.product_unit" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.product_unit }">                      
+                    <select v-model="product_form.unit_id" class="form-control form-control-sm" :class="{ 'is-invalid': product_errors.unit_id }">                      
                       <option value="">Please select a unit</option>
                       <option v-for="(unit, key) in units" :value="unit.id" :key="key">{{ unit.name }}</option>
                     </select>
                   </div>
-                  <small class="text-danger" v-if="product_errors.product_unit">{{ product_errors.product_unit[0] }}</small>
-                </div>                
-              </div>            
+                  <small class="text-danger" v-if="product_errors.unit_id">{{ product_errors.unit_id[0] }}</small>
+                </div>
+              </div>
               <div class="row p-2">
                 <div class="col-4">
                   <div class="form-group">
@@ -90,11 +90,11 @@
                 </div>
                 <div class="col-4">
                   <div class="form-group">
-                    <label>Sale Price(Unit Price)</label>                    
+                    <label>Sale Price(Unit Price)</label>
                     <input type="text" @keypress="isNumber($event)" v-model="product_form.sale_price" class="form-control form-control-sm text-right" :class="{ 'is-invalid': product_errors.sale_price }" placeholder="Enter sale price">
                     <small class="text-danger" v-if="product_errors.sale_price">{{ product_errors.sale_price[0] }}</small>
                   </div>
-                </div>                
+                </div>
                 <div class="col-4">
                   <div class="form-group">
                     <label>Warning Quantity</label>
@@ -118,16 +118,16 @@
                   <div class="custom-file mt-4">
                     <input type="file" @change="imageSelected" class="custom-file-input" id="customFile" accept="">
                     <label for="" class="custom-file-label">Choose an image</label>                
-                  </div>                                   
+                  </div>
                 </div>  
                 <div class="col-4">
                   <div v-if="imagepreview || product_form.image" class="mt-3">
                     <img :src="imagepreview ? imagepreview : product_form.image" class="figure-img img-fluid rounded" style="max-height: 60px;">
                     <button type="button" class="btn btn-xs btn-danger text-right" @click="removeImage"><i class="mdi mdi-delete"></i></button>
                   </div> 
-                </div>         
-              </div>            
-              <div class="row p-2">                
+                </div>
+              </div>
+              <div class="row p-2">
                 <div class="col-12">
                   <div class="form-group">
                     <label>Product Details</label>
@@ -143,11 +143,11 @@
                     <button class="btn btn-sm btn-danger mr-2">Cancel</button>
                   </router-link>
                 </div>
-              </div>              
-            </form>          
+              </div>
+            </form>
           </div>
         </div>
-      </div>      
+      </div>
     </div>
     <!-- category Modal -->
     <modal name="categoryModal" :width="550" :height="325">
@@ -281,7 +281,7 @@
           model_id: '',
           name: '',
           code: '',
-          product_unit: 0,        
+          unit_id: '',        
           purchase_price: '',
           sale_price: '',
           warning_quantity: '',
@@ -312,9 +312,8 @@
       this.categoryDropdowndata();
       this.modelDropdowndata();
       this.brandDropdowndata();
-      this.brandUnitdata();
+      this.unitDropdownData();
       this.getTaxPrcentageDropdownData();
-
       if (this.$route.params.id) {
         this.getProductInfo(this.$route.params.id);
       }
@@ -362,6 +361,7 @@
             this.product_form = res.data;           
             this.product_form.brand_id = res.data.brand_id ? res.data.brand_id : '';
             this.product_form.model_id = res.data.model_id ? res.data.model_id : '';
+            this.product_form.unit_id = res.data.unit_id ? res.data.unit_id : '';
             this.product_form.warning_quantity = res.data.warning_quantity ? res.data.warning_quantity : '';
           })
           .catch((error) => {
@@ -386,7 +386,7 @@
         data.append('category_id', this.product_form.category_id);
         data.append('brand_id', this.product_form.brand_id);
         data.append('model_id', this.product_form.model_id);
-        data.append('product_unit', this.product_form.product_unit);
+        data.append('unit_id', this.product_form.unit_id);
         data.append('purchase_price', this.product_form.purchase_price);
         data.append('sale_price', this.product_form.sale_price);
         data.append('warning_quantity', this.product_form.warning_quantity);
@@ -437,7 +437,7 @@
             console.log(error);
           })
       },
-      unitDropdowndata() {
+      unitDropdownData() {
         axios.get('/unit-dropdown-data')
           .then((res) => {
             this.units = res.data;

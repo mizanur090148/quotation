@@ -11,8 +11,9 @@
 								<div class="row p-2">
 									<div class="col-8">
 										<div class="form-group">
-											<label>User Name</label> 
+											<label>Email</label> 
 											<input type="text" v-model="form.email" placeholder="Enter user name" class="form-control form-control-sm">
+											<small class="text-danger" v-if="errors.email">{{ errors.email[0] }}</small>
 										</div>
 									</div>
 								</div>
@@ -21,6 +22,7 @@
 										<div class="form-group">
 											<label>Password</label>
 											<input type="password" v-model="form.password" placeholder="Enter password" class="form-control form-control-sm">
+											<small class="text-danger" v-if="errors.password">{{ errors.password[0] }}</small>
 										</div>
 									</div>
 								</div>								
@@ -29,7 +31,7 @@
 										<div class="form-group">
 											<button type="button" @click="login" class="btn btn-block btn-primary font-weight-medium auth-form-btn">Login</button>											
 										</div>
-									</div>							
+									</div>
 								</div>
 							</form>
 						</div>
@@ -40,44 +42,44 @@
    </div>
 </template>
 
+<script>
+	import User from "../apis/User";
+	import Csrf from "../apis/Csrf";
+
+	export default {
+		data() {
+			return {
+				form: {
+					email: '',
+					password: ''
+				},
+				loggedIn: false,
+				errors: []
+			}
+		},
+		methods: {
+			login() {
+				User.login(this.form)
+					.then(response => {
+						this.loggedIn = true;
+						localStorage.setItem('auth', 'true');
+						let user =  response.data.user;
+						localStorage.setItem('user', JSON.stringify(response.data.user));						
+						this.$router.push({name: 'dashboard'});
+					})
+					.catch(error => {
+						if (error.response.status === 422) {
+							this.errors = error.response.data.errors;
+						}
+					});
+			}
+		}
+	};
+</script>
+
+
 <style scoped>
 	.main-panel {
        min-height: 50% !important;
 	}
 </style>
-
-<script>
-  import axios from 'axios'
-  axios.defaults.withCredentials = true
-  axios.defaults.baseURL = 'http://dev-quotation/'
-  axios.crossDomain = true;
-
-  export default {
-    data() {
-      return {
-        form: {
-          email: '',
-          password: ''
-        },
-        loggedIn: false
-      };
-    },
-    methods: {
-      login() {
-		  console.log(this.form.email);
-        axios.get("airlock/csrf-cookie").then(response => {
-		  axios.post("/api/login", this.form)
-			.then(response2 => {				
-				localStorage.setItem('loggedIn', 'true');
-				this.loggedIn = true;
-				this.$router.push({name: 'home'});
-			})
-			.catch(error => {
-				console.log(error)
-				this.$snotify.error('Something went worng', 'error');
-			});
-        });
-      }
-    }
-  };
-</script>

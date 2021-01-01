@@ -295,7 +295,7 @@ __webpack_require__.r(__webpack_exports__);
         model_id: '',
         name: '',
         code: '',
-        product_unit: 0,
+        unit_id: '',
         purchase_price: '',
         sale_price: '',
         warning_quantity: '',
@@ -326,7 +326,7 @@ __webpack_require__.r(__webpack_exports__);
     this.categoryDropdowndata();
     this.modelDropdowndata();
     this.brandDropdowndata();
-    this.brandUnitdata();
+    this.unitDropdownData();
     this.getTaxPrcentageDropdownData();
 
     if (this.$route.params.id) {
@@ -384,6 +384,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.product_form = res.data;
         _this2.product_form.brand_id = res.data.brand_id ? res.data.brand_id : '';
         _this2.product_form.model_id = res.data.model_id ? res.data.model_id : '';
+        _this2.product_form.unit_id = res.data.unit_id ? res.data.unit_id : '';
         _this2.product_form.warning_quantity = res.data.warning_quantity ? res.data.warning_quantity : '';
       })["catch"](function (error) {
         console.log(error);
@@ -407,7 +408,7 @@ __webpack_require__.r(__webpack_exports__);
       data.append('category_id', this.product_form.category_id);
       data.append('brand_id', this.product_form.brand_id);
       data.append('model_id', this.product_form.model_id);
-      data.append('product_unit', this.product_form.product_unit);
+      data.append('unit_id', this.product_form.unit_id);
       data.append('purchase_price', this.product_form.purchase_price);
       data.append('sale_price', this.product_form.sale_price);
       data.append('warning_quantity', this.product_form.warning_quantity);
@@ -457,7 +458,7 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
-    unitDropdowndata: function unitDropdowndata() {
+    unitDropdownData: function unitDropdownData() {
       var _this7 = this;
 
       _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/unit-dropdown-data').then(function (res) {
@@ -1012,14 +1013,12 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.product_form.product_unit,
-                                expression: "product_form.product_unit"
+                                value: _vm.product_form.unit_id,
+                                expression: "product_form.unit_id"
                               }
                             ],
                             staticClass: "form-control form-control-sm",
-                            class: {
-                              "is-invalid": _vm.product_errors.product_unit
-                            },
+                            class: { "is-invalid": _vm.product_errors.unit_id },
                             on: {
                               change: function($event) {
                                 var $$selectedVal = Array.prototype.filter
@@ -1032,7 +1031,7 @@ var render = function() {
                                   })
                                 _vm.$set(
                                   _vm.product_form,
-                                  "product_unit",
+                                  "unit_id",
                                   $event.target.multiple
                                     ? $$selectedVal
                                     : $$selectedVal[0]
@@ -1057,9 +1056,9 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _vm.product_errors.product_unit
+                      _vm.product_errors.unit_id
                         ? _c("small", { staticClass: "text-danger" }, [
-                            _vm._v(_vm._s(_vm.product_errors.product_unit[0]))
+                            _vm._v(_vm._s(_vm.product_errors.unit_id[0]))
                           ])
                         : _vm._e()
                     ])

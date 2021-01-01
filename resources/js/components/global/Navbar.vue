@@ -2,11 +2,11 @@
    <nav class="sidebar sidebar-offcanvas" id="sidebar">
       <ul class="nav">        
          <li class="nav-item">
-            <router-link tag="a" class="nav-link" to="/home">
+            <router-link tag="a" class="nav-link" to="/dashboard">
                <i class="mdi mdi-home menu-icon"></i>
     			   <span class="menu-title">Dashboard</span>
             </router-link>
-         </li>         
+         </li>
          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#products" aria-expanded="false" aria-controls="products">
             <i class="mdi mdi-settings menu-icon"></i>
@@ -216,6 +216,31 @@
                </ul>
             </div>
          </li>
+         <li class="nav-item">
+            <a href="#" @click="logout" class="nav-link">
+               <i class="mdi mdi-settings menu-icon"></i>
+               <span class="menu-title">Logout</span>
+            </a>
+         </li>
       </ul>
    </nav>
 </template>
+
+<script>
+
+	import User from "../../apis/User";
+
+	export default {		
+		methods: {
+			logout() {
+				User.logout()
+            .then(response => {	
+               localStorage.removeItem('auth');
+               localStorage.removeItem('user');	
+               this.loggedIn = false;
+               this.$router.push({name: 'login'});
+            })
+			}
+		}
+	};
+</script>

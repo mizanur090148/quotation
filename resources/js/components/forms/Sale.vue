@@ -90,7 +90,7 @@
                               <input type="number" style="width:70px !important;" v-model="product_detail.quantity" class="form-control form-control-sm" :class="{ 'is-invalid': errors.quantity }" placeholder="Enter quantity">
                               <span class="input-group-append">
                                 <button class="btn btn-sm btn-primary" type="button">
-                                  <span v-if="product_detail.unit">{{ product_detail.unit }}</span>
+                                  <span>{{ product_detail.unit ? product_detail.unit : product_detail.product.unit.name }}</span>
                                 </button>
                               </span>
                               <small class="text-danger" v-if="errors.quantity">{{ errors.quantity[0] }}</small>

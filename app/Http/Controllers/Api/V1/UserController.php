@@ -13,13 +13,13 @@ class UserController extends BaseController
 {
     protected $apiCrudHandler;
 
-	public function __construct()
+	public function __construct(ApiCrudHandler $apiCrudHandler)
     {
-        $this->apiCrudHandler = new ApiCrudHandler();      
+        $this->apiCrudHandler = $apiCrudHandler;      
     }
 
     public function index(Request $request)
-    {
+    {dd(auth('api')->user(), $request->user('api'));
         try {
             $with = [
                 'role:id,name',
@@ -44,11 +44,11 @@ class UserController extends BaseController
     {
         //If ID then update, else create
         try {
-			//$user = User::create($request->all());
-			//$success['token'] =  $user->createToken('TestToken')->accessToken;
-            //$success['name'] =  $user->name;
-            $modelData = $this->apiCrudHandler->store($request, User::class);
-			return $this->sendResponse($modelData);
+			$user = User::create($request->all());
+			$user['token'] =  $user->createToken('TestToken')->accessToken;
+            $user['name'] =  $user->name;
+           // $modelData = $this->apiCrudHandler->store($request, User::class);
+			return $this->sendResponse($user);
         } catch (Exception $ex) {
             return $this->sendError($e->getMessage());
         }

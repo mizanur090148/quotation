@@ -42,8 +42,7 @@
       getRecentSaleProducts() {
         axios.get('get-recent-sale-products')
           .then((res) => {
-            this.recent_sale_products = res.data;
-            console.log(this.best_sales);
+            this.recent_sale_products = res.data;           
           })
           .catch((error) => {
           })

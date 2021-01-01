@@ -68,7 +68,7 @@ class ProductRequest extends FormRequest
                 'required',
                 'max:20'
             ],
-            'product_unit' => [
+            'unit_id' => [
                 'required',
                 'numeric',
                 'digits_between:1,8'

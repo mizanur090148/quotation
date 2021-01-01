@@ -84,7 +84,7 @@ class SaleController extends BaseController
             $sale->sales()->createMany($request->product_detail_list);            
             DB::commit();
             return $this->sendResponse($sale);
-        } catch (Exception $ex) {
+        } catch (Exception $e) {
             DB::rollback();
             return $this->sendError($e->getMessage());
         }
@@ -106,7 +106,7 @@ class SaleController extends BaseController
             ];
             $modelData = $this->apiCrudHandler->show($id, Sale::class, $with);
             return $this->sendResponse($modelData);
-        } catch (Exception $ex) {
+        } catch (Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }
@@ -132,7 +132,7 @@ class SaleController extends BaseController
                 ->orderBy($request->sortByColumn ?? 'id', $request->sortBy ?? 'desc')
                 ->paginate();
             return $this->sendResponse($modelData);
-        } catch (Exception $ex) {
+        } catch (Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }

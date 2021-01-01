@@ -1,5 +1,13 @@
 import axios from 'axios'
+import { defaults } from 'chart.js';
 
-export default axios.create({
+/* export default axios.create({
+	baseURL: 'http://dev-quotation/api'
+}); */
+
+let Api = axios.create({
 	baseURL: 'http://dev-quotation/api'
 });
+
+Api.defaults.withCredentials = true;
+export default Api;
