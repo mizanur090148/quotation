@@ -1,5 +1,5 @@
 <template>
-    <div v-if="this.$route.path != '/login' ">
+    <div v-if="this.$route.path != '/' ">
        <Header></Header>
        <div class="container-fluid page-body-wrapper">
 	        <Navbar></Navbar>

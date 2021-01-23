@@ -175,7 +175,7 @@
               <div class="row p-2 ">
                 <div class="form-group">
                   <button type="submit" class="btn btn-sm btn-primary mr-2">Submit</button>
-                  <button class="btn btn-sm btn-danger mr-2" @click="closeModal('categoryModal')">Close</button>
+                  <button type="button" class="btn btn-sm btn-danger mr-2" @click="closeModal('categoryModal')">Close</button>
                 </div>
               </div>
             </div>
@@ -210,7 +210,7 @@
               <div class="row p-2 ">
                 <div class="form-group">
                   <button type="submit" class="btn btn-sm btn-primary mr-2">Submit</button>
-                  <button class="btn btn-sm btn-danger mr-2" @click="closeModal('brandModal')">Close</button>
+                  <button type="button" class="btn btn-sm btn-danger mr-2" @click="closeModal('brandModal')">Close</button>
                 </div>
               </div>
             </div>
@@ -244,7 +244,7 @@
               <div class="row p-2 ">
                 <div class="form-group">
                   <button type="submit" class="btn btn-sm btn-primary mr-2">Submit</button>
-                  <button class="btn btn-sm btn-danger mr-2" @click="closeModal('modelModal')">Close</button>
+                  <button type="button" class="btn btn-sm btn-danger mr-2" @click="closeModal('modelModal')">Close</button>
                 </div>
               </div>
             </div>
@@ -256,14 +256,6 @@
   </div>
 </template>
 
-<style>
-  img {
-    width: 50%;
-    height: 100%;
-    display: block;
-    margin-bottom: 10px;
-  }
-</style>
 <script>
   import axios from '../../axios';
   import "vue-loading-overlay/dist/vue-loading.css";
@@ -363,6 +355,7 @@
             this.product_form.model_id = res.data.model_id ? res.data.model_id : '';
             this.product_form.unit_id = res.data.unit_id ? res.data.unit_id : '';
             this.product_form.warning_quantity = res.data.warning_quantity ? res.data.warning_quantity : '';
+            this.product_form.tax_percentage = res.data.tax_percentage ? res.data.tax_percentage : '';
           })
           .catch((error) => {
             console.log(error);
@@ -545,3 +538,12 @@
     }    
   }
 </script>
+
+<style>
+  img {
+    width: 50%;
+    height: 100%;
+    display: block;
+    margin-bottom: 10px;
+  }
+</style>

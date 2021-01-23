@@ -272,14 +272,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -386,6 +378,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.product_form.model_id = res.data.model_id ? res.data.model_id : '';
         _this2.product_form.unit_id = res.data.unit_id ? res.data.unit_id : '';
         _this2.product_form.warning_quantity = res.data.warning_quantity ? res.data.warning_quantity : '';
+        _this2.product_form.tax_percentage = res.data.tax_percentage ? res.data.tax_percentage : '';
       })["catch"](function (error) {
         console.log(error);
       })["finally"](function () {
@@ -1522,6 +1515,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass: "btn btn-sm btn-danger mr-2",
+                                attrs: { type: "button" },
                                 on: {
                                   click: function($event) {
                                     return _vm.closeModal("categoryModal")
@@ -1646,6 +1640,7 @@ var render = function() {
                             "button",
                             {
                               staticClass: "btn btn-sm btn-danger mr-2",
+                              attrs: { type: "button" },
                               on: {
                                 click: function($event) {
                                   return _vm.closeModal("brandModal")
@@ -1769,6 +1764,7 @@ var render = function() {
                             "button",
                             {
                               staticClass: "btn btn-sm btn-danger mr-2",
+                              attrs: { type: "button" },
                               on: {
                                 click: function($event) {
                                   return _vm.closeModal("modelModal")

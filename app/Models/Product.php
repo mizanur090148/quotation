@@ -11,6 +11,8 @@ class Product extends Model
 {
     use HasFactory, SoftDeletes, CascadeSoftDeletes;
 
+    protected $table = 'products';
+    
     protected $fillable = [
         'name',
         'code',

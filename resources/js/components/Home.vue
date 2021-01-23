@@ -125,3 +125,10 @@
     }
   }
 </script>
+
+<style>
+  .card .card-title {
+    text-transform: none !important;
+    margin-bottom: .2rem !important;
+  }
+</style>
