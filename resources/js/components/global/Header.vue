@@ -4,9 +4,9 @@
       <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
         <router-link tag="a" class="navbar-brand brand-logo" to="/">
           <!-- <img src="images/outlet_logo.png" alt="logo"/> -->
-              &nbsp;&nbsp; <i>E-Retail</i>
+              &nbsp;&nbsp; <i>Schedule Mgt.</i>
         </router-link>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo"/></a>
+        <!-- <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo"/></a> -->
         <!--
         <a class="navbar-brand brand-logo" href="index.html"><img src="images/outlet_logo.png" alt="logo"/></a>
         -->

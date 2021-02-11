@@ -286,7 +286,7 @@ var render = function() {
                   _c("div", { staticClass: "row p-2" }, [
                     _c("div", { staticClass: "col-4" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v(" First Name")]),
+                        _c("label", [_vm._v("First Name")]),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -525,7 +525,7 @@ var render = function() {
                   _c("div", { staticClass: "row p-2" }, [
                     _c("div", { staticClass: "col-4" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Outlet")]),
+                        _c("label", [_vm._v("Branch")]),
                         _vm._v(" "),
                         _c(
                           "select",
@@ -562,7 +562,7 @@ var render = function() {
                           },
                           [
                             _c("option", { domProps: { value: 1 } }, [
-                              _vm._v("Outlet1")
+                              _vm._v("Branch1")
                             ])
                           ]
                         )

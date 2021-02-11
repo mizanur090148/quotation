@@ -10,7 +10,7 @@
               <div class="row p-2">
                 <div class="col-4">
                   <div class="form-group">
-                    <label> First Name</label>
+                    <label>First Name</label>
                     <input type="text" v-model="form.first_name" class="form-control form-control-sm" :class="{ 'is-invalid': errors.first_name }" placeholder="Enter first name">
                     <small class="text-danger" v-if="errors.first_name">{{ errors.first_name[0] }}</small>
                   </div>
@@ -56,9 +56,9 @@
               <div class="row p-2">
                 <div class="col-4">
                   <div class="form-group">
-                    <label>Outlet</label>
+                    <label>Branch</label>
                     <select v-model="form.outlet_id" class="form-control form-control-sm" :class="{ 'is-invalid': errors.outlet_id }">
-                      <option :value="1">Outlet1</option>
+                      <option :value="1">Branch1</option>
                     </select>
                   </div>
                   <small class="text-danger" v-if="errors.outlet_id">{{ errors.outlet_id[0] }}</small>

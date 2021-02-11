@@ -398,7 +398,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Role")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Outlet")]),
+        _c("th", [_vm._v("Branch")]),
         _vm._v(" "),
         _c("th", [_vm._v("Action")])
       ])

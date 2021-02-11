@@ -6,7 +6,7 @@ import { defaults } from 'chart.js';
 }); */
 
 let Api = axios.create({
-	baseURL: 'http://dev-quotation/api'
+	baseURL: 'http://dev-schedule/api'
 });
 
 Api.defaults.withCredentials = true;

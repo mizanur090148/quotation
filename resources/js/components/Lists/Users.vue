@@ -28,7 +28,7 @@
                     <th>Mobile No</th>
                     <th>Address</th>
                     <th>Role</th>
-                    <th>Outlet</th>
+                    <th>Branch</th>
                     <th>Action</th>
                   </tr>
                 </thead>
