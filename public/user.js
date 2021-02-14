@@ -591,7 +591,7 @@ var render = function() {
                               }
                             ],
                             staticClass: "form-control form-control-sm",
-                            class: { "is-invalid": _vm.form.role_id },
+                            class: { "is-invalid": _vm.errors.role_id },
                             on: {
                               change: function($event) {
                                 var $$selectedVal = Array.prototype.filter

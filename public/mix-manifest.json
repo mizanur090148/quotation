@@ -4,11 +4,6 @@
     "/ReviewSchedule.js": "/ReviewSchedule.js",
     "/VisitSchedule.js": "/VisitSchedule.js",
     "/VisitSchedules.js": "/VisitSchedules.js",
-    "/dateWiseInventory.js": "/dateWiseInventory.js",
-    "/dateWisePurchase.js": "/dateWisePurchase.js",
-    "/dateWisePurchaseAndSaleReport.js": "/dateWisePurchaseAndSaleReport.js",
-    "/dateWiseSales.js": "/dateWiseSales.js",
-    "/dateWiseVat.js": "/dateWiseVat.js",
     "/outlets.js": "/outlets.js",
     "/user.js": "/user.js",
     "/users.js": "/users.js"

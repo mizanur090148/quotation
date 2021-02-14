@@ -187,6 +187,7 @@ __webpack_require__.r(__webpack_exports__);
         data.to_location = res.data.to_location;
         data.to_location = res.data.to_location;
         data.note = res.data.note;
+        data.status = res.data.status;
         _this2.form = data;
       })["catch"](function (error) {
         console.log(error);
@@ -526,7 +527,7 @@ var render = function() {
                               }
                             ],
                             staticClass:
-                              "form-control form-control-sm radio-field",
+                              " text-primary form-control form-control-sm radio-field",
                             attrs: { type: "radio", value: "1" },
                             domProps: { checked: _vm._q(_vm.form.status, "1") },
                             on: {

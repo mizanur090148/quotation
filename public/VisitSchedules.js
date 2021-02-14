@@ -100,7 +100,8 @@ __webpack_require__.r(__webpack_exports__);
       pagination: {
         current_page: 1
       },
-      search_key: ''
+      search_key: '',
+      role: localStorage.getItem('role')
     };
   },
   mounted: function mounted() {
@@ -292,7 +293,9 @@ var render = function() {
                               {
                                 key: schedule.id,
                                 class:
-                                  schedule.status == 1
+                                  schedule.status == 0
+                                    ? "text-primary"
+                                    : schedule.status == 1
                                     ? "text-success"
                                     : schedule.status == 2
                                     ? "text-warning"
@@ -335,37 +338,48 @@ var render = function() {
                                   "td",
                                   { staticClass: "text-center" },
                                   [
-                                    _c(
-                                      "router-link",
-                                      {
-                                        staticClass:
-                                          "btn btn-sm btn-success btn-rounded btn-fw",
-                                        attrs: {
-                                          to: "/visit-schedules/" + schedule.id,
-                                          title: "edit"
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "mdi mdi-grease-pencil"
-                                        })
-                                      ]
-                                    ),
+                                    _vm.role == 3
+                                      ? _c(
+                                          "router-link",
+                                          {
+                                            staticClass:
+                                              "btn btn-sm btn-success btn-rounded btn-fw",
+                                            attrs: {
+                                              to:
+                                                "/visit-schedules/" +
+                                                schedule.id,
+                                              title: "edit"
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass:
+                                                "mdi mdi-grease-pencil"
+                                            })
+                                          ]
+                                        )
+                                      : _vm._e(),
                                     _vm._v(" "),
-                                    _c(
-                                      "router-link",
-                                      {
-                                        staticClass:
-                                          "btn btn-sm btn-primary btn-rounded btn-fw",
-                                        attrs: {
-                                          to:
-                                            "/review-visit-schedules/" +
-                                            schedule.id,
-                                          title: "edit"
-                                        }
-                                      },
-                                      [_c("i", { staticClass: "mdi mdi-eye" })]
-                                    ),
+                                    _vm.role == 1 || _vm.role == 2
+                                      ? _c(
+                                          "router-link",
+                                          {
+                                            staticClass:
+                                              "btn btn-sm btn-primary btn-rounded btn-fw",
+                                            attrs: {
+                                              to:
+                                                "/review-visit-schedules/" +
+                                                schedule.id,
+                                              title: "edit"
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "mdi mdi-eye"
+                                            })
+                                          ]
+                                        )
+                                      : _vm._e(),
                                     _vm._v(" "),
                                     _c(
                                       "button",
