@@ -29,6 +29,7 @@
                     <th>Status</th>
                     <th>Note</th>
                     <th>Admin Comment</th>
+                    <th>Created By</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -42,6 +43,7 @@
                       <td>{{ (schedule.status == 0) ? 'Pending' : 'Accepted' }}</td>
                       <td>{{ schedule.note }}</td>
                       <td>{{ schedule.admin_comment }}</td>
+                      <td>{{ schedule.created_by.first_name + " " + schedule.created_by.last_name }}</td>
                       <td class="text-center">
                         <router-link v-if="role == 3"
                           :to="'/visit-schedules/'+schedule.id"

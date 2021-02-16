@@ -21,7 +21,8 @@ class ScheduleController extends BaseController
     public function index(Request $request)
     {
         try {
-            $modelData = $this->apiCrudHandler->index($request, Schedule::class, $where = [], $with = []);
+            $with = ['created_by:id,first_name,last_name'];
+            $modelData = $this->apiCrudHandler->index($request, Schedule::class, $where = [], $with);
             return $this->sendResponse($modelData);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage());
