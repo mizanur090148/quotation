@@ -28,17 +28,9 @@
             'December'
           ],
           datasets: [{
-            label: "Sale",
-            backgroundColor: "rgb(181, 204, 37)",
-            data: [121,234,234,234],
-          }, {
-            label: "Purchase",
+            label: "Monthly Visit",
             backgroundColor: "#01A3A5",
             data: [121,234,234,234],
-          }, {
-            label: "Balance",
-            backgroundColor: "red",
-            data: [121,234,234,2341]
           }]
         },
         options: {
@@ -64,7 +56,7 @@
           },
           title: {
             display: true,
-            text: 'Monthly Graph'
+            text: 'Monthly Graph Of 2020'
           },
           hover: {
             animationDuration: 0
@@ -104,7 +96,12 @@
     },
     methods: {      
       getYearlyDashboardDetails() {
-        axios.get('get-yearly-dashboard-details', { params: { year: this.form.year }})
+        this.yearly_sale_amount = 120;
+        this.chartData.datasets[0].data = [5,6,4,7,4,9,7,8,9,8,11,10];
+
+        this.renderChart(this.chartData, this.options);
+
+       /*  axios.get('get-yearly-dashboard-details', { params: { year: this.form.year }})
           .then((res) => {
             let result = res.data;            
             this.yearly_sale_amount = result.yearly_sale_amount;
@@ -118,7 +115,7 @@
             this.renderChart(this.chartData, this.options);
           })
           .catch((error) => {
-          })        
+          })      */   
       }
     }
   }

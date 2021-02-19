@@ -2,21 +2,21 @@
   <div class="col-md-6 stretch-card">
     <div class="card">
       <div class="card-body">
-        <p class="card-title">Recent 5 purchase products</p>
+        <p class="card-title">Recent 5 Visits</p>
         <div class="table-responsive">
           <table id="recent-purchases-listing" class="list-table table-bordered">
             <thead>
               <tr>
                 <td>SL.</td>
-                <td>Name</td>
-                <td>Purchase Price</td>
+                <td>Location Name</td>
+                <td>Visited By</td>
               </tr>
             </thead>
-            <tbody v-if="recent_purchase_products.length">
-              <tr v-for="(product, index) in recent_purchase_products" :key="index">  
+            <tbody v-if="locations.length">
+              <tr v-for="(data, index) in locations" :key="index">  
                 <td>{{ ++index }}</td>
-                <td>{{ product.product.name}}</td>
-                <td>{{ product.product.purchase_price }}</td>
+                <td>{{data.location}}</td>
+                <td>{{data.name }}</td>
               </tr>
             </tbody>
           </table>
@@ -32,11 +32,17 @@
   export default {
     data() {
       return {
-        recent_purchase_products: []
+        locations: [
+          { location: 'Gazipur', name: 'Mr Kalam' },
+          { location: 'Comilla', name: 'Mr Anisur'}, 
+          { location: 'Pabna', name: 'Mr Tareq'},
+          { location: 'Sirajganj', name: 'Mr Noman'},
+          { location: 'Patuakhali', name: 'Mr Sajib'}
+        ]
       }
     },
     mounted() {
-      this.getRecentPurchaseProducts()
+     // this.getRecentPurchaseProducts()
     },    
     methods: {      
       getRecentPurchaseProducts() {
