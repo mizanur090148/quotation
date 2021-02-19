@@ -2,7 +2,7 @@
   <div class="col-md-6 stretch-card">
     <div class="card">
       <div class="card-body">
-        <p class="card-title">Best 5 purchase products of the current month</p>
+        <p class="card-title">Best 5 sale products of the current month</p>
         <div class="table-responsive">
           <table id="recent-purchases-listing" class="list-table table-bordered">
             <thead>
@@ -12,11 +12,11 @@
                 <td>Number Of Sales</td>
               </tr>
             </thead>
-            <tbody v-if="best_purchase_products.length">
-              <tr v-for="(product, index) in best_purchase_products" :key="index">  
+            <tbody v-if="best_sale_products.length">
+              <tr v-for="(product, index) in best_sale_products" :key="index">  
                 <td>{{ ++index }}</td>
                 <td>{{ product.product_name }}</td>
-                <td>{{ product.purchase_count }}</td>
+                <td>{{ product.sales_count }}</td>
               </tr>
             </tbody>
           </table>
@@ -32,17 +32,17 @@
   export default {
     data() {
       return {
-        best_purchase_products: []
+        best_sale_products: []
       }
     },
     mounted() {
-      //this.getBestPurchaseProducts()
+      //this.getBestSaleProducts()
     },    
     methods: {      
-      getBestPurchaseProducts() {
-        axios.get('get-best-purchase-products')
+      getBestSaleProducts() {
+        axios.get('get-best-sale-products')
           .then((res) => {
-            //this.best_purchase_products = res.data;
+            this.best_sale_products = res.data;
           })
           .catch((error) => {
           })

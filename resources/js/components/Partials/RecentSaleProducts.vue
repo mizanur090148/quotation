@@ -2,21 +2,21 @@
   <div class="col-md-6 stretch-card">
     <div class="card">
       <div class="card-body">
-        <p class="card-title">Recent 5 sale products</p>
+        <p class="card-title">Most 5 Visited Locations</p>
         <div class="table-responsive">
           <table id="recent-purchases-listing" class="list-table table-bordered">
             <thead>
               <tr>
                 <td>SL.</td>
-                <td>Name</td>
-                <td>Sell Price</td>
+                <td>Location Name</td>
+                <td>No of Visit</td>
               </tr>
             </thead>
-            <tbody v-if="recent_sale_products.length">
-              <tr v-for="(product, index) in recent_sale_products" :key="index">  
+            <tbody v-if="locations.length">
+              <tr v-for="(data, index) in locations" :key="index">  
                 <td>{{ ++index }}</td>
-                <td>{{ product.product.name }}</td>
-                <td>{{ product.product.sale_price }}</td>
+                <td>{{data.location}}</td>
+                <td>{{data.count }}</td>
               </tr>
             </tbody>
           </table>
@@ -32,11 +32,17 @@
   export default {
     data() {
       return {
-        recent_sale_products: []
+        locations: [
+          { location: 'Gazipur', count: 20 },
+          { location: 'Comilla', count: 17 }, 
+          { location: 'Pabna', count: 17 },
+          { location: 'Sirajganj', count: 15 },
+          { location: 'Patuakhali', count: 10}
+        ]
       }
     },
     mounted() {
-      this.getRecentSaleProducts()
+      //this.getRecentSaleProducts()
     },    
     methods: {      
       getRecentSaleProducts() {

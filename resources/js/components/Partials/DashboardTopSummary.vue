@@ -75,7 +75,7 @@
     mounted() {     
       this.getYears();
       this.getMonths();
-      this.getMonthlyDashboardDetails();
+     // this.getMonthlyDashboardDetails();
     },    
     methods: {
       getYears() {       
@@ -101,7 +101,7 @@
         this.months = months;
       },
       getMonthlyDashboardDetails() {
-        axios.get('get-monthly-dashboard-details', { params: { year: this.form.year, month: this.form.month}})
+        /* axios.get('get-monthly-dashboard-details', { params: { year: this.form.year, month: this.form.month}})
           .then((res) => {
             //this.monthly_details = res.data;
             let result = res.data;
@@ -112,7 +112,7 @@
            // this.day_wise_sales = res.data;
           })
           .catch((error) => {
-          })
+          }) */
       }
     }
   }

@@ -30,25 +30,94 @@
       </div>
     </div> -->
     <VisitSceduleCalender></VisitSceduleCalender>
+<!--     <div class="row mt-2">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                <BarChart></BarChart>
+              </div>
+              <div class="col-md-12">
+                <WeeklyBarChart></WeeklyBarChart>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="row mt-2">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">              
+              <div class="col-md-12">
+                <MonthlyBarChart></MonthlyBarChart>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="row mt-2">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">              
+              <div class="col-md-12">
+                <MonthlyBarChart></MonthlyBarChart>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- <div class="row">
+      <div class="col-md-6">
+        <BarChart></BarChart>
+      </div>
+      <div class="col-md-6">
+        <BarChart></BarChart>         
+      </div>
+    </div> -->
+
+<!--     <div class="row mt-2">      
+      <BestSaleProducts></BestSaleProducts>
+      <BestPurchaseProducts></BestPurchaseProducts>
+    </div>  -->   
+    <div class="row mt-2">
+      <RecentPurchaseProducts></RecentPurchaseProducts>
+      <RecentSaleProducts></RecentSaleProducts>
+    </div>
 </div>
 </template>
 
 <script>
 import VisitSceduleCalender from "./Partials/VisitSceduleCalender";
-/* 
-import DashboardTopSummary from "./Partials/DashboardTopSummary";
+//import DashboardTopSummary from "./Partials/DashboardTopSummary";
 import BestSaleProducts from "./Partials/BestSaleProducts";
+import BestPurchaseProducts from "./Partials/BestPurchaseProducts";
 import RecentPurchaseProducts from "./Partials/RecentPurchaseProducts";
 import RecentSaleProducts from "./Partials/RecentSaleProducts";
 import BarChart from './Charts/BarChart';
-import WeeklyBarChart from './Charts/WeeklyBarChart';
-import MonthlyBarChart from './Charts/MonthlyBarChart' */
+//import WeeklyBarChart from './Charts/WeeklyBarChart';
+import MonthlyBarChart from './Charts/MonthlyBarChart'
 
 export default {
 
     components: {
         /* DashboardTopSummary, */
-        VisitSceduleCalender
+        VisitSceduleCalender,
+        BestPurchaseProducts,
+        BestSaleProducts,
+        RecentPurchaseProducts,
+        RecentSaleProducts,
+        BarChart,
+        /* WeeklyBarChart, */
+        MonthlyBarChart
     },
 
 }

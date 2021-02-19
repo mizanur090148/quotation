@@ -119,12 +119,20 @@
         this.months = months;
       },
       getMonthlyDashboardDetails() {
-        axios.get('get-monthly-dashboard-details', { params: { year: this.form.year, month: this.form.month}})
+        this.sale_amount = 10;
+        this.purchase_amount = 20;
+        this.balance = 20;
+
+        this.chartData.labels = [3,4,5,6,7,8,8];
+        this.chartData.datasets[0].data = [3,4,5,6,7,8,8];
+        this.chartData.datasets[1].data = [3,4,5,6,7,8,8];
+        this.chartData.datasets[2].data = [3,4,5,6,7,8,8];
+        /* axios.get('get-monthly-dashboard-details', { params: { year: this.form.year, month: this.form.month}})
           .then((res) => {
             let result = res.data;
-           /*  this.sale_amount = result.sale_amount;
+            this.sale_amount = result.sale_amount;
             this.purchase_amount = result.purchase_amount;
-            this.balance = result.sale_amount - result.purchase_amount; */
+            this.balance = result.sale_amount - result.purchase_amount;
 
             this.sale_amount = result.sale_amount;
             this.purchase_amount = result.purchase_amount;
@@ -141,7 +149,7 @@
           })
           .finally(() => {
             
-          });     
+          });      */
       }
     }
   }
