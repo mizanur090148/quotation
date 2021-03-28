@@ -126,9 +126,7 @@
 </template>>
 
 <script>
-  import axios from '../../axios';
-  import "vue-loading-overlay/dist/vue-loading.css";
-  import Loading from 'vue-loading-overlay';
+  import Api from '../../apis/Api';
   
   export default {
     data() {
@@ -178,7 +176,7 @@
           canCancel: true,
           loader: 'bars'
         }) 
-        axios.post('/outlets', this.form)
+        Api.post('/outlets', this.form)
           .then(response => {
             if (response.status == 200) {
               this.getOutlets();
@@ -197,7 +195,7 @@
           })
       },
       searchOutlets() {
-        axios.get('search-outlets?search_key=' + this.search_key)
+        Api.get('search-outlets?search_key=' + this.search_key)
           .then(res => {
             this.outlets = res.data.data;
             this.pagination = res.data;
@@ -217,7 +215,7 @@
                 text: "Yes",
                 action: toast => {
                   this.$snotify.remove(toast.id);
-                  axios.delete('/outlets/' + id)
+                  Api.delete('/outlets/' + id)
                     .then(response => {
                       this.getOutlets();
                       this.$snotify.success('Successfully deleted', 'Success');
@@ -245,7 +243,7 @@
           canCancel: true,
           loader: 'bars'
         })
-        axios.get('outlets?page='+this.pagination.current_page)
+        Api.get('outlets?page='+this.pagination.current_page)
           .then((res) => {
             this.outlets = res.data.data;
             this.pagination = res.data;

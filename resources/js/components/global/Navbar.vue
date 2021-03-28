@@ -9,9 +9,9 @@
          </li>
          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#products" aria-expanded="false" aria-controls="products">
-            <i class="mdi mdi-settings menu-icon"></i>
-            <span class="menu-title">Visit Schedules</span>
-            <i class="menu-arrow"></i>
+               <i class="mdi mdi-settings menu-icon"></i>
+               <span class="menu-title">Visit Schedules</span>
+               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="products">
                <ul class="nav flex-column sub-menu">
@@ -20,6 +20,40 @@
                   </li>
                   <li class="nav-item">
                      <router-link tag="a" class="nav-link" to="/visit-schedules"> Visit Schedule List </router-link> 
+                  </li>
+               </ul>
+            </div>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#phonebooks" aria-expanded="false" aria-controls="phonebooks">
+               <i class="mdi mdi-settings menu-icon"></i>
+               <span class="menu-title">Phone Books</span>
+               <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="phonebooks">
+               <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/phonebook/create"> Add Phone Book </router-link> 
+                  </li>
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/phonebooks"> Phone Book List </router-link> 
+                  </li>
+               </ul>
+            </div>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#todos" aria-expanded="false" aria-controls="todos">
+               <i class="mdi mdi-settings menu-icon"></i>
+               <span class="menu-title">Todos</span>
+               <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="todos">
+               <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/todays-todo"> Todays Todo </router-link> 
+                  </li>
+                  <li class="nav-item">
+                     <router-link tag="a" class="nav-link" to="/todos"> Todo List </router-link> 
                   </li>
                </ul>
             </div>

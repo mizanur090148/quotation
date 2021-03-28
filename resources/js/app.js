@@ -9,6 +9,7 @@ import Loading from 'vue-loading-overlay';
 import Toasted from 'vue-toasted';
 import vSelect from "vue-select";
 import 'vue-snotify/styles/material.css';
+import './mixins/generalMixin';
 import VuePagination from "./components/global/PaginationComponent";
 import VueHtmlToPaper from "vue-html-to-paper";
 //import modelModal from "./components/forms/modals/Model";
@@ -16,7 +17,14 @@ import VueHtmlToPaper from "vue-html-to-paper";
 import Calendar from 'v-calendar/lib/components/calendar.umd'
 import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 import FullCalendar from 'vue-full-calendar'
+import moment from 'moment'
 
+Vue.config.productionTip = false
+Vue.filter('formatDate', function(value) {
+  if (value) {
+    return moment(String(value)).format('MM/DD/YYYY hh:mm')
+  }
+});
 window.Form = Form
 const Snotifyoptions = {
     toast: {
@@ -62,6 +70,20 @@ const ReviewVisitSchedule = () =>
     import ( /* webpackChunkName: "ReviewSchedule" */ './components/forms/ReviewVisitSchedule.vue');
 const VisitSchedules = () =>
     import ( /* webpackChunkName: "VisitSchedules" */ './components/lists/VisitSchedules.vue');
+
+// phonebooks
+const Phonebooks = () =>
+    import ( /* webpackChunkName: "phonebooks" */ './components/lists/Phonebooks.vue');
+const Phonebook = () =>
+    import ( /* webpackChunkName: "phonebook" */ './components/forms/Phonebook.vue');
+
+// todos 
+const Todos = () =>
+    import ( /* webpackChunkName: "todos" */ './components/lists/Todos.vue');
+const Todo = () =>
+    import ( /* webpackChunkName: "todo" */ './components/forms/Todo.vue');
+const TodaysTodo = () =>
+    import ( /* webpackChunkName: "todaysTodo" */ './components/forms/TodaysTodo.vue');
 
 const router = new VueRouter({
     mode: 'history',
@@ -130,7 +152,51 @@ const router = new VueRouter({
             name: 'VisitSchedules',
             component: VisitSchedules,
             meta: { authOnly: true }
-        }
+        },
+        // phonebooks
+        {
+            path: '/phonebooks',
+            name: 'Phonebooks',
+            component: Phonebooks,
+            meta: { authOnly: true }
+        },
+        {
+            path: '/phonebook/create',
+            name: 'phonebook',
+            component: Phonebook,
+            meta: { authOnly: true }
+        },
+        {
+            path: '/phonebook/:id',
+            name: 'phonebook',
+            component: Phonebook,
+            meta: { authOnly: true }
+        },
+        // todos
+        {
+            path: '/todos',
+            name: 'Todos',
+            component: Todos,
+            meta: { authOnly: true }
+        },
+        {
+            path: '/todo/create',
+            name: 'todo',
+            component: Todo,
+            meta: { authOnly: true }
+        },
+        {
+            path: '/todays-todo',
+            name: 'todaysTodo',
+            component: TodaysTodo,
+            meta: { authOnly: true }
+        },
+        {
+            path: '/todo/:id',
+            name: 'todo',
+            component: Todo,
+            meta: { authOnly: true }
+        },
     ]
 });
 

@@ -72,9 +72,7 @@
 </template>
 
 <script>
-  import axios from '../../axios';
-  import "vue-loading-overlay/dist/vue-loading.css";
-  import Loading from 'vue-loading-overlay';
+  import Api from '../../apis/Api';
   
   export default {
     data() {
@@ -97,7 +95,7 @@
     },
     methods: {
       searchUsers() {
-        axios.get('search-users?search_key=' + this.search_key)
+        Api.get('search-users?search_key=' + this.search_key)
           .then(res => {
             this.users = res.data.data;
             this.pagination = res.data;
@@ -118,13 +116,13 @@
                 text: "Yes",
                 action: toast => {
                   this.$snotify.remove(toast.id);
-                  axios.delete('/users/' + userId)
+                  Api.delete('/users/' + userId)
                     .then(response => {
                       this.getUsers();
                       this.$snotify.success('Successfully deleted', 'Success');
                     })
                     .catch(e => {
-                      this.$snotify.error('Not deleted', 'Success');
+                      this.$snotify.error('Not deleted', 'error');
                     })
                 },
                 bold: true
@@ -146,7 +144,7 @@
           canCancel: true,
           loader: 'bars'
         })
-        axios.get('users?page='+this.pagination.current_page)
+        Api.get('users?page='+this.pagination.current_page)
           .then((res) => {
             this.users = res.data.data;
             this.pagination = res.data;

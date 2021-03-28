@@ -113,7 +113,7 @@
 </template>
 
 <script>
-  import axios from '../../axios';
+  import Api from '../../apis/Api';
   
   export default {
     data() {
@@ -140,7 +140,7 @@
           loader: 'bars'
         })
 
-        axios.post('/visit-schedules', this.form)
+        Api.post('/visit-schedules', this.form)
           .then(response => {
             if (response.status == 200) {           
               this.$snotify.success('Successfully created', 'Success');
@@ -162,7 +162,7 @@
           canCancel: true,
           loader: 'bars'
         })
-        axios.get('visit-schedules/'+id)
+        Api.get('visit-schedules/'+id)
           .then((res) => {
             let range = {
               start: res.data.from_date,

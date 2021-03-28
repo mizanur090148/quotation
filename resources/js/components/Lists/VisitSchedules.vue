@@ -22,7 +22,7 @@
                 <thead>
                   <tr>
                     <th>SL</th>
-                    <th>Form Date</th>
+                    <th>From Date</th>
                     <th>To Date</th>
                     <th>From Location</th>
                     <th>To Location</th>
@@ -80,8 +80,7 @@
 </template>
 
 <script>
-  import axios from '../../axios';
-  import "vue-loading-overlay/dist/vue-loading.css";
+  import Api from '../../apis/Api';
   
   export default {
     data() {
@@ -104,7 +103,7 @@
     },
     methods: { 
       searchVisitSchedules() {
-        axios.get('search-visit-schedules?search_key=' + this.search_key)
+        Api.get('search-visit-schedules?search_key=' + this.search_key)
           .then(res => {
             this.schedules = res.data.data;
             this.pagination = res.data;
@@ -125,13 +124,13 @@
                 text: "Yes",
                 action: toast => {
                   this.$snotify.remove(toast.id);
-                  axios.delete('/visit-schedules/'+id)
+                  Api.delete('/visit-schedules/'+id)
                     .then(response => {
                         this.getVisitSchedules();
                         this.$snotify.success('Successfully deleted', 'Success');
                     })
                     .catch(e => {
-                        this.$snotify.success('Not deleted', 'Success');
+                        this.$snotify.error('Not deleted', 'error');
                     })
                 },
                 bold: true
@@ -154,7 +153,7 @@
           loader: 'bars'
         })
 
-        axios.get('visit-schedules?page='+this.pagination.current_page)
+        Api.get('visit-schedules?page='+this.pagination.current_page)
           .then((res) => {               
             this.schedules = res.data.data;
             this.pagination = res.data;

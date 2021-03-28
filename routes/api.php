@@ -21,7 +21,8 @@ use App\Http\Controllers\Api\V1\InventoryReportController;
 use App\Http\Controllers\Api\V1\DashboardController;
 use App\Http\Controllers\Api\V1\ReturnController;
 use App\Http\Controllers\Api\V1\OutletController;
-use App\Http\Controllers\Api\V1\InventoryController;
+use App\Http\Controllers\Api\V1\PhoneBookController;
+use App\Http\Controllers\Api\V1\TodoController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -89,43 +90,22 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('search-visit-schedules', [ScheduleController::class, 'search']);
     Route::get('get-visit-schedule-data', [ScheduleController::class, 'getVisitScheduleData']);
 
+    // phone books route
+    Route::get('phonebooks', [PhoneBookController::class, 'index']);
+    Route::post('phonebooks', [PhoneBookController::class, 'store']);
+    Route::get('phonebooks/{id}', [PhoneBookController::class, 'show']);
+    Route::delete('phonebooks/{id}', [PhoneBookController::class, 'delete']);
+    Route::get('search-phonebooks', [PhoneBookController::class, 'search']);
 
-    // product units
-    Route::get('/unit-dropdown-data', [UnitController::class, 'unitDropdownData']);
+    // todos route
+    Route::get('todos', [TodoController::class, 'index']);
+    Route::post('todos', [TodoController::class, 'store']);
+    Route::get('todos/{id}', [TodoController::class, 'show']);
+    Route::delete('todos/{id}', [TodoController::class, 'delete']);
+    Route::get('search-todos', [TodoController::class, 'search']);
 
-    // categories route
-    Route::get('categories', [CategoryController::class, 'index']);
-    Route::get('category-dropdown-data', [CategoryController::class, 'categoryDropdownData']);
-    Route::post('categories', [CategoryController::class, 'store']);
-    Route::get('categories/{id}', [CategoryController::class, 'show']);
-    Route::delete('categories/{id}', [CategoryController::class, 'delete']);
-    Route::get('search-categories', [CategoryController::class, 'search']);
-
-    // brands route
-    Route::get('brands', [BrandController::class, 'index']);
-    Route::get('brand-dropdown-data', [BrandController::class, 'brandDropdowndata']);
-    Route::post('brands', [BrandController::class, 'store']);
-    Route::get('brands/{id}', [BrandController::class, 'show']);
-    Route::delete('brands/{id}', [BrandController::class, 'delete']);
-    Route::get('search-brands', [BrandController::class, 'search']);
-
-    // models route
-    Route::get('models', [ModelController::class, 'index']);
-    Route::get('model-dropdown-data', [ModelController::class, 'modelDropdownData']);
-    Route::post('models', [ModelController::class, 'store']);
-    Route::get('models/{id}', [ModelController::class, 'show']);
-    Route::delete('models/{id}', [ModelController::class, 'delete']);
-    Route::get('search-models', [ModelController::class, 'search']);
-
-
-    // stock in services
-    Route::get('stock-ins', [StockInController::class, 'index']);
-    Route::post('stock-ins', [StockInController::class, 'store']);
-    Route::get('stock-ins/{id}', [StockInController::class, 'show']);
-    Route::get('stock-in-view/{id}', [StockInController::class, 'show']);
-    Route::delete('stock-ins/{id}', [StockInController::class, 'delete']);
-    Route::get('search-stock-ins', [StockInController::class, 'search']);
-    Route::get('/search-product-in-purchase', [ProductController::class, 'searchProductInPurchase']);
+    Route::get('pending-todos', [TodoController::class, 'pendingTodos']);
+    Route::get('change-todo-status', [TodoController::class, 'changeTodoStatus']);
 
     // sales
     Route::get('sales', [SaleController::class, 'index']);

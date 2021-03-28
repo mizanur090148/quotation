@@ -38,7 +38,7 @@ class User extends Authenticatable
         'company_id',
         'created_by',
         'updated_by',
-        'deleted_by'        
+        'deleted_by'
     ];
 
     protected $appends = ['full_name'];

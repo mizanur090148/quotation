@@ -58,6 +58,7 @@
 		},
 		methods: {
 			login() {
+				localStorage.setItem('auth', false);
 				User.login(this.form)
 					.then(response => {
 						this.loggedIn = true;

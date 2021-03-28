@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import axios from '../../axios'
+import Api from "../../apis/Api";
 import 'fullcalendar/dist/fullcalendar.css'
 import moment from 'moment'
 
@@ -87,7 +87,7 @@ export default {
                 canCancel: true,
                 loader: 'bars'
             })
-            axios.get('get-visit-schedule-data', {
+            Api.get('get-visit-schedule-data', {
                     params: {
                         year: this.form.year,
                         month: this.form.month
@@ -145,5 +145,22 @@ h4 {
     font-size: 18px !important;
     font-weight: bold;
     margin-top: 15px;
+}
+
+.fc-basic-view .fc-body .fc-row {
+    min-height: 32px !important;
+}
+.fc-row,
+.fc-week,
+.fc-widget-content {
+    height: 32px !important;
+}
+td {
+    text-align: center !important;
+}
+
+.fc-agendaDay-button, 
+.fc-day-grid-container {
+    height: auto !important;
 }
 </style>

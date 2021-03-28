@@ -1,7 +1,7 @@
 import axios from "axios";
 
 let Api = axios.create({
-	baseURL: 'http://139.162.47.137:54/api'
+	baseURL: 'http://dev-schedule/api'
 });
 
 Api.defaults.withCredentials = true;

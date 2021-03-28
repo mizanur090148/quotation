@@ -120,3 +120,9 @@
     }
   }
 </script>>
+
+<style scoped>
+  #bar-chart {
+    height: 280px !important;
+  }
+</style>

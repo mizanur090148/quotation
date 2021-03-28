@@ -5,6 +5,11 @@
     "/VisitSchedule.js": "/VisitSchedule.js",
     "/VisitSchedules.js": "/VisitSchedules.js",
     "/outlets.js": "/outlets.js",
+    "/phonebook.js": "/phonebook.js",
+    "/phonebooks.js": "/phonebooks.js",
+    "/todaysTodo.js": "/todaysTodo.js",
+    "/todo.js": "/todo.js",
+    "/todos.js": "/todos.js",
     "/user.js": "/user.js",
     "/users.js": "/users.js"
 }

@@ -119,9 +119,7 @@
 
 <script>
 
-  import axios from '../../axios';
-  import "vue-loading-overlay/dist/vue-loading.css";
-  import Loading from 'vue-loading-overlay';
+  import Api from '../../apis/Api';
   
   export default {
     data() {
@@ -160,7 +158,7 @@
           canCancel: true,
           loader: 'bars'
         })
-        axios.get('users/' + productId)
+        Api.get('users/' + productId)
           .then((res) => {
             this.form = res.data;
           })
@@ -179,7 +177,7 @@
           loader: 'bars'
         })
  
-        axios.post('/users', this.form)
+        Api.post('/users', this.form)
           .then(response => {           
             if (response.status == 200) {           
               this.$snotify.success('Successfully created', 'Success');
@@ -196,7 +194,7 @@
           })
       },
       roleDropdowndata() {
-        axios.get('/role-dropdown-data')
+        Api.get('/role-dropdown-data')
           .then((res) => {
             this.roles = res.data;
           })
