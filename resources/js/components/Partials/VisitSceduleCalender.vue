@@ -121,6 +121,7 @@ th,
 td {
     height: 5px !important;
     width: 5px !important;
+    padding-top: 4px !important;
 }
 
 tr {
@@ -139,6 +140,15 @@ td {
 .fc-next-button,
 h2 {
     display: none;
+}
+
+.fc-scroller, 
+.fc-day-grid-container {
+    overflow: hidden !important;
+}
+
+.fc-widget-header {
+    border-right-width: 1px !important;
 }
 
 h4 {
